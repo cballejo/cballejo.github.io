@@ -1,9 +1,9 @@
 ---
-title: "Presentation Ninja"
-subtitle: "⚔<br/>with xaringan"
-author: "Yihui Xie"
-institute: "RStudio, PBC"
-date: "2016/12/12 (updated: `r Sys.Date()`)"
+title: "Qué es R?"
+subtitle: ""
+author: "Christian Ballejo"
+institute: "INE"
+date: "2021/01/25 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -18,21 +18,21 @@ output:
 options(htmltools.dir.version = FALSE)
 ```
 
----
-class: inverse, center, middle
-
-# Qué es R?
 
 ---
 class: center, middle
 
-El sitio oficial del lenguaje dice que “R es un entorno de software libre para gráficos y computación estadística. Se compila y se ejecuta en una amplia variedad de plataformas UNIX, Windows y MacOS.”
+El sitio oficial del lenguaje dice que:
+
+_**“R es un entorno de software libre para gráficos y computación estadística. Se compila y se ejecuta en una amplia variedad de plataformas UNIX, Windows y MacOS.”**_
+
+--
 
 Profundizando en su descripción podemos decir, más técnicamente, que:
 
-es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.
+> es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.
 
---
+---
 
 You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
 
