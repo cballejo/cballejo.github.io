@@ -10,40 +10,27 @@ output:
     nature:
       highlightStyle: github
       highlightLines: true
-      countIncrementalSlides: false
+      countIncrementalSlides: true
 ---
 
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 ```
 
-???
+---
+class: inverse, center, middle
 
-Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sharingan_triple.svg)
+# Qué es R?
 
 ---
 class: center, middle
 
-# xaringan
+El sitio oficial del lenguaje dice que “R es un entorno de software libre para gráficos y computación estadística. Se compila y se ejecuta en una amplia variedad de plataformas UNIX, Windows y MacOS.”
 
-### /ʃaː.'riŋ.ɡan/
+Profundizando en su descripción podemos decir, más técnicamente, que:
 
----
-class: inverse, center, middle
-
-# Get Started
-
----
-
-# Hello World
-
-Install the **xaringan** package from [Github](https://github.com/yihui/xaringan):
-
-```{r eval=FALSE, tidy=FALSE}
-devtools::install_github("yihui/xaringan")
-```
+es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.
 
 --
 
