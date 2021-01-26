@@ -1,4 +1,4 @@
-# Christan Ballejo
+# Christian Ballejo
 Sitio web
 
 Entorno de prueba
