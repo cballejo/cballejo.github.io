@@ -6,11 +6,14 @@ institute: "INE"
 date: "2021/01/25 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
+    css: [default, ./css/fonts_mtheme.css]
     lib_dir: libs
+    seal: true
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: true
+      
 ---
 
 
