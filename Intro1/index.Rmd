@@ -6,21 +6,24 @@ author:
 date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
     transition: slide
     lib_dir: libs
     css: 
      - xaringan-themer.css
      - "animate.min.css"
+     - "fonts_mtheme.css"
     nature:
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
       ratio: '16:9'
 ---
+
 layout: true
-background-image: url(logo_INE.PNG)
-background-position: 96% 2%
-background-size: 5%
+class: animated, fadeIn
+
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -36,32 +39,32 @@ style_mono_accent(base_color = "#004b00",
   white = "#FFFFFF"))
 ```
 
-
 ---
-class: left, upper, animated, fadeIn
+class: left, upper
 
 
 
 El [sitio oficial](https://www.r-project.org/) del lenguaje dice que:
 
-
+.font120[
 _**“R es un entorno de software libre para gráficos y computación estadística.**_ 
 
 _**Se compila y se ejecuta en una amplia variedad de plataformas UNIX, Windows y MacOS.”**_
+]
+
 
 --
 
 
+.font120[
 Profundizando en su descripción podemos decir, más técnicamente, que:
 
 .green[
 > es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.
 
 ]
-
-
+]
 ---
-class: animated, fadeIn
 
 Por lo tanto ![](assets/logoR.PNG) ... 
 
@@ -108,7 +111,7 @@ y Mac.
 Se distribuye gratuitamente bajo [licencia GNU](https://es.wikipedia.org/wiki/GNU_General_Public_License) (General Public License) -- GPL y que los usuarios tienen la libertad de usar, estudiar, compartir (copiar) y modificar el software.
 
 ---
-class: center, middle, inverse
+class: center, middle, inverse, hide-logo
 
 
 # Historia
@@ -118,9 +121,12 @@ class: center, middle, inverse
 ---
 background-image: url(assets/Ross_Ihaka.jpg), url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Rober_Gentleman.png/220px-Rober_Gentleman.png)
 background-size: 180px, 180px
-background-position: 75% 20%, 75% 70%
+background-position: 75% 10%, 75% 70%
+
+template:logo
 
 .pull-left[
+.font120[
 R es un lenguaje que fue desarrollado a partir del [***lenguaje
 S***](https://en.wikipedia.org/wiki/S_(programming_language)) que a su
 vez tiene sus orígenes en [Bell
@@ -136,9 +142,13 @@ Gentleman](https://en.wikipedia.org/wiki/Robert_Gentleman_(statistician)),
 iniciaron el **"Proyecto R"**, con la intención de desarrollar un programa
 estadístico inspirado en el lenguaje S pero de dominio público.
 ]
+]
 
 
 ---
+background-image: url(assets/contributors.PNG)
+background-size: 700px
+background-position: 60% 85%
 
 .pull-left[
 Aunque se dice que R es un dialecto de S, existen diferencias
@@ -159,6 +169,96 @@ Team](https://www.r-project.org/contributors.html).
 
 ---
 
-## Otra mirada "comunicativa"
+## Enfoque "comunicativo"
+
+.font120[
+- Visto como un lenguaje para **_"comunicarse"_** (similar a un segundo lenguaje como el inglés, francés, etc.)
+
+- R es similar, pues contiene una estructura **_semántica_**, **_gramatical_** y **_sintáctica_**.
+
+- Se busca comenzar a **_"decir cosas con datos"_** y luego profundizar en las estructuras del lenguaje.
+
+- Diferencias entre ser **_"usuario"_** y **_"programador"_** (algo así como un linguista de R)
+]
+
+---
+class: center, middle, inverse, hide-logo
+
+
+# Paquetes de R
+
+---
+background-image: url(assets/baseR.PNG)
+background-size: 280px
+background-position: 10% 10%
+
+.pull-right[  
+- Paquete es sinónimo de librería y contiene una serie de funciones y/o datos con su documentación para ser utilizados.
+
+- El conjunto base de R contiene una serie de funciones fundamentales contenidas en algunos paquetes (base, stats, utils, graphics, methods, etc)
+
+- Los paquetes se instalan, activan y desactivan.
+
+- El sitio oficial donde se publican se encuentra en [CRAN - packages](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+
+- Visto como un lenguaje (idioma) los paquetes vendrían a ser conjuntos de palabras que "agregamos" a nuestro vocabulario para poder utilizarlas.
+]
+
+---
+background-image: url(assets/baseR2.PNG)
+background-size: 1100px
+background-position: 10% 10%
+
+---
+background-image: url(assets/paquetes.PNG)
+background-size: 1000px
+background-position: 10% 10%
+
+---
+class: center, middle, inverse, hide-logo
+
+
+# Tidyverse
+
+---
+background-image: url(assets/tidyverse.PNG), url(assets/tidyverse2.PNG)
+background-size: 200px, 350px
+background-position: 50% 10%, 50% 90%
+
+class: center, middle
+
+.font140[ 
+Una colección de paquetes de R modernos, que comparten una gramática y filosofía común, diseñados para resolver los desafíos de la ciencia de datos.
+]
+
+---
+background-image: url(assets/tidy.PNG)
+background-size: 450px
+background-position: 85% 40%
+
+## Fundamentos
+
+- **Estructura ordenada de datos (tidy)**
+
+  - Cada _variable_ es una _columna_ de la tabla de datos
+  
+  - Cada _observación_ es una _fila_ de la tabla de datos
+  
+  - Cada _tabla_ responde a una _unidad observacional_
+
+- **Principios básicos** 
+
+  - Reutilizar las estructuras de datos
+  
+  - Resolver problemas complejos combinando varias piezas sencillas
+  
+  - Utilizar programación funcional
+  
+  - Diseño para humanos incorporando gramática al lenguaje
+
+---
+background-image: url(assets/cd.PNG)
+background-size: 1000px
+background-position: 50% 50%
 
 ---
