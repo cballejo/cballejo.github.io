@@ -6,8 +6,11 @@ author:
 date: '`r Sys.Date()`'
 output:
   xaringan::moon_reader:
+    transition: slide
     lib_dir: libs
-    css: xaringan-themer.css
+    css: 
+     - xaringan-themer.css
+     - "animate.min.css"
     nature:
       highlightStyle: github
       highlightLines: true
@@ -35,7 +38,7 @@ style_mono_accent(base_color = "#004b00",
 
 
 ---
-class: left, upper
+class: left, upper, animated, fadeIn
 
 
 
@@ -58,6 +61,8 @@ Profundizando en su descripción podemos decir, más técnicamente, que:
 
 
 ---
+class: animated, fadeIn
+
 Por lo tanto ![](assets/logoR.PNG) ... 
 
 --
