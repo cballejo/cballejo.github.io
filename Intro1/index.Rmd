@@ -260,5 +260,3 @@ background-position: 85% 40%
 background-image: url(assets/cd.PNG)
 background-size: 1000px
 background-position: 50% 50%
-
----
