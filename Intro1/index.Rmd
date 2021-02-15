@@ -111,7 +111,7 @@ class: center, middle, inverse
 
 
 ---
-background-image: url("assets/Ross_ihaka.jpg"), url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Rober_Gentleman.png/220px-Rober_Gentleman.png)
+background-image: url("assets/Ross_Ihaka.jpg"), url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Rober_Gentleman.png/220px-Rober_Gentleman.png)
 background-size: 180px, 180px
 background-position: 75% 20%, 75% 70%
 
