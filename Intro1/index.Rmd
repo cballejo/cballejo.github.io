@@ -300,7 +300,7 @@ Supongamos que deseamos construir este gráfico.
 ]
 
 .plot[  
-```{r, echo=F, message=F, warning=F}
+```{r, echo=F, message=F, warning=F, fig.retina=4}
 library(tidyverse)
 library(tidycovid19)
 
@@ -310,7 +310,7 @@ datos %>%
 arrange(date) %>% 
   filter(iso3c %in% c("ARG", "USA")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
-  ggplot(aes(x = date, y = inc, color = iso3c)) +
+  ggplot(aes(x = date, y = inc, color = country)) +
   geom_line(size = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  +
   xlab("Fecha") + 
@@ -321,3 +321,32 @@ arrange(date) %>%
 ]
 
 ---
+
+.fon120[ 
+Para construirlo vamos a utilizar información recolectada por la _Universidad Johns Hopkins_ que [Joachim Gassen](https://joachim-gassen.github.io/tidycovid19/index.html) empaquetó en la librería llamada **tidycovid19** y que se encuentra publicada desde junio de 2020.
+]
+
+--
+
+.fon120[
+Accedemos a los datos instalando el paquete **tidycovid19**, luego activando la librería y finalmente ejecutando la función **_download_merged_data()_**
+]
+
+--
+
+```{r, eval=F}
+library(tidycovid19)
+
+datos <- download_merged_data(silent = T, cached = T)
+```
+
+
+```{r, echo=F}
+DT::datatable(
+  head(datos,10),
+  fillContainer = F, options = list(pageLength = 5)
+)
+```
+
+
+
