@@ -26,7 +26,8 @@ class: animated, fadeIn
 
 
 ```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
 ```
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
@@ -335,18 +336,107 @@ Accedemos a los datos instalando el paquete **tidycovid19**, luego activando la 
 --
 
 ```{r, eval=F}
-library(tidycovid19)
+library(tidycovid19)  # activamos paquete
 
 datos <- download_merged_data(silent = T, cached = T)
 ```
 
+```{r}
+dim(datos) # dimensiones de la tabla
+```
+
+```{r}
+names(datos) # nombres de las variables
+```
+
+---
+
+Vamos a hojear las observaciones para Argentina, seleccionando solo las variables necesarias para realizar el gráfico.
+
+Estas variables son: país, fecha, confirmados, muertos y población.
 
 ```{r, echo=F}
+datos %>% 
+  select(iso3c, country, date, confirmed, deaths, population) %>% 
+  filter(iso3c == "ARG") %>% 
+  arrange(desc(date)) %>% 
 DT::datatable(
-  head(datos,10),
-  fillContainer = F, options = list(pageLength = 5)
+  fillContainer = F, options = list(pageLength = 6)
 )
 ```
 
+Observemos que tanto los casos confirmados como los fallecidos son conteos acumulados.
+---
 
+Para comenzar veamos el código completo que permite generar el gráfico buscado.
 
+```{r, eval=F}
+datos %>%  #<<
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+Analicemos la primera línea del código:
+
+- **datos**  es el nombre de la tabla con los datos descargados de la Universidad Johns Hopkins
+
+- **%>%** es un conector incluido dentro del ecosistema _tidyverse_ denominado "tubería" (pipe en inglés). Se utiliza para conectar cada función de R y traslada el termino de la izquierda hacia la función de la derecha.
+En este caso define que la tarea que realice la función **_arrange()_** (2da línea) se hará sobre los datos de la tabla **datos**.
+
+---
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% #<<
+  filter(iso3c %in% c("ARG", "USA")) %>% #<<
+  mutate(inc = confirmed/population*100000) %>% #<<
+  ggplot(aes(x = date, y = inc, color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+- **_arrange()_**  ordena la variable **_date_** (fecha) que se encuentra en **datos**. Esto nos asegura que el eje x del gráfico va estar ordenado de menor a mayor.
+
+- **_filter()_** filtra las observaciones de la tabla **datos** según la condición definida. En este caso le indicamos que se quede con aquellas  observaciones donde la variable **_iso3c_** sea igual a "ARG" o "USA".
+
+- **%in%** es un operador del lenguaje R que se utiliza para identificar si un elemento pertenece a un conjunto de elementos. Aquí le dice que pregunte en cada celda de **_iso3c_** si el valor pertenece al conjunto **c("ARG", "USA")**.
+
+- **_c()_** también es una función. Muy utilizada en R, sirve para _concatenar_ elementos.
+
+- **_mutate()_** es una función que agrega nuevas variables dentro de la tabla de datos. Aquí la usamos para crear la variable inc (incidencia) definida como el cociente entre confirmed sobre population, multiplicado por un  
+
+---
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% #<<
+  ggplot(aes(x = date, y = inc, color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+- **_arrange()_**  ordena la variable **_date_** (fecha) que se encuentra en **datos**. Esto nos asegura que el eje x del gráfico va estar ordenado de menor a mayor.
+
+- **_filter()_** filtra las observaciones de la tabla **datos** según la condición definida. En este caso le indicamos que se quede con aquellas  observaciones donde la variable **_iso3c_** sea igual a "ARG" o "USA".
+
+- **%in%** es un operador del lenguaje R que se utiliza para identificar si un elemento pertenece a un conjunto de elementos. Aquí le dice que pregunte en cada celda de **_iso3c_** si el valor pertenece al conjunto **c("ARG", "USA")**.
+
+- **c()** también es una función. Muy utilizada en R, sirve para _concatenar_ elementos.
