@@ -11,7 +11,7 @@ output:
     transition: slide
     lib_dir: libs
     css: 
-     - xaringan-themer.css
+     - "xaringan-themer.css"
      - "animate.min.css"
      - "fonts_mtheme.css"
     nature:
@@ -268,5 +268,56 @@ background-size: 1000px
 background-position: 50% 50%
 
 ---
+class: center, middle, inverse, hide-logo
 
 
+# Ejemplo
+
+---
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 38%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+.pull-left[
+Supongamos que deseamos construir este gráfico.
+
+- De qué **tipo** de gráfico se trata?
+
+- Cuáles son los **elementos** del gráfico?
+
+- Cuántas **variables** participan del gráfico?
+]
+
+.plot[  
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+library(tidycovid19)
+
+datos <- download_merged_data(silent = T, cached = T)
+
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = iso3c)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+]
+
+---
