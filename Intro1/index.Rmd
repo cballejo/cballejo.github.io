@@ -197,7 +197,7 @@ background-position: 10% 10%
 .font110[ 
 - Paquete es sinónimo de librería y contiene una serie de funciones y/o datos con su documentación para ser utilizados.
 
-- El conjunto base de R contiene una serie de funciones fundamentales contenidas en algunos paquetes (base, stats, utils, graphics, methods, etc)
+- El conjunto base de R tiene una serie de funciones fundamentales contenidas en algunos paquetes (base, stats, utils, graphics, methods, etc)
 
 - Los paquetes se instalan, activan y desactivan.
 
@@ -272,14 +272,17 @@ background-position: 50% 50%
 class: center, middle, inverse, hide-logo
 
 
-# Ejemplo
+# Visualización
+
+### Un simple gráfico ha traído más información a la mente del analista de datos que cualquier otro dispositivo.
+### John Tukey
 
 ---
 
 ```{css, echo=F}
 .code {
   color: #777;
-  width: 38%;
+  width: 48%;
   height: 92%;
   float: left;
 }
@@ -415,7 +418,7 @@ arrange(date) %>% #<<
 
 - **_c()_** también es una función. Muy utilizada en R, sirve para _concatenar_ elementos.
 
-- **_mutate()_** es una función que agrega nuevas variables dentro de la tabla de datos. Aquí la usamos para crear la variable inc (incidencia) definida como el cociente entre confirmed sobre population, multiplicado por un  
+- **_mutate()_** es una función que agrega nuevas variables dentro de la tabla de datos. Aquí la usamos para crear la variable **_inc_** (incidencia) definida como el cociente entre **_confirmed_** sobre **_population_**, multiplicado por 100.000. 
 
 ---
 
@@ -423,8 +426,8 @@ arrange(date) %>% #<<
 datos %>% 
 arrange(date) %>% 
   filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% #<<
-  ggplot(aes(x = date, y = inc, color = country)) +
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + #<<
   geom_line(size = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  +
   xlab("Fecha") + 
@@ -433,10 +436,305 @@ arrange(date) %>%
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
 ```
 
-- **_arrange()_**  ordena la variable **_date_** (fecha) que se encuentra en **datos**. Esto nos asegura que el eje x del gráfico va estar ordenado de menor a mayor.
+- **_ggplot()_**  es la función gráfica del ecosistema tidyverse. 
+- Su sistema gráfico se basa en [The Grammar of Graphics](https://amzn.to/2ef1eWp) de Leland Wilkinson. Funciona con una estructura de capas donde se van definiendo distintos elementos constitutivos del gráfico.
 
-- **_filter()_** filtra las observaciones de la tabla **datos** según la condición definida. En este caso le indicamos que se quede con aquellas  observaciones donde la variable **_iso3c_** sea igual a "ARG" o "USA".
+- Estas capas están conectada entre sí con el símbolo **+**
 
-- **%in%** es un operador del lenguaje R que se utiliza para identificar si un elemento pertenece a un conjunto de elementos. Aquí le dice que pregunte en cada celda de **_iso3c_** si el valor pertenece al conjunto **c("ARG", "USA")**.
+- Los argumentos principales de **ggplot** se declaran dentro de la función **_aes()_** que deberá contener las variables participantes del mapeo estético del gráfico.
 
-- **c()** también es una función. Muy utilizada en R, sirve para _concatenar_ elementos.
+- En este ejemplo **x** e **y** son los ejes cartesianos del _gráfico de líneas_ que estamos construyendo. En **x** tenemos la variable **_date_** (fecha) y en **y** la variable **_inc_** (incidencia acumulada).
+
+- **color** es el otro argumento definido por la variable **_country_** (país)
+
+---
+
+.pull-left[
+El código detallado hasta ahora muestra los ejes y las escalas (tomadas de las variables) pero aún no se ven elementos geométricos que representen los datos. 
+
+Algo así, como vemos a la derecha de la pantalla.
+
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) 
+```
+]
+
+
+.plot[
+```{r, echo=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) 
+```
+]
+
+---
+
+Para que se dibujen los elementos geométricos debemos agregar la capa con la definición que deseamos. 
+
+En este caso si el gráfico es de líneas necesitamos escribir **_geom_line()_**
+
+Otras funciones de elementos geométricos son: **_geom_point()_**, **_geom_bar()_**, **_geom_histogram()_**, etc...
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) + #<<
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+-  Las funciones de capas geométricas poseen argumentos que se pueden configurar, como **size** que determina el grosor de la línea de este gráfico.
+
+---
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+- **_scale_color_manual()_**  es la función de escala manual de color para definir que color van a tomar las líneas de cada país. 
+
+- Existen varias formas de escalas (mediante paletas, colores hexadecimales, etc)
+
+- Aquí están definidos manualmente por nombre de color (blue y red).
+
+- También genera la leyenda y por lo tanto le podemos indicar cual será su título (País)
+
+---
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + 
+  xlab("Fecha") + #<<
+  ylab("Incidencia acumulada (x 100.000 hab.)") + #<<
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)", #<<
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") #<<
+```
+
+- En estas últimas capas agregamos las etiquetas de ejes x e y (con  **_xlab()_**  y **_ylab()_**). 
+
+- También el título y pie de gráfico (con  **_labs()_**). 
+
+- El argumento **title** para el título y **caption** para pie de gráfico.
+
+---
+
+Si este código construye este gráfico, qué deberíamos cambiar para generar otro que compare Argentina con Gran Bretaña, por ejemplo?
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+---
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+---
+
+qué deberíamos cambiar para que el color de la línea de Argentina sea verde en lugar de azul?
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+---
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red"), name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+
+---
+
+qué deberíamos hacer si queremos incorporar otro país (por ejemplo España)?
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red"), name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+---
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR", "ESP")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red", "blue"), 
+                     name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR", "ESP")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, 
+             color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red", "blue"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.")
+
+```
+]
