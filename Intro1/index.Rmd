@@ -172,6 +172,7 @@ Team](https://www.r-project.org/contributors.html).
 
 ## Enfoque "comunicativo"
 
+
 .font120[
 - Visto como un lenguaje para **_"comunicarse"_** (similar a un segundo lenguaje como el inglés, francés, etc.)
 
@@ -180,8 +181,11 @@ Team](https://www.r-project.org/contributors.html).
 - Se busca comenzar a **_"decir cosas con datos"_** y luego profundizar en las estructuras del lenguaje.
 
 - Diferencias entre ser **_"usuario"_** y **_"programador"_** (algo así como un linguista de R)
-]
 
+
+- Ver ponencia “How to do things with words: Learning to program with a ‘communicative approach’" de Riva Quiroga en [rstudio::global(2021)](https://rstudio.com/resources/rstudioglobal-2021/how-to-do-things-with-words-learning-to-program-in-r-with-a-communicative-approach/)
+
+]
 ---
 class: center, middle, inverse, hide-logo
 
@@ -197,13 +201,13 @@ background-position: 10% 10%
 .font110[ 
 - Paquete es sinónimo de librería y contiene una serie de funciones y/o datos con su documentación para ser utilizados.
 
-- El conjunto base de R tiene una serie de funciones fundamentales contenidas en algunos paquetes (base, stats, utils, graphics, methods, etc)
+- El conjunto base de R tiene varias funciones fundamentales contenidas en algunos paquetes (base, stats, utils, graphics, methods, etc)
 
 - Los paquetes se instalan, activan y desactivan.
 
 - El sitio oficial donde se publican se encuentra en [CRAN - packages](https://cran.r-project.org/web/packages/available_packages_by_name.html)
 
-- Visto como un lenguaje (idioma) los paquetes vendrían a ser conjuntos de palabras que "agregamos" a nuestro vocabulario para poder utilizarlas.
+- Visto como un lenguaje (idioma) los paquetes vendrían a ser conjuntos de palabras que "agregamos" a nuestro vocabulario para poder "comunicarnos" con el interprete de R.
 ]
 ]
 ---
@@ -738,3 +742,12 @@ arrange(date) %>%
 
 ```
 ]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Para jugar en su PC
+
+### Realicen un gráfico similar comparando mortalidad cada millon de habitantes entre Argentina y Brasil (BRA)
+
+#### Nota: la finalidad de este ejercicio es trabajar con R. Para realizar una comparación correcta antes deberíamos ajustar la tasa de mortalidad por edad
