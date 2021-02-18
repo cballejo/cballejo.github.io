@@ -1,0 +1,136 @@
+---
+title: "Visualización de datos"
+subtitle: "parte II"  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+---
+class: left, middle
+
+background-image: url(assets/ggplot2.PNG), url(assets/str_ggplot2.PNG), url(assets/sistema_ggplot2.PNG)
+background-size: 180px, 600px, 400px
+background-position: 50% 15%, 50% 65%, 50% 95%
+
+**ggplot2** es un paquete que se autodefine como librería para _**“crear elegantes visualizaciones de datos usando una gramática de gráficos”**_
+
+El paquete propone un sistema que se basa en la idea que cualquier gráfico se puede construir usando tres componentes básicos:
+
+---
+class: left, top
+
+### gapminder
+
+.font110[ 
+**Gapminder Foundation** es una empresa sueca sin fines de lucro que promueve el desarrollo global sostenible y el logro de los **_Objetivos de Desarrollo del Milenio de las Naciones Unidas_** mediante un mayor uso y comprensión de las estadísticas sobre el desarrollo social, económico y ambiental a nivel local, nacional y global.
+]
+
+```{r, eval=FALSE}
+install.packages(datos)  # instalamos paquete datos
+
+library(datos)  # activamos paquete datos
+
+paises # llamamos al componente paises para visualizar sus datos
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(datos)
+DT::datatable(data = paises,
+  fillContainer = F, options = list(pageLength = 4)
+)
+```
+
+---
+class: center, middle, inverse, hide-logo
+
+## Conversamos en grupo. 
+
+## ¿Qué relación esperamos ver entre el PBI per capita y la esperanza de vida?
+
+---
+
+.center[ 
+###Escriba y ejecute el siguiente código para hacer un gráfico. 
+]
+
+###¡Preste especial atención a la ortografía, las mayúsculas y los paréntesis!
+
+
+.font150[ 
+```{r, eval=F}
+library(tidyverse)
+
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point()
+```
+]
+
+---
+
+.center[ 
+```{r, echo=F, out.width="600px", message=FALSE, warning=FALSE}
+library(tidyverse)
+
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point()
+```
+]
+
+---
+.font160[ 
+.bold[Una plantilla básica]
+
+
+.content-box-green[
+```{r, eval=FALSE}
+<DATOS> %>% 
+  ggplot(mapping = aes(<MAPEO>)) +
+  <GEOM_FUNCION>()
+```
+]
+]
+
+.font140[ 
+```{r, eval=FALSE}
+paises %>% 
+  ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point()
+```
+]
