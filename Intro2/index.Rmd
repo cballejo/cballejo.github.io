@@ -38,6 +38,21 @@ style_mono_accent(base_color = "#004b00",
   white = "#FFFFFF"))
 ```
 
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
 ---
 class: left, middle
 
@@ -98,6 +113,10 @@ paises %>%
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) +
   geom_point()
 ```
+
+<br>
+
+Pruebe las utilidades de RStudio para facilitar la escritura del código
 ]
 
 ---
@@ -134,3 +153,374 @@ paises %>%
   geom_point()
 ```
 ]
+
+---
+class: center, middle, inverse, hide-logo
+
+## MAPEO 
+## (Mappings)
+
+---
+
+### El mapeo es la operación de relacionar los datos de la observaciones contenidos en las variables con las estéticas del gráfico.
+
+.font130[ 
+Algunas de los elementos estéticos son:
+
+- color de contorno (**color**)
+
+- color de relleno (**fill**)
+
+- tamaño (**size**)
+
+- forma (**shape**)
+
+- opacidad (**alpha**)
+
+Los mapeos se definen dentro de la función **aes()** y puede ir asociado a todo el gráfico o a cada elemento geométrico.
+
+Los elementos estéticos también se pueden establecer (setear)
+]
+
+---
+
+### Diferencias entre mapear y establecer
+
+.font120[ 
+- Mapeamos cuando asociamos la estética a una variable.
+- Establecemos (seteamos) cuando definimos manualmente la estética deseada.
+]
+
+.code[
+```{r, echo=FALSE, out.height="450px"}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point(color = "blue") +
+  labs(title = "Seteo de color")
+```
+]
+
+.plot[
+```{r, echo=FALSE, out.height="450px"}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida, color = continente)) +
+  geom_point() +
+  labs(title = "Mapeo de color")
+```
+]
+
+---
+
+### Estableciendo estéticas
+
+.font130[ 
+- El elemento estético se define en el elemento geográfico (geom) por **"fuera"** de la función **_aes()_** y sin vincular con ninguna variable.
+]
+
+.code[
+```{r, eval=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, 
+                       y = esperanza_de_vida)) +
+  geom_point(color = "blue") #<<
+```
+]
+
+.plot[
+```{r, echo=FALSE, out.height="450px"}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, 
+                       y = esperanza_de_vida)) +
+  geom_point(color = "blue") 
+```
+]
+
+---
+
+### Mapeando estéticas
+
+.font130[ 
+- El elemento estético se define **"dentro"** de la función **_aes()_** y vinculada a alguna variable.
+]
+
+.code[
+```{r, eval=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, 
+                       y = esperanza_de_vida,
+                       color = continente)) +  #<<
+  geom_point() 
+```
+]
+
+.plot[
+```{r, echo=FALSE, out.height="450px"}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, 
+                       y = esperanza_de_vida,
+                       color = continente)) +  
+  geom_point() 
+```
+]
+
+---
+background-image: url(assets/shapes.PNG) 
+background-size: 280px
+background-position: 10% 65%
+
+### Elemento estético shape
+
+
+.code[ 
+```{r, eval=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, 
+             y = esperanza_de_vida,
+             shape = continente)) + #<<
+  geom_point() 
+```
+]
+
+
+.plot[ 
+```{r, echo=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida,
+             shape = continente)) +
+  geom_point() 
+```
+]
+
+---
+
+## Elemento estético size
+
+.code[ 
+```{r, eval=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, 
+             y = esperanza_de_vida,
+             size = poblacion)) + #<<
+  geom_point() 
+```
+]
+
+
+.plot[ 
+```{r, echo=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida, size = poblacion)) + 
+  geom_point() 
+```
+]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Elementos geométricos
+## (GEOMS)
+
+---
+.font120[
+.bold[En qué se parecen estos dos gráficos?]]
+
+.code[ 
+```{r, echo=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
+  geom_point() 
+```
+]
+
+.plot[ 
+```{r, echo=FALSE, warning=F, message=F}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
+  geom_smooth() 
+```
+]
+
+---
+
+.font120[
+.bold[En qué se diferencian?]]
+
+.code[ 
+```{r, echo=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
+  geom_point() 
+```
+]
+
+.plot[ 
+```{r, echo=FALSE, warning=F, message=F}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
+  geom_smooth() 
+```
+]
+
+---
+
+### Elementos geométricos
+
+- Todas sus funciones comienzan por **geom_**
+
+- Conforman una capa 
+
+- Pueden tener definiciones estéticas particulares o tomar las globales del gráfico
+
+- Permiten realizar gráficos de puntos, líneas, barras, histogramas, boxplot, área, densidad, polígonos de frecuencia, violin, etc...
+
+- En el siguiente [enlace](https://rstudio.com/wp-content/uploads/2016/12/ggplot2-cheatsheet-2.1-Spanish.pdf) se puede descargar una **guía rápida de ggplot2** que muestra todas las posibilidades ofrecidas.
+
+---
+
+### Algunos ejemplos con la tabla paises
+
+```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
+paises %>% 
+  filter(continente == "Oceanía") %>% 
+  ggplot(aes(x = pais, y = esperanza_de_vida, fill = pais)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2")
+```
+
+---
+
+### Algunos ejemplos con la tabla paises
+
+```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
+paises %>% 
+  filter(continente == "Europa") %>% 
+  ggplot(aes(x = pib_per_capita)) + 
+  geom_histogram(fill = "olivedrab", color = " white", bins = 10) 
+```
+
+---
+
+### Algunos ejemplos con la tabla paises
+
+```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
+paises %>% 
+  filter(pais == "Afganistán") %>% 
+  ggplot(aes(x = anio, y = poblacion)) + 
+  geom_bar(stat = "identity", fill = "maroon") 
+```
+
+---
+
+### Estéticas globales vs locales
+
+.bold[.font130[Definición de aes() global:]]
+
+.code[ 
+```{r, eval=FALSE, message=F, warning=FALSE}
+paises %>% 
+  filter(anio == 2007, 
+         continente %in% c("África", 
+                           "Europa")) %>% 
+  ggplot(aes(x = pib_per_capita,   #<<
+             y = esperanza_de_vida, #<<
+             color = continente)) + #<<
+  geom_point() +
+  geom_smooth()
+```
+]
+
+
+.plot[ 
+```{r, echo=FALSE, fig.retina=3, message=F, warning=FALSE}
+paises %>% 
+  filter(anio == 2007, 
+         continente %in% c("África", 
+                           "Europa")) %>% 
+  ggplot(aes(x = pib_per_capita,   #<<
+             y = esperanza_de_vida, #<<
+             color = continente)) + #<<
+  geom_point() +
+  geom_smooth()
+```
+]
+
+---
+
+### Estéticas globales vs locales
+
+.bold[.font130[Definición de aes() local:]]
+
+.code[ 
+```{r, eval=FALSE, message=F, warning=FALSE, fig.retina=3}
+paises %>% 
+  filter(anio == 2007, 
+         continente %in% c("África", 
+                           "Europa")) %>% 
+  ggplot(aes(x = pib_per_capita,   
+             y = esperanza_de_vida)) + 
+  geom_point(aes(color = continente)) + #<<
+  geom_smooth(color = "blue")
+```
+]
+
+.plot[ 
+```{r, echo=FALSE, message=F, warning=FALSE, fig.retina=3}
+paises %>% 
+  filter(anio == 2007, 
+         continente %in% c("África", 
+                           "Europa")) %>% 
+  ggplot(aes(x = pib_per_capita,   
+             y = esperanza_de_vida)) + 
+  geom_point(aes(color = continente)) + #<<
+  geom_smooth(color = "blue")
+```
+]
+
+---
+
+### Estéticas globales vs locales
+
+.bold[.font130[Definición de aes() local con filtro de datos:]]
+
+.code[ 
+```{r, eval=FALSE, message=F, warning=FALSE, fig.retina=3}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita,   
+             y = esperanza_de_vida)) + 
+  geom_point(aes(color = continente)) + 
+  geom_smooth(data = filter(paises,                  #<<
+                            continente == "Europa"), #<<
+              color = "blue") 
+```
+]
+
+.plot[ 
+```{r, echo=FALSE, message=F, warning=FALSE, fig.retina=3}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita,   
+             y = esperanza_de_vida)) + 
+  geom_point(aes(color = continente)) + 
+  geom_smooth(data = filter(paises,                  #<<
+                            continente == "Europa"), #<<
+              color = "blue")                        #<<
+```
+]
+
+---
+
