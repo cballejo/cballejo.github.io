@@ -338,7 +338,12 @@ paises %>%
   geom_point() 
 ```
 ]
+---
+background-image: url(assets/dif_esteticas.PNG) 
+background-size: 600px
+background-position: 50% 50%
 
+### Relación entre estéticas y tipo de variable
 ---
 class: center, middle, inverse, hide-logo
 
@@ -396,7 +401,7 @@ paises %>%
 
 - Todas sus funciones comienzan por **geom_**
 
-- Conforman una capa 
+- Cada uno conforma una capa 
 
 - Pueden tener definiciones estéticas particulares o tomar las globales del gráfico
 
