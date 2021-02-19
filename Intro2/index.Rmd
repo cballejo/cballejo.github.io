@@ -270,6 +270,13 @@ paises %>%
 ]
 
 ---
+class: center, middle, inverse, hide-logo
+
+## Manos a la obra!
+
+### Copien el código base del gráfico y mapeen la estética shape con la variable continente
+
+---
 background-image: url(assets/shapes.PNG) 
 background-size: 280px
 background-position: 10% 65%
@@ -298,6 +305,14 @@ paises %>%
   geom_point() 
 ```
 ]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Ahora pensemos...
+
+### Si quisiera mapear la estética size (tamaño), con que variable podría hacerlo? 
+### Sirve cualquiera?
 
 ---
 
