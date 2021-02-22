@@ -399,6 +399,7 @@ paises %>%
 
 ### Elementos geométricos
 
+.font130[ 
 - Todas sus funciones comienzan por **geom_**
 
 - Cada uno conforma una capa 
@@ -409,6 +410,7 @@ paises %>%
 
 - En el siguiente [enlace](https://rstudio.com/wp-content/uploads/2016/12/ggplot2-cheatsheet-2.1-Spanish.pdf) se puede descargar una **guía rápida de ggplot2** que muestra todas las posibilidades ofrecidas.
 
+]
 ---
 
 ### Algunos ejemplos con la tabla paises
@@ -440,7 +442,7 @@ paises %>%
 paises %>% 
   filter(pais == "Afganistán") %>% 
   ggplot(aes(x = anio, y = poblacion)) + 
-  geom_bar(stat = "identity", fill = "maroon") 
+  geom_bar(stat = "identity", fill = "maroon", width = 2) 
 ```
 
 ---
@@ -543,4 +545,51 @@ paises %>%
 ]
 
 ---
+
+### Otras capas posibles
+
+.font120[ 
+- **Escalas** que asignan valores que hay en los datos a los valores visuales de una estética. Se pueden modificar escalas de los ejes, de color y relleno, de forma y tamaño.
+
+- **Coordenadas** por ejemplo para hacer gráficos de torta se necesita cambiar las coordenadas a polares - coord_polar()
+
+- **Facetas** dividen un gráfico en múltiples subgráficos basado en una o varias variables discretas.
+
+- **Ajustes de posición** determina que hacer con Geoms que ocuparían la misma posición en el gráfico.
+
+- **Etiquetas y leyendas** titulo del gráfico, subtítulo, nombres de ejes, etc.
+
+- **Temas** plantillas visuales para el gráfico
+]
+
+---
+
+### Exportar gráficos realizados
+
+.font120[ 
+- Desde el **_panel Plot_** de .bold[RStudio]
+
+- En formatos conocidos como JPG, PNG, PDF, etc
+
+- Con la función **_ggsave()_**
+
+```{r, eval=FALSE}
+ggsave(filename,               # nombre del archivo
+  plot = last_plot(),          # nombre del objeto gráfico
+  device = NULL,               # formato de salida "jpeg", "png", "tiff", "pdf", etc
+  width = NA,                  # ancho en unidades de units
+  height = NA,                 # alto en unidades de units
+  units = c("in", "cm", "mm"), # unidades de medidas
+  dpi = 300)                   # resolución de salida en dpi
+```
+]
+
+---
+background-image: url(assets/visualization.svg) 
+background-size: 600px
+background-position: 50% 50%
+
+## En resumen...
+
+
 
