@@ -93,3 +93,11 @@ enc2014 %>%
   geom_histogram() +
   facet_grid(estado_civil ~ .)
 
+## Nota: con la función colors() pueden ver todos los nombres de colores disponibles
+
+colors()
+
+# para paletas de colores se puede utilizar el paquete RColorBrewer
+# primero hay que instalarlo y luego ejecutando la siguiente función se puede visualizar las paletas 
+
+RColorBrewer::display.brewer.all()
