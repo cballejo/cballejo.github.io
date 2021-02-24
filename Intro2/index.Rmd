@@ -54,6 +54,19 @@ style_mono_accent(base_color = "#004b00",
 ```
 
 ---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro2
+
+---
 class: left, middle
 
 background-image: url(assets/ggplot2.PNG), url(assets/str_ggplot2.PNG), url(assets/sistema_ggplot2.PNG)
@@ -114,9 +127,9 @@ paises %>%
   geom_point()
 ```
 
-<br>
 
-Pruebe las utilidades de RStudio para facilitar la escritura del código
+
+Nos tomamos un momento para conocer las herramientas básicas de **RStudio**,  útiles para escribir código minimizando errores de sintaxis.
 ]
 
 ---
@@ -591,5 +604,13 @@ background-position: 50% 50%
 
 ## En resumen...
 
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
 
+## Para profundizar...
+
+.font150[Capítulo 3 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/visualizaci%C3%B3n-de-datos.html)]
 
