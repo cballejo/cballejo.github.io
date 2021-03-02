@@ -75,6 +75,11 @@ datos_covid %>% filter(edad >= 64) # filtramos observaciones mayores o iguales a
 
 datos_covid %>% filter(residencia_pais_nombre != "Argentina") # filtramos observaciones que no residan en Argentina
 
+# selección  teniendo en cuenta los valores especiales NA
+
+datos_covid %>% filter(is.na(fecha_inicio_sintomas)) # filtramos observaciones con NA en fecha_inicio_sintomas
+
+
 # selecciones combinadas
 
 datos_covid %>% filter(residencia_provincia_nombre %in% c("Jujuy", "Salta")) # filtramos observaciones de Jujuy o Salta
@@ -101,6 +106,8 @@ datos_covid %>% filter(fecha_inicio_sintomas > "2020-12-01") # filtramos observa
 
 ##################
 
+## Usamos filtros combinados con gráficos ggplot
+
 ## Vamos a utilizar estas funciones que hemos visto como herramientas para explorar la tabla de datos y conectarlo con la visualización
 
 # Previamente extraeremos información necesaria de la fechas de apertura
@@ -112,11 +119,11 @@ datos_covid <- datos_covid %>%
          mes = month(fecha_apertura))     # extracción del mes
 
 ### Nos preguntan si la distribución de confirmados fue igual en mayo que
-### en diciembre de 2020.
+### en septiembre de 2020.
 
 datos_covid %>% 
   filter(anio == 2020, 
-         mes %in% c(5,12)) %>% 
+         mes %in% c(5,9)) %>% 
   ggplot(aes(x = mes, 
              fill = clasificacion_resumen)) + 
   geom_bar(position = "fill") 
@@ -129,11 +136,21 @@ datos_covid %>%
              fill = clasificacion_resumen)) + 
   geom_bar(position = "fill") 
 
+## agregando filtro para eliminar observaciones de la sepi 53 2020 (enero 2021)
+
+datos_covid %>% 
+  filter(anio == 2020,
+         fecha_apertura < "2021/01/01") %>% 
+  ggplot(aes(x = factor(mes), 
+             fill = clasificacion_resumen)) + 
+  geom_bar(position = "fill") 
+
+
 ### Ahora nos interesa comparar la situación entre la provincia del Chaco y Misiones
 ## Cómo fue la evolución de casos confirmados diarios en la pandemia?
 
 datos_covid %>%  
-  filter(anio == 2020, 
+  filter(fecha_apertura < "2021/01/01",
          residencia_provincia_nombre %in% c("Chaco", "Misiones"),
          clasificacion_resumen == "Confirmado") %>% 
   ggplot(aes(x = fecha_apertura, fill = residencia_provincia_nombre)) + 
@@ -143,7 +160,7 @@ datos_covid %>%
 # y si lo queremos por semana epidemiológica?
 
 datos_covid %>%  
-  filter(anio == 2020, 
+  filter(fecha_apertura < "2021/01/01",
          residencia_provincia_nombre %in% c("Chaco", "Misiones"),
          clasificacion_resumen == "Confirmado") %>% 
   ggplot(aes(x = sepi_apertura, fill = residencia_provincia_nombre)) + 
@@ -153,7 +170,18 @@ datos_covid %>%
 # y para lo que va del 2021?
 
 datos_covid %>%  
-  filter(anio == 2021, 
+  filter(fecha_apertura > "2020/12/31",
+         residencia_provincia_nombre %in% c("Chaco", "Misiones"),
+         clasificacion_resumen == "Confirmado") %>% 
+  ggplot(aes(x = sepi_apertura, fill = residencia_provincia_nombre)) + 
+  geom_bar() + 
+  facet_grid(. ~ residencia_provincia_nombre)
+
+## aparecen observaciones en la sepi 53. Porqué?
+
+datos_covid %>%  
+  filter(anio == 2021,
+         sepi_apertura != 53,
          residencia_provincia_nombre %in% c("Chaco", "Misiones"),
          clasificacion_resumen == "Confirmado") %>% 
   ggplot(aes(x = sepi_apertura, fill = residencia_provincia_nombre)) + 
@@ -170,8 +198,7 @@ datos_mdp <- datos_covid %>%
 ## como se distribuye la edad de los confirmados según sexo en cada mes del 2020
 
 datos_mdp %>%  
-  filter(anio == 2020, 
-         sepi_apertura != 53,
+  filter(fecha_apertura < "2021/01/01",
          clasificacion_resumen == "Confirmado") %>% 
   ggplot(aes(x = sexo, y = edad, fill = sexo)) +
   geom_boxplot() + 
@@ -182,8 +209,7 @@ datos_mdp %>%
 # veamos las cantidades de confirmados por mes como complemento del gráfico anterior
 
 datos_mdp %>% 
-  filter(anio == 2020, 
-         sepi_apertura != 53,
+  filter(fecha_apertura < "2021/01/01",
          clasificacion_resumen == "Confirmado") %>% 
   count(mes, name = "Confirmados") %>% 
   ggplot(aes(x = factor(mes), y = Confirmados)) + 
@@ -192,9 +218,7 @@ datos_mdp %>%
 # tomemos el mes 9 de mayor cantidad de confirmados y veamos la distribución de edad según sexo mediante un gráfico de densidad
 
 datos_mdp %>% 
-  filter(anio == 2020, 
-         sepi_apertura != 53,
-         clasificacion_resumen == "Confirmado",
+  filter(clasificacion_resumen == "Confirmado",
          mes == 9) %>% 
   ggplot(aes(x = edad, fill = sexo)) +
   geom_density()
@@ -202,9 +226,7 @@ datos_mdp %>%
 # que característica podemos agregar al elemento densidad para visualizar todas las curvas?
 
 datos_mdp %>% 
-  filter(anio == 2020, 
-         sepi_apertura != 53,
-         clasificacion_resumen == "Confirmado",
+  filter(clasificacion_resumen == "Confirmado",
          mes == 9) %>% 
   ggplot(aes(x = edad, fill = sexo)) +
   geom_density(alpha = 0.4)
@@ -212,9 +234,7 @@ datos_mdp %>%
 ## que podríamos hacer para que no aparezcan las observaciones con NR en sexo?
 
 datos_mdp %>% 
-  filter(anio == 2020, 
-         sepi_apertura != 53,
-         clasificacion_resumen == "Confirmado",
+  filter(clasificacion_resumen == "Confirmado",
          mes == 9,
          sexo != "NR") %>% 
   ggplot(aes(x = edad, fill = sexo)) +
