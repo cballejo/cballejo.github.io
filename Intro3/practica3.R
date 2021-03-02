@@ -136,7 +136,9 @@ datos_covid %>%
              fill = clasificacion_resumen)) + 
   geom_bar(position = "fill") 
 
-## agregando filtro para eliminar observaciones de la sepi 53 2020 (enero 2021)
+## se ven muchos casos confirmados en enero del 2020. Es eso posible?
+
+## agregando filtro fecha_apertura < "2021/01/01" para eliminar observaciones de la sepi 53 2020 (enero 2021)
 
 datos_covid %>% 
   filter(anio == 2020,
@@ -178,6 +180,8 @@ datos_covid %>%
   facet_grid(. ~ residencia_provincia_nombre)
 
 ## aparecen observaciones en la sepi 53. Porqué?
+
+## conviene manejarse con filtros de sepi cuando mostramos ejes con sepi
 
 datos_covid %>%  
   filter(anio == 2021,
