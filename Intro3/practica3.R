@@ -138,11 +138,11 @@ datos_covid %>%
 
 ## se ven muchos casos confirmados en enero del 2020. Es eso posible?
 
-## agregando filtro fecha_apertura < "2021/01/01" para eliminar observaciones de la sepi 53 2020 (enero 2021)
+## agregando filtro fecha_apertura < "2021-01-01" para eliminar observaciones de la sepi 53 2020 (enero 2021)
 
 datos_covid %>% 
   filter(anio == 2020,
-         fecha_apertura < "2021/01/01") %>% 
+         fecha_apertura < "2021-01-01") %>% 
   ggplot(aes(x = factor(mes), 
              fill = clasificacion_resumen)) + 
   geom_bar(position = "fill") 
@@ -152,7 +152,7 @@ datos_covid %>%
 ## Cómo fue la evolución de casos confirmados diarios en la pandemia?
 
 datos_covid %>%  
-  filter(fecha_apertura < "2021/01/01",
+  filter(fecha_apertura < "2021-01-01",
          residencia_provincia_nombre %in% c("Chaco", "Misiones"),
          clasificacion_resumen == "Confirmado") %>% 
   ggplot(aes(x = fecha_apertura, fill = residencia_provincia_nombre)) + 
@@ -162,7 +162,7 @@ datos_covid %>%
 # y si lo queremos por semana epidemiológica?
 
 datos_covid %>%  
-  filter(fecha_apertura < "2021/01/01",
+  filter(fecha_apertura < "2021-01-01",
          residencia_provincia_nombre %in% c("Chaco", "Misiones"),
          clasificacion_resumen == "Confirmado") %>% 
   ggplot(aes(x = sepi_apertura, fill = residencia_provincia_nombre)) + 
@@ -172,7 +172,7 @@ datos_covid %>%
 # y para lo que va del 2021?
 
 datos_covid %>%  
-  filter(fecha_apertura > "2020/12/31",
+  filter(fecha_apertura > "2020-12-31",
          residencia_provincia_nombre %in% c("Chaco", "Misiones"),
          clasificacion_resumen == "Confirmado") %>% 
   ggplot(aes(x = sepi_apertura, fill = residencia_provincia_nombre)) + 
@@ -202,7 +202,7 @@ datos_mdp <- datos_covid %>%
 ## como se distribuye la edad de los confirmados según sexo en cada mes del 2020
 
 datos_mdp %>%  
-  filter(fecha_apertura < "2021/01/01",
+  filter(fecha_apertura < "2021-01-01",
          clasificacion_resumen == "Confirmado") %>% 
   ggplot(aes(x = sexo, y = edad, fill = sexo)) +
   geom_boxplot() + 
@@ -213,7 +213,7 @@ datos_mdp %>%
 # veamos las cantidades de confirmados por mes como complemento del gráfico anterior
 
 datos_mdp %>% 
-  filter(fecha_apertura < "2021/01/01",
+  filter(fecha_apertura < "2021-01-01",
          clasificacion_resumen == "Confirmado") %>% 
   count(mes, name = "Confirmados") %>% 
   ggplot(aes(x = factor(mes), y = Confirmados)) + 
