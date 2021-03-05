@@ -245,4 +245,3 @@ datos_mdp %>%
   geom_density(alpha = 0.4)
 
 
-
