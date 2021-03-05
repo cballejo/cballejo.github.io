@@ -1,0 +1,177 @@
+---
+title: "Manipulación de datos"
+subtitle: "Parte II"  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro4
+
+---
+class: left, middle
+
+background-image: url(assets/dplyr.PNG)
+background-size: 180px
+background-position: 50% 10%
+
+
+
+.font140[ 
+<br> 
+<br> 
+<br> 
+- En este encuentro seguiremos conociendo otras funciones del paquete **dplyr** pensado para **transformar/gestionar/manipular datos**.
+
+- Hoy vamos a ver dos nuevas funciones-verbos (**arrange** y **count**)
+
+- También, vamos a retomar el script .bold[practica3.R] uniendo todo los visto hasta ahora e incorporando una nueva ejercitación.
+]
+
+---
+class: left, top
+
+
+## arrange()
+
+.font140[ 
+La función **arrange()** del inglés .bold[ordenar], sirve para ordenar observaciones de una tabla de datos a partir de una o más variables (columnas).
+]
+
+<br>
+
+.font160[.center[  
+**arrange**(datos, var1, var2, ...)  
+
+ó  
+
+datos %>% **arrange**(var1, var2, ...)
+]]
+
+---
+class: left, top
+
+
+## arrange()
+
+.font140[ 
+El ordenamiento _predeterminado_ es **_ascendente_**. 
+
+Si la variable contiene números, las filas se van a ordenar ubicando esos números de menor a mayor (1,2,3...). 
+
+Si la variable contiene texto, las filas se van a ordenar ubicando las palabras alfabéticamente en forma ascendente (a,b,c...).
+
+Si deseamos invertir el orden debemos incorporar la función **desc()** dentro de **arrange()**.
+]
+
+
+.font160[.center[  
+datos %>% **arrange**(var1)  *# ascendente*
+
+datos %>% **arrange**(**desc**(var1)) *# descendente*
+]]
+
+
+---
+class: center, middle, inverse, hide-logo
+
+## Abrimos el script practica3.R 
+
+## Ordenamos la tabla datos_covid a partir de diferentes variables para ver el funcionamiento de arrange() y desc()
+
+---
+class: left, top
+
+## count()
+
+.font140[ 
+La función **count()** del inglés .bold[contar], sirve para contabilizar categorías o valores diferentes de variables resumiendo los datos en una **_tabla de frecuencia_**. 
+
+Reconoce y también contabiliza los valores .bold[NA] de las variables.
+]
+
+.font180[.center[datos %>% **count**(variable)]]
+
+.font140[ 
+Tiene algunos argumentos opcionales como:
+
+- **name** (nombre de la variable que contabiliza - por defecto se llama n)
+- **sort** (si es TRUE se ordena de mayor a menor)
+- **wt** (variable peso / ponderación / expansión opcional)
+
+También se pueden agregar más variables separadas por una coma.
+]
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica3.R 
+
+## Explicamos el funcionamiento de count() aplicandolo para obtener información similar a la vista en gráficos en forma de tabla.
+
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 5.3 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/transform.html)]
