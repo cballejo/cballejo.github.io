@@ -138,6 +138,14 @@ class: center, middle, inverse, hide-logo
 ## Ordenamos la tabla datos_covid a partir de diferentes variables para ver el funcionamiento de arrange() y desc()
 
 ---
+class: middle, inverse, hide-logo
+
+## Filtrar observaciones de Chaco de mayo de 2020,
+## ordenar por fecha_inicio_sintomas,
+## seleccionar variables provincia, departamento y fis,
+## finalmente visualizar - View()
+
+---
 class: left, top
 
 ## count()
