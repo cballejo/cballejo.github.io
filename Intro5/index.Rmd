@@ -127,7 +127,6 @@ class: left, top
 .font140[ 
 Algunas de las funciones resumen provistas por el lenguaje R son:
 
-<br>
 
 - .bold[tendencia central] - **mean()** - **median()**
 
@@ -138,6 +137,8 @@ Algunas de las funciones resumen provistas por el lenguaje R son:
 - .bold[conteo] - **n()** - **n_distinct()**
 
 - .bold[orden] - **first()** - **last()**
+
+La mayoría de estas funciones aplican en tipos de datos int (enteros), dbl (reales), date (fecha) y ddtm (fecha - hora).
 ]
 
 
