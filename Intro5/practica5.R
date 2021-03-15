@@ -3,245 +3,194 @@ library(tidyverse)
 datos_covid <- read_csv2("SISA_covid.csv")
 
 
-## vemos estructura de la tabla
+## recordamos la estructura de la tabla de datos
 
 glimpse(datos_covid)
 
 # 11 variables
 # 6.687.347 observaciones
 
-### usamos select()
+### nos detenemos un momento analizando las variables y sus tipos de datos
 
-datos_covid  # tabla completa
+# solo hay dos de ellas que son numéricas: edad y sepi_apertura
 
-# salidas a consola
+## para aplicar la función summarise() en principio vamos a trabajar con edad
 
-datos_covid %>% select(fecha_inicio_sintomas)  # solo fecha inicio de síntomas
+##########
 
-datos_covid %>% select(-fecha_inicio_sintomas) # todas menos fecha inicio de síntomas
-
-datos_covid %>% select(sexo, edad) # solo sexo y edad
-
-datos_covid %>% select(-c(sexo, edad)) # todas menos sexo y edad
-
-datos_covid %>% select(-sexo, -edad) # todas menos sexo y edad
-
-datos_covid %>% select(1,2,3) # usando posiciones numéricas (las primeras tres variables)
-
-datos_covid %>% select(1,2,11) # posiciones numéricas 1,2 y 11
-
-datos_covid %>% select(1:3) # rango de variable 1 a 3
-
-datos_covid %>% select(sexo:residencia_pais_nombre) # rango con nombres de variable
-
-datos_covid %>% select(starts_with("resi")) # variables comienzan con "resi"
-
-datos_covid %>% select(ends_with("apertura")) # variables finalizan con "apertura"
-
-## salida a nueva tabla
-
-datos_resi <- datos_covid %>% select(starts_with("resi"))
-
-datos_resi
-
-rm(datos_resi) # eliminamos la tabla datos_resi de la memoria con rm()
-
-## salida a visualización en tabla
-
-datos_covid %>% select(starts_with("resi")) %>% View()
-
-
-##################
-
-# seleccione de la tabla datos_covid las variables que comienzan con "fecha"
-
-# selecciones de la tabla datos_covid las variables que finalicen con "nombre"
-
-##################
-
-## volvemos a las diapositivas
-
-##################
-
-# usamos filter()
-
-# selecciones simples
-
-datos_covid %>% filter(sexo == "F") # filtramos solo a las mujeres
-
-datos_covid %>% filter(edad > 64) # filtramos observaciones mayores a 64 años
-
-datos_covid %>% filter(edad >= 64) # filtramos observaciones mayores o iguales a 64 años
-
-datos_covid %>% filter(residencia_pais_nombre != "Argentina") # filtramos observaciones que no residan en Argentina
-
-# selección  teniendo en cuenta los valores especiales NA
-
-datos_covid %>% filter(is.na(fecha_inicio_sintomas)) # filtramos observaciones con NA en fecha_inicio_sintomas
-
-
-# selecciones combinadas
-
-datos_covid %>% filter(residencia_provincia_nombre %in% c("Jujuy", "Salta")) # filtramos observaciones de Jujuy o Salta
-
-datos_covid %>% filter(between(sepi_apertura, 30, 40)) # filtramos observaciones con sepi_apertura entre 30 y 40 (se incluyen los extremos)
-
-datos_covid %>% filter(edad >= 64 & sexo == "F") # filtramos observaciones de mujeres mayores o iguales a 64 años                      
-
-datos_covid %>% filter(edad >= 64, sexo == "F") # filtramos observaciones de mujeres mayores o iguales a 64 años   
-
-datos_covid %>% filter(residencia_provincia_nombre == "Jujuy" | residencia_provincia_nombre == "Salta")  # filtramos observaciones de Jujuy o Salta
-
-##################
-
-# filtre de la tabla datos_covid las observaciones que residan en el departamento de Pergamino y sean menores de 10 años
-
-# filtre de la tabla datos_covid las observaciones de hombres que hayan fallecido
-
-##################
-
-## los tipos de datos fecha (Date) tienen las misma propiedades que las variables numéricas
-
-datos_covid %>% filter(fecha_inicio_sintomas > "2020-12-01") # filtramos observaciones con inicio de sintomas mayores al 1-12-2020         
-
-##################
-
-## Usamos filtros combinados con gráficos ggplot
-
-## Vamos a utilizar estas funciones que hemos visto como herramientas para explorar la tabla de datos y conectarlo con la visualización
-
-# Previamente extraeremos información necesaria de la fechas de apertura
-
-library(lubridate)  # paquete para manejo de fechas
-
-datos_covid <- datos_covid %>%  
-  mutate(anio = epiyear(fecha_apertura),  # calculo del año epidemiológico
-         mes = month(fecha_apertura))     # extracción del mes
-
-### Nos preguntan si la distribución de confirmados fue igual en mayo que
-### en septiembre de 2020.
+# Resumimos las edades mediante una media
 
 datos_covid %>% 
-  filter(anio == 2020, 
-         mes %in% c(5,9)) %>% 
-  ggplot(aes(x = mes, 
-             fill = clasificacion_resumen)) + 
-  geom_bar(position = "fill") 
+  summarise(media_edad = mean(edad))
 
-# podríamos verlo también para todo el año 2020
+## se acuerdan que dijimos que los valores especiales NA (datos no disponible) 
+## eran "contagiosos". 
 
-datos_covid %>% 
-  filter(anio == 2020) %>% 
-  ggplot(aes(x = factor(mes), 
-             fill = clasificacion_resumen)) + 
-  geom_bar(position = "fill") 
-
-## se ven muchos casos confirmados en enero del 2020. Es eso posible?
-
-## agregando filtro fecha_apertura < "2021-01-01" para eliminar observaciones de la sepi 53 2020 (enero 2021)
+## si el resultado de un resumen nos devuelve NA es porque al menos una observación
+## de la variable en cuestión (edad en este caso) tiene valor NA
 
 datos_covid %>% 
-  filter(anio == 2020,
-         fecha_apertura < "2021-01-01") %>% 
-  ggplot(aes(x = factor(mes), 
-             fill = clasificacion_resumen)) + 
-  geom_bar(position = "fill") 
+  filter(is.na(edad)) %>% count(edad)  # hay 3785 edades como NA
+
+## como hacemos para que las funciones eviten estos valores?
+
+## usando el argumento na.rm = TRUE dentro de mean()
+
+datos_covid %>% 
+  summarise(media_edad = mean(edad, na.rm = TRUE))
+
+## podemos calcular varios resúmenes dentro del mismo summarise
+
+datos_covid %>% 
+  summarise(media_edad = mean(edad, na.rm = TRUE),
+            mediana_edad = median(edad, na.rm = TRUE))
+
+# podemos integrar otras funciones conocidas, como filter()
+
+datos_covid %>% 
+  filter(residencia_provincia_nombre == "Catamarca") %>% 
+  summarise(media_edad = mean(edad, na.rm = TRUE),
+            mediana_edad = median(edad, na.rm = TRUE))
+
+# resumen de media y mediana de la edad de los casos notificados residentes 
+# de la provincia de Catamarca
+
+###########
+
+## veamos algunas otras funciones de resumen mencionadas en las diapositivas
+
+datos_covid %>% 
+  summarise(min_edad = min(edad, na.rm = TRUE),
+            max_edad = max(edad, na.rm = TRUE),
+            var_edad = var(edad, na.rm = TRUE),
+            sd_edad = sd(edad, na.rm = TRUE),
+            IQR_edad = IQR(edad, na.rm = TRUE))
+
+## que pasa con el valor máximo de edad? Parece que se trata de un error
+
+# veamos los valores máximos cercanos ordenando la variable
+
+datos_covid %>% select(edad) %>% arrange(desc(edad)) 
+
+# hay 5 observaciones con edades imposibles
+
+# podriamos arreglar esto usando filter
+
+datos_covid %>% 
+  filter(edad < 132) %>% 
+  summarise(min_edad = min(edad, na.rm = TRUE),
+            max_edad = max(edad, na.rm = TRUE),
+            var_edad = var(edad, na.rm = TRUE),
+            sd_edad = sd(edad, na.rm = TRUE),
+            IQR_edad = IQR(edad, na.rm = TRUE))
+
+## con quantile se puede mostrar distintos valores de posición de la distribución
+## de edad. Por ejemplo el primer y tercer cuartil 
 
 
-### Ahora nos interesa comparar la situación entre la provincia del Chaco y Misiones
-## Cómo fue la evolución de casos confirmados diarios en la pandemia?
+datos_covid %>%   
+  summarise(cuartil = quantile(edad, 
+                               na.rm = TRUE, 
+                               prob = c(0.25, 0.75)))
 
-datos_covid %>%  
-  filter(fecha_apertura < "2021-01-01",
-         residencia_provincia_nombre %in% c("Chaco", "Misiones"),
-         clasificacion_resumen == "Confirmado") %>% 
-  ggplot(aes(x = fecha_apertura, fill = residencia_provincia_nombre)) + 
-  geom_bar() + 
-  facet_grid(. ~ residencia_provincia_nombre)
+## percentilos incluidos minimo y maximo
 
-# y si lo queremos por semana epidemiológica?
+datos_covid %>%   
+  filter(edad < 132) %>%
+  summarise(percentil = quantile(edad, 
+                               na.rm = TRUE, 
+                               prob = seq(from = 0, to = 1, by = 0.1)))
 
-datos_covid %>%  
-  filter(fecha_apertura < "2021-01-01",
-         residencia_provincia_nombre %in% c("Chaco", "Misiones"),
-         clasificacion_resumen == "Confirmado") %>% 
-  ggplot(aes(x = sepi_apertura, fill = residencia_provincia_nombre)) + 
-  geom_bar() + 
-  facet_grid(. ~ residencia_provincia_nombre)
+### otras funciones resumen básicas son los conteos
 
-# y para lo que va del 2021?
+datos_covid %>%   
+  summarise(cantidad = n())
 
-datos_covid %>%  
-  filter(fecha_apertura > "2020-12-31",
-         residencia_provincia_nombre %in% c("Chaco", "Misiones"),
-         clasificacion_resumen == "Confirmado") %>% 
-  ggplot(aes(x = sepi_apertura, fill = residencia_provincia_nombre)) + 
-  geom_bar() + 
-  facet_grid(. ~ residencia_provincia_nombre)
+## cuando se resume una variable suele acompañarse con el conteo de observaciones
+## para conocer el tamaño de la población/muestra con la que estamos trabajando
 
-## aparecen observaciones en la sepi 53. Porqué?
+## n_distinc() es útil para variables categóricas o cuantitativas discretas
 
-## conviene manejarse con filtros de sepi cuando mostramos ejes con sepi
+datos_covid %>%   
+  summarise(cantidad = n_distinct(sepi_apertura))  # 53 semanas epidemiológicas
 
-datos_covid %>%  
-  filter(anio == 2021,
-         sepi_apertura != 53,
-         residencia_provincia_nombre %in% c("Chaco", "Misiones"),
-         clasificacion_resumen == "Confirmado") %>% 
-  ggplot(aes(x = sepi_apertura, fill = residencia_provincia_nombre)) + 
-  geom_bar() + 
-  facet_grid(. ~ residencia_provincia_nombre)
+datos_covid %>%   
+  summarise(cantidad = n_distinct(sexo)) # 3 categorías diferentes de sexo
+
+####### volvemos a las diapositivas
+
+#### agrupamientos
+
+## la función group_by() agrupa por los valores distintos de la variable que usemos
+## como argumento. Hay que pensarla como la variable o variables que deseamos que
+## estratifiquen el resumen aplicado por summarise()
+
+## si usamos group_by() solo obtenemos
+
+datos_covid %>% group_by(sexo)
+
+## noten que en la salida de la consola el encabezado dice Groups: sexo [3],
+## mientras que si llamamos a la tabla datos_covid solamente eso no aparece
+
+datos_covid
+
+## pero por más que nos muestre que la tabla se encuentra agrupada por sexo en
+## sus tres categorías en definitiva no nos devuelve ningun resultado útil
+
+## en cambio si luego aplicamos summarise() nos va a calcular el resumen pedido
+## para cada uno de los grupos construidos
+
+datos_covid %>% 
+  group_by(sexo) %>% 
+  summarise(media_edad = mean(edad, na.rm = T))
+
+# este resultado sería media edad estratificado por sexo
+
+# también es interesante agregar el conteo a este resultado para conocer 
+# el n de cada grupo
+
+datos_covid %>% 
+  group_by(sexo) %>% 
+  summarise(media_edad = mean(edad, na.rm = T),
+            cantidad = n())
+
+# podemos anidar variables de agrupamiento 
+
+datos_covid %>% 
+  group_by(clasificacion_resumen, sexo) %>% 
+  summarise(media_edad = mean(edad, na.rm = T),
+            cantidad = n())
+
+## ahora agregando la provincia de residencia y visualizando con View()
+
+datos_covid %>% 
+  group_by(residencia_provincia_nombre, clasificacion_resumen, sexo) %>% 
+  summarise(media_edad = mean(edad, na.rm = T),
+            cantidad = n()) %>% 
+  View()
+
+######
+
+## Con todo lo visto hasta ahora escriba el código para obtener los siguientes
+## resultados:
+
+# A)
+# La media y el desvío estandar de la edad de los fallecidos de CABA
+# estratificado por sexo
 
 
-## Hagamos un recorte para trabajar con las observaciones de General Pueyrredón
 
-datos_mdp <- datos_covid %>%  
-  filter(residencia_departamento_nombre == "General Pueyrredón")
+# B)
+# La edad mínima (ordenada de menor a mayor) de los casos confirmados de la 
+# provincia de Chaco estratificado por departamento de residencia y sexo 
+# (muestre en el visualizador)
 
 
-## como se distribuye la edad de los confirmados según sexo en cada mes del 2020
 
-datos_mdp %>%  
-  filter(fecha_apertura < "2021-01-01",
-         clasificacion_resumen == "Confirmado") %>% 
-  ggplot(aes(x = sexo, y = edad, fill = sexo)) +
-  geom_boxplot() + 
-  geom_jitter(size = 0.1, alpha = 0.2) +
-  facet_wrap(~ mes, nrow = 2) + 
-  scale_y_continuous(breaks = seq(0,125, by = 5))
+# C)
+# La fecha menor de apertura de los casos confirmados estratificados por provincia
+# y ordenados de la fecha mayor a la menor.
 
-# veamos las cantidades de confirmados por mes como complemento del gráfico anterior
 
-datos_mdp %>% 
-  filter(fecha_apertura < "2021-01-01",
-         clasificacion_resumen == "Confirmado") %>% 
-  count(mes, name = "Confirmados") %>% 
-  ggplot(aes(x = factor(mes), y = Confirmados)) + 
-  geom_bar(stat = "identity", fill = "sienna3")
-
-# tomemos el mes 9 de mayor cantidad de confirmados y veamos la distribución de edad según sexo mediante un gráfico de densidad
-
-datos_mdp %>% 
-  filter(clasificacion_resumen == "Confirmado",
-         mes == 9) %>% 
-  ggplot(aes(x = edad, fill = sexo)) +
-  geom_density()
-
-# que característica podemos agregar al elemento densidad para visualizar todas las curvas?
-
-datos_mdp %>% 
-  filter(clasificacion_resumen == "Confirmado",
-         mes == 9) %>% 
-  ggplot(aes(x = edad, fill = sexo)) +
-  geom_density(alpha = 0.4)
-
-## que podríamos hacer para que no aparezcan las observaciones con NR en sexo?
-
-datos_mdp %>% 
-  filter(clasificacion_resumen == "Confirmado",
-         mes == 9,
-         sexo != "NR") %>% 
-  ggplot(aes(x = edad, fill = sexo)) +
-  geom_density(alpha = 0.4)
 
 
