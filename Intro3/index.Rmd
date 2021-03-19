@@ -117,6 +117,14 @@ class: center, middle, inverse, hide-logo
 ## Explicamos el funcionamiento de select() y sus variantes
 
 ---
+background-image: url(assets/select.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## Mapa conceptual de select()
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+---
 class: left, top
 
 ## filter()
@@ -208,7 +216,14 @@ class: center, middle, inverse, hide-logo
 ## Volvemos al script practica3.R 
 
 ## Explicamos el funcionamiento de filter() y sus variantes, vinculando los subconjuntos de datos a salidas gráficas.
+---
+background-image: url(assets/filter.svg) 
+background-size: 580px
+background-position: 50% 55%
 
+## Mapa conceptual de filter()
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
 ---
 class: middle
 background-image: url(assets/r4ds.PNG) 
