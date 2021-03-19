@@ -183,6 +183,8 @@ background-position: 50% 55%
 
 ## En resumen...
 
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+
 ---
 
 
