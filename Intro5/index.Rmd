@@ -177,6 +177,15 @@ class: center, middle, inverse, hide-logo
 ## Aplicamos group_by() asociado a summarise()
 
 ---
+background-image: url(assets/group_by-summarize.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## En resumen...
+
+---
+
+
 class: middle
 background-image: url(assets/r4ds.PNG) 
 background-size: 200px
