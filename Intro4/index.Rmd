@@ -3,7 +3,7 @@ title: "Manipulación de datos"
 subtitle: "Parte II"  
 author: 
   - "Christian Ballejo"
-date: '`r Sys.Date()`'
+date: '10-03-2021'
 output:
   xaringan::moon_reader:
     includes:
