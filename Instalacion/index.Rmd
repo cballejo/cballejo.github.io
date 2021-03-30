@@ -106,7 +106,7 @@ background-position: 50% 70%
 
 ---
 class: center, top
-background-image: url(assets/Instaladores.PNG)
+background-image: url(assets/instaladores.PNG)
 background-size: 400px
 background-position: 50% 50%
 
