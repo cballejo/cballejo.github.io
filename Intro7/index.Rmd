@@ -1,0 +1,133 @@
+---
+title: "Encuentro 7"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Practica integradora dplyr - ggplot2
+
+En este encuentro vamos a trabajar con una tabla de datos en formato Excel que podrán descargar de este [enlace](https://drive.google.com/open?id=1HLt_uGKpuO5h6zioDWPb_pZpCatMeVnr).
+
+El archivo llamado **DM.xlsx** contiene datos ficticios de personas que respondieron una encuesta y que se les realizó una serie de mediciones y análisis de laboratorio.
+
+Consta de **1030 observaciones** de personas diferentes y son **19 las variables recolectadas**.
+
+Como primer paso le pedimos que cree una nueva carpeta en el lugar de preferencia de su computadora (puede ser *Mis documentos*, *Escritorio*, *etc.*) con el nombre **Practica 7**.
+
+Luego deberá guardar el **archivo DM.xlsx descargado** dentro de la carpeta recién creada.
+
+A continuación ingrese a **RStudio** y construya un *nuevo proyecto* a partir de un directorio existente (Existing Directory) seleccionando la carpeta **"Practica 7"**.
+
+Una vez finalizada la operación genere un **nuevo script de R** y guardelo con su nombre de pila.
+
+Escriba y ejecute las siguientes lineas:
+
+```{r, eval=FALSE}
+library(tidyverse)
+library(readxl)
+
+datos <- read_excel("DM.xlsx")
+
+glimpse(datos)
+```
+
+En las anteriores líneas de código activamos los paquetes contenidos en **tidyverse** y el paquete **readxl** que permite importar datos de archivos con formato Excel.
+
+Luego leímos el contenido de **DM.xslx** y visualizamos su estructura con **glimpse()**
+
+Responda las siguientes consignas construyendo y ejecutando código R dentro del script. 
+
+Utilice comentarios (iniciados con #) cuando deba responder preguntas tipo texto o si desea realizar cualquier aclaración.
+
+1. Cuántos valores perdidos tiene la **variable LDL**?
+
+2. Resuma la **variable EDAD** mediante el calculo de *media* y *desvío estándar*
+
+3. Construya un **histograma** de la **variable EDAD**. Defina el intervalo de clase en 10 años.
+
+4. Genere una **tabla de frecuencia absoluta y porcentual** de la **variable SEXO**.
+
+5. Calcule *mediana* y *rango intercuartílico* de la **variable PESO** según **SEXO**.
+
+6. En que **tipo de gráfico** podría visualizar los estadísticos de posición y dispersión anteriores?
+
+7. Haga un **boxplot** de la **variable PESO según SEXO**.
+
+8. A partir del **PESO** y la **TALLA** calcule el **IMC** en otra variable y déjela almacenada en la misma tabla datos. Tenga en cuenta que la fórmula del IMC es $PESO/TALLA^2$ y que las unidades correctas son **kgs** para PESO y **metros** para TALLA.
+
+9. Dibuje un **gráfico de densidad** para la nueva **variables IMC según SEXO**. Incorpore *transparencia del 50 %* con el fin de poder visualizar el solapamiento de las curvas.
+
+10. Categorice el peso en función del IMC según la siguiente tabla:
+
+|       IMC      | Clasificación |
+|:--------------:|:-------------:|
+| < 18,5         | 1.Bajo peso   |
+| >= 18,5 y < 25 | 2.Peso normal |
+| >= 25 y < 30   | 3.Sobrepeso   |
+| >= 30          | 4.Obesidad    |
+
+Llame **Clasificacion** a la nueva variable y guárdela dentro de **datos**.
+
+11. Construya un **gráfico de barras** de la variable SEXO donde podamos visualizar la distribución proporcional de las categorías de Clasificacion. Para lograr esto defina el *argumento position* en **"fill"**.
+Además asegúrese de no tener en cuenta a los **valores NA** de la **variable Clasificacion**.
+El producto final debería verse así:
+
+```{r, echo = F, warning=F, message=F}
+library(tidyverse)
+library(readxl)
+
+datos <- read_excel("DM.xlsx")
+
+datos <- datos %>% mutate(IMC = PESO/(TALLA/100)^2, 
+  Clasificacion = case_when(
+  IMC < 18.5 ~ "1.Bajo peso",
+  IMC >= 18.5 & IMC < 25 ~ "2.Peso normal",
+  IMC >= 25 & IMC < 30 ~ "3.Sobrepeso",
+  IMC >= 30 ~ "4.Obesidad"
+))
+
+datos %>% 
+  filter(!is.na(Clasificacion)) %>% 
+  ggplot(aes(x = SEXO, fill = Clasificacion)) + 
+  geom_bar(position = "fill") +
+  scale_fill_brewer(palette = "Set1") 
+```
+
+12. Almacene en la tabla **datos** una nueva variable denominada **HTA** con valores *Si* y *No* según la siguiente condición:
+
+> Si la **TAS** es mayor o igual a 140 o la **TAD** es mayor o igual a 90 entonces **HTA** valdrá **"Si"**, de lo contrario será **"No"**.
+
+13. Muestre una tabla de frecuencia absoluta de HTA según condición de fumar (**TABACO**) excluyendo los valores perdidos de TABACO.
+
+14. Utilizando las variables **HTA**, **TABACO** y **SEXO** realice un gráfico igual al siguiente (*preste atención a las categorías de TABACO*):
+
+```{r, echo = F, warning=F, message=F}
+datos <- datos %>% 
+  mutate(HTA = if_else(TAS >= 140 | TAD >= 90,"Si", "No"))
+
+datos %>% 
+  filter(!is.na(TABACO)) %>%
+  ggplot(aes(x = TABACO, fill = HTA)) + 
+  geom_bar(position = "stack") +
+  scale_fill_brewer(palette = "Set2") + 
+  facet_grid(. ~ SEXO)
+```
+
+15. Categorice los valores de A1C (hemoglobina glicosilada) en una nueva variable **Tol_Glucosa** a partir de la siguiente tabla:
+
+|       A1C      | Tol_Glucosa |
+|:--------------:|:-----------:|
+| < 5,7          | Normal      |
+| >= 5,7 y < 6,5 | IGT         |
+| >= 6,5         | DM          |
+
+16. Cree una nueva tabla llamada **diabetes** con las observaciones que tengan el valor *DM* en **variable Tol_Glucosa** y las siguientes variables: **ID**, **EDAD**, **SEXO**, **Clasificacion**, **HTA** y **A_DIAB**.
+Asegúrese que la tabla se almacene **_ordenada de forma creciente_** por el número de **ID**.
+
+---
+
+Una vez finalizados todos los puntos guarde el archivo con el script y envíelo por mail a [christianballejo@gmail.com](mailto:christianballejo@gmail.com)
+
