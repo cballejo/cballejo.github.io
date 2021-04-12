@@ -158,9 +158,48 @@ lesiones %>% drop_na(Sexo, Edad)
 
 lesiones
 
-lesiones %>%  complete(Anio, Semestre)
+## transformamos observaciones con NA implícitos en explícitos
 
 lesiones %>%  complete(Anio, Semestre)
+
+## Idem anterior etiquetando los valores NA en algunas variables
+
+lesiones %>%  complete(Anio, Semestre, 
+                       fill = list(Sexo = "s/d", Accidente = "s/d"))
+
+
+## Volvemos a las diapositivas
+
+############
+
+## Anidamos tablas dentro de columnas
+
+tabla1
+
+## Anidamos anio, casos y poblacion de tabla1
+
+## usando group_by()
+
+tabla1 %>% group_by(pais) %>% nest()
+
+## seleccionando las variables como argumento de nest()
+tabla1 %>%  nest(data = c(anio, casos, poblacion))
+
+## la columna-lista creada la encontramos con el nombre de "data"
+
+## Asignando a un objeto podemos almacenarla
+
+columna_lista <- tabla1 %>%  nest(data = c(anio, casos, poblacion))
+
+## su clase
+class(columna_lista$data)
+
+## su contenido y estructura
+columna_lista$data
+
+## desanidamos
+
+columna_lista %>% unnest(cols = data)
 
 ###########
 
