@@ -198,7 +198,7 @@ tabla_casos %>%
 ```
 ]
 ---
-background-image: url(assets/tabla_wider.png)
+background-image: url(assets/tabla_wider.PNG)
 background-size: 700px
 background-position: 50% 70%
 
@@ -225,7 +225,7 @@ class: center, middle, inverse, hide-logo
 ## Trabajamos con las funciones pivot_longer() y pivot_wider().
 
 ---
-background-image: url(assets/tabla_separate.png)
+background-image: url(assets/tabla_separate.PNG)
 background-size: 700px
 background-position: 50% 80%
 
