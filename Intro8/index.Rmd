@@ -211,7 +211,7 @@ tabla_ejemplo2 %>%
 ]
 
 ---
-class: center, middle
+class: center, middle 
 
 ## Para visualizar estas funciones necesitamos descargar el archivo practica8.R
 
