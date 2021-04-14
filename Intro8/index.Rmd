@@ -211,6 +211,13 @@ tabla_ejemplo2 %>%
 ]
 
 ---
+class: center, middle
+
+## Para visualizar estas funciones necesitamos descargar el archivo practica8.R
+
+.font160[.bold[Haga click en el [enlace](https://drive.google.com/file/d/1mVNADEOpNj7lScMkklVJ2Bze7eqa5S9Z/view?usp=sharing) para proceder a su descarga]]
+
+---
 class: center, middle, inverse, hide-logo
 
 ## Abrimos el script practica8.R 
