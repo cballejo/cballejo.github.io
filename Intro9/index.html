@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Datos relacionales</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <meta name="date" content="2021-04-16" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Datos relacionales
+### Christian Ballejo
+### 2021-04-16
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+&lt;br&gt;
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro9
+
+---
+class: left, middle
+
+background-image: url(assets/dplyr.png)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+En la práctica real habitualmente debemos analizar datos que se encuentran en diferentes tablas, que debemos combinar para responder a nuestras preguntas de interés.
+
+De manera general, se le llama **_datos relacionales_** a esas múltiples tablas de datos que provienen muchas veces de sistemas de bases de datos construidas bajo el modelo relacional o bien cuando las tablas de datos tienen fuentes distintas pero comparten alguna variable común que permita "conectarlas".
+]
+
+---
+class: left, top
+
+background-image: url(assets/tidy.PNG)
+background-size: 800px
+background-position: 50% 75%
+
+## Tipo de operaciones
+
+.font140[ _
+Para trabajar con datos relacionales necesitamos de _funciones-verbos_ que funcionen con pares de tabla.
+
+Las tres familias de funciones del paquete **dplyr** diseñadas para trabajar con datos relacionales son:
+
+- **Uniones de transformación** (del inglés *mutating joins*), agregan nuevas variables a una tabla a partir de observaciones coincidentes de otra tabla.
+
+- **Uniones de filtro** (del inglés *filtering joins*), filtran observaciones de una tabla en función de la coincidencia o no coincidencia de otra tabla.
+
+- **Operaciones de conjuntos** (del inglés *set operations*), tratan las observaciones como elementos de un conjunto.
+]
+
+---
+class: left, top
+background-image: url(assets/diagrama.PNG)
+background-size: 900px
+background-position: 50% 60%
+
+## Ejemplo: Diagrama de tablas relacionales
+ 
+
+
+---
+## Ejemplo: Tablas relacionales
+
+&lt;br&gt;
+&lt;br&gt;
+.font140[En el diagrama anterior:
+
+- La tabla **vuelos** se conecta con **aviones** a través de la variable **_código_cola_**.
+
+- La tabla **vuelos** se conecta con **aerolineas** a través de la variable **_codigo_carrier_**.
+
+- La tabla **vuelos** se conecta con **aeropuertos** de dos formas: a través de las variables **_origen_** y **_destino_**.
+
+- La tabla **vuelos** se conecta con **clima** a través de las variables **_origen_** (la ubicación), **_anio_**, **_mes_**, **_dia_** y **_hora_**.
+
+]
+&lt;br&gt;
+---
+
+## Claves
+
+.font140[
+
+- Las variables usadas para conectar cada par de variables se llaman **claves** (del inglés *key*)
+
+- Una clave es una variable (o un conjunto de variables) que identifican de manera *única* una observación.
+
+Existen dos tipos de claves:
+
+- Una **clave primaria** identifica únicamente una observación en su propia tabla. Por ejemplo, **_codigo_cola_** en la tabla **aviones** es una *clave primaria*, ya que identifica de manera única cada avión en la tabla aviones.
+
+- Una **clave foránea** únicamente identifica una observación en otra tabla. Por ejemplo, **_codigo_cola_** en la tabla **vuelos** es una *clave foránea*, ya que aparece en la tabla vuelos, en la que une cada vuelo con un único avión.
+]
+
+
+---
+background-image: url(assets/inner-join.PNG)
+background-size: 500px
+background-position: 50% 70%
+
+## Uniones de transformación
+
+
+.font150[.bold[Unión interior]
+
+La forma más simple de unión es la unión interior (del inglés inner join). Una unión interior une pares de observaciones siempre que sus claves sean iguales
+]
+
+---
+background-image: url(assets/inner-join.gif)
+background-size: 500px
+background-position: 50% 70%
+
+## Unión interior
+
+
+.font150[Función .bold[inner_join()]]
+
+---
+background-image: url(assets/uniones_exteriores.PNG)
+background-size: 400px
+background-position: 80% 70%
+
+## Uniones de transformación
+
+
+.pull-left[.font150[.bold[Uniones exteriores]]
+
+Una unión interior mantiene las observaciones que aparecen en ambas tablas. 
+
+Una unión exterior mantiene las observaciones que aparecen en al menos una de las tablas.
+
+- Una unión izquierda (left join) mantiene todas las observaciones en x.
+
+- Una unión derecha (right join) mantiene todas las observaciones en y.
+
+- Una unión completa (full join) mantiene todas las observaciones en x e y.
+]
+
+---
+background-image: url(assets/full-join.gif)
+background-size: 500px
+background-position: 50% 75%
+
+## Uniones exteriores
+
+
+.font150[Función .bold[full_join()]]
+
+---
+background-image: url(assets/left-join.gif)
+background-size: 500px
+background-position: 50% 70%
+
+## Uniones exteriores
+
+
+.font150[Función .bold[left_join()]]
+
+---
+background-image: url(assets/right-join.gif)
+background-size: 500px
+background-position: 50% 70%
+
+## Uniones exteriores
+
+
+.font150[Función .bold[right_join()]]
+
+---
+background-image: url(assets/venn.PNG)
+background-size: 900px
+background-position: 50% 75%
+
+## Uniones de transformación
+
+.font140[Otra forma de ilustrar diferentes tipos de uniones es mediante un diagrama de Venn.
+
+Sin embargo, tiene una limitante importante: un diagrama de Venn no puede mostrar qué ocurre con las claves que no identifican de manera única una observación
+]
+
+---
+## Claves duplicadas
+
+&lt;br&gt;
+
+.font140[
+Hasta ahora todas las situaciones han asumido que las claves son únicas. Pero esto no siempre es así.  
+
+Existen dos posibilidades habituales:
+
+- Una tabla tiene claves duplicadas producto de una relación uno a varios.
+
+- Ambas tablas tienen claves duplicadas 
+
+Siempre que unimos claves duplicadas, obtenemos todas las posibles combinaciones, es decir, el producto cartesiano
+
+]
+
+
+
+---
+background-image: url(assets/left-join-extra.gif)
+background-size: 500px
+background-position: 50% 70%
+
+## Claves duplicadas
+.font140[
+Ejemplo con **left_join()**
+]
+---
+background-image: url(assets/semi-join.gif)
+background-size: 500px
+background-position: 50% 95%
+
+## Uniones de filtro
+
+.font150[.bold[semi_join()]
+
+**Mantiene** todas las observaciones de la tabla **x** donde la **_clave coincide_** con la clave de la tabla **y**
+]
+
+---
+background-image: url(assets/anti-join.gif)
+background-size: 500px
+background-position: 50% 95%
+
+## Uniones de filtro
+
+.font150[.bold[anti_join()]
+
+**Descarta** todas las observaciones de la tabla **x** donde la **_clave coincide_** con la clave de la tabla **y**
+]
+
+---
+## Consejos útiles para evitar errores
+
+&lt;br&gt;
+
+.font140[
+- Identificar bien la variables que forman las claves de cada tabla.
+
+- Verificar la completitud de las claves. Si existe algún valor faltante no se podrá identificar la observación.
+
+- Verificar que las claves foráneas coinciden con las claves primarias de la otra tabla. Esto incluye comprobar coincidencia en el tipo de dato (numérico, caracter, etc)
+
+- Verificar claves duplicadas (se puede hacer aplicando **count()**)
+]
+
+---
+## Operaciones de conjuntos
+
+.font140[
+El paquete dplyr ofrece tres funciones para este tipo de operaciones.
+
+Si bien se utiliza de manera poco frecuente, en ocasiones puede resultar útil.
+
+Todas estas operaciones funcionan con una fila completa, comparando los valores de cada variable. Esto espera que los input **x** e **y** tengan las mismas variables:
+
+- **intersect**(x, y): devuelve las observaciones comunes en **x** e **y**.
+
+- **union**(x, y): devuelve las observaciones únicas en **x** e **y**.
+
+- **setdiff**(x, y): devuelve las observaciones en **x** pero no en **y**.
+]
+---
+## Unión por filas y por columnas
+
+.font140[
+En algunas ocasiones necesitamos unir tablas que tienen formatos particulares por medio de filas o por medio de columnas.
+
+Las funciones de **dplyr** para esta tarea son:
+
+- **bind_rows()** Une una tabla debajo de otra. Aplica cuando tenemos la misma estructura en tabla de datos divida en varios archivos (por ejemplo, producto de carga simultánea de datos en diferentes computadoras con diferentes data entry)
+
+- **bind_cols()** Une una tabla al lado de la otra. Es peligroso su uso si la confundimos con las uniones de transformación porque perdemos integridad de datos en las observaciones. Sirve sólo si el "orden" de las observaciones pueden garantizar la misma identidad de las partes a unir.
+
+]
+
+---
+class: center, middle 
+
+## Para visualizar estas funciones necesitamos descargar el archivo practica8.R
+
+.font160[.bold[Haga click en el [enlace](https://drive.google.com/file/d/1mVNADEOpNj7lScMkklVJ2Bze7eqa5S9Z/view?usp=sharing) para proceder a su descarga]]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Abrimos el script practica8.R 
+
+## Trabajamos con las funciones pivot_longer() y pivot_wider().
+
+---
+background-image: url(assets/tabla_separate.PNG)
+background-size: 700px
+background-position: 50% 80%
+
+## separate()
+.font150[
+La función separate() divide datos de una columna en 2 o en más variables.
+]
+.font140[
+
+```r
+tabla_ejemplo3 %&gt;% 
+  separate(col = tasa, into = c("casos", "poblacion"), sep = "/")
+```
+]
+
+---
+## unite()
+.font150[
+La función unite() hace lo inverso a separate().
+]
+.font140[
+
+```r
+datos %&gt;% 
+  unite(col = nueva_variable, var1, var2, sep = " ")
+```
+]
+.font150[
+Supongamos que en una tabla tenemos el nombres de establecimientos de salud y en otra la localidad en la que se encuentra y necesitamos tener en una única variable la combinación "Localidad - Establecimiento". 
+
+Podemos unir:
+]
+
+.font140[
+
+```r
+datos %&gt;% 
+  unite(col = nombre, Localidad, Establecimiento, sep = " - ")
+```
+]
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica8.R 
+
+## Trabajamos con las funciones separate() y unite().
+---
+## Funciones para trabajar con valores faltantes
+
+.font150[
+El **_paquete tidyr_** ofrece tres funciones para manipular tablas con valores NA.
+
+- **replace_na()** es una función que reemplaza valores NA por etiquetas definidas.
+
+Necesita solo de dos argumentos: los *datos* sobre la que se aplica y la *etiqueta* que queremos utilizar como reemplazo.
+]
+
+.font140[
+
+```r
+datos %&gt;% 
+  mutate(Sexo = replace_na(Sexo, replace = "Sin dato")
+```
+]
+
+.font150[Este código reemplazará todos los valores NA de la variable Sexo con la etiqueta "Sin dato"]
+
+---
+## Funciones para trabajar con valores faltantes
+
+.font140[
+- **drop_na()** es una función que omite (elimina) observaciones con valores NA.
+
+Es una versión actualizada de la función .bold[na.omit()] del *R base*, que se puede utilizar en toda la tabla o en variables específicas.Como argumento necesita solo del nombre de la tabla y/o de la o las variables donde se aplicará. 
+]
+
+.font140[
+
+```r
+datos %&gt;% drop_na()
+```
+]
+.font140[
+El ejemplo anterior es igual al funcionamiento de na.omit(), es decir elimina todas las observaciones en las que haya algún valor **NA** en cualquier variable.
+]
+.font140[
+
+```r
+datos %&gt;% drop_na(Sexo)
+```
+]
+.font140[
+Este otro código elimina solo las observaciones donde *Sexo* sea **NA**.
+]
+---
+## Funciones para trabajar con valores faltantes
+
+.font150[
+- **complete()** es una función que convierte valores perdidos implícitos en valores perdidos explícitos NA.
+
+Esta situación se presenta habitualmente cuando cambiamos la representación de tablas de datos mediante el uso de las funciones pivot.
+]
+
+.font110[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Pais &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Anio &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Casos &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37737 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22045 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3456 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23458 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4531 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21678 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5210 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+---
+## Funciones para trabajar con valores faltantes
+
+.font150[
+Convertimos los valores faltantes implícitos en explícitos
+]
+
+.font140[
+
+```r
+datos %&gt;% complete(Pais, Anio)
+```
+]
+
+.font110[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Pais &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Anio &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Casos &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22045 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 23458 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 21678 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 37737 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; BR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3456 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 4531 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 5210 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica8.R 
+
+## Trabajamos con las funciones replace_na(), drop_nap() y complete().
+
+---
+## Tablas anidadas (columnas-listas)
+
+.font150[
+Una tabla de datos dentro del ecosistema **tidyverse** puede tener una columna de tipo lista anidada con datos que pertenezcan a cada observación. 
+
+Esta es una estructura útil cuando se tienen listas que son salidas de funciones estadísticas como los modelos lineales por ejemplo.
+
+La idea es que cada observación pueda contener en alguna variable un conjunto de otras variables o componentes de una lista.
+
+Las funciones que realizan el trabajo de anidar y desanidar son:  **nest()** y **unnest()**.
+]
+
+---
+## Tablas anidadas (columnas-listas)
+
+.font140[
+
+```r
+datos %&gt;% 
+  group_by(pais) %&gt;% 
+  nest()
+```
+]
+
+.pull-left[
+
+```
+## # A tibble: 6 x 4
+##   pais        anio  casos  poblacion
+##   &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
+## 1 Afganistán  1999    745   19987071
+## 2 Afganistán  2000   2666   20595360
+## 3 Brasil      1999  37737  172006362
+## 4 Brasil      2000  80488  174504898
+## 5 China       1999 212258 1272915272
+## 6 China       2000 213766 1280428583
+```
+]
+
+
+.pull-right[
+
+```
+## # A tibble: 3 x 2
+## # Groups:   pais [3]
+##   pais       data                
+##   &lt;chr&gt;      &lt;list&gt;              
+## 1 Afganistán &lt;tibble[,3] [2 x 3]&gt;
+## 2 Brasil     &lt;tibble[,3] [2 x 3]&gt;
+## 3 China      &lt;tibble[,3] [2 x 3]&gt;
+```
+]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos por última vez al script practica8.R 
+
+## Trabajamos con las funciones nest() y unnest().
+
+---
+background-image: url(assets/pivoting.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## Mapa conceptual sobre pivoteo...
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 12 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/datos-ordenados.html]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
