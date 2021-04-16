@@ -69,7 +69,7 @@ class: inverse, hide-logo, center
 ---
 class: left, middle
 
-background-image: url(assets/dplyr.png)
+background-image: url(assets/dplyr.PNG)
 background-size: 180px
 background-position: 50% 10%
 
