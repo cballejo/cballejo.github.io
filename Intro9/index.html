@@ -81,8 +81,8 @@ background-position: 50% 75%
 
 ## Tipo de operaciones
 
-.font140[ _
-Para trabajar con datos relacionales necesitamos de _funciones-verbos_ que funcionen con pares de tabla.
+.font140[ 
+Para trabajar con datos relacionales necesitamos de *funciones-verbos* que vinculen pares de tablas.
 
 Las tres familias de funciones del paquete **dplyr** diseñadas para trabajar con datos relacionales son:
 
@@ -110,7 +110,7 @@ background-position: 50% 60%
 &lt;br&gt;
 .font140[En el diagrama anterior:
 
-- La tabla **vuelos** se conecta con **aviones** a través de la variable **_código_cola_**.
+- La tabla **vuelos** se conecta con **aviones** a través de la variable **_codigo_cola_**.
 
 - La tabla **vuelos** se conecta con **aerolineas** a través de la variable **_codigo_carrier_**.
 
@@ -325,318 +325,16 @@ Las funciones de **dplyr** para esta tarea son:
 ---
 class: center, middle 
 
-## Para visualizar estas funciones necesitamos descargar el archivo practica8.R
+## La practica de este encuentro se encuentra en el archivo practica9.R
 
 .font160[.bold[Haga click en el [enlace](https://drive.google.com/file/d/1mVNADEOpNj7lScMkklVJ2Bze7eqa5S9Z/view?usp=sharing) para proceder a su descarga]]
 
 ---
 class: center, middle, inverse, hide-logo
 
-## Abrimos el script practica8.R 
+## Abrimos el script practica9.R 
 
-## Trabajamos con las funciones pivot_longer() y pivot_wider().
-
----
-background-image: url(assets/tabla_separate.PNG)
-background-size: 700px
-background-position: 50% 80%
-
-## separate()
-.font150[
-La función separate() divide datos de una columna en 2 o en más variables.
-]
-.font140[
-
-```r
-tabla_ejemplo3 %&gt;% 
-  separate(col = tasa, into = c("casos", "poblacion"), sep = "/")
-```
-]
-
----
-## unite()
-.font150[
-La función unite() hace lo inverso a separate().
-]
-.font140[
-
-```r
-datos %&gt;% 
-  unite(col = nueva_variable, var1, var2, sep = " ")
-```
-]
-.font150[
-Supongamos que en una tabla tenemos el nombres de establecimientos de salud y en otra la localidad en la que se encuentra y necesitamos tener en una única variable la combinación "Localidad - Establecimiento". 
-
-Podemos unir:
-]
-
-.font140[
-
-```r
-datos %&gt;% 
-  unite(col = nombre, Localidad, Establecimiento, sep = " - ")
-```
-]
----
-class: center, middle, inverse, hide-logo
-
-## Volvemos al script practica8.R 
-
-## Trabajamos con las funciones separate() y unite().
----
-## Funciones para trabajar con valores faltantes
-
-.font150[
-El **_paquete tidyr_** ofrece tres funciones para manipular tablas con valores NA.
-
-- **replace_na()** es una función que reemplaza valores NA por etiquetas definidas.
-
-Necesita solo de dos argumentos: los *datos* sobre la que se aplica y la *etiqueta* que queremos utilizar como reemplazo.
-]
-
-.font140[
-
-```r
-datos %&gt;% 
-  mutate(Sexo = replace_na(Sexo, replace = "Sin dato")
-```
-]
-
-.font150[Este código reemplazará todos los valores NA de la variable Sexo con la etiqueta "Sin dato"]
-
----
-## Funciones para trabajar con valores faltantes
-
-.font140[
-- **drop_na()** es una función que omite (elimina) observaciones con valores NA.
-
-Es una versión actualizada de la función .bold[na.omit()] del *R base*, que se puede utilizar en toda la tabla o en variables específicas.Como argumento necesita solo del nombre de la tabla y/o de la o las variables donde se aplicará. 
-]
-
-.font140[
-
-```r
-datos %&gt;% drop_na()
-```
-]
-.font140[
-El ejemplo anterior es igual al funcionamiento de na.omit(), es decir elimina todas las observaciones en las que haya algún valor **NA** en cualquier variable.
-]
-.font140[
-
-```r
-datos %&gt;% drop_na(Sexo)
-```
-]
-.font140[
-Este otro código elimina solo las observaciones donde *Sexo* sea **NA**.
-]
----
-## Funciones para trabajar con valores faltantes
-
-.font150[
-- **complete()** es una función que convierte valores perdidos implícitos en valores perdidos explícitos NA.
-
-Esta situación se presenta habitualmente cuando cambiamos la representación de tablas de datos mediante el uso de las funciones pivot.
-]
-
-.font110[
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Pais &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Anio &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Casos &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; BR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 37737 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 22045 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3456 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 23458 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4531 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 21678 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5210 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-]
----
-## Funciones para trabajar con valores faltantes
-
-.font150[
-Convertimos los valores faltantes implícitos en explícitos
-]
-
-.font140[
-
-```r
-datos %&gt;% complete(Pais, Anio)
-```
-]
-
-.font110[
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Pais &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Anio &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; Casos &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 22045 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 23458 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; AR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 21678 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; BR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 37737 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; BR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; BR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; NA &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2011 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 3456 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2012 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 4531 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; UR &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 2013 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 5210 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-]
----
-class: center, middle, inverse, hide-logo
-
-## Volvemos al script practica8.R 
-
-## Trabajamos con las funciones replace_na(), drop_nap() y complete().
-
----
-## Tablas anidadas (columnas-listas)
-
-.font150[
-Una tabla de datos dentro del ecosistema **tidyverse** puede tener una columna de tipo lista anidada con datos que pertenezcan a cada observación. 
-
-Esta es una estructura útil cuando se tienen listas que son salidas de funciones estadísticas como los modelos lineales por ejemplo.
-
-La idea es que cada observación pueda contener en alguna variable un conjunto de otras variables o componentes de una lista.
-
-Las funciones que realizan el trabajo de anidar y desanidar son:  **nest()** y **unnest()**.
-]
-
----
-## Tablas anidadas (columnas-listas)
-
-.font140[
-
-```r
-datos %&gt;% 
-  group_by(pais) %&gt;% 
-  nest()
-```
-]
-
-.pull-left[
-
-```
-## # A tibble: 6 x 4
-##   pais        anio  casos  poblacion
-##   &lt;chr&gt;      &lt;int&gt;  &lt;int&gt;      &lt;int&gt;
-## 1 Afganistán  1999    745   19987071
-## 2 Afganistán  2000   2666   20595360
-## 3 Brasil      1999  37737  172006362
-## 4 Brasil      2000  80488  174504898
-## 5 China       1999 212258 1272915272
-## 6 China       2000 213766 1280428583
-```
-]
-
-
-.pull-right[
-
-```
-## # A tibble: 3 x 2
-## # Groups:   pais [3]
-##   pais       data                
-##   &lt;chr&gt;      &lt;list&gt;              
-## 1 Afganistán &lt;tibble[,3] [2 x 3]&gt;
-## 2 Brasil     &lt;tibble[,3] [2 x 3]&gt;
-## 3 China      &lt;tibble[,3] [2 x 3]&gt;
-```
-]
-
----
-class: center, middle, inverse, hide-logo
-
-## Volvemos por última vez al script practica8.R 
-
-## Trabajamos con las funciones nest() y unnest().
-
----
-background-image: url(assets/pivoting.svg) 
-background-size: 750px
-background-position: 50% 55%
-
-## Mapa conceptual sobre pivoteo...
-
-.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+## Trabajamos con las funciones vistas en las diapositivas.
 
 ---
 class: middle
@@ -646,7 +344,7 @@ background-position: 50% 10%
 
 ## Para profundizar...
 
-.font150[Capítulo 12 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/datos-ordenados.html]
+.font150[Capítulo 13 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/datos-relacionales.html]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
