@@ -1,0 +1,209 @@
+---
+title: "Lectura de datos"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro10
+
+---
+.font150[ 
+<br>
+- En el mundo informático existen numerosos formatos de archivos de tablas / base de datos.
+
+- El lenguaje R permite importar y exportar de una amplia variedad de formatos a partir de utilizar diferentes paquetes. Muchos de ellos pertenecientes al ecosistema **tidyverse**.
+
+- Hoy nos vamos a centrar en dos formatos básicos habituales donde tenemos almacenada comúnmente la información:
+  - Archivos **texto plano separados por comas** u otro caracter (extensiones .csv, .txt, etc)
+  - Archivos con formato **Excel** (.xls y .xlsx)]
+---
+class: left, middle
+
+background-image: url(assets/readr.png)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+<br> 
+<br> 
+<br> 
+<br> 
+El paquete **readr** se instala y activa cuando ejecutamos `library(tidyverse)`.
+
+- Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)
+
+- Sus funciones de lectura comienzan todas con **read_**
+
+- Sus funciones de escritura comienzan con **write_**
+
+]
+
+---
+## Lectura con funciones de readr
+.font140[ 
+La primera función de lectura que vamos a ver es `read_delim()`
+
+El estructura de esta función sirve de base para las demás.
+
+Sus principales argumentos son:
+
+- **file**: nombre del archivo
+
+- **delim**: caracter separador de columna
+
+- **col_names**: Valor lógico. Si es *TRUE* lee la primera fila como nombres de las variables. Si es *FALSE* no lo hace.
+
+- **skip**: número de líneas que saltea para comenzar a leer.
+
+]
+
+---
+## Lectura con funciones de readr
+.font140[ 
+Para archivos separados por comas en formato regional Estadounidense se utiliza la función `read_csv()`.
+
+Tiene la misma base de `read_delim()` con valor predeterminado en en el  argumento:
+
+- **delim**: separador coma ","
+
+```{r, eval=F}
+read_csv(file = "datos.csv")
+```
+
+
+]
+
+---
+## Lectura con funciones de readr
+.font140[ 
+Para archivos separados por comas en formato regional Español/Argentino se utiliza la función `read_csv2()`.
+
+Tiene la misma base de `read_delim()` con valor predeterminado en en el  argumento:
+
+- **delim**: separador punto y coma ";"
+
+```{r, eval=F}
+read_csv2(file = "datos.csv")
+```
+]
+---
+background-image: url(assets/Import.PNG)
+background-size: 950px
+background-position: 50% 50%
+
+## Herramienta de lectura de RStudio
+
+---
+class: left, middle
+
+background-image: url(assets/readxl.png)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+<br> 
+<br> 
+<br> 
+<br> 
+El paquete **readxl** se instala con tidyverse pero hay que activarlo aparte mediante `library(readxl)`.
+
+- Contiene funciones que permiten leer archivos de Microsoft Excel tan extendidos en nuestras oficinas.
+
+- La función comodín para leer, tanto formatos .xls como .xlsx, es `read_excel()`
+]
+---
+## Lectura con funciones de readxl
+.font140[ 
+La estructura de los argumentos de la función `read_excel()` es:
+
+
+- **path**: nombre del archivo
+
+- **sheet**: hoja del libro del archivo Excel
+
+- **range**: rango de celdas (opcional)
+
+- **col_names**: Valor lógico. Si es *TRUE* lee la primera fila como nombres de las variables. Si es *FALSE* no lo hace.
+
+- **skip**: número de líneas que saltea para comenzar a leer.
+
+]
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 11 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/importaci%C3%B3n-de-datos.html]
+
+---
+class:  middle
+
+.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1UQL4Sc8N_IX27Vz1gmJ3DYy9Rk6Nd32m/view?usp=sharing) de la web
+
+- Descomprimimos la carpeta con el proyecto practica10
+
+- Trabajamos siguiendo las consignas del práctico.
+]
