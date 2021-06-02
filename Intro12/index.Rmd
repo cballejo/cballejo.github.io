@@ -1,0 +1,98 @@
+---
+title: "Geo R"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro12
+
+---
+.font150[ 
+
+- Para el lenguaje R, todo caracter que se encuentre entre comillas es una
+cadena de caracteres (en inglés llamada **“string”**).
+
+- Las cadenas de caracteres pueden contener letras (**“a”**), números (**“1”**)
+y símbolos (**“&”**) o una combinación de todos ellos.
+
+- Esta sucesión de caracteres tiene forma de secuencia ordenada con
+longitud arbitraria, aunque finita de elementos.
+
+Ejemplos de datos tipo cadena regular:
+
+| Valores ejemplo             | Descripción      |
+|-----------------------------|------------------|
+| GAT-AAU-ATC-GAA             | Secuencia ADN    |
+| B18X - B181 - B188          | Códigos CIE10    |
+| 7600XAD - 7600XAE - 7600XAJ | Códigos postales |
+
+]
+---
+class:  middle
+## Practica 11
+.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1XkJj6DDap8ZP35da5GDv64RdGMv-2LGh/view?usp=sharing) de la web
+
+- Descomprimimos la carpeta con el proyecto practica11
+
+- Trabajamos siguiendo las consignas del práctico.
+]
