@@ -4,7 +4,7 @@
     <title>Geo R</title>
     <meta charset="utf-8" />
     <meta name="author" content="Christian Ballejo" />
-    <meta name="date" content="2021-06-01" />
+    <meta name="date" content="2021-06-02" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="animate.min.css" type="text/css" />
@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 
 # Geo R
 ### Christian Ballejo
-### 2021-06-01
+### 2021-06-02
 
 ---
 
@@ -56,34 +56,143 @@ class: inverse, hide-logo, center
 ## https: //cballejo.github.io/Intro12
 
 ---
+## Introducción
 .font150[ 
 
-- Para el lenguaje R, todo caracter que se encuentre entre comillas es una
-cadena de caracteres (en inglés llamada **“string”**).
+- El espacio geográfico en nuestro planeta es naturaleza modificada por la acción humana y por tanto una construcción social.
 
-- Las cadenas de caracteres pueden contener letras (**“a”**), números (**“1”**)
-y símbolos (**“&amp;”**) o una combinación de todos ellos.
+- Todo espacio geográfico poblacional, porta una historia ecológica, biológica, económica, conductual y cultural que se relaciona con la manera de enfermar.
 
-- Esta sucesión de caracteres tiene forma de secuencia ordenada con
-longitud arbitraria, aunque finita de elementos.
+- El abordaje de esta dimensión espacial abre otra perspectiva epidemiológica para comprender los procesos interactivos que envuelven al proceso salud-enfermedad en las poblaciones.
 
-Ejemplos de datos tipo cadena regular:
+- En la actualidad, a partir de los avances tecnológicos, los Sistemas Geográficos de Información (GIS en inglés) posibilitan un mejor estudio de las variables epidemiológicas de lugar.
 
-| Valores ejemplo             | Descripción      |
-|-----------------------------|------------------|
-| GAT-AAU-ATC-GAA             | Secuencia ADN    |
-| B18X - B181 - B188          | Códigos CIE10    |
-| 7600XAD - 7600XAE - 7600XAJ | Códigos postales |
+]
+---
+background-image: url(assets/Captura.PNG)
+background-size: 450px
+background-position: 80% 30%
+
+.pull-left[.font110[ 
+
+Estos avances tecnológicos aplicados a la geografía aportan a la **epidemiología satelital** y el uso de sensores remotos aplicados a salud, la **geografía medica** y los sistemas de información geográfica aplicados a salud, la **geología medica**, la **biometeorología**, la **ecología sanitario ambiental** y la **salud ambiental**, vinculo salud animal-salud humana y la gestión sanitario-ambiental, entre otras ramas.
+
+Todas ellas dan pie a nuevas áreas de estudio como la **eco-epidemiología**,  la **epidemiología panorámica** (landscape epidemiology) o sus sinónimos **epidemiología de paisajes** o **epidemiología paisajística**.
+]
+*__Epidemiología panorámica:  introducción al uso de herramientas geoespaciales aplicadas a la salud publica__ / Camilo Hugo Rotela ... [et.al.] ; con colaboración de Mabel Moral ...[et.al.]. - 1a ed. - Ciudad Autónoma de Buenos Aires : Comisión Nacional de Actividades Espaciales; Ministerio de Planificación Federal Inversión Pública y Servicios Ministerio de Salud de la Nación. Dirección de Epidemiologia., 2014*
+]
+---
+background-image: url(assets/Datos.PNG)
+background-size: 680px
+background-position: 50% 90%
+
+## Elementos de la cartografía digital
+
+.font140[
+**DATOS GEOGRÁFICOS**, los definimos como entidades espacio–temporales que cuantifican la distribución, el estado y los vínculos de distintos objetos y fenómenos, naturales y sociales.
+
+Estos datos espaciales digitales tienen:
+]
+
+---
+background-image: url(assets/coordenadas.PNG)
+background-size: 450px
+background-position: 80% 40%
+
+## Coordenadas y proyección
+
+.pull-left[.font110[ 
+
+**COORDENADAS GEÓGRAFICAS**, sistema de referencia que permite que cada ubicación en la Tierra sea especificada por un conjunto de números. 
+
+**LATITUD**, ángulo entre el plano ecuatorial y la línea que pasa por un punto y el centro de la Tierra.
+
+**LONGITUD**, ángulo entre el meridiano de referencia y el meridiano que pasa por un punto.
+
+**MERIDIANO DE REFERENCIA**, meridiano que pasa por el *Real Observatorio de Greenwich* al sureste de Londres, Inglaterra.
+
+]]
+---
+background-image: url(assets/proyeccion_arg.PNG)
+background-size: 1000px
+background-position: 40% 50%
+
+## Coordenadas y proyección en Argentina
+---
+background-image: url(assets/modelos.PNG)
+background-size: 900px
+background-position: 40% 50%
+
+## Modelos de datos geográficos digitales
+---
+background-image: url(assets/modelos2.PNG)
+background-size: 280px
+background-position: 80% 90%
+
+## Clases espaciales en R
+
+.font140[
+**rgdal** es la interface con libreria GDAL para datos espaciales .
+**Geospatial Data Abstraction Library** (también conocida como **GDAL/OGR**) es una biblioteca de software para la lectura y escritura de formatos de datos geoespaciales, publicada bajo la *MIT License* por la fundación geoespacial de código abierto (*Open Source Geospatial Foundation*).
+]
+.pull-left[.font130[
+- **sp**: clase espacial para los dos modelos, mejor para vectoriales
+
+- **sf**: clase espacial para vectoriales
+
+- **raster**: clase espacial para raster
+]
+]
+
+---
+background-image: url(assets/archivos.PNG)
+background-size: 700px
+background-position: 50% 60%
+
+
+## Archivos de datos espaciales
+
+.font140[
+Entre los 73 formatos aceptados por las librerías rgdal podemos resaltar:
+]
+
+---
+
+## Paquete sf
+
+.font130[
+El modelo geométrico de **sf (simple feature)** es un estándar de código abierto desarrollado y respaldado por el *Open Geospatial Consortium* (OGC) para representar una amplia gama de información geográfica.
+
+En R, los **objetos sf** tiene formato más sencillo que los **sp**, dado que se almacenan en una tabla (dataframe), en la cual los datos geográficos ocupan una columna especial, que contiene una lista. Esta columna generalmente se llama ”geom” o ”geometry”.
+
+Dependiendo del tipo de información existen diferentes clases de objetos espaciales: 
+
+- Las clases Point y Multipoint, Linestring y Multilinestring y las clases Polygon y Multipolygon permiten manejar respectivamente coberturas de puntos, líneas y polígonos. 
+
+- La clase Geometrycollection permite juntar, en un mismo objeto, diferentes geometrías.
+
+]
+---
+## Código EPSG
+
+.font130[
+El código **epsg** recibe su nombre **European Petroleum Survey Groupo EPSG (1986 – 2005)** que ya no existe. El estándar lo mantiene actualmente la **International Association of Oil and Gas Producers Surveying and Positioning Committee (OGP)**. https://epsg.io/  - http://spatialreference.org/ 
+
+Un código epsg se refiere a un solo sistema de referencia de coordenadas bien definido. Este sistema de codificación es ampliamente adoptado por el comunidad geoespacial, por lo que si obtiene datos XY con un código epsg existente, puede dibujar fácilmente sus datos en el mapa, en R o en cualquier otro sistema SIG para el caso.
+
+El código epsg más utilizado universalmente es el **4326** que refiere al sistema de coordenadas **WGS 84 (World Geodetic System 1984)**, en el que se basa todo el sistema de GPS en el mundo.
+
+En Argentina, el estándar actual (desde 2009) es el POSGAR 07, basado en WGS 84.Su código epsg es el 5340. 
 
 ]
 ---
 class:  middle
-## Practica 11
-.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1XkJj6DDap8ZP35da5GDv64RdGMv-2LGh/view?usp=sharing) de la web
+## Practica 12 - Geo R - Parte 1
+.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1WCzULazygUlWa5qUdqL_YW6cia-qrae1/view?usp=sharing) de la web
 
-- Descomprimimos la carpeta con el proyecto practica11
+- Descomprimimos la carpeta con el proyecto Geo R
 
-- Trabajamos siguiendo las consignas del práctico.
+- Ejecutamos las líneas del script guiado.
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
