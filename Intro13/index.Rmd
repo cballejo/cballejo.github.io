@@ -72,7 +72,7 @@ class: inverse, hide-logo, center
 
 - Las variables de tiempo pueden estar expresadas en diferentes unidades y formatos (fecha, hora, dia, mes, año, etc...)
 
-- Las fechas y las horas son complicadas porque tienen que reconciliar dos fenómenos físicos (la rotación de la Tierra y su órbita alrededor del sol), con todo un conjunto de fenómenos geopolíticos que incluyen formatos distintos (dd/mm/aaaa - mm/dd/aaaa), los husos horarios y los horarios de verano (en algunas ocasiones).
+- Las fechas y las horas son complicadas porque tienen que reconciliar dos *fenómenos físicos* (la rotación de la Tierra y su órbita alrededor del sol), con todo un conjunto de *fenómenos geopolíticos* que incluyen: formatos distintos (dd/mm/aaaa - mm/dd/aaaa), husos horarios y horarios de verano (en algunas ocasiones y países).
 
 - Para pensar lo complejo del asunto contestemos estas preguntas:
 
