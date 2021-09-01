@@ -1,0 +1,219 @@
+---
+title: "Comunicar con R y RStudio"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '2021-09-02'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+
+# Diapositivas
+
+<br> 
+<br> 
+
+## https: //cballejo.github.io/Intro15
+
+---
+class: left
+background-image: url(assets/Captura1.PNG)
+background-size: 850px
+background-position: 50% 60%
+
+## Comunicar como parte del proceso del análisis
+
+---
+class: left
+background-image: url(assets/Captura2.PNG)
+background-size: 700px
+background-position: 50% 60%
+
+## Productos de RStudio
+
+---
+class: left
+background-image: url(assets/Captura3.PNG)
+background-size: 700px
+background-position: 50% 70%
+
+## Investigación reproducible
+
+.font150[
+Se encuadra en el paradigma de la **investigación reproducible** y la **programación literal**, que es adoptada por una creciente cantidad de revistas científicas internacionales.
+]
+---
+## Programación literaria o literal (Literate Programming)
+
+.font150[
+- La idea original proviene de Don Knuth
+
+- Un artículo es un flujo de texto y código
+
+- El código del análisis se divide en texto y porciones de código “chunks”
+
+- El código de la presentación da formato a los resultados (tablas, figuras, etc)
+
+- El texto del artículo explica lo que está sucediendo en el análisis
+
+- Los programas literarios se tejen para producir documentos legibles 
+
+En definitiva, la programación literaria mezcla:
+
+- Un lenguaje de documentación
+- Un lenguaje de programación
+]
+
+---
+class: left
+background-image: url(assets/Captura4.PNG) 
+background-size: 300px
+background-position: 50% 90%
+
+## R Notebook (cuadernos de RStudio)
+
+.font150[
+Los **Notebook** son un método de programación literal que permite la interacción directa con código R mientras se produce un documento reproducible con buenos resultados de calidad (para publicación). 
+
+Se puede publicar y compartir directamente , o procesarlo mediante el paquete knitr (tejer) convirtiendo la salida en unos de los formato de publicación soportado.
+]
+---
+background-image: url(assets/Captura5.PNG) 
+background-size: 750px
+background-position: 50% 50%
+
+## Flujo de trabajo
+---
+
+class: left
+
+## Markdown
+
+.font150[
+**Markdown** es un lenguaje de marcas ligero que trata de conseguir la máxima legibilidad y “publicabilidad” .
+
+Se ubica en el grupo de los lenguajes de marcas como HTML, XML, entre otros, aunque es mucho más sencillo de utilizar.
+
+Viene soportado por RStudio, tanto para sus Notebooks como para documentos R Makdown y presentaciones (slides)
+
+Luego se conecta con el convertidor de documentos universal Pandoc (http://pandoc.org/) para transformarse en formatos html (web), pdf o Word. 
+]
+
+---
+background-image: url(assets/Captura6.PNG) 
+background-size: 400px
+background-position: 80% 50%
+
+## YAML
+
+.code[.font140[
+RStudio incorpora un encabezado construido en **lenguaje YAML** en los archivos R Markdown para indicarle a Pandoc que tipo de documento queremos construir.
+
+Un encabezado YAML es un conjunto de pares clave:valor al comienzo del archivo. Siempre comienza y termina con tres rayas (- - -)
+
+YAML es el acrónico recursivo de **“YAML Aint Markup Language”**, es un lenguaje de estructuración de datos sencillo.
+
+]]
+
+---
+background-image: url(assets/Captura7.PNG) 
+background-size: 600px
+background-position: 50% 80%
+
+## knitr
+
+.font150[
+**knitr** es una herramienta para la generación de informes dinámico en R (integrada en Rstudio). 
+
+Es un paquete de R (disponible en CRAN) que permite integrar código y sus salidas en documentos **Latex** y **HTML**, entre otros formatos conocidos.
+
+El propósito de knitr es dar espacio a la reproducibilidad de investigación en R a través de Programación Literaria (código, salida y documentación en la misma salida)
+
+]
+
+---
+
+## Elementos que se pueden integrar
+
+.font150[
+- Lenguaje hmtl o latex (dependiendo la salida final)
+- Tablas con estilos diferentes  (https://www.tablesgenerator.com) 
+- Figuras importadas (archivos jpg o png)
+- Formatos con estilos predefinidos (mediante plantillas – paquetes como rticules por ejemplo.)
+- Citas bibliográficas
+- Índices (marcadores para PDF’s)
+
+Resultados de fragmentos de código R
+
+- Resultados entre líneas de texto
+- Tablas 
+- Resúmenes de modelos estadísticos
+- Gráficos y mapas estáticos
+- Gráficos y mapas interactivos (en formato Html)
+
+
+]
+
+---
+
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 26 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/introducci%C3%B3n-18.html)]
+
+
+
+
