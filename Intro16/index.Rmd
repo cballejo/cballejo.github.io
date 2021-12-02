@@ -1,0 +1,205 @@
+---
+title: "Extensiones de ggplot2"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '2021-12-02'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+
+# Diapositivas
+
+<br> 
+<br> 
+
+## https: //cballejo.github.io/Intro16
+
+---
+
+## Temario
+
+.font150[
+En este encuentro vamos a ver algunos gráficos útiles como extensiones del paquete ggplot2.
+
+- Gráficos de mosaico 
+
+- Gráficos waffle 
+
+- Gráficos Gantt 
+
+- Gráficos múltiples 
+]
+---
+## Gráficos de mosaico
+
+.font120[
+Los gráficos de mosaico son usados para mostrar la relación entre variables discretas/cualitativas.
+]
+
+.code[
+```{r, echo=F, warning=F, message=F}
+library(tidyverse)
+library(treemapify)
+library(titanic)
+library(kableExtra)
+
+titanic_train %>% select(Survived, Pclass, Sex) %>% 
+  mutate(Survived = if_else(Survived == 0, "No", "Si"),
+         Sobrevivio = factor(Survived),
+         Pclass = factor(Pclass),
+         Sex = if_else(Sex == "male", "Varon", "Mujer"),
+         Sex = factor(Sex)) %>% 
+  count(Pclass, Sex, Sobrevivio) %>% kable() %>% 
+  kable_styling() %>% scroll_box(width = "500px", height = "400px")
+  
+```
+]
+
+.plot[
+```{r, echo=F, warning=F, message=F, fig.height=5}
+titanic_train %>% select(Survived, Pclass, Sex) %>% 
+  mutate(Survived = if_else(Survived == 0, "No", "Si"),
+         Sobrevivio = factor(Survived),
+         Pclass = factor(Pclass),
+         Sex = if_else(Sex == "male", "Varon", "Mujer"),
+         Sex = factor(Sex)) %>% 
+  count(Pclass, Sex, Sobrevivio) %>% 
+  ggplot(aes(area = n, fill =Sobrevivio, label = Sex, subgroup = Pclass)) +
+  geom_treemap() +
+  geom_treemap_text(colour = "white",
+                    place = "centre",
+                    size = 15) +
+  geom_treemap_subgroup_border(colour = "white", size = 5) +
+  geom_treemap_subgroup_text(place = "centre", grow = TRUE,
+                             alpha = 0.25, colour = "black",
+                             fontface = "italic") +
+  scale_fill_brewer(palette = "Set1")
+  
+
+```
+]
+
+---
+## Paquetes para gráficos de mosaico
+
+.font150[
+Mostraremos dos paquetes que permiten hacer ese tipo de gráficos.
+
+- ggmosaic (https://cran.r-project.org/web/packages/ggmosaic/)
+
+- treemapify (https://cran.r-project.org/web/packages/treemapify/) 
+]
+---
+class: left
+background-image: url(assets/waffle.PNG) 
+background-size: 960px
+background-position: 50% 70%
+
+## Gráficos waffles
+
+.font120[Los gráficos waffles permiten la visualización estéticamente atractiva de conteos de variables categóricas 
+]
+---
+## Paquete para gráficos waffle
+
+.font150[
+Mostraremos el paquete que permite hacer ese tipo de gráficos.
+
+- waffle (https://github.com/hrbrmstr/waffle/)
+
+]
+
+---
+class: left
+background-image: url(assets/gantt.PNG) 
+background-size: 700px
+background-position: 50% 80%
+
+## Gráficos de diagramas de Gantt
+
+.font120[
+El diagrama de Gantt es una herramienta de gestión que sirve para planificar y programar tareas a lo largo de un período determinado. También puede servir para mostrar el seguimiento de participantes en una cohorte.
+]
+
+---
+## Paquete para gráficos de Gantt
+
+.font150[
+Mostraremos el paquete que permite hacer ese tipo de gráficos.
+
+- ganttrify (https://github.com/giocomai/ganttrify)
+
+]
+
+---
+
+class: left
+background-image: url(assets/pw.PNG) 
+background-size: 800px
+background-position: 50% 80%
+
+## Gráficos múltiples
+
+.font120[
+El objetivo del paquete patchwork es hacer simple la combinación de gráficos ggplots individuales en un mismo gráfico
+]
+
+---
+## Paquete patchwork
+
+.font150[
+El paquete es similar a otros creados previamente como gridExtra y cowplot, pero tiene una mayor simpleza a la hora de construir combinaciones de gráficos. 
+
+- patchwork (https://github.com/thomasp85/patchwork - https://cran.r-project.org/web/packages/patchwork/index.html)
+
+]
