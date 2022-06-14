@@ -1,0 +1,177 @@
+---
+title: "Encuestas transversales"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '2022-06-15'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+
+# Diapositivas
+
+<br> 
+<br> 
+
+## https: //cballejo.github.io/EMSE
+
+---
+## Estudios transversales
+.font150[
+- Observacionales
+
+- Descriptivos
+
+- De base poblacional
+
+- Objetivo de estimación de parámetros poblacionales de variables de salud, factores de riesgo y daños a la salud.
+
+- Llamados también encuestas transversales o de prevalencia. 
+
+]
+---
+## Población y muestra
+
+.font140[
+- Definir claramente la población de referencia 
+
+- Conocer el marco muestral
+
+- Definir las variables de interés
+
+- Decidir el tamaño muestral conforme al tipo de muestreo probabilístico propuesto
+
+- Decidir cómo se seleccionarán los sujetos para la investigación (unidades de análisis)
+
+- Calcular qué incertidumbre le imprime este “muestreo” a nuestra estimación
+]
+
+
+---
+## Algunas definiciones
+
+.font150[
+**MUESTREO:** Es un conjunto de métodos y procedimientos estadísticos destinados a la selección de una o mas muestras. El objetivo principal de un diseño de muestreo es
+proporcionar procedimientos para la selección de muestras que sean representativas de la población en estudio.
+
+**MARCO MUESTRAL:** Es la totalidad de unidades de muestreo de la que se selecciona una muestra. El marco puede ser una lista de personas, o unidades de vivienda, hogares, escuelas, etc.
+
+**MUESTRA PROBABILÍSTICA:** Es aquella muestra obtenida por un mecanismo de probabilidades, en el cual cada elemento de la población total o universo tiene una probabilidad conocida de selección.  
+]
+---
+## Algunas definiciones
+
+.font150[
+**CONGLOMERADO:** Es una subpoblación que reúne características presentes en la población. Los elementos que la componen poseen cierta característica que les hace ser propios de cierta cualidad o atributo, tal como lugar geográfico, grupo étnico, ideología, organización social, etc.
+
+**ESTRATO:** Es una subpoblación o parte de una población que reúne características comunes que le hacen ser homogénea. Los estratos son mutuamente excluyentes. Ello significa que los elementos que pertenecen a un estrato no pueden pertenecer a otro.
+
+**FACTOR DE EXPANSIÓN:**  se interpreta como la cantidad de personas en la población, que representa una persona en la muestra. 
+]
+---
+## EMSE 2018
+
+.font150[
+- Tercera Encuesta Mundial de Salud Escolar (EMSE 2018) 
+
+- Objetivo de proporcionar datos precisos sobre comportamientos relativos a la salud y los factores de riesgo y de protección entre estudiantes de Argentina para: diseñar estrategias sanitarias, establecer prioridades y formular políticas de salud escolar y adolescentes.
+
+- Utiliza una metodología estandarizada a nivel mundial para monitorear la prevalencia de comportamientos de riesgo para la salud y factores de protección más importantes entre los adolescentes.
+]
+
+---
+## EMSE 2018
+
+.font150[
+- Llevada a cabo por el Ministerio de Salud y Desarrollo Social de la Nación, contó con la colaboración de los Ministerios de Educación Nacional y Provinciales, la OPS/OMS Argentina, OPS/OMS Washington y el CDC.
+
+- Diseño de muestreo en dos etapas (selección de escuelas y luego de divisiones al azar) para producir una muestra representativa de alumnos de 1º a 5º año de educación media a nivel nacional (8º EGB a 3º polimodal en el caso de la provincia de Buenos Aires) y provincial. Se relevaron 523 escuelas en todo el país y se encuestaron 57.095 alumnos de los cuales se analizaron 56.981 cuestionarios correspondientes a las edades de 13 a 17 años, con una tasa de respuesta global de 63%.
+
+
+]
+
+---
+## Enlace oficial a descarga de la EMSE 2018
+
+.font150[
+<br> 
+<br> 
+[Datos abiertos Ministerio de Salud](http://datos.salud.gob.ar/dataset/base-de-datos-de-la-3-encuesta-mundial-de-salud-escolar-emse-con-resultados-nacionales-argentina)
+
+]
+---
+background-image: url(assets/Encuesta1.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+
+background-image: url(assets/Encuesta2.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+background-image: url(assets/Encuesta3.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+background-image: url(assets/Encuesta4.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+background-image: url(assets/Encuesta5.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+
