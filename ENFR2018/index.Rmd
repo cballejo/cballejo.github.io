@@ -1,0 +1,129 @@
+---
+title: "ENFR 2018"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '2022-06-22'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+
+# Diapositivas
+
+<br> 
+<br> 
+
+## https: //cballejo.github.io/ENFR2018
+
+---
+## ENFR 2018
+.font150[
+- 4ta. Encuesta Nacional de Factores de Riesgo
+
+- Llevada a cabo por el INDEC y el Ministerio de Salud
+
+- Continuación de las tres anteriores (2005-2009-2013)
+
+- Base poblacional
+
+- Incorpora por primera vez submuestras con mediciones objetivas físicas y bioquímicas.
+
+]
+---
+
+background-image: url(assets/Captura1.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+
+background-image: url(assets/Captura3.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+## Enlace oficial a descarga de la ENFR 2018
+
+.font150[
+<br> 
+<br> 
+[Acceso a Bases de Datos INDEC](https://www.indec.gob.ar/indec/web/Institucional-Indec-BasesDeDatos-2)
+
+]
+
+---
+
+background-image: url(assets/Captura2.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+
+background-image: url(assets/Captura4.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+
+background-image: url(assets/Captura5.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+## Proyecto R para trabajar
+
+.font150[
+<br> 
+<br> 
+[Análisis de ENFR2018](https://drive.google.com/file/d/1eMXWuwh1CiOIS2IoH_QaqJ-qHrs_-bam/view?usp=sharing)
+
+]
