@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Predicciones y validación de modelos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <meta name="date" content="2022-11-22" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Predicciones y validación de modelos
+]
+.author[
+### Christian Ballejo
+]
+.date[
+### 2022-11-22
+]
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+## Temas
+.font150[ 
+
+- Dataset Titanic 
+
+- Interpretación de modelos con interacciones
+
+- Modelos logísticos para predicción: clasificación
+
+- Matriz de confusión y métricas
+
+- Curvas ROC: Umbrales (threshold) 
+
+- Tidymodels: framework para modelado en machine learning
+
+- Validación cruzada (bootstrapping)
+
+]
+---
+background-image: url(assets/Titanic.jpg)
+background-size: 700px
+background-position: 50% 70%
+
+## Dataset Titanic
+---
+## Dataset Titanic
+
+.font150[
+Diccionario de datos
+]
+
+.font140[
+- survival: Superviviente
+- pclass: Clase de ticket 
+- sex: Sexo
+- Age: Edad en años
+- sibsp: nro. de hermanos/cónyuges a bordo 
+- parch: nro. de padres/hijos a bordo 
+- ticket: Número de ticket 
+- fare: Tarifa de pasaje
+- cabin: Número de cabina
+- embarked: Puerto de embarcado
+]
+---
+## Interacción
+.font140[
+Existe interacción cuando la asociación entre dos variables varía según los diferentes niveles de otra u otras variables.
+
+- Se la conoce también como **_modificadora de efecto_**.
+
+- Se identifica en tablas bivariadas con **estratificación** o en modelos multivariados con relaciones **multiplicativas** entre variables.
+
+- Cuando la interacción es significativa, no se puede hablar del efecto de una variable sin tener en cuenta el efecto de la otra.
+
+- Los gráficos pueden ayudar al entendimiento cuando comunicamos.
+]
+---
+## Interacción en modelo Titanic
+
+### Análisis bivariado estratificado
+
+- Abordaje con tablas de contingencia estratificadas (Mantel-Haenszel)
+
+- Test de homogeneidad (Woolf, Breslow-Day, etc)
+
+
+```
+## $`1`
+##           survived           
+##     sex         Si         No
+##  female 96.4% (80)  3.6%  (3)
+##    male 39.6% (40) 60.4% (61)
+## 
+## $`2`
+##           survived           
+##     sex         Si         No
+##  female 91.9% (68)  8.1%  (6)
+##    male 15.2% (15) 84.8% (84)
+## 
+## $`3`
+##           survived            
+##     sex         Si          No
+##  female 46.1% (47) 53.9%  (55)
+##    male 15.0% (38) 85.0% (215)
+```
+
+
+---
+## Interacción en modelo Titanic
+
+### Análisis bivariado estratificado
+
+
+```r
+library(epiR)
+
+epi.2by2(tabla, method = "case.control")
+```
+
+
+```
+##              Outcome +    Outcome -      Total        Prevalence *        Odds
+## Exposed +          195           64        259                75.3       3.047
+## Exposed -           93          360        453                20.5       0.258
+## Total              288          424        712                40.4       0.679
+## 
+## Point estimates and 95% CIs:
+## -------------------------------------------------------------------
+## Odds ratio (crude)                             11.79 (8.20, 16.95)
+## Odds ratio (M-H)                               12.47 (8.40, 18.51)
+## Odds ratio (crude:M-H)                         0.95
+## Attrib fraction (est) in the exposed (%)      0.92 (0.88, 0.94)
+## Attrib fraction (est) in the population (%) * 0.62 (0.59, 0.65)
+## -------------------------------------------------------------------
+##  Woolf test of homogeneity of ORs: chi2(2) = 24.868 Pr&gt;chi2 = &lt;0.001
+##  Test that M-H adjusted OR = 1:  chi2(1) = 191.033 Pr&gt;chi2 = &lt;0.001
+##  Wald confidence limits
+##  M-H: Mantel-Haenszel; CI: confidence interval
+##  * Outcomes per 100 population units
+```
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado 
+
+Modelo sin interacción
+$$
+`\begin{aligned}
+\log\left[ \frac { P( survived = Si ) }{ 1 - P( survived = Si ) } \right] &amp;= \alpha + \beta_{1}({\color{firebrick}{age}}) + \beta_{2}({\color{blue}{sex}}_{female})\ + \\
+&amp;\quad \beta_{3}({\color{green}{pclass}}_{2}) + \beta_{4}({\color{green}{pclass}}_{1})
+\end{aligned}`
+$$
+
+Modelo con interacción
+
+$$
+`\begin{aligned}
+\log\left[ \frac { P( survived = Si ) }{ 1 - P( survived = Si ) } \right] &amp;= \alpha + \beta_{1}({\color{firebrick}{age}}) + \beta_{2}({\color{blue}{sex}}_{female})\ + \\
+&amp;\quad \beta_{3}({\color{green}{pclass}}_{2}) + \beta_{4}({\color{green}{pclass}}_{1}) + \beta_{5}({\color{blue}{sex}}_{female} \times {\color{green}{pclass}}_{2})\ + \\
+&amp;\quad \beta_{6}({\color{blue}{sex}}_{female} \times {\color{green}{pclass}}_{1})
+\end{aligned}`
+$$
+
+
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Odds ratio
+
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;survived&lt;/th&gt;
+&lt;th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;survived&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Odds Ratios&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;CI&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;p&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Odds Ratios&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;CI&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  col7"&gt;p&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.27&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.16&amp;nbsp;&amp;ndash;&amp;nbsp;0.43&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.49&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.30&amp;nbsp;&amp;ndash;&amp;nbsp;0.82&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;0.006&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;age&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.96&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.95&amp;nbsp;&amp;ndash;&amp;nbsp;0.98&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.96&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.94&amp;nbsp;&amp;ndash;&amp;nbsp;0.97&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sex [female]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;12.35&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.29&amp;nbsp;&amp;ndash;&amp;nbsp;18.73&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;4.25&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.50&amp;nbsp;&amp;ndash;&amp;nbsp;7.28&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;pclass [2]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;3.57&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.22&amp;nbsp;&amp;ndash;&amp;nbsp;5.78&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.16&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.58&amp;nbsp;&amp;ndash;&amp;nbsp;2.21&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;0.663&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;pclass [1]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;13.10&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;7.64&amp;nbsp;&amp;ndash;&amp;nbsp;23.07&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;7.23&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;3.97&amp;nbsp;&amp;ndash;&amp;nbsp;13.42&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sex [female] * pclass [2]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;17.51&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;5.79&amp;nbsp;&amp;ndash;&amp;nbsp;59.88&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sex [female] * pclass [1]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.57&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.52&amp;nbsp;&amp;ndash;&amp;nbsp;40.04&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;0.002&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;712&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;712&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Tjur&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;0.400&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;0.432&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;AIC&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;656.691&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;627.160&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+&lt;br&gt;
+.font130[
+1. Se aplican y suman los coeficientes obtenidos en el modelo a los valores posibles de las variables predictoras (incluido el intercepto)
+]
+&lt;br&gt;
+
+`$$ln(Odds) = \alpha + \sum \beta_ix_i$$`
+
+&lt;br&gt;
+
+$$
+`\begin{aligned}
+\log\left[ \frac { \widehat{P( \operatorname{survived} = \operatorname{Si} )} }{ 1 - \widehat{P( \operatorname{survived} = \operatorname{Si} )} } \right] &amp;= -0.7 - 0.04({\color{firebrick}{\operatorname{age}}}) + 1.45({\color{blue}{\operatorname{sex}}}_{\operatorname{female}}) + 0.15({\color{green}{\operatorname{pclass}}}_{\operatorname{2}})\ + \\
+&amp;\quad 1.98({\color{green}{\operatorname{pclass}}}_{\operatorname{1}}) + 2.86({\color{blue}{\operatorname{sex}}}_{\operatorname{female}} \times {\color{green}{\operatorname{pclass}}}_{\operatorname{2}}) + 2.15({\color{blue}{\operatorname{sex}}}_{\operatorname{female}} \times {\color{green}{\operatorname{pclass}}}_{\operatorname{1}})
+\end{aligned}`
+$$
+
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+
+.font130[
+2. Se calculan los Odds, exponenciando el resultado anterior (logit).
+&lt;br&gt;
+$$Odds = exp(ln(Odds))  $$
+&lt;br&gt;
+Ejemplo: pasajero varón de 30 años que viaja en 3ra clase
+
+`$$ln(Odds) = -0.7 - 0.04*30 +1.45*0+0.14*0+1.98*0+2.86*0+2.14*0$$`
+`$$ln(Odds) = -0.7 - 0.04*30$$`
+`$$exp(ln(Odds)) = 0.15$$`
+]
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+&lt;br&gt;
+.font130[
+3. Se calculan probabilidades a partir de los Odds
+&lt;br&gt;
+$$P =\frac{Odds}{1 + Odds} $$
+Ejemplo: probabilidad de sobrevivir de un pasajero varón de 30 años que viaja en 3ra clase
+
+$$P = \frac{0.15}{1 + 0.15} = 0.13 = 13 \% $$
+
+]
+---
+background-image: url(assets/int1.svg)
+background-size: 700px
+background-position: 50% 85%
+
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Probabilidades en forma gráfica
+
+---
+background-image: url(assets/int2.svg)
+background-size: 700px
+background-position: 50% 85%
+
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Probabilidades en forma gráfica
+
+---
+## Modelos logísticos para predicción: clasificación
+&lt;br&gt;
+.font140[
+- Modelo de clasificación binaria (estadística)
+
+- Algoritmo supervisado de clasificación (machine learning)
+
+- La finalidad última del modelo es predecir la variable respuesta en observaciones que el modelo no ha “visto” antes. (generalmente una aplicación futura)
+
+- Se puede optimizar el umbral de decisión. 
+
+- Cuidado con el sobreajuste (overfitting)
+]
+
+---
+background-image: url(assets/matrix_confusion.PNG)
+background-size: 750px
+background-position: 50% 55%
+
+## Matriz de confusión y métricas
+
+---
+background-image: url(assets/precision_exactitud.PNG)
+background-size: 800px
+background-position: 50% 60%
+
+## Métricas: exactitud y precisión
+
+---
+background-image: url(assets/Roc_curve.svg)
+background-size: 450px
+background-position: 50% 65%
+
+## Métricas: Curva ROC
+---
+background-image: url(assets/overfitting.PNG)
+background-size: 450px
+background-position: 50% 90%
+## Sobreajuste (Overfitting)
+
+.font130[
+El sobreajuste es un error de modelado que ocurre cuando una función está demasiado alineada con un conjunto limitado de datos. Como resultado, el modelo es útil solo al conjunto de datos utilizado para su construcción y no a ningún otro conjunto de datos.
+
+
+- Los modelos de regresión logística tienden a sobreajustar los datos, particularmente en configuraciones con muchos predictores (alta dimensión)
+- Detección: el error del modelo en el conjunto de prueba es mayor al error en el conjunto de entrenamiento.
+- Solución: Tener en cuenta la parsimonia en la construcción de modelos y obtener métricas con validación cruzada. Otros métodos: reducción de la dimensionalidad, regularización, etc.
+]
+
+
+---
+background-image: url(assets/tidymodels.svg)
+background-size: 100px
+background-position: 80% 5%
+
+## Tidymodels
+
+&lt;br&gt;
+&lt;br&gt;
+
+.font150[
+El framework tidymodels es una colección de paquetes para modelado y aprendizaje automático utilizando los principios de tidyverse.
+
+- El núcleo de tidymodels activa a los siguientes paquetes: broom, *dials*, dplyr, ggplot2, **_infer_**, *modeldata*, **_parsnip_**, purrr, **_recipes_**, **_rsample_**, tibble, tidyr, *tune*, **_workflows_**, *workflowsets* y **_yardstick_**. 
+
+- Existen muchos otros más, de aplicación específica, como: *tidypredict*, **_probably_**, *tidyposterior*, *multilevelmod*, etc.
+]
+
+
+---
+background-image: url(assets/recipes.svg)
+background-size: 100px
+background-position: 80% 5%
+## Preproceso (feature engineering)
+
+.font130[
+- En estadística se conoce como **preproceso** y en el lado más informático del modelado, se lo conoce como **feature engineering**.
+
+- Incluye la selección y transformación individual de variables predictoras o grupos de variables.
+
+- Estrategias de imputación de datos en valores perdidos u omisión de los mismos.
+
+- Conversiones de escalas (logaritmo, BoxCox, etc), centrado, escalado, etc... en variables cuantitativas.
+
+- Creación de variables dummy, fusión de categorías infrecuentes, ordenado de niveles de factores, etc... en variables cualitativas.
+
+- Más complejo, en modelos de machine learning, reducción de dimensiones (PCA, etc)
+]
+---
+background-image: url(assets/recipe_flow.png), url(assets/recipes.svg)
+background-size: 800px, 100px
+background-position: 50% 60%, 80% 5%
+
+## Uso de recipes
+
+---
+background-image: url(assets/parsnip.svg)
+background-size: 100px
+background-position: 80% 5%
+## Paquete parsnip
+
+.font130[
+- Una interfaz unificada de modelos 
+
+- **logistic_reg()** lleva a cabo una regresión logistica. Pero puede utilizar diferentes "motores" para el proceso.
+
+  - **glm** para modelos lineales generalizados
+  
+  - **glmnt** para modeloes de regresión regularizados 
+  
+  - **stan** para regresiones bayesianas
+  
+  - etc...
+
+
+- Cada tipo de modelo tiene su propia interfaz y recordarlas a todas es difícil, por ese motivo desarrollaron la interfaz de **parsnip**. 
+]
+---
+## Algunas convenciones en nombres de objetos
+
+Usaremos algunos sufijos que identifican bien a ciertos tipos de objetos
+
+- **_mod** para especificaciones de modelos de **parsnip**
+
+- **_fit** para modelos ajustados
+
+- **_rec** para recetas de **recipes**
+
+- **_boot** para remuestras por bootstraps
+
+- **_wfl** para worflow
+
+- **_res** para resultados en general
+
+- **mc_** para matrices de confusion
+
+---
+class: center
+## Axioma
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font180[
+Mejor modelo = mejores predicciones (menor tasa de error)
+]
+---
+class: inverse, hide-logo
+# Su turno 1
+
+---
+class: center
+## Axioma
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font180[
+La mejor manera de medir el rendimiento de un modelo para predecir nuevos datos es predecir nuevos datos.
+]
+
+
+---
+
+
+---
+background-image: url(assets/final.PNG) 
+background-size: 900px
+background-position: 50% 50%
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
