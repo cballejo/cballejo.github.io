@@ -1,9 +1,9 @@
 ---
-title: "Predicciones y validación de modelos"
+title: "Interacciones, predicciones y validación de modelos"
 subtitle: ""  
 author: 
-  - "Christian Ballejo"
-date: '2022-11-22'
+  - "Andrea Silva - Christian Ballejo"
+date: '22 de noviembre de 2022'
 output:
   xaringan::moon_reader:
     includes:
