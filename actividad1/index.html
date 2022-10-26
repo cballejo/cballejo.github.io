@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="author" content="Andrea Silva - Christian Ballejo" />
     <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="animate.min.css" type="text/css" />
     <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
@@ -173,26 +175,59 @@ epi.2by2(tabla, method = "case.control")
 
 ### Análisis multivariado 
 
+.font140[
+
 Modelo sin interacción
-$$
-`\begin{aligned}
-\log\left[ \frac { P( survived = Si ) }{ 1 - P( survived = Si ) } \right] &amp;= \alpha + \beta_{1}({\color{firebrick}{age}}) + \beta_{2}({\color{blue}{sex}}_{female})\ + \\
-&amp;\quad \beta_{3}({\color{green}{pclass}}_{2}) + \beta_{4}({\color{green}{pclass}}_{1})
-\end{aligned}`
-$$
-
-Modelo con interacción
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 
 $$
 `\begin{aligned}
 \log\left[ \frac { P( survived = Si ) }{ 1 - P( survived = Si ) } \right] &amp;= \alpha + \beta_{1}({\color{firebrick}{age}}) + \beta_{2}({\color{blue}{sex}}_{female})\ + \\
-&amp;\quad \beta_{3}({\color{green}{pclass}}_{2}) + \beta_{4}({\color{green}{pclass}}_{1}) + \beta_{5}({\color{blue}{sex}}_{female} \times {\color{green}{pclass}}_{2})\ + \\
-&amp;\quad \beta_{6}({\color{blue}{sex}}_{female} \times {\color{green}{pclass}}_{1})
+&amp;\quad \beta_{3}({\color{green}{pclass}}_{2}) + \beta_{4}({\color{green}{pclass}}_{1}) + \beta_{5}({\color{orange}{sibSp}})
 \end{aligned}`
 $$
+]
+---
+class: inverse, hide-logo
+# Su turno:
+&lt;br&gt;
+&lt;br&gt;
+.font160[
+- Construya el modelo con interacción (*mod_int*) entre sexo (*sex*) y clase (*pclass*).
+
+- Muestre el resumen con los coeficientes
+]
+
+<div class="countdown" id="timer_1991563b" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
 
 
 ---
+## Interacción en modelo Titanic
+
+### Análisis multivariado 
+
+.font140[
+
+Modelo con interacción
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+$$
+`\begin{aligned}
+\log\left[ \frac { P( survived = Si ) }{ 1 - P( survived = Si ) } \right] &amp;= \alpha + \beta_{1}({\color{firebrick}{age}}) + \beta_{2}({\color{blue}{sex}}_{female})\ + \\
+&amp;\quad \beta_{3}({\color{green}{pclass}}_{2}) + \beta_{4}({\color{green}{pclass}}_{1}) + \beta_{5}({\color{orange}{sibSp}})\ + \\
+&amp;\quad \beta_{6}({\color{blue}{sex}}_{female} \times {\color{green}{pclass}}_{2}) + \beta_{7}({\color{blue}{sex}}_{female} \times {\color{green}{pclass}}_{1})
+\end{aligned}`
+$$
+]
+---
+
 ## Interacción en modelo Titanic
 
 ### Análisis multivariado - Odds ratio
@@ -214,56 +249,65 @@ $$
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.27&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.16&amp;nbsp;&amp;ndash;&amp;nbsp;0.43&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.49&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.30&amp;nbsp;&amp;ndash;&amp;nbsp;0.82&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;0.006&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.39&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.23&amp;nbsp;&amp;ndash;&amp;nbsp;0.67&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.76&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.42&amp;nbsp;&amp;ndash;&amp;nbsp;1.34&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;0.338&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;age&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.96&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.95&amp;nbsp;&amp;ndash;&amp;nbsp;0.98&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.96&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.94&amp;nbsp;&amp;ndash;&amp;nbsp;0.97&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.95&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.93&amp;nbsp;&amp;ndash;&amp;nbsp;0.97&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sex [female]&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;12.35&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.29&amp;nbsp;&amp;ndash;&amp;nbsp;18.73&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;13.72&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;9.09&amp;nbsp;&amp;ndash;&amp;nbsp;21.14&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;4.25&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.50&amp;nbsp;&amp;ndash;&amp;nbsp;7.28&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;4.64&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.70&amp;nbsp;&amp;ndash;&amp;nbsp;8.05&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;pclass [2]&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;3.57&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.22&amp;nbsp;&amp;ndash;&amp;nbsp;5.78&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;3.45&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.14&amp;nbsp;&amp;ndash;&amp;nbsp;5.61&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.16&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.58&amp;nbsp;&amp;ndash;&amp;nbsp;2.21&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;0.663&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.56&amp;nbsp;&amp;ndash;&amp;nbsp;2.14&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;0.742&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;pclass [1]&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;13.10&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;7.64&amp;nbsp;&amp;ndash;&amp;nbsp;23.07&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;14.08&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.15&amp;nbsp;&amp;ndash;&amp;nbsp;25.04&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;7.23&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;3.97&amp;nbsp;&amp;ndash;&amp;nbsp;13.42&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.01&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;4.36&amp;nbsp;&amp;ndash;&amp;nbsp;15.02&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sibSp&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.68&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.54&amp;nbsp;&amp;ndash;&amp;nbsp;0.86&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.002&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.69&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.54&amp;nbsp;&amp;ndash;&amp;nbsp;0.86&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;0.002&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sex [female] * pclass [2]&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;17.51&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;5.79&amp;nbsp;&amp;ndash;&amp;nbsp;59.88&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;18.45&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;6.01&amp;nbsp;&amp;ndash;&amp;nbsp;64.05&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -271,8 +315,8 @@ $$
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.57&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.52&amp;nbsp;&amp;ndash;&amp;nbsp;40.04&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.83&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.57&amp;nbsp;&amp;ndash;&amp;nbsp;41.64&lt;/td&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;0.002&lt;/strong&gt;&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -281,14 +325,9 @@ $$
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;712&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Tjur&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;0.400&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;0.432&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
 &lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;AIC&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;656.691&lt;/td&gt;
-&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;627.160&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;648.040&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;618.324&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;/table&gt;
@@ -301,7 +340,7 @@ Presentación de resultados en forma de probabilidades predichas
 ]
 &lt;br&gt;
 .font130[
-1. Se aplican y suman los coeficientes obtenidos en el modelo a los valores posibles de las variables predictoras (incluido el intercepto)
+1.- Se aplican y suman los coeficientes obtenidos en el modelo a los valores posibles de las variables predictoras (incluido el intercepto)
 ]
 &lt;br&gt;
 
@@ -311,8 +350,8 @@ Presentación de resultados en forma de probabilidades predichas
 
 $$
 `\begin{aligned}
-\log\left[ \frac { \widehat{P( \operatorname{survived} = \operatorname{Si} )} }{ 1 - \widehat{P( \operatorname{survived} = \operatorname{Si} )} } \right] &amp;= -0.7 - 0.04({\color{firebrick}{\operatorname{age}}}) + 1.45({\color{blue}{\operatorname{sex}}}_{\operatorname{female}}) + 0.15({\color{green}{\operatorname{pclass}}}_{\operatorname{2}})\ + \\
-&amp;\quad 1.98({\color{green}{\operatorname{pclass}}}_{\operatorname{1}}) + 2.86({\color{blue}{\operatorname{sex}}}_{\operatorname{female}} \times {\color{green}{\operatorname{pclass}}}_{\operatorname{2}}) + 2.15({\color{blue}{\operatorname{sex}}}_{\operatorname{female}} \times {\color{green}{\operatorname{pclass}}}_{\operatorname{1}})
+\log\left[ \frac { \widehat{P( \operatorname{survived} = \operatorname{Si} )} }{ 1 - \widehat{P( \operatorname{survived} = \operatorname{Si} )} } \right] &amp;= -0.28 - 0.05({\color{firebrick}{\operatorname{age}}}) + 1.53({\color{blue}{\operatorname{sex}}}_{\operatorname{female}}) + 0.11({\color{green}{\operatorname{pclass}}}_{\operatorname{2}})\ + \\
+&amp;\quad 2.08({\color{green}{\operatorname{pclass}}}_{\operatorname{1}}) - 0.37({\color{orange}{\operatorname{sibSp}}}) + 2.91({\color{blue}{\operatorname{sex}}}_{\operatorname{female}} \times {\color{green}{\operatorname{pclass}}}_{\operatorname{2}}) + 2.18({\color{blue}{\operatorname{sex}}}_{\operatorname{female}} \times {\color{green}{\operatorname{pclass}}}_{\operatorname{1}})
 \end{aligned}`
 $$
 
@@ -323,16 +362,16 @@ $$
 Presentación de resultados en forma de probabilidades predichas
 ]
 
-.font130[
-2. Se calculan los Odds, exponenciando el resultado anterior (logit).
+.font120[
+2.- Se calculan los Odds, exponenciando el resultado anterior (logit).
 &lt;br&gt;
 $$Odds = exp(ln(Odds))  $$
 &lt;br&gt;
-Ejemplo: pasajero varón de 30 años que viaja en 3ra clase
+Ejemplo: pasajero varón de 30 años que viaja en 3ra clase y sin hermanos/conyuges a bordo
 
-`$$ln(Odds) = -0.7 - 0.04*30 +1.45*0+0.14*0+1.98*0+2.86*0+2.14*0$$`
-`$$ln(Odds) = -0.7 - 0.04*30$$`
-`$$exp(ln(Odds)) = 0.15$$`
+`$$ln(Odds) = -0.28 - 0.05*30 +1.53*0+0.11*0+2.1*0-0.37*0+2.91*0+2.18*0$$`
+`$$ln(Odds) = -0.28 - 0.05*30$$`
+`$$exp(ln(Odds)) = 0.16$$`
 ]
 ---
 ## Interacción
@@ -342,22 +381,50 @@ Presentación de resultados en forma de probabilidades predichas
 ]
 &lt;br&gt;
 .font130[
-3. Se calculan probabilidades a partir de los Odds
+3.- Se calculan probabilidades a partir de los Odds
 &lt;br&gt;
 $$P =\frac{Odds}{1 + Odds} $$
-Ejemplo: probabilidad de sobrevivir de un pasajero varón de 30 años que viaja en 3ra clase
+Seguimos con el ejemplo:
 
-$$P = \frac{0.15}{1 + 0.15} = 0.13 = 13 \% $$
+$$P = \frac{0.16}{1 + 0.16} = 0.14 = 14 \% $$
 
 ]
 ---
-background-image: url(assets/int1.svg)
-background-size: 700px
-background-position: 50% 85%
+class: inverse, hide-logo
+# Su turno:
+&lt;br&gt;
+&lt;br&gt;
+.font160[
+- A partir del modelo final con interacción, obtenga la probabilidad de sobrevivir en el Titanic de un hombre de 30 años que viaja en 3ra. clase sin hermanos/cónyuge a bordo.
 
+- Utilice la función *predict()*.
+]
+
+<div class="countdown" id="timer_a6b96053" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+background-image: url(assets/ggeffects.png)
+background-size: 100px
+background-position: 80% 5%
+
+## Paquete ggeffects()
+&lt;br&gt;
+.font150[
+El paquete tiene como objetivo calcular fácilmente predicciones ajustadas en valores representativos de covariables a partir de modelos estadísticos.
+
+- Admite numerosos modelos: *lm, glm, coxph, tidymodels*, etc.
+
+- Permite visualizar los resultados en forma gráfica.
+]
+---
 ## Interacción en modelo Titanic
 
 ### Análisis multivariado - Probabilidades en forma gráfica
+
+&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 background-image: url(assets/int2.svg)
@@ -398,12 +465,80 @@ background-position: 50% 60%
 ## Métricas: exactitud y precisión
 
 ---
+background-image: url(assets/mc_modelos_train.PNG)
+background-size: 750px
+background-position: 50% 25%
+## Matrices de confusión (Titanic)
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font120[
+**Modelo sin interacción**
+
+Exactitud = (361 + 212) / (361 + 212 + 78 + 63) = 0,80
+
+Precisión = 212 / (212 + 63) = 0,77
+
+**Modelo con interacción**
+
+Exactitud = (386 + 194) / (386 + 194 + 96 + 38) = 0,81
+
+Precisión = 194 / (194 + 38) = 0,84
+]
+---
+background-image: url(assets/mc_modelos_train.PNG)
+background-size: 750px
+background-position: 50% 25%
+## Matrices de confusión (Titanic)
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font120[
+**Modelo sin interacción**
+
+Sensibilidad = 212 / (212 + 78) = 0,73
+
+Especificidad = 361 / (361 + 63) = 0,85
+
+**Modelo con interacción**
+
+Sensibilidad =  194 / (194 + 96) = 0,67
+
+Especificidad = 386 / (386 + 38) = 0,91
+
+]
+---
 background-image: url(assets/Roc_curve.svg)
 background-size: 450px
 background-position: 50% 65%
 
 ## Métricas: Curva ROC
 ---
+background-image: url(assets/roc_modelos_train.PNG)
+background-size: 1100px
+background-position: 50% 60%
+## Curvas ROC y umbral optimo (Titanic)
+
+---
+background-image: url(assets/metricas_train.PNG)
+background-size: 1100px
+background-position: 50% 60%
+## Métricas entrenamiento (Titanic)
+
+---
+
 background-image: url(assets/overfitting.PNG)
 background-size: 450px
 background-position: 50% 90%
@@ -417,6 +552,13 @@ El sobreajuste es un error de modelado que ocurre cuando una función está dema
 - Detección: el error del modelo en el conjunto de prueba es mayor al error en el conjunto de entrenamiento.
 - Solución: Tener en cuenta la parsimonia en la construcción de modelos y obtener métricas con validación cruzada. Otros métodos: reducción de la dimensionalidad, regularización, etc.
 ]
+---
+background-image: url(assets/metricas_train_test.PNG)
+background-size: 1000px
+background-position: 50% 60%
+## Comparativa métricas
+
+---
 
 
 ---

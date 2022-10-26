@@ -168,7 +168,13 @@ epi.2by2(estratificada_tidy, method = "case.control")
 
 ### Análisis multivariado 
 
+.font140[
+
 Modelo sin interacción
+<br>
+<br>
+<br>
+
 ```{r, echo=F, message=F, warning=F}
 library(equatiomatic)
 
@@ -177,25 +183,52 @@ titanic <- titanic |>
          pclass = fct_relevel(pclass, "3", "2", "1"),
          sex = fct_relevel(sex, "male"))
 
-mod_sin_int <-  glm(survived ~ age + sex + pclass,
+mod_sin_int <-  glm(survived ~ age + sex + pclass + sibSp,
                     data = titanic, 
                     family = binomial)
 
-mod_int <- glm(survived ~ age + sex*pclass,
+mod_int <- glm(survived ~ age + sex*pclass + sibSp,
                data = titanic, 
                family = binomial)
 
-extract_eq(model = mod_sin_int, wrap = T, ital_vars = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green"), terms_per_line = 3)
+extract_eq(model = mod_sin_int, wrap = T, ital_vars = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green", "sibSp" = "orange"), terms_per_line = 3)
 ```
+]
+---
+class: inverse, hide-logo
+# Su turno:
+<br>
+<br>
+.font160[
+- Construya el modelo con interacción (*mod_int*) entre sexo (*sex*) y clase (*pclass*).
 
-Modelo con interacción
+- Muestre el resumen con los coeficientes
+]
 
-```{r, echo=F, message=F, warning=F}
-extract_eq(model = mod_int, wrap = T, ital_vars = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green"),  terms_per_line = 3)
+```{r, echo = F, warning=F, message=F}
+library(countdown)
+countdown(minutes = 3, start_immediately = T, play_sound = F)
 ```
 
 
 ---
+## Interacción en modelo Titanic
+
+### Análisis multivariado 
+
+.font140[
+
+Modelo con interacción
+<br>
+<br>
+<br>
+
+```{r, echo=F, message=F, warning=F}
+extract_eq(model = mod_int, wrap = T, ital_vars = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green", "sibSp" = "orange"),  terms_per_line = 3)
+```
+]
+---
+
 ## Interacción en modelo Titanic
 
 ### Análisis multivariado - Odds ratio
@@ -203,7 +236,7 @@ extract_eq(model = mod_int, wrap = T, ital_vars = T, var_colors = c("age" = "fir
 ```{r, echo=F, message=F, warning=F}
 library(sjPlot)
 
-tab_model(mod_sin_int, mod_int, show.aic = T)
+tab_model(mod_sin_int, mod_int, show.aic = T, show.r2 = F)
 ```
 
 ---
@@ -214,7 +247,7 @@ Presentación de resultados en forma de probabilidades predichas
 ]
 <br>
 .font130[
-1. Se aplican y suman los coeficientes obtenidos en el modelo a los valores posibles de las variables predictoras (incluido el intercepto)
+1.- Se aplican y suman los coeficientes obtenidos en el modelo a los valores posibles de las variables predictoras (incluido el intercepto)
 ]
 <br>
 
@@ -223,7 +256,7 @@ $$ln(Odds) = \alpha + \sum \beta_ix_i$$
 <br>
 
 ```{r, echo=F, message=F, warning=F}
-extract_eq(model = mod_int, wrap = T, use_coefs = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green"), terms_per_line = 4)
+extract_eq(model = mod_int, wrap = T, use_coefs = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green", "sibSp" = "orange"), terms_per_line = 4)
 ```
 
 ---
@@ -233,16 +266,16 @@ extract_eq(model = mod_int, wrap = T, use_coefs = T, var_colors = c("age" = "fir
 Presentación de resultados en forma de probabilidades predichas
 ]
 
-.font130[
-2. Se calculan los Odds, exponenciando el resultado anterior (logit).
+.font120[
+2.- Se calculan los Odds, exponenciando el resultado anterior (logit).
 <br>
 $$Odds = exp(ln(Odds))  $$
 <br>
-Ejemplo: pasajero varón de 30 años que viaja en 3ra clase
+Ejemplo: pasajero varón de 30 años que viaja en 3ra clase y sin hermanos/conyuges a bordo
 
-$$ln(Odds) = -0.7 - 0.04*30 +1.45*0+0.14*0+1.98*0+2.86*0+2.14*0$$
-$$ln(Odds) = -0.7 - 0.04*30$$
-$$exp(ln(Odds)) = 0.15$$
+$$ln(Odds) = -0.28 - 0.05*30 +1.53*0+0.11*0+2.1*0-0.37*0+2.91*0+2.18*0$$
+$$ln(Odds) = -0.28 - 0.05*30$$
+$$exp(ln(Odds)) = 0.16$$
 ]
 ---
 ## Interacción
@@ -252,22 +285,79 @@ Presentación de resultados en forma de probabilidades predichas
 ]
 <br>
 .font130[
-3. Se calculan probabilidades a partir de los Odds
+3.- Se calculan probabilidades a partir de los Odds
 <br>
 $$P =\frac{Odds}{1 + Odds} $$
-Ejemplo: probabilidad de sobrevivir de un pasajero varón de 30 años que viaja en 3ra clase
+Seguimos con el ejemplo:
 
-$$P = \frac{0.15}{1 + 0.15} = 0.13 = 13 \% $$
+$$P = \frac{0.16}{1 + 0.16} = 0.14 = 14 \% $$
 
 ]
 ---
-background-image: url(assets/int1.svg)
-background-size: 700px
-background-position: 50% 85%
+class: inverse, hide-logo
+# Su turno:
+<br>
+<br>
+.font160[
+- A partir del modelo final con interacción, obtenga la probabilidad de sobrevivir en el Titanic de un hombre de 30 años que viaja en 3ra. clase sin hermanos/cónyuge a bordo.
 
+- Utilice la función *predict()*.
+]
+
+```{r, echo = F, warning=F, message=F}
+countdown(minutes = 3, start_immediately = T, play_sound = F)
+```
+
+---
+background-image: url(assets/ggeffects.png)
+background-size: 100px
+background-position: 80% 5%
+
+## Paquete ggeffects()
+<br>
+.font150[
+El paquete tiene como objetivo calcular fácilmente predicciones ajustadas en valores representativos de covariables a partir de modelos estadísticos.
+
+- Admite numerosos modelos: *lm, glm, coxph, tidymodels*, etc.
+
+- Permite visualizar los resultados en forma gráfica.
+]
+---
 ## Interacción en modelo Titanic
 
 ### Análisis multivariado - Probabilidades en forma gráfica
+
+```{r, echo=F, message=F, warning=F, fig.align = 'center', fig.width=8,fig.height=6, fig.asp=0.8}
+library(ggeffects)
+
+theme_custom1 <- function(base_size = 14) {
+  theme_bw(base_size = base_size) %+replace%
+    theme(
+      # L'ensemble de la figure
+      plot.title = element_text(size = rel(1), face = "bold", margin = margin(0,0,5,0), hjust = 0),
+      # Zone où se situe le graphique
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      # Les axes
+      axis.title = element_text(size = rel(0.85), face = "bold"),
+      axis.text = element_text(size = rel(0.70), face = "bold"),
+      axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
+      # La légende
+      legend.title = element_text(size = rel(0.85), face = "bold"),
+      legend.text = element_text(size = rel(0.70), face = "bold"),
+      legend.key = element_rect(fill = "transparent", colour = NA),
+      legend.key.size = unit(1.5, "lines"),
+      legend.background = element_rect(fill = "transparent", colour = NA),
+      # Les étiquettes dans le cas d'un facetting
+      strip.background = element_rect(fill = "#17252D", color = "#17252D"),
+      strip.text = element_text(size = rel(0.85), face = "bold", color = "white", margin = margin(5,0,5,0))
+    )
+}
+
+ggpredict(mod_int, c("sex", "pclass")) |> 
+  plot(line.size = 1, dot.size = 3) + labs(subtitle = "Con interaccion") + theme_custom1()
+
+```
 
 ---
 background-image: url(assets/int2.svg)
@@ -308,12 +398,80 @@ background-position: 50% 60%
 ## Métricas: exactitud y precisión
 
 ---
+background-image: url(assets/mc_modelos_train.PNG)
+background-size: 750px
+background-position: 50% 25%
+## Matrices de confusión (Titanic)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font120[
+**Modelo sin interacción**
+
+Exactitud = (361 + 212) / (361 + 212 + 78 + 63) = 0,80
+
+Precisión = 212 / (212 + 63) = 0,77
+
+**Modelo con interacción**
+
+Exactitud = (386 + 194) / (386 + 194 + 96 + 38) = 0,81
+
+Precisión = 194 / (194 + 38) = 0,84
+]
+---
+background-image: url(assets/mc_modelos_train.PNG)
+background-size: 750px
+background-position: 50% 25%
+## Matrices de confusión (Titanic)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font120[
+**Modelo sin interacción**
+
+Sensibilidad = 212 / (212 + 78) = 0,73
+
+Especificidad = 361 / (361 + 63) = 0,85
+
+**Modelo con interacción**
+
+Sensibilidad =  194 / (194 + 96) = 0,67
+
+Especificidad = 386 / (386 + 38) = 0,91
+
+]
+---
 background-image: url(assets/Roc_curve.svg)
 background-size: 450px
 background-position: 50% 65%
 
 ## Métricas: Curva ROC
 ---
+background-image: url(assets/roc_modelos_train.PNG)
+background-size: 1100px
+background-position: 50% 60%
+## Curvas ROC y umbral optimo (Titanic)
+
+---
+background-image: url(assets/metricas_train.PNG)
+background-size: 1100px
+background-position: 50% 60%
+## Métricas entrenamiento (Titanic)
+
+---
+
 background-image: url(assets/overfitting.PNG)
 background-size: 450px
 background-position: 50% 90%
@@ -327,6 +485,13 @@ El sobreajuste es un error de modelado que ocurre cuando una función está dema
 - Detección: el error del modelo en el conjunto de prueba es mayor al error en el conjunto de entrenamiento.
 - Solución: Tener en cuenta la parsimonia en la construcción de modelos y obtener métricas con validación cruzada. Otros métodos: reducción de la dimensionalidad, regularización, etc.
 ]
+---
+background-image: url(assets/metricas_train_test.PNG)
+background-size: 1000px
+background-position: 50% 60%
+## Comparativa métricas
+
+---
 
 
 ---
