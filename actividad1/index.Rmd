@@ -419,6 +419,12 @@ class: inverse, hide-logo, center, middle
 ]
 
 ---
+class: center, middle
+## Mejor modelo = mejores predicciones 
+### (menor tasa de error)
+
+---
+
 background-image: url(assets/matrix_confusion.PNG)
 background-size: 750px
 background-position: 50% 55%
@@ -540,6 +546,11 @@ El sobreajuste es un error de modelado que ocurre cuando una función está dema
 - Solución: Tener en cuenta la parsimonia en la construcción de modelos y obtener métricas con validación cruzada. Otros métodos: reducción de la dimensionalidad, regularización, etc.
 ]
 ---
+class: center, middle
+
+## La mejor manera de medir el rendimiento de un modelo para predecir nuevos datos es predecir nuevos datos.
+
+---
 background-image: url(assets/metricas_train_test.PNG)
 background-size: 1000px
 background-position: 50% 60%
@@ -554,7 +565,7 @@ background-image: url(assets/tidymodels.svg)
 background-size: 100px
 background-position: 80% 5%
 
-## Tidymodels
+## Introducción a tidymodels
 
 <br>
 <br>
@@ -568,6 +579,14 @@ El framework tidymodels es una colección de paquetes para modelado y aprendizaj
 ]
 ---
 agregar (pipeline) flujo de trabajo
+
+
+---
+Métodos de remuestreo (teórico)
+
+
+---
+Paquete resampling
 
 
 ---
@@ -636,41 +655,6 @@ Usaremos algunos sufijos que identifican bien a ciertos tipos de objetos
 - **_res** para resultados en general
 
 - **mc_** para matrices de confusion
-
----
-class: center
-## Axioma
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-.font180[
-Mejor modelo = mejores predicciones (menor tasa de error)
-]
----
-class: inverse, hide-logo
-# Su turno 1
-
----
-class: center
-## Axioma
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-.font180[
-La mejor manera de medir el rendimiento de un modelo para predecir nuevos datos es predecir nuevos datos.
-]
-
-
----
-
 
 ---
 background-image: url(assets/final.PNG) 
