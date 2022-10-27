@@ -200,7 +200,7 @@ class: inverse, hide-logo
 <br>
 <br>
 .font160[
-- Construya el modelo con interacción (*mod_int*) entre sexo (*sex*) y clase (*pclass*).
+- Sobre las mismas variables predictoras de este modelo, construya uno con interacción (*mod_int*) entre sexo (*sex*) y clase (*pclass*).
 
 - Muestre el resumen con los coeficientes
 ]
@@ -236,7 +236,7 @@ extract_eq(model = mod_int, wrap = T, ital_vars = T, var_colors = c("age" = "fir
 ```{r, echo=F, message=F, warning=F}
 library(sjPlot)
 
-tab_model(mod_sin_int, mod_int, show.aic = T, show.r2 = F)
+tab_model(mod_sin_int, mod_int, show.aic = T, show.r2 = F, show.intercept = F)
 ```
 
 ---
@@ -273,7 +273,7 @@ $$Odds = exp(ln(Odds))  $$
 <br>
 Ejemplo: pasajero varón de 30 años que viaja en 3ra clase y sin hermanos/conyuges a bordo
 
-$$ln(Odds) = -0.28 - 0.05*30 +1.53*0+0.11*0+2.1*0-0.37*0+2.91*0+2.18*0$$
+$$ln(Odds) = -0.28 - 0.05*\color{red}{30} +1.53*\color{blue}0+0.11*\color{green}0+2.1*\color{green}0-0.37*\color{orange}0+2.91*0+2.18*0$$
 $$ln(Odds) = -0.28 - 0.05*30$$
 $$exp(ln(Odds)) = 0.16$$
 ]
@@ -327,10 +327,10 @@ El paquete tiene como objetivo calcular fácilmente predicciones ajustadas en va
 
 ### Análisis multivariado - Probabilidades en forma gráfica
 
-```{r, echo=F, message=F, warning=F, fig.align = 'center', fig.width=8,fig.height=6, fig.asp=0.8}
+```{r, echo=F, message=F, warning=F, fig.align = 'center', fig.width=12, fig.asp=0.5}
 library(ggeffects)
 
-theme_custom1 <- function(base_size = 14) {
+theme_custom1 <- function(base_size = 16) {
   theme_bw(base_size = base_size) %+replace%
     theme(
       # L'ensemble de la figure
@@ -349,24 +349,59 @@ theme_custom1 <- function(base_size = 14) {
       legend.key.size = unit(1.5, "lines"),
       legend.background = element_rect(fill = "transparent", colour = NA),
       # Les étiquettes dans le cas d'un facetting
-      strip.background = element_rect(fill = "#17252D", color = "#17252D"),
-      strip.text = element_text(size = rel(0.85), face = "bold", color = "white", margin = margin(5,0,5,0))
-    )
+      strip.background = element_rect(fill = "#eeeeee", color = "#eeeeee"),
+      strip.text = element_text(size = rel(0.85), face = "bold", color = "black", margin = margin(5,0,5,0)))
 }
 
-ggpredict(mod_int, c("sex", "pclass")) |> 
+library(cowplot)
+
+g1 <- ggpredict(mod_sin_int, c("sex", "pclass"), typical = "zero") |> 
+  plot(line.size = 1, dot.size = 3) + labs(subtitle = "Sin interaccion") + theme_custom1()
+
+g2 <- ggpredict(mod_int, c("sex", "pclass"), typical = "zero") |> 
   plot(line.size = 1, dot.size = 3) + labs(subtitle = "Con interaccion") + theme_custom1()
+
+plot_grid(g1, NULL, g2, align = "h", nrow = 1, rel_widths = c(1, 0.3, 1))
 
 ```
 
 ---
-background-image: url(assets/int2.svg)
-background-size: 700px
-background-position: 50% 85%
-
 ## Interacción en modelo Titanic
 
 ### Análisis multivariado - Probabilidades en forma gráfica
+
+```{r, echo=F, message=F, warning=F, fig.align = 'center', fig.width=15, fig.asp=0.4}
+
+g3 <- ggpredict(mod_sin_int, c("age", "pclass", "sex"), typical = "zero")  |> 
+  plot(line.size = 1, dot.size = 3) + labs(subtitle = "Sin interaccion") + theme_custom1()
+
+g4 <- ggpredict(mod_int, c("age", "pclass", "sex"), typical = "zero") |> 
+  plot(line.size = 1, dot.size = 3) + labs(subtitle = "Con interaccion") + theme_custom1()
+
+plot_grid(g3, NULL, g4, align = "h", nrow = 1, rel_widths = c(1, 0.1, 1))
+
+```
+
+---
+class: inverse, hide-logo
+# Su turno:
+<br>
+<br>
+.font160[
+- Visualice las probabilidades predichas de sobrevivir integrando todas las variables participantes de los modelos (sin y con interacción).
+
+- Para una visualización coordinada utilice el siguiente orden: *age*, *sibSp*, *pclass* y *sex*.
+
+- Realice un gráfico por vez (no los muestre juntos)
+]
+
+```{r, echo = F, warning=F, message=F}
+countdown(minutes = 4, start_immediately = T, play_sound = F)
+```
+---
+class: inverse, hide-logo, center, middle
+
+## Fin primera parte
 
 ---
 ## Modelos logísticos para predicción: clasificación
@@ -465,6 +500,25 @@ background-position: 50% 60%
 ## Curvas ROC y umbral optimo (Titanic)
 
 ---
+class: inverse, hide-logo
+# Su turno:
+<br>
+.font160[
+- Construya dos nuevas variables dentro del dataframe *titanic* con las predicciones de sobrevida y muerte (categorías *Si* y *No*) utilizando los umbrales (threshold) calculados como "mejores" por la curva ROC.
+
+- Defina como *aciertos_sin_int2* a la variable resultado relacionada con las probabilidades del modelo sin interacción (*prob_titanic_s_int*).
+
+
+- Defina como *aciertos_int2* a la variable resultado relacionada con las probabilidades del modelo con interacción (*prob_titanic_int*).
+]
+
+```{r, echo = F, warning=F, message=F}
+countdown(minutes = 5, start_immediately = T, play_sound = F)
+```
+
+
+
+---
 background-image: url(assets/metricas_train.PNG)
 background-size: 1100px
 background-position: 50% 60%
@@ -492,8 +546,9 @@ background-position: 50% 60%
 ## Comparativa métricas
 
 ---
+class: inverse, hide-logo, center, middle
 
-
+## Fin segunda parte
 ---
 background-image: url(assets/tidymodels.svg)
 background-size: 100px
@@ -511,6 +566,8 @@ El framework tidymodels es una colección de paquetes para modelado y aprendizaj
 
 - Existen muchos otros más, de aplicación específica, como: *tidypredict*, **_probably_**, *tidyposterior*, *multilevelmod*, etc.
 ]
+---
+agregar (pipeline) flujo de trabajo
 
 
 ---
