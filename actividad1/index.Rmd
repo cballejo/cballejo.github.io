@@ -55,9 +55,10 @@ style_mono_accent(base_color = "#00746B",
 
 ---
 ## Temas
+<br>
 .font150[ 
 
-- Dataset Titanic 
+- Dataset Titanic
 
 - Interpretación de modelos con interacciones
 
@@ -69,7 +70,7 @@ style_mono_accent(base_color = "#00746B",
 
 - Tidymodels: framework para modelado en machine learning
 
-- Validación cruzada (bootstrapping)
+- Validación cruzada (resampling)
 
 ]
 ---
@@ -102,17 +103,17 @@ background-position: 50% 70%
 Diccionario de datos
 ]
 
-.font140[
-- survival: Superviviente
-- pclass: Clase de ticket 
-- sex: Sexo
-- Age: Edad en años
-- sibsp: nro. de hermanos/cónyuges a bordo 
-- parch: nro. de padres/hijos a bordo 
-- ticket: Número de ticket 
-- fare: Tarifa de pasaje
-- cabin: Número de cabina
-- embarked: Puerto de embarcado
+.font150[
+- .blue[survival]: Superviviente
+- .blue[pclass]: Clase de ticket 
+- .blue[sex]: Sexo
+- .blue[age]: Edad en años
+- .blue[sibsp]: nro. de hermanos/cónyuges a bordo 
+- .blue[parch]: nro. de padres/hijos a bordo 
+- .blue[ticket]: Número de ticket 
+- .blue[fare]: Tarifa de pasaje
+- .blue[cabin]: Número de cabina
+- .blue[embarked]: Puerto de embarcado
 ]
 ---
 ## Interacción
@@ -132,9 +133,9 @@ Existe interacción cuando la asociación entre dos variables varía según los 
 
 ### Análisis bivariado estratificado
 
-- Abordaje con tablas de contingencia estratificadas (Mantel-Haenszel)
+- Abordaje con tablas de contingencia estratificadas (.orange[Mantel-Haenszel])
 
-- Test de homogeneidad (Woolf, Breslow-Day, etc)
+- Test de homogeneidad (.green[Woolf], .blue[Breslow-Day], etc)
 
 ```{r, echo=F, message=F, warning=F}
 library(tidyverse)
@@ -615,8 +616,36 @@ agregar (pipeline) flujo de trabajo
 
 
 ---
-Métodos de remuestreo (teórico)
+## Validación de modelos predictivos
 
+
+.font140[
+- La finalidad última del modelo es predecir la variable respuesta en observaciones que el modelo no ha “visto” antes.
+
+- Las métricas de validación, con los mismos datos con los que se construyó el modelo (error de entrenamiento), suelen ser demasiado optimistas.
+
+- Muchas veces no se tiene a disposición nuevos datos y por lo tanto se decide "dividir" aleatoriamente el conjunto de datos original.
+
+- Esta división aleatoria presupone múltiples composiciones de muestras de entrenamiento y testeo.
+
+- La mejor forma de asegurarse métricas estables y coherentes es mediante la estrategia conocida como remuestreo (**resampling**)
+
+]
+---
+## Validación de modelos predictivos
+### Métodos de remuestreo 
+
+.font160[
+Validación simple
+]
+
+.font140[
+- La estimación del error es altamente variable dependiendo de qué observaciones se incluyan como conjunto de entrenamiento y cuáles como conjunto de validación (problema de varianza).
+
+- Al excluir parte de las observaciones disponibles como datos de entrenamiento (generalmente el 20% o 30%), se dispone de menos información con la que entrenar el modelo y, por lo tanto, se reduce su capacidad. 
+
+- Se suele tomar la variable salida como variable de estratificación, para que ambos conjuntos de datos tengan la misma distribución aproximada.
+]
 
 ---
 background-image: url(assets/split_data.png)
@@ -664,7 +693,35 @@ nuevos datos + predicciones = métricas
 ]
 
 ---
-Paquete resampling
+## Validación de modelos predictivos
+### Métodos de remuestreo 
+
+.font140[
+- .bolder[K-Fold Cross-Validation]: proceso iterativo que consiste en dividir los datos de forma aleatoria en k grupos de aproximadamente el mismo tamaño, k-1 grupos se emplean para entrenar el modelo y uno de los grupos se emplea como validación.
+
+- .bolder[Bootstraping]: proceso iterativo de pseudomuestras con repetición (resampling with replacement) a partir de la muestra original. El set de validación es out-of-bag (OOB).
+
+- .bolder[Otros]: repeated k-Fold Cross-Validation, Leave One Out Cross-Validation (LOOCV), etc.
+]
+---
+## Validación de modelos predictivos
+### Elección del mejor método
+
+<br>
+
+.font150[
+- .bolder[Tamaño de muestra pequeño]: se recomienda *repeated k-Fold Cross-Validation* (consigue un buen equilibrio bias-varianza)
+
+- .bolder[Tamaño de muestra grande]: no hay grandes diferencias entre métodos y se prefiere *10-Fold-Cross-Validation* simple (eficiencia computacional)
+
+- .bolder[Comparar modelos]: se recomienda *bootstrapping* (varianza menor) 
+
+]
+---
+background-image: url(assets/rsample.svg)
+background-size: 100px
+background-position: 80% 5%
+## Paquete rsample
 
 
 ---
