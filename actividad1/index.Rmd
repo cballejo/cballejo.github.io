@@ -73,6 +73,23 @@ style_mono_accent(base_color = "#00746B",
 
 ]
 ---
+class: middle, center
+
+## Cronograma
+
+| Hora          | Actividad                                                     |
+|:--------------|:--------------------------------------------------------------|
+| 09:45 - 11:00 | Interpretación de la interacción en modelos de regresión logística                              |
+| 11:00 - 11:15 | *Pausa* `r emo::ji("coffee")` `r emo::ji("croissant")`                             |
+| 11:15 - 13:00 | Modelos logísticos para predicción: clasificación             |
+| 13:00 - 14:00 | *Almuerzo* `r emo::ji("hamburger")` `r emo::ji("green_salad")`                                |
+| 14:00 - 15:00 | Modelos logísticos para predicción: clasificación   (cont)    |
+| 15:00 - 15:15 | *Pausa* `r emo::ji("coffee")` `r emo::ji("croissant")`                                    |
+| 15:15 - 17:00 | tidymodels - validación cruzada   
+
+
+
+---
 background-image: url(assets/Titanic.jpg)
 background-size: 700px
 background-position: 50% 70%
@@ -419,12 +436,28 @@ class: inverse, hide-logo, center, middle
 ]
 
 ---
+background-image: url(assets/model_train.png)
+background-size: 700px
+background-position: 50% 60%
+## Entrenando modelos
+
+---
+background-image: url(assets/model_test.png)
+background-size: 600px
+background-position: 50% 70%
+## Haciendo predicciones
+
+---
 class: center, middle
 ## Mejor modelo = mejores predicciones 
 ### (menor tasa de error)
 
 ---
-
+background-image: url(assets/model_metricas.png)
+background-size: 800px
+background-position: 50% 80%
+## Obteniendo métricas
+---
 background-image: url(assets/matrix_confusion.PNG)
 background-size: 750px
 background-position: 50% 55%
@@ -548,7 +581,7 @@ El sobreajuste es un error de modelado que ocurre cuando una función está dema
 ---
 class: center, middle
 
-## La mejor manera de medir el rendimiento de un modelo para predecir nuevos datos es predecir nuevos datos.
+## La mejor manera de medir el rendimiento de un modelo para predecir nuevos datos es *predecir nuevos datos*.
 
 ---
 background-image: url(assets/metricas_train_test.PNG)
@@ -584,6 +617,51 @@ agregar (pipeline) flujo de trabajo
 ---
 Métodos de remuestreo (teórico)
 
+
+---
+background-image: url(assets/split_data.png)
+background-size: 550px
+background-position: 50% 60%
+## Dividiendo datos (split)
+---
+background-image: url(assets/split_train.png)
+background-size: 850px
+background-position: 50% 60%
+## Entrenando modelos
+---
+background-image: url(assets/split_predict.png)
+background-size: 750px
+background-position: 50% 70%
+## Haciendo predicciones
+---
+background-image: url(assets/split_metricas.png)
+background-size: 800px
+background-position: 50% 70%
+## Obteniendo métricas
+---
+class: center, middle
+
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+]
+---
+class: center, middle
+
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+
+nuevos datos(.purple[x]) + modelo ajustado = predicciones (.green[y])
+]
+---
+class: center, middle
+
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+
+nuevos datos(.purple[x]) + modelo ajustado = predicciones (.green[y])
+
+nuevos datos + predicciones = métricas
+]
 
 ---
 Paquete resampling
