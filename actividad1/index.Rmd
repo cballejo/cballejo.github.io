@@ -130,8 +130,9 @@ Existe interacción cuando la asociación entre dos variables varía según los 
 ]
 ---
 ## Interacción en modelo Titanic
-
 ### Análisis bivariado estratificado
+
+- Gráficos en EDA
 
 - Abordaje con tablas de contingencia estratificadas (.orange[Mantel-Haenszel])
 
@@ -157,6 +158,16 @@ tabla_estratificada |>
   adorn_ns() |> 
   adorn_title() 
 ```
+
+
+---
+background-image: url(assets/barras_int.PNG)
+background-size: 1100px
+background-position: 50% 80%
+
+## Interacción en modelo Titanic
+
+### Gráficos
 
 
 ---
@@ -612,8 +623,10 @@ El framework tidymodels es una colección de paquetes para modelado y aprendizaj
 - Existen muchos otros más, de aplicación específica, como: *tidypredict*, **_probably_**, *tidyposterior*, *multilevelmod*, etc.
 ]
 ---
-agregar (pipeline) flujo de trabajo
-
+background-image: url(assets/pipeline_tidymodels.png)
+background-size: 900px
+background-position: 50% 60%
+## Flujo de trabajo
 
 ---
 ## Validación de modelos predictivos
@@ -702,6 +715,8 @@ nuevos datos + predicciones = métricas
 - .bolder[Bootstraping]: proceso iterativo de pseudomuestras con repetición (resampling with replacement) a partir de la muestra original. El set de validación es out-of-bag (OOB).
 
 - .bolder[Otros]: repeated k-Fold Cross-Validation, Leave One Out Cross-Validation (LOOCV), etc.
+
+- **Nota**: tener en cuenta división estratificada
 ]
 ---
 ## Validación de modelos predictivos
@@ -718,12 +733,32 @@ nuevos datos + predicciones = métricas
 
 ]
 ---
+background-image: url(assets/vfold.png)
+background-size: 600px
+background-position: 50% 70%
+## Método V-fold cross-validation
+
+---
+background-image: url(assets/bootstraping.PNG)
+background-size: 700px
+background-position: 50% 70%
+## Método bootstrapping
+
+---
 background-image: url(assets/rsample.svg)
 background-size: 100px
 background-position: 80% 5%
 ## Paquete rsample
 
+<br>
+<br>
+.font140[
+- El paquete contiene funciones para generar **diferentes tipos de remuestreos** con sus respectivas clases.
 
+- Se utiliza para producir remuestreos para *estimar la distribución muestral de un estadístico* y/o *estimar rendimientos de modelos*.
+
+- Sus funciones conectan con otras de otros paquetes como *recipes* y *parsnip* dentro de **tidymodels**. 
+]
 ---
 background-image: url(assets/recipes.svg)
 background-size: 100px
@@ -731,7 +766,7 @@ background-position: 80% 5%
 ## Preproceso (feature engineering)
 
 .font130[
-- En estadística se conoce como **preproceso** y en el lado más informático del modelado, se lo conoce como **feature engineering**.
+- En estadística se conoce como **preproceso** y desde la óptica informática del modelado, se lo conoce como **feature engineering**.
 
 - Incluye la selección y transformación individual de variables predictoras o grupos de variables.
 
@@ -773,24 +808,43 @@ background-position: 80% 5%
 - Cada tipo de modelo tiene su propia interfaz y recordarlas a todas es difícil, por ese motivo desarrollaron la interfaz de **parsnip**. 
 ]
 ---
+background-image: url(assets/workflows.svg)
+background-size: 100px
+background-position: 80% 5%
+## Paquete workflows
+<br>
+<br>
+.font140[
+
+- Construye objetos de flujo de trabajo combinando secuencias de preprocesamiento, modelado y postprocesamiento.
+
+- Una variante útil es el paquete **workflowset**, que se basa en *workflows* pero que permite varios flujos de trabajo simultáneos con especificaciones de modelos y/o preprocesamientos diferentes.
+
+- **workflowset** ofrece también la posibilidad de evaluar modelos con diferentes conjuntos de predcitores automáticamente
+
+]
+---
 ## Algunas convenciones en nombres de objetos
 
+.font140[
 Usaremos algunos sufijos que identifican bien a ciertos tipos de objetos
 
-- **_mod** para especificaciones de modelos de **parsnip**
-
-- **_fit** para modelos ajustados
-
-- **_rec** para recetas de **recipes**
+- **_vf** para remuestras por vfolds
 
 - **_boot** para remuestras por bootstraps
 
+- **_rec** para recetas de **recipes**
+
+- **_mod** para especificaciones de modelos de **parsnip**
+
 - **_wfl** para worflow
+
+- **_fit** para modelos ajustados
 
 - **_res** para resultados en general
 
 - **mc_** para matrices de confusion
-
+]
 ---
 background-image: url(assets/final.PNG) 
 background-size: 900px
