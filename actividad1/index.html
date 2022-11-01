@@ -50,23 +50,23 @@ class: animated, fadeIn
 &lt;/style&gt;
 
 ---
-## Temas
-&lt;br&gt;
+## Parte 1
+
 .font150[ 
 
-- Dataset Titanic
+- Introducción al dataset Titanic
 
-- Interpretación de modelos con interacciones
+- Interacción en modelos logísticos
 
-- Modelos logísticos para predicción: clasificación
+- Sospechas de interacción
 
-- Matriz de confusión y métricas
+  - Gráficos EDA
+  
+  - Tablas de contingencia estratificadas
 
-- Curvas ROC: Umbrales (threshold) 
+- Resultados como probabilidades predichas
 
-- Tidymodels: framework para modelado en machine learning
-
-- Validación cruzada (resampling)
+- Paquete ggeffects
 
 ]
 ---
@@ -100,7 +100,7 @@ Diccionario de datos
 ]
 
 .font150[
-- .blue[survival]: Superviviente
+- .blue[survival]: Superviviente (*variable respuesta*)
 - .blue[pclass]: Clase de ticket 
 - .blue[sex]: Sexo
 - .blue[age]: Edad en años
@@ -126,13 +126,32 @@ Existe interacción cuando la asociación entre dos variables varía según los 
 ]
 ---
 ## Interacción en modelo Titanic
-### Análisis bivariado estratificado
+### Exploración y sospechas
+&lt;br&gt;
 
-- Gráficos en EDA
+.font140[
+
+- Gráficos en análisis exploratorio de datos (*EDA*)
 
 - Abordaje con tablas de contingencia estratificadas (.orange[Mantel-Haenszel])
 
 - Test de homogeneidad (.green[Woolf], .blue[Breslow-Day], etc)
+
+]
+
+---
+background-image: url(assets/barras_int.PNG)
+background-size: 1100px
+background-position: 50% 80%
+
+## Interacción en modelo Titanic
+
+### Gráficos (EDA)
+
+
+---
+## Interacción en modelo Titanic
+### Tabla de contingencia estratificada
 
 
 ```
@@ -154,18 +173,6 @@ Existe interacción cuando la asociación entre dos variables varía según los 
 ##  female 46.1% (47) 53.9%  (55)
 ##    male 15.0% (38) 85.0% (215)
 ```
-
-
----
-background-image: url(assets/barras_int.PNG)
-background-size: 1100px
-background-position: 50% 80%
-
-## Interacción en modelo Titanic
-
-### Gráficos
-
-
 ---
 ## Interacción en modelo Titanic
 
@@ -229,7 +236,7 @@ class: inverse, hide-logo
 - Muestre el resumen con los coeficientes
 ]
 
-<div class="countdown" id="timer_623152c9" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_b3a82135" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -420,7 +427,7 @@ class: inverse, hide-logo
 - Utilice la función *predict()*.
 ]
 
-<div class="countdown" id="timer_78d321a2" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_76262955" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -466,7 +473,7 @@ class: inverse, hide-logo
 - Realice un gráfico por vez (no los muestre juntos)
 ]
 
-<div class="countdown" id="timer_39c99c7a" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_70189fb7" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -476,18 +483,35 @@ class: inverse, hide-logo, center, middle
 ## Fin primera parte
 
 ---
+## Parte 2
+&lt;br&gt;
+.font150[
+- Modelos logísticos para predicción: clasificación
+
+- Entrenamiento y testeo
+
+- Matriz de confusión y métricas
+
+- Curvas ROC: Umbrales (threshold) 
+
+- Sobreajuste
+]
+
+---
 ## Modelos logísticos para predicción: clasificación
 &lt;br&gt;
 .font140[
-- Modelo de clasificación binaria (estadística)
+- Modelo de clasificación binaria (**estadística**)
 
-- Algoritmo supervisado de clasificación (machine learning)
+- Algoritmo supervisado de clasificación (**machine learning**)
 
-- La finalidad última del modelo es predecir la variable respuesta en observaciones que el modelo no ha “visto” antes. (generalmente una aplicación futura)
+- La finalidad última del modelo es predecir la variable respuesta en observaciones que el modelo no ha “visto” antes. (generalmente una **aplicación futura**)
+
+- Ejemplos: modelos predictivos de mortalidad en hospitalizaciones, de daños específicos en pacientes, de riesgo de depresión, etc.
 
 - Se puede optimizar el umbral de decisión. 
 
-- Cuidado con el sobreajuste (overfitting)
+- Cuidado con el sobreajuste (*overfitting*)
 ]
 
 ---
@@ -606,7 +630,7 @@ class: inverse, hide-logo
 - Defina como *aciertos_int2* a la variable resultado relacionada con las probabilidades del modelo con interacción (*prob_titanic_int*).
 ]
 
-<div class="countdown" id="timer_f945557c" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown" id="timer_47843918" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
 <div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
 <code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
 </div>
@@ -650,6 +674,25 @@ class: inverse, hide-logo, center, middle
 
 ## Fin segunda parte
 ---
+## Parte 3
+
+.font150[
+- **tidymodels**: framework para modelado en machine learning
+
+- Métodos de validación de modelos predictivos
+
+- .bolder[Remuestreo]: paquete **rsample**
+
+- .bolder[Preproceso]: paquete **recipes**
+
+- .bolder[Ajuste]: paquete **parsnip**
+
+- .bolder[Flujo de trabajo]: paquetes **workflows** y **workflowset**
+
+- .bolder[Métricas]: paquete **yardstick**
+
+]
+---
 background-image: url(assets/tidymodels.svg)
 background-size: 100px
 background-position: 80% 5%
@@ -659,8 +702,10 @@ background-position: 80% 5%
 &lt;br&gt;
 &lt;br&gt;
 
-.font150[
+.font140[
 El framework tidymodels es una colección de paquetes para modelado y aprendizaje automático utilizando los principios de tidyverse.
+
+- Permite emplear la misma sintaxis para ajustar, optimizar, evaluar y predecir un amplio abanico de modelos, variando únicamente el nombre del algoritmo.
 
 - El núcleo de tidymodels activa a los siguientes paquetes: broom, *dials*, dplyr, ggplot2, **_infer_**, *modeldata*, **_parsnip_**, purrr, **_recipes_**, **_rsample_**, tibble, tidyr, *tune*, **_workflows_**, *workflowsets* y **_yardstick_**. 
 
@@ -692,9 +737,9 @@ background-position: 50% 60%
 ## Validación de modelos predictivos
 ### Métodos de remuestreo 
 
-.font160[
+.bolder[.font160[
 Validación simple
-]
+]]
 
 .font140[
 - La estimación del error es altamente variable dependiendo de qué observaciones se incluyan como conjunto de entrenamiento y cuáles como conjunto de validación (problema de varianza).
@@ -725,22 +770,37 @@ background-size: 800px
 background-position: 50% 70%
 ## Obteniendo métricas
 ---
-class: center, middle
-
+class: center
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 .font150[
 viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
 ]
 ---
-class: center, middle
-
+class: center
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 .font150[
 viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
 
 nuevos datos(.purple[x]) + modelo ajustado = predicciones (.green[y])
 ]
 ---
-class: center, middle
-
+class: center
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
 .font150[
 viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
 
@@ -792,7 +852,7 @@ background-position: 50% 70%
 background-image: url(assets/rsample.svg)
 background-size: 100px
 background-position: 80% 5%
-## Paquete rsample
+## Remuestreo: paquete rsample
 
 &lt;br&gt;
 &lt;br&gt;
@@ -823,22 +883,41 @@ background-position: 80% 5%
 - Más complejo, en modelos de machine learning, reducción de dimensiones (PCA, etc)
 ]
 ---
-background-image: url(assets/recipe_flow.png), url(assets/recipes.svg)
-background-size: 800px, 100px
-background-position: 50% 60%, 80% 5%
+background-image: url(assets/recipes.svg)
+background-size: 100px
+background-position: 80% 5%
 
-## Uso de recipes
+## Paquete recipes
 
+.font130[
+Algunas funciones comunes:
+
+- **step_rm()**: elimina variables antes del modelado
+
+- **step_naomit()**: elimina observaciones con valores perdidos en las variables definidas
+
+- **step_nzv()**: elimina variables desbalanceadas (varianza cercana a cero)
+
+- **step_dummy()**: Convierte datos categóricos en uno o más términos numéricos de modelo binario para los niveles de los datos originales. Tiene argumentos que permite mayor control.
+
+- **step_center()**: Centra los datos numéricos para tener una media de cero.
+
+- **step_scale()**: Normaliza los datos numéricos para tener media cero y desvío estándar de uno.
+
+- etc...
+]
 ---
 background-image: url(assets/parsnip.svg)
 background-size: 100px
 background-position: 80% 5%
-## Paquete parsnip
+## Ajuste: paquete parsnip
 
 .font130[
 - Una interfaz unificada de modelos 
 
-- **logistic_reg()** lleva a cabo una regresión logistica. Pero puede utilizar diferentes "motores" para el proceso.
+- Se requieren de 3 pasos: definir el tipo de modelo y sus parámetros, definir su implementación (*engine*) y finalmente ajustarlo.
+
+- Ejemplo: **logistic_reg()** lleva a cabo una regresión logística. Pero puede utilizar diferentes "motores" para el proceso.
 
   - **glm** para modelos lineales generalizados
   
@@ -848,14 +927,13 @@ background-position: 80% 5%
   
   - etc...
 
-
 - Cada tipo de modelo tiene su propia interfaz y recordarlas a todas es difícil, por ese motivo desarrollaron la interfaz de **parsnip**. 
 ]
 ---
 background-image: url(assets/workflows.svg)
 background-size: 100px
 background-position: 80% 5%
-## Paquete workflows
+## Flujo de trabajo: paquete workflows
 &lt;br&gt;
 &lt;br&gt;
 .font140[
@@ -864,7 +942,27 @@ background-position: 80% 5%
 
 - Una variante útil es el paquete **workflowset**, que se basa en *workflows* pero que permite varios flujos de trabajo simultáneos con especificaciones de modelos y/o preprocesamientos diferentes.
 
-- **workflowset** ofrece también la posibilidad de evaluar modelos con diferentes conjuntos de predcitores automáticamente
+- **workflowset** ofrece también la posibilidad de evaluar modelos con diferentes conjuntos de predictores automáticamente (*leave_var_out_formulas*)
+
+]
+---
+background-image: url(assets/yardstick.svg)
+background-size: 100px
+background-position: 80% 5%
+## Métricas: paquete yardstick
+&lt;br&gt;
+.font140[
+Contiene funciones para estimar que tan bien funcionan los modelos utilizando los principios de datos ordenados.
+
+Métricas de rendimiento: 
+
+- **Clase**: matriz de confusión, precisión, exactitud, sensibilidad, etc.
+
+- **Probabilidad de clase**: área bajo la curva, gráficos ROC, etc 
+
+- **Numéricas**: raíz del error cuadrático medio (diferencia media entre los valores previstos por el modelo predictivo y los valores reales), error absoluto medio, etc.
+
+Sus funciones se adaptan a resultados provenientes de diferentes remuestreos. 
 
 ]
 ---
@@ -889,6 +987,28 @@ Usaremos algunos sufijos que identifican bien a ciertos tipos de objetos
 
 - **mc_** para matrices de confusion
 ]
+---
+background-image: url(assets/nombre_objetos.png)
+background-size: 1000px
+background-position: 50% 50%
+## Secuencia script
+---
+## Enlaces sobre tidymodels
+&lt;br&gt;
+.font140[
+
+- Sitio web oficial de [tidymodels](https://www.tidymodels.org/)
+
+- Lista de todas las [funciones de tidymodels](https://www.tidymodels.org/find/#search-all-of-tidymodels)
+
+- Lista de todos los modelos de [parsnisp](https://www.tidymodels.org/find/parsnip/)
+
+- Lista de todos los steps de [recipes](https://www.tidymodels.org/find/recipes/)
+
+- Libro online [Tidy Modeling with R](https://www.tmwr.org/)
+
+]
+
 ---
 background-image: url(assets/final.PNG) 
 background-size: 900px
