@@ -981,6 +981,10 @@ class: inverse, hide-logo
 - Obtenga sus métricas resultantes.
 ]
 
+```{r, echo = F, warning=F, message=F}
+countdown(minutes = 8, start_immediately = T, play_sound = F)
+```
+
 ---
 background-image: url(assets/final.PNG) 
 background-size: 900px
