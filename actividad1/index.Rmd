@@ -949,6 +949,11 @@ background-size: 1000px
 background-position: 50% 50%
 ## Secuencia script
 ---
+background-image: url(assets/Resultados_comparativos.PNG)
+background-size: 700px
+background-position: 50% 65%
+## Resultados comparativos
+---
 ## Enlaces sobre tidymodels
 <br>
 .font140[
@@ -963,6 +968,17 @@ background-position: 50% 50%
 
 - Libro online [Tidy Modeling with R](https://www.tmwr.org/)
 
+]
+---
+class: inverse, hide-logo
+# Su turno:
+<br>
+.font160[
+- Reutilizando los objetos de las distintas etapas del proceso, ajuste una estructura de múltiples modelos logísticos (*mod_multi_wf*) a un remuestreo .bolder[repeated k-Fold Cross-Validation] con 10-fold y 3 repeticiones.
+
+- Tenga en cuenta que el remuestreo con el argumento agregado es: kfold_cv(v = ##, strata = survived, repeat = #)
+
+- Obtenga sus métricas resultantes.
 ]
 
 ---
