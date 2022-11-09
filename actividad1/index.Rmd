@@ -796,7 +796,7 @@ nuevos datos + predicciones = métricas
 background-image: url(assets/vfold.png)
 background-size: 600px
 background-position: 50% 70%
-## Método V-fold cross-validation
+## Método k-fold cross-validation
 
 ---
 background-image: url(assets/bootstraping.PNG)
@@ -927,7 +927,7 @@ Sus funciones se adaptan a resultados provenientes de diferentes remuestreos.
 .font140[
 Usaremos algunos sufijos que identifican bien a ciertos tipos de objetos
 
-- **_vf** para remuestras por vfolds
+- **_kf** para remuestras por kfolds
 
 - **_boot** para remuestras por bootstraps
 
