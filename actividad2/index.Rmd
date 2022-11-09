@@ -91,7 +91,7 @@ class: inverse, hide-logo, center, middle
 ---
 background-image: url(assets/signos.png) 
 background-size: 850px
-background-position: 50% 60%
+background-position: 50% 75%
 ## Señales visuales
 
 
@@ -163,6 +163,20 @@ El paquete propone un sistema que se basa en la idea que cualquier gráfico se p
 
 - Mapeo estético (**aes**thetic) de los datos
 
+- Objetos **geom**étricos que dan nombre al tipo de gráfico
+
+
+]
+---
+## Esquema gráfico ggplot2 
+<br>
+.font150[
+- **Datos** con estructura "ordenada"
+
+- Mapeo estético (**aes**thetic) de los datos
+
+- Objetos **geom**étricos que dan nombre al tipo de gráfico
+
 - **Coord**enadas que organizan los objetos geométricos
 
 
@@ -174,6 +188,8 @@ El paquete propone un sistema que se basa en la idea que cualquier gráfico se p
 - **Datos** con estructura "ordenada"
 
 - Mapeo estético (**aes**thetic) de los datos
+
+- Objetos **geom**étricos que dan nombre al tipo de gráfico
 
 - **Coord**enadas que organizan los objetos geométricos
 
@@ -187,6 +203,8 @@ El paquete propone un sistema que se basa en la idea que cualquier gráfico se p
 - **Datos** con estructura "ordenada"
 
 - Mapeo estético (**aes**thetic) de los datos
+
+- Objetos **geom**étricos que dan nombre al tipo de gráfico
 
 - **Coord**enadas que organizan los objetos geométricos
 
@@ -194,6 +212,11 @@ El paquete propone un sistema que se basa en la idea que cualquier gráfico se p
 
 - **Facet**as que agrupan en subgráficos
 ]
+---
+background-image: url(assets/geoms.png) 
+background-size: 900px
+background-position: 50% 65%
+## Las geometrias definen el tipo de gráfico
 ---
 class: left, top
 
