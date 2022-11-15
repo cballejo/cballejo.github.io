@@ -45,6 +45,11 @@ style_mono_accent(base_color = "#00746B",
   height: 92%;
   float: left;
 }
+.code2 {
+  width: 48%;
+  height: 92%;
+  float: left;
+}
 .plot {
   width: 50%;
   height: 70%;
@@ -57,6 +62,8 @@ style_mono_accent(base_color = "#00746B",
 ## Parte 1
 
 .font150[ 
+
+- Interacción
 
 - Introducción al dataset Titanic
 
@@ -90,6 +97,81 @@ class: middle, center
 
 
 
+---
+class: inverse, hide-logo, center
+## Interacción
+
+<br>
+<br>
+
+.remark-code[.font190[
+Se habla de interacción biológica entre dos o más factores causales cuando existe una interdependencia entre sus mecanismos de acción para causar, prevenir o controlar una enfermedad, de manera que la incidencia de enfermedad atribuible a este conjunto de factores causales es diferente de la incidencia esperable de sus efectos individuales
+
+]]
+---
+## Conceptos
+
+.code2[.font130[
+### Interacción
+
+- Cuando hay modificación de un efecto, no es correcto hablar del efecto de una exposición sin tener en cuenta (sin conocer) el valor de la otra variable o el estrato de la otra variable en el que se valora dicho efecto
+
+]]
+
+.plot[.font130[
+### Confusión
+
+- No corresponde a un fenómeno biológico: una variable (o factor) de confusión es una variable que distorsiona la medida de la asociación entre otras dos variables.
+
+- se habla de confusión cuando existen diferencias importantes entre las estimaciones brutas de una asociación y las ajustadas por los posibles factores de confusión
+
+]]
+
+---
+background-image: url(assets/graf_int.png)
+background-size: 450px
+background-position: 50% 30%
+## Representación gráfica del fenómeno de interacción
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.font140[
+- cuando no hay interacción: podemos describir el efecto de cada variable con independencia de las otras. 
+
+- en presencia de interacción: no es posible estimar el efecto de una variable (semilla) sin conocer previamente el valor de la otra (lluvia), dado que los efectos de una variable dependen siempre de los valores que toma la otra, porque existe una modificación del efecto (interacción) entre ambas.
+
+]
+---
+## Interacción
+
+.font130[
+- La consecuencia de la identificación de variables como modificadores de efectos significativos es que el efecto sobre el resultado de una de esas variables dependerá de los valores que tomen la(s) otra(s) variable(s) involucrada(s) en la interacción. 
+
+- Esto implica que los coeficientes de los modelos obtenidos por cualquier paquete estadístico no pueden interpretarse directamente sin realizar cálculos adicionales. Los únicos coeficientes del modelo que se pueden usar directamente para estimar las razones de probabilidades son los que no se incluyen en los términos de interacción. 
+
+- Las razones de probabilidad restantes y sus correspondientes intervalos de confianza deben estimarse a través de los diferentes niveles de las otras variables del término de interacción (a través de diferentes categorías si la variable es cualitativa o a través de una serie de valores, a veces el mínimo, la media y el máximo, si es cuantitativa). La mayor dificultad de este proceso radica en la correcta estimación de la varianza de cada una de estas razones de probabilidad.
+]
+---
+class:  center
+## Interacción en Modelos Lineales Generalizados
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font180[
+El exceso de riesgo relativo debido a la interacción implica una desviación de la aditividad de los efectos.
+]
 ---
 background-image: url(assets/Titanic.jpg)
 background-size: 700px
@@ -443,6 +525,9 @@ class: inverse, hide-logo, center, middle
 ## Parte 2
 <br>
 .font150[
+
+- Validación
+
 - Modelos logísticos para predicción: clasificación
 
 - Entrenamiento y testeo
@@ -454,6 +539,36 @@ class: inverse, hide-logo, center, middle
 - Sobreajuste
 ]
 
+---
+## Validación
+
+<br>
+.font150[
+- Los modelos nunca constituyen una finalidad en sí misma: procuran representar una realidad general, usando para ello información específica que proviene de ella. 
+
+- Para que pueda aplicarse en otro contexto, el modelo debe ser validado con datos procedentes de ese otro contexto. 
+
+- El acto de corroborar que tiene este mérito (o sea, que hace las predicciones que se supone que hace) se conoce como *“validación”* del modelo. 
+]
+---
+## Validación
+
+<br>
+.font150[
+- La validez es el grado en que las predicciones coinciden con las observaciones y tiene 2 componentes: **_calibración_** y **_discriminación_**. 
+
+- La calibración compara el número predicho de eventos con el número observado en grupos de individuos, mientras que la discriminación evalúa el grado en que el modelo distingue entre individuos en los que ocurre el evento y los que no. 
+
+- La prueba estadística que evalúa la calibración es la de *Hosmer-Lemeshow*
+
+- El área bajo la curva ROC evalúa la discriminación
+
+]
+
+---
+background-image: url(assets/validacion_pasos.PNG)
+background-size: 600px
+background-position: 50% 55%
 ---
 ## Modelos logísticos para predicción: clasificación
 <br>
