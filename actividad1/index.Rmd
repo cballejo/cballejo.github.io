@@ -609,7 +609,7 @@ background-size: 800px
 background-position: 50% 80%
 ## Obteniendo métricas
 ---
-background-image: url(assets/matrix_confusion.PNG)
+background-image: url(assets/matrix_c.PNG)
 background-size: 750px
 background-position: 50% 55%
 
