@@ -1,5 +1,5 @@
 ---
-title: "Interacciones, predicciones y validación de modelos"
+title: "Interacción, predicción y validación de modelos"
 subtitle: ""  
 author: 
   - "Andrea Silva - Christian Ballejo"
