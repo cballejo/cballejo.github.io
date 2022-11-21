@@ -250,14 +250,13 @@ titanic <- read_csv("train.csv") |>
          pclass = factor(pclass),
          sex = factor(sex))
 
-tabla_estratificada <- titanic |> 
-  tabyl(sex, survived, pclass) 
+tabla_estratificada <- titanic %>% 
+  tabyl(pclass, survived, sex) 
 
-tabla_estratificada |> 
-  adorn_percentages("row")  |> 
-  adorn_pct_formatting(digits = 1)  |> 
-  adorn_ns() |> 
-  adorn_title() 
+tabla_estratificada %>% 
+  adorn_percentages("row")  %>% 
+  adorn_pct_formatting(digits = 1)  %>% 
+  adorn_ns() 
 ```
 ---
 ## Interacción en modelo Titanic
