@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Confusión</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Confusión
+]
+.author[
+### Christian Ballejo
+]
+.date[
+### 14 de diciembre de 2022
+]
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.code2 {
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+## Confusión
+&lt;br&gt;
+.font150[
+- Los llamados factores o variables de confusión (o confundentes, o confundidoras), son variables externas a la relación que se evalúa y están relacionadas tanto con la exposición como con la respuesta. 
+
+- Su presencia produce sesgos en la relación de la variable dependiente e independiente, que se deben eliminar (o controlar) a través de ajustes estadísticos realizados con análisis estratificado o con técnicas de análisis multivariante.
+
+- Es habitual en estudios observacionales (ocurre menos en experimentales por el control de estas variables durante el diseño)
+]
+---
+background-image: url(assets/DAG.JPG)
+background-size: 700px
+background-position: 50% 50%
+## Relación 
+---
+## Modelo teórico
+&lt;br&gt;
+.font150[
+- Es fundamental conocer y/o elaborar un modelo teórico conceptual que *a priori* nos permita sospechar las relaciones entre las variables en estudio.
+
+- El modelo teórico se realiza durante la etapa de diseño del estudio, a partir de la mejor evidencia científica disponible.
+
+- Estas variables recolectadas en un estudio, que acompañan a las variables resultado y exposición, pueden no tener influencia alguna, pueden ser **confundentes**, pueden ser **mediadoras** o producir **interacción**.
+]
+
+---
+## Variables mediadoras
+&lt;br&gt;
+.font150[
+- Conocidas también como variables intermedias, intermediarias o intervinientes.
+
+- Son parte de un modelo donde la variable independiente no puede influir directamente en la variable dependiente, sino que lo hace por medio de una tercera variable, un ‘intermediario’.
+
+- Es decir, aparece una tercer variable en la ruta entre la exposición y el desenlace, que puede ser total o parcial. 
+]
+
+---
+## Modificador de efecto (interacción) 
+&lt;br&gt;
+.font150[
+- Se dice que hay un modificador de efecto cuando la fuerza de asociación entre dos variables cambia de acuerdo a un tercer factor.
+
+- el efecto final que ejercen (la variable exposición y la tercera variable) sobre el desenlace
+es el resultado de una combinación (aditiva o multiplicativa) del efecto de cada variable por separado.
+
+- Cuando hay modificación de un efecto, no es correcto hablar del efecto de una exposición sin tener en cuenta (sin conocer) el valor de la otra variable o el estrato de la otra variable en el que se valora dicho efecto
+]
+---
+## Detección de confusión en el análisis estratificado
+&lt;br&gt;
+.font150[
+- Luego de obtener la medida de asociación “bruta” (relación entre la dependiente y la
+independiente, sin tener en cuenta la variable presumiblemente confundente), 
+
+- se procede a obtener la misma medida en cada estrato definido por la variable sospechada 
+como confundente, y una medida final ajustada (en ocasiones llamado OR global o ponderada de
+Mantel-Haenszel).
+] 
+---
+## Situaciones posibles
+
+.font140[
+Los valores de las medidas de asociación en cada estrato son similares entre sí, y
+diferentes de las medidas de asociación “brutas”. 
+
+Pueden darse varias combinaciones:
+
+- **Relación espuria**: El OR global detecta asociación (valor &gt; 1), mientras que el OR en cada estrato no lo detecta, arrojando valores próximos al valor nulo (OR = 1).
+
+- **Confusión enmascarando el efecto**: el OR global es 1 (no hay asociación), mientras que los OR en cada estrato ponen de manifiesto una asociación (valores &gt; 1).
+
+- **Confusión invirtiendo el efecto (_Paradoja de Simpson_)**: Los OR en cada estrato muestran asociación (valores &gt; 1), mientras que el OR global muestra una relación o asociación invertida (valor &lt; 1).
+]
+---
+## Limitaciones
+&lt;br&gt;
+.font150[
+El análisis estratificado requiere que la variable por la que se estratifica o ajusta sea de tipo categórico y que el tamaño muestral sea suficientemente grande como para que no existan celdas con pocos representantes. 
+
+Por ello hoy en día ha sido casi sustituido por las técnicas de análisis multivariante, mucho más eficientes (estimaciones más precisas con menos tamaños muestrales) y que permiten evaluar varios factores de confusión simultáneamente. 
+
+Sin embargo, el abordaje estratificado sigue siendo muy útil para comprender las relaciones entre las variables analizadas.
+]
+---
+background-image: url(assets/Tabla2x2_R.JPG)
+background-size: 500px
+background-position: 50% 50%
+## Tabla de contingencia
+---
+## Análisis multivariado
+&lt;br&gt;
+.font150[
+- Permite estimar de manera eficiente las medidas de asociación controlando simultáneamente las
+posibles variables confusoras.
+
+- Es conveniente cuando se desea ajustar por varios factores de confusión, identificar modificadores de efecto o cuando la estratificación no es posible (por ejemplo por número insuficiente de individuos)
+
+- Si la medida de efecto se modifica en el análisis ajustado un 10 % respecto del análisis crudo, la confusión podría existir y debe ser presentada (ajustada) en el análisis de nuestro trabajo.
+]
+---
+## Ejercicio
+&lt;br&gt;
+.font150[
+- En un estudio de casos y controles se pretende demostrar la asociación entre tener estrés y desarrollar cáncer.
+
+- El archivo estres.csv tiene 200 observaciones con tres variables recolectadas (Status [caso-control], stress [SI-NO] y Grupo_edad [&lt;40 - &gt;=40]).
+
+- Éxiste asociación entre estrés y cancer? como se comporta la edad?
+]
+---
+background-image: url(assets/final.PNG) 
+background-size: 900px
+background-position: 50% 50%
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
