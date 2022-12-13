@@ -54,13 +54,13 @@ class: animated, fadeIn
 
 ---
 ## Confusión
-&lt;br&gt;
+
 .font150[
-- Los llamados factores o variables de confusión (o confundentes, o confundidoras), son variables externas a la relación que se evalúa y están relacionadas tanto con la exposición como con la respuesta. 
+- Los llamados factores o .purple[variables de confusión] (o confundentes, o confundidoras), son variables externas a la relación que se evalúa y están asociadas tanto con la exposición como con la respuesta (no deben encontrarse en la vía causal entre X e Y)
 
 - Su presencia produce sesgos en la relación de la variable dependiente e independiente, que se deben eliminar (o controlar) a través de ajustes estadísticos realizados con análisis estratificado o con técnicas de análisis multivariante.
 
-- Es habitual en estudios observacionales (ocurre menos en experimentales por el control de estas variables durante el diseño)
+- Se ajustan en la etapa de análisis (estudios observacionales) o controlan en la etapa de diseño (estudios experimentales) 
 ]
 ---
 background-image: url(assets/DAG.JPG)
@@ -71,11 +71,13 @@ background-position: 50% 50%
 ## Modelo teórico
 &lt;br&gt;
 .font150[
-- Es fundamental conocer y/o elaborar un modelo teórico conceptual que *a priori* nos permita sospechar las relaciones entre las variables en estudio.
+- Es fundamental conocer y/o elaborar un modelo teórico conceptual que *a priori* nos permita establecer relaciones entre las variables en estudio. (modelo explicativo)
 
 - El modelo teórico se realiza durante la etapa de diseño del estudio, a partir de la mejor evidencia científica disponible.
 
-- Estas variables recolectadas en un estudio, que acompañan a las variables resultado y exposición, pueden no tener influencia alguna, pueden ser **confundentes**, pueden ser **mediadoras** o producir **interacción**.
+- Estas covariables recolectadas en un estudio, que acompañan a las variables resultado y exposición, pueden no tener influencia alguna, pueden ser **confundentes**, pueden ser **mediadoras** o producir **interacción**.
+
+- Correlacion = efectos causales + efectos confundentes
 ]
 
 ---
@@ -86,8 +88,11 @@ background-position: 50% 50%
 
 - Son parte de un modelo donde la variable independiente no puede influir directamente en la variable dependiente, sino que lo hace por medio de una tercera variable, un ‘intermediario’.
 
-- Es decir, aparece una tercer variable en la ruta entre la exposición y el desenlace, que puede ser total o parcial. 
+- Es decir, aparece una tercer variable en la ruta (vía causal) entre la exposición y el desenlace, que puede ser total o parcial. 
 ]
+---
+## DAG con variables intermediarias
+&lt;img src="index_files/figure-html/unnamed-chunk-2-1.png" width="50%" /&gt;&lt;img src="index_files/figure-html/unnamed-chunk-2-2.png" width="50%" /&gt;
 
 ---
 ## Modificador de efecto (interacción) 
@@ -95,10 +100,9 @@ background-position: 50% 50%
 .font150[
 - Se dice que hay un modificador de efecto cuando la fuerza de asociación entre dos variables cambia de acuerdo a un tercer factor.
 
-- el efecto final que ejercen (la variable exposición y la tercera variable) sobre el desenlace
-es el resultado de una combinación (aditiva o multiplicativa) del efecto de cada variable por separado.
+- La idea general detrás de la interacción es que el efecto de una variable (en alguna escala) depende del nivel en el que se establece otra variable.
 
-- Cuando hay modificación de un efecto, no es correcto hablar del efecto de una exposición sin tener en cuenta (sin conocer) el valor de la otra variable o el estrato de la otra variable en el que se valora dicho efecto
+- Cuando hay modificación de un efecto, no es correcto hablar del efecto de una exposición sin tener en cuenta (sin conocer) el valor de la otra variable o el estrato de la otra variable en el que se valora dicho efecto.
 ]
 ---
 ## Detección de confusión en el análisis estratificado
@@ -138,9 +142,42 @@ Sin embargo, el abordaje estratificado sigue siendo muy útil para comprender la
 ]
 ---
 background-image: url(assets/Tabla2x2_R.JPG)
-background-size: 500px
-background-position: 50% 50%
+background-size: 400px
+background-position: 50% 30%
 ## Tabla de contingencia
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font130[
+.red[Odds expuestos] = a / b
+
+.green[Odds no expuestos] = c / d
+
+.blue[OR] = .red[(a/b)] / .green[(c/d)] = a\*d / b\*c
+
+]
+---
+background-image: url(assets/OR-MH.svg)
+background-size: 200px
+background-position: 50% 90%
+## Estimador de Mantel-Haenszel
+
+.font140[
+- Estimador OR global más utilizado para ajustar confusión en abordaje bivariado.
+
+- La variable confusora se divide en estratos y se estudia la tabla para cada uno de esos estratos.
+
+- Se calcula como el Promedio de las medidas de asociación de cada estrato de la variable confusora ponderados por el número de individuos de cada estrato .purple[OR-MH] = sum(a\*d/n) / sum(b\*c/n)
+
+- Es válido siempre y cuando la distribución en los estratos sea homogénea (test de homogeneidad)
+]
 ---
 ## Análisis multivariado
 &lt;br&gt;
