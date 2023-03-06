@@ -72,11 +72,11 @@ $$
 Nivel 2
 
 $$
-\beta_{0j} = \gamma_{00} + U_{oj}
+\beta_{0j} = \gamma_{00} + U_{0j}
 $$
 
 $$
-U_{oj} \sim N(0, \tau_{oj})
+U_{oj} \sim N(0, \tau_{0j})
 $$
 
 ## Gráficamente
@@ -86,7 +86,7 @@ $$
 ## Notación {.smaller}
 
 | Término         | Significado                                                                                                              |
-|-------------------------|-----------------------------------------------|
+|--------------------------|----------------------------------------------|
 | $Y_{ij}$        | variable respuesta del individuo $i$ en el grupo $j$                                                                     |
 | $\beta_{0j}$    | intercepto aleatorio (media de grupo)                                                                                    |
 | $\gamma_{00}$   | media general de $y$ (para todos los grupos)                                                                             |
@@ -107,7 +107,7 @@ Se supone que los residuos en ambos niveles siguen distribuciones normales con m
 
 -   En modelos simples es similar al **coeficiente de partición de varianza (VPC)**.
 
--   Mide el grado de dependencia de los individuos y permite evaluar la variabilidad entre y a traves de los grupos.
+-   Mide el grado de dependencia de los individuos y permite evaluar la variabilidad entre y a través de los grupos.
 
     $$ICC = \frac{\tau_{00}}{\tau_{00} + \sigma^2} $$
 
@@ -161,7 +161,73 @@ También nos va a permitir ver como cambia la varianza en los diferentes niveles
 
 ## Inferencia para efectos fijos
 
+-   Similar a los resultados de un modelo lineal
+
+-   $H_0: \beta_i = 0$ (hipótesis nula es que los coeficientes son igual a cero)
+
+-   El paquete lme4, por defecto no incluye valores p, dado que no es preciso estimarlos en modelos mixtos (problemas con el calculo de los grados de libertad)
+
+-   Usaremos intervalos de confianza (función `confint()` )
+
+## Paquete lme4
+
+<br>
+
+-   Provee de funciones para ajustar modelos lineales multinivel y modelos lineales generalizados multinivel o mixtos.
+
+-   Desarrollado por Douglas Bates, Martin Mächler, Benjamin Bolker y Steven Walker ([2015](https://cran.r-project.org/web/packages/lme4/index.html))
+
+-   La función principal para modelos lineales mixtos es `lmer()`.
+
+## Sintaxis en R
+
+`lmer(formula, data = NULL, REML = TRUE, ...)`
+
+donde:
+
+| argumento | descripción                                                                                                         |
+|------------------|------------------------------------------------------|
+| formula   | un objeto tipo fórmula lineal que describa tanto la parte de efectos fijos como la de efectos aleatorios del modelo |
+| data      | dataframe con estructura multinivel en formato "largo"                                                              |
+| REML      | criterio de optimización en el ajuste (TRUE-FALSE)                                                                  |
+
+## Escritura de fórmulas {.smaller}
+
+A todos los términos que conocemos para la escritura de fórmulas en los modelos lineales clásicos le agregamos alguno de los siguientes elementos:
+
+| Fórmula         | Descripción                                                              |
+|---------------|---------------------------------------------------------|
+| (1\|g)          | intercepto aleatorio para el grupo g (2 niveles)                         |
+| (1\|g/k)        | interceptos aleatorios para el grupo g anidado en el grupo k (3 niveles) |
+| (0+p\|g)        | pendientes aleatorias p para cada grupo de g pero con interceptos fijos  |
+| (p\|g)          | interceptos y pendientes aleatorias p para cada grupo de g               |
+| (1\|g) + (1\|k) | interceptos aleatorios para cada grupo g y para cada grupo k             |
+
+## Salida de R
+
+## Intervalos de confianza
+
+Salida de confint() en R para objeto lmer:
+
+Tenga en cuenta que `.sig01` se refiere a la desviación estándar del intercepto aleatorio, `.sig02`se refiere a la correlación entre el intercepto aleatorio y la pendiente aleatoria y `.sig03`a la desviación estándar de la pendiente aleatoria. El valor de `.sigma`se refiere a la desviación estándar del término de error. Desafortunadamente, estas no son las etiquetas más informativas, por lo que vale la pena verificar los valores informados para `summary(modelo)`que coincidan con la salida aquí.
+
+## Método de ajuste
+
+-   Existen dos formas de ajuste implementadas por el paquete lme4: REML y ML
+
+-   REML (máxima verosimilitud restringida o "residual") es la forma por defecto. Es menos sesgada que ML.
+
+-   ML (máxima verosimilitud o "full maximum likelihood") se puede definir con el argumento REML = F
+
+-   Cuando la estructura multinivel está balanceada los ajuste son iguales.
+
 ## Procedimiento de estimación
+
+-   Modelo nulo (ICC + LRT)
+
+-   Iteración incorporando variables de nivel 1 y 2 (ICC + AIC + )
+
+-   
 
 ## Sintaxis en R
 
@@ -169,11 +235,11 @@ También nos va a permitir ver como cambia la varianza en los diferentes niveles
 
 ## Salida de R
 
+## ANOVA
 
-- Modelo nulo (ICC + LRT)
-- Iteración incorporando variables de nivel 1 y 2 (ICC + AIC + )
-- 
-## Estudios según unidad de análisis {.smaller}
+    ## refitting model(s) with ML (instead of REML)
+
+Tenga en cuenta el mensaje `refitting model(s) with ML (instead of REML)`. La prueba de razón de verosimilitud requiere que los modelos se estimen por máxima verosimilitud, en lugar de máxima verosimilitud restringida (REML). El `lme4`paquete es lo suficientemente inteligente como para darse cuenta de esto y primero vuelve a estimar el modelo antes de calcular la prueba de razón de verosimilitud.
 
 ::: panel-tabset
 ## Ecológicos

@@ -216,7 +216,7 @@ Juan Samaja - "Epistemología y Metodología. Elementos para una teoría de la i
 
 **Variables derivadas (agregadas)**: son un tipo de variables grupales que se construye agregando matemáticamente (por ejemplo, mediante una media o una proporción) las características de los individuos del grupo (por ejemplo, el porcentaje de personas analfabetas)
 
-**Variables integrales:** son un tipo de variables grupales que no tienen ningún análogo individual y se refieren necesariamente a constructos grupales. Son ejemplos de variables integrales la existencia de ciertos tipos de leyes, el sistema político o económico, la desorganización social o la densidad de población.
+**Variables integrales o globales:** son un tipo de variables grupales que no tienen ningún análogo individual y se refieren necesariamente a constructos grupales. Son ejemplos de variables integrales la existencia de ciertos tipos de leyes, el sistema político o económico, la desorganización social o la densidad de población.
 
 **Variables ambientales:** en los estudios ecológicos y en el análisis multinivel se emplea a veces el término variables ambientales para referirse a mediciones grupales de exposiciones físicas o químicas. Las variables ambientales, así definidas, se han propuesto como tipo de variable grupal, diferente de las variables derivadas y de las variables integrales.
 

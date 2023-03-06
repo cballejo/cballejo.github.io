@@ -398,10 +398,10 @@ Y_{ij} = \beta_{0j} + \epsilon_{ij}
 \]</span></p>
 <p>Nivel 2</p>
 <p><span class="math display">\[
-\beta_{0j} = \gamma_{00} + U_{oj}
+\beta_{0j} = \gamma_{00} + U_{0j}
 \]</span></p>
 <p><span class="math display">\[
-U_{oj} \sim N(0, \tau_{oj})
+U_{oj} \sim N(0, \tau_{0j})
 \]</span></p>
 </section>
 <section id="gráficamente" class="slide level2">
@@ -412,8 +412,8 @@ U_{oj} \sim N(0, \tau_{oj})
 <h2>Notación</h2>
 <table>
 <colgroup>
-<col style="width: 34%">
-<col style="width: 65%">
+<col style="width: 36%">
+<col style="width: 63%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -456,7 +456,7 @@ U_{oj} \sim N(0, \tau_{oj})
 <p><br></p>
 <ul>
 <li><p>En modelos simples es similar al <strong>coeficiente de partición de varianza (VPC)</strong>.</p></li>
-<li><p>Mide el grado de dependencia de los individuos y permite evaluar la variabilidad entre y a traves de los grupos.</p>
+<li><p>Mide el grado de dependencia de los individuos y permite evaluar la variabilidad entre y a través de los grupos.</p>
 <p><span class="math display">\[ICC = \frac{\tau_{00}}{\tau_{00} + \sigma^2} \]</span></p></li>
 <li><p>Varía de 0 (sin diferencias de grupo, es decir, <span class="math inline">\(\tau_{00}=0\)</span> ) a 1 (sin diferencias dentro del grupo, es decir, <span class="math inline">\(\sigma^2=0\)</span>).</p></li>
 <li><p>Si el ICC es 0,2, por ejemplo, diríamos que el 20% de la variación es entre grupos y el 80% entre individuos dentro de los grupos.</p></li>
@@ -485,8 +485,8 @@ U_{oj} \sim N(0, \tau_{oj})
 <p><br></p>
 <p>También nos va a permitir ver como cambia la varianza en los diferentes niveles cuando incorporemos variables explicativas de cada uno.</p>
 </section>
-<section id="test-para-efecto-de-grupo" class="slide level2 smaller">
-<h2>Test para efecto de grupo</h2>
+<section id="inferencia-para-efecto-de-grupo" class="slide level2 smaller">
+<h2>Inferencia para efecto de grupo</h2>
 <ul>
 <li><p><span class="math inline">\(H_0: \tau_{00} = 0\)</span> (hipótesis nula es que no hay diferencias entre grupos)</p></li>
 <li><p>Estadístico: <strong>razón de verosimilitud</strong> (LRT)</p>
@@ -497,8 +497,131 @@ LR = -2logL_1 - (-2logL_2) \sim \chi^2
 <li><p>El rechazo de la <span class="math inline">\(H_0\)</span> implica que existen diferencias de grupo “reales”, en cuyo caso se prefiere el modelo multinivel al modelo de un solo nivel. Sin embargo, si fallamos en rechazar el nulo, estaría justificado ajustar un modelo de un solo nivel, pero solo después de una mayor exploración porque es posible que las diferencias entre grupos se revelen después de agregar variables explicativas</p></li>
 </ul>
 </section>
-<section id="estudios-según-unidad-de-análisis" class="slide level2 smaller">
-<h2>Estudios según unidad de análisis</h2>
+<section id="inferencia-para-efectos-fijos" class="slide level2">
+<h2>Inferencia para efectos fijos</h2>
+<ul>
+<li><p>Similar a los resultados de un modelo lineal</p></li>
+<li><p><span class="math inline">\(H_0: \beta_i = 0\)</span> (hipótesis nula es que los coeficientes son igual a cero)</p></li>
+<li><p>El paquete lme4, por defecto no incluye valores p, dado que no es preciso estimarlos en modelos mixtos (problemas con el calculo de los grados de libertad)</p></li>
+<li><p>Usaremos intervalos de confianza (función <code>confint()</code> )</p></li>
+</ul>
+</section>
+<section id="paquete-lme4" class="slide level2">
+<h2>Paquete lme4</h2>
+<p><br></p>
+<ul>
+<li><p>Provee de funciones para ajustar modelos lineales multinivel y modelos lineales generalizados multinivel o mixtos.</p></li>
+<li><p>Desarrollado por Douglas Bates, Martin Mächler, Benjamin Bolker y Steven Walker (<a href="https://cran.r-project.org/web/packages/lme4/index.html">2015</a>)</p></li>
+<li><p>La función principal para modelos lineales mixtos es <code>lmer()</code>.</p></li>
+</ul>
+</section>
+<section id="sintaxis-en-r" class="slide level2">
+<h2>Sintaxis en R</h2>
+<p><code>lmer(formula, data = NULL, REML = TRUE, ...)</code></p>
+<p>donde:</p>
+<table>
+<colgroup>
+<col style="width: 25%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>argumento</th>
+<th>descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>formula</td>
+<td>un objeto tipo fórmula lineal que describa tanto la parte de efectos fijos como la de efectos aleatorios del modelo</td>
+</tr>
+<tr class="even">
+<td>data</td>
+<td>dataframe con estructura multinivel en formato “largo”</td>
+</tr>
+<tr class="odd">
+<td>REML</td>
+<td>criterio de optimización en el ajuste (TRUE-FALSE)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="escritura-de-fórmulas" class="slide level2 smaller">
+<h2>Escritura de fórmulas</h2>
+<p>A todos los términos que conocemos para la escritura de fórmulas en los modelos lineales clásicos le agregamos alguno de los siguientes elementos:</p>
+<table>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 79%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fórmula</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(1|g)</td>
+<td>intercepto aleatorio para el grupo g (2 niveles)</td>
+</tr>
+<tr class="even">
+<td>(1|g/k)</td>
+<td>interceptos aleatorios para el grupo g anidado en el grupo k (3 niveles)</td>
+</tr>
+<tr class="odd">
+<td>(0+p|g)</td>
+<td>pendientes aleatorias p para cada grupo de g pero con interceptos fijos</td>
+</tr>
+<tr class="even">
+<td>(p|g)</td>
+<td>interceptos y pendientes aleatorias p para cada grupo de g</td>
+</tr>
+<tr class="odd">
+<td>(1|g) + (1|k)</td>
+<td>interceptos aleatorios para cada grupo g y para cada grupo k</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="salida-de-r" class="slide level2">
+<h2>Salida de R</h2>
+</section>
+<section id="intervalos-de-confianza" class="slide level2">
+<h2>Intervalos de confianza</h2>
+<p>Salida de confint() en R para objeto lmer:</p>
+<p>Tenga en cuenta que <code>.sig01</code> se refiere a la desviación estándar del intercepto aleatorio, <code>.sig02</code>se refiere a la correlación entre el intercepto aleatorio y la pendiente aleatoria y <code>.sig03</code>a la desviación estándar de la pendiente aleatoria. El valor de <code>.sigma</code>se refiere a la desviación estándar del término de error. Desafortunadamente, estas no son las etiquetas más informativas, por lo que vale la pena verificar los valores informados para <code>summary(modelo)</code>que coincidan con la salida aquí.</p>
+</section>
+<section id="método-de-ajuste" class="slide level2">
+<h2>Método de ajuste</h2>
+<ul>
+<li><p>Existen dos formas de ajuste implementadas por el paquete lme4: REML y ML</p></li>
+<li><p>REML (máxima verosimilitud restringida o “residual”) es la forma por defecto. Es menos sesgada que ML.</p></li>
+<li><p>ML (máxima verosimilitud o “full maximum likelihood”) se puede definir con el argumento REML = F</p></li>
+<li><p>Cuando la estructura multinivel está balanceada los ajuste son iguales.</p></li>
+</ul>
+</section>
+<section id="procedimiento-de-estimación" class="slide level2">
+<h2>Procedimiento de estimación</h2>
+<ul>
+<li><p>Modelo nulo (ICC + LRT)</p></li>
+<li><p>Iteración incorporando variables de nivel 1 y 2 (ICC + AIC + )</p></li>
+<li></li>
+</ul>
+</section>
+<section id="sintaxis-en-r-1" class="slide level2">
+<h2>Sintaxis en R</h2>
+</section>
+<section id="escritura-de-fórmulas-1" class="slide level2">
+<h2>Escritura de fórmulas</h2>
+</section>
+<section id="salida-de-r-1" class="slide level2">
+<h2>Salida de R</h2>
+</section>
+<section id="anova" class="slide level2">
+<h2>ANOVA</h2>
+<pre><code>## refitting model(s) with ML (instead of REML)</code></pre>
+<p>Tenga en cuenta el mensaje <code>refitting model(s) with ML (instead of REML)</code>. La prueba de razón de verosimilitud requiere que los modelos se estimen por máxima verosimilitud, en lugar de máxima verosimilitud restringida (REML). El <code>lme4</code>paquete es lo suficientemente inteligente como para darse cuenta de esto y primero vuelve a estimar el modelo antes de calcular la prueba de razón de verosimilitud.</p>
 <div class="panel-tabset">
 <ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Ecológicos</a></li><li><a href="#tabset-1-2">Individuos</a></li></ul>
 <div class="tab-content">
