@@ -29,7 +29,7 @@ editor: visual
 
 ## Código = Texto
 
-![](images/final.jpg){fig-align="center"}
+![](images/final.JPG){fig-align="center"}
 
 ## Control de versiones
 
