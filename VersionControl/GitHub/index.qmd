@@ -1,0 +1,18 @@
+---
+title: "Control de Versiones: GitHub"
+author: "Christian Ballejo"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    css: styles.css
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## GitHub
+
+![](images/final.jpg){fig-align="center"}
+
+## 

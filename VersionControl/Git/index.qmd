@@ -1,0 +1,158 @@
+---
+title: "Control de Versiones: Git"
+author: "Christian Ballejo"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    css: styles.css
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## Ciencia abierta, reproducibilidad y The Turing Way
+
+![](images/turing.JPG){fig-align="center" width="18%"}
+
+-   El control de versiones en un paso más que integra el paradigma de la investigación reproducible dentro de la open science.
+
+-   Existe una interesante iniciativa en la comunidad científica internacional denominado [The Turing Way](https://the-turing-way.netlify.app/welcome.html)
+
+## Ciencia abierta, reproducibilidad y The Turing Way
+
+-   Este es un proyecto que sirve como guía de la ciencia de datos reproducible, ética y colaborativa.
+
+-   El proyecto es de código abierto, colaboración abierta y es impulsado por la misma comunidad.
+
+-   Su objetivo es proporcionar toda la información que los investigadores y científicos de datos en la academia, la industria y el sector público necesitan para garantizar que los proyectos en los que trabajan sean fáciles de reproducir y reutilizar.
+
+## Código = Texto
+
+![](images/final.jpg){fig-align="center"}
+
+## Control de versiones
+
+-   almacena ordenadamente un historial de cambios y quién los realizó.
+
+-   se pueden guardar metadatos del código escrito
+
+-   es invaluable para proyectos colaborativos donde diferentes personas trabajan paralelamente en el mismo código
+
+-   permite realizar un seguimiento de los cambios realizados y puede combinar automáticamente el trabajo de las personas
+
+## Control de versiones
+
+-   el control de versiones es como un 'deshacer' sin límites
+
+-   los servicios de hospedaje de control de versiones, como GitHub, brindan una forma de comunicarse y colaborar de una manera estructurada, con solicitudes de incorporación de cambios, revisiones de código y problemas.
+
+## Flujo de trabajo general
+
+Un procedimiento típico para usar el control de versiones es el siguiente:
+
+1.  Cree archivos: estos pueden contener texto, código o ambos.
+
+2.  Trabaje en estos archivos cambiando, eliminando o agregando contenido nuevo.
+
+3.  Cree una instantánea del estado del archivo (también conocido como versión) en este momento. Puede agregarse un comentario como metadato.
+
+## Ramificación
+
+-   Es un desarrollo no lineal del proyecto y se utiliza cuando desea agregar algo o probar algo antes de incorporarlo en el proyecto original.
+
+-   Una rama crea una copia local del repositorio principal donde puede trabajar y probar nuevos cambios
+
+-   Cualquier modificación que realice en la nueva rama no se reflejará en su proyecto principal, por lo que permanece seguro y sin errores.
+
+-   Cuando esté satisfecho con los nuevos cambios, puede introducirlos en el proyecto principal
+
+## Ramificación
+
+![](images/ramas.png){fig-align="center"}
+
+## En resumen: Ventajas de usar Git
+
+<br>
+
+-   Usar Git junto a GitHub sirve como **copia de seguridad**
+
+-   Podemos recuperar **versiones anteriores** y conocer que cambios se hicieron (historial)
+
+-   Podemos **compartir y trabajar colaborativamente** sobre el mismo proyecto al mismo tiempo
+
+## El software
+
+-   Git es un software de código abierto desarrollado originalmente por *Linus Torvalds* en 2005
+
+-   Se puede instalar en Windows, Linux y Mac.
+
+-   Para Windows se descarga del sitio [Git for Windows](https://gitforwindows.org/)
+
+-   Se integra con sitios como [GitHub](http://github.com/), [GitLab](http://gitlab.com/), [BitBucket](http://bitbucket.org/), etc.
+
+-   Se integra con IDE's y editores como ***RStudio***. (lo vamos a usar integrado)
+
+## Configuración inicial
+
+-   Abrimos RStudio
+
+-   Verificamos la versión desde la Terminal ejecutando:
+
+    ```{r}
+    #| eval: false
+    #| echo: true
+    git --version
+    ```
+
+-   Instalamos el paquete **usethis** y ejecutamos desde la consola:
+
+    ```{r}
+    #| eval: false
+    #| echo: true
+    usethis::edit_git_config()
+    ```
+
+-   Modificar en el archivo ".gitconfig" los apartados: "name" y "email" y guardarlo.
+
+-   Utilizar el mail que vamos a utilizar para crear la cuenta en GitHub
+
+## Inicializar un repositorio
+
+-   Los repositorios Git se vinculan con los proyectos de RStudio, que a su vez se incluyen en carpetas (directorios).
+
+-   Se puede agregar un repositorio a un proyecto de RStudio existente o crear un proyecto con formato de repositorio Git.
+
+-   Para agregar un repositorio Git a un proyecto se ejecuta en consola:
+
+    ```{r}
+    #| eval: false
+    #| echo: true
+    usethis::use_git()
+    # Elegir siempre la opción: 1
+    # Y ante la ventana, seleccionar: "Save"
+    ```
+
+## Pestaña Git
+
+-   Si todo salió bien aparecerá una nueva pestaña en el panel donde se ubica el entorno (Environment)
+
+-   También se puede acceder desde los iconos del menú superior.
+
+-   Pulsando sobre el icono del reloj podemos visualizar el historial de cambios del repositorio.
+
+-   Vamos a probar el funcionamiento de la siguiente forma:
+
+## Commit e historial {.smaller}
+
+-   Generamos un script nuevo llamado ***prueba.R*** y lo guardamos.
+
+-   Vamos a la pestaña Git de RStudio y pulsamos sobre el botón **commit**.
+
+-   En el panel del **commit** añadimos un texto que lo defina.
+
+-   Hacemos algunos cambios en el script ***prueba.R*** y en cada uno de ellos volvemos a pulsar **commit**.
+
+-   Luego revisamos la historia de los cambios que se han producido en el historial (pulsar el icono del *reloj*).
+
+-   Observamos los nuevos cambios resaltados en color verde, frente a los valores antiguos que aparecerán en color rojo.
