@@ -13,6 +13,124 @@ editor: visual
 
 ## GitHub
 
-![](images/final.jpg){fig-align="center"}
+-   Es un sitio web que ofrece un servicio para almacenar repositorios en base a control de versiones que se integra con Git.
 
-## 
+-   Se utiliza principalmente para alojar código y fuente de productos digitales (material educativo, libros, etc)
+
+-   Fue desarrollado en 2008 y actualmente pertenece a Microsoft
+
+-   Es de acceso gratuito y tiene también planes de pago con servicios especiales (mayor cantidad de colaboradores en repositorios privados, por ejemplo)
+
+## Crear cuenta
+
+Necesitamos ingresar:
+
+1.  Dirección de correo electrónico (email)
+
+2.  Contraseña (password)
+
+3.  Nombre de usuario (username)
+
+4.  Debemos verificar que somos humanos
+
+5.  Listo (Crear cuenta)
+
+## Paso 1
+
+![](images/Paso1.PNG){fig-align="center"}
+
+## Paso 2
+
+![](images/Paso2.PNG){fig-align="center"}
+
+## Paso 3
+
+![](images/Paso3.PNG){fig-align="center"}
+
+## Paso 4
+
+![](images/Paso4.PNG){fig-align="center"}
+
+## Paso 5
+
+![](images/Paso5.PNG){fig-align="center"}
+
+## Verificación
+
+Nos va a llegar un código de verificación a nuestra cuenta de correo electrónico declarada, que debemos ingresar en la siguiente pantalla:
+
+![](images/Paso6.PNG){fig-align="center"}
+
+## Últimos pasos
+
+A partir de aquí, nos dan la bienveniva y sigue una serie de consultas sobre el uso que le pensamos dar a nuestra cuenta en GitHub.
+
+Por ejemplo: ¿Qué características específicas le interesa utilizar?
+
+![](images/Paso7.PNG){fig-align="center"}
+
+## Finalmente
+
+Nos ofrece la versión paga o continuar con la gratuita.
+
+![](images/Paso8.PNG){fig-align="center"}
+
+## Estamos dentro de GitHub
+
+![](images/Paso9.PNG){fig-align="center"}
+
+## Personalizar cuenta en GitHub
+
+Podemos ir a [Your Profile (github.com)](https://github.com/settings/profile) para personalizar el perfil publico de la cuenta y definir:
+
+-   Nombre
+
+-   Biografía
+
+-   URL de sitio web (si tiene)
+
+-   Compañia
+
+-   Ubicación
+
+## Token de acceso {.smaller}
+
+-   Cuando interactuamos con GitHub, debemos incluir credenciales en la solicitud. Esto demuestra que somos un usuario específico de GitHub, que puede hacer lo que le pidamos.
+
+-   Git puede comunicarse con un servidor remoto usando uno de dos protocolos, HTTPS o SSH, y los diferentes protocolos usan credenciales diferentes.
+
+-   HTTPS más fácil de usar y es el que recomienda el mismo GitHub para usuarios Windows.
+
+-   Este token se denomina **PAT** *(**personal access token**)*
+
+## Token de acceso
+
+-   Para crear un nuevo token vaya a [Personal access tokens](https://github.com/settings/tokens)
+-   Pulse sobre [Generate a personal access token](https://github.com/settings/tokens/new)
+-   Escriba *RStudio* en **Note**
+-   Seleccione al menos los alcances (*scopes*) de **repo**, **workflow** y **user**.
+-   Finalmente presione en ***generate token***
+
+## Token de acceso
+
+![](images/Token.PNG){fig-align="center"}
+
+Debemos copiar el token PAT ahora porque no podremos volver a verlo. (Tratemos este token como una contraseña!!).
+
+## Paquete gitcreds
+
+Gestiona credenciales git almacenadas (adminstra tokens GitHub, entre otros)
+
+-   Ejecutemos la siguiente función:
+
+```{r}
+#| eval: false
+#| echo: true
+gitcreds::gitcreds_set()
+```
+
+-   Seleccionamos la opción Replace these credentials
+
+-   Pegamos el token PAT generado GitHub
+
+-   
