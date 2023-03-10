@@ -95,9 +95,7 @@ Un procedimiento típico para usar el control de versiones es el siguiente:
 
 ## Configuración inicial
 
--   Abrimos RStudio
-
--   Verificamos la versión desde la Terminal ejecutando:
+-   Abrimos RStudio y verificamos la versión desde la Terminal ejecutando:
 
     ```{r}
     #| eval: false
@@ -113,7 +111,15 @@ Un procedimiento típico para usar el control de versiones es el siguiente:
     usethis::edit_git_config()
     ```
 
--   Modificar en el archivo ".gitconfig" los apartados: "name" y "email" y guardarlo.
+-   Editar el archivo ".gitconfig" escibiendo:
+
+    ```{r}
+    #| eval: false
+    #| echo: true
+    [user]
+      name = nombre
+      email = usuario@dominio.com
+    ```
 
 -   Utilizar el mail que vamos a utilizar para crear la cuenta en GitHub
 
@@ -129,8 +135,7 @@ Un procedimiento típico para usar el control de versiones es el siguiente:
     #| eval: false
     #| echo: true
     usethis::use_git()
-    # Elegir siempre la opción: 1
-    # Y ante la ventana, seleccionar: "Save"
+    # Elegir siempre la opción positiva (si, absolutamente, etc)
     ```
 
 ## Pestaña Git

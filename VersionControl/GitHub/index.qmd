@@ -248,7 +248,7 @@ Si el proyecto no existe, podemos comenzar creando un repositorio en GitHub y lu
 
 7.  Crear un **token (PAT)** desde GitHub y copiarlo.
 
-8.  Instalar el paquete gitcreds en RStudio
+8.  Instalar el paquete **gitcreds** en RStudio
 
 9.  Almacenar el token (PAT) con `gitcreds::gitcreds_set()`
 

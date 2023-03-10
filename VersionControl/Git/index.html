@@ -480,8 +480,7 @@ Christian Ballejo
 <section id="configuración-inicial" class="slide level2">
 <h2>Configuración inicial</h2>
 <ul>
-<li><p>Abrimos RStudio</p></li>
-<li><p>Verificamos la versión desde la Terminal ejecutando:</p>
+<li><p>Abrimos RStudio y verificamos la versión desde la Terminal ejecutando:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>git <span class="sc">--</span>version</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
@@ -489,7 +488,12 @@ Christian Ballejo
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>usethis<span class="sc">::</span><span class="fu">edit_git_config</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
-<li><p>Modificar en el archivo “.gitconfig” los apartados: “name” y “email” y guardarlo.</p></li>
+<li><p>Editar el archivo “.gitconfig” escibiendo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>[user]</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  name <span class="ot">=</span> nombre</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  email <span class="ot">=</span> usuario<span class="sc">@</span>dominio.com</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
 <li><p>Utilizar el mail que vamos a utilizar para crear la cuenta en GitHub</p></li>
 </ul>
 </section>
@@ -500,9 +504,8 @@ Christian Ballejo
 <li><p>Se puede agregar un repositorio a un proyecto de RStudio existente o crear un proyecto con formato de repositorio Git.</p></li>
 <li><p>Para agregar un repositorio Git a un proyecto se ejecuta en consola:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>usethis<span class="sc">::</span><span class="fu">use_git</span>()</span>
-<span id="cb3-2"><a href="#cb3-2"></a><span class="co"># Elegir siempre la opción: 1</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co"># Y ante la ventana, seleccionar: "Save"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>usethis<span class="sc">::</span><span class="fu">use_git</span>()</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># Elegir siempre la opción positiva (si, absolutamente, etc)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></li>
 </ul>
 </section>
