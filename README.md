@@ -1,7 +1,5 @@
 # Christian Ballejo
-Sitio web
-
-Entorno de prueba
+Repositorio de páginas web
 
 ### Slides - [html](https://cballejo.github.io/prueba/prueba_themer.html)
 
