@@ -99,7 +99,7 @@ Podemos ir a [Your Profile (github.com)](https://github.com/settings/profile) pa
 
 -   Git puede comunicarse con un servidor remoto usando uno de dos protocolos, HTTPS o SSH, y los diferentes protocolos usan credenciales diferentes.
 
--   HTTPS más fácil de usar y es el que recomienda el mismo GitHub para usuarios Windows.
+-   HTTPS más fácil de usar y es el que recomienda el mismo GitHub para usuarios Windows. Si quiere saber mas de SSH puede ver <https://happygitwithr.com/ssh-keys.html>
 
 -   Este token se denomina **PAT** *(**personal access token**)*
 
