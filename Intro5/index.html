@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Manipulación de datos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <meta name="date" content="2021-03-19" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Manipulación de datos
+## Parte III
+### Christian Ballejo
+### 2021-03-19
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+&lt;br&gt;
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro5
+
+---
+class: left, middle
+
+background-image: url(assets/dplyr.PNG)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+- Hasta el momento hemos visto las funciones .bold[select(), filter(), arrange()] y .bold[count()] del paquete **dplyr** perteneciente al ecosistema **tidyverse**.
+
+- Hoy vamos a presentar dos nuevas funciones-verbos (**summarise** y **group_by**)
+
+- A estas funciones las vamos a utilizar para realizar distintos resúmenes de datos.
+]
+
+---
+.font140[ 
+&lt;br&gt; 
+&lt;br&gt; 
+El encuentro pasado utilizamos la función **count()** para construir *tablas de frecuencia*.
+
+La tabla de frecuencia es la forma de resumir la información en **variables cualitativas (categóricas)**.
+
+Para las **variables cuantitativas** existen varias medidas resumen clasificadas como de .bold[tendencia central, posición, dispersión, forma, etc.]
+
+La acción de resumen siempre se ejecutan en forma vertical, es decir por **variable** (columnas en los datos ordenados)
+
+La función que se encarga de resumir toda una variable a un solo valor es **summarise**
+]
+---
+class: left, top
+
+
+## summarise()
+
+.font140[ 
+La función **summarise()** del inglés .bold[resumir], se utiliza justamente para resumir las observaciones de una tabla de datos mediante alguna .bold[medida resumen].
+
+Otra forma de escribir la función es **summarize()**. Ambas realizan la misma operación.
+]
+
+&lt;br&gt;
+
+.font160[.center[  
+datos %&gt;% **summarise**(var_resumen = función_resumen)
+
+datos %&gt;% **summarize**(var_resumen = función_resumen)
+]]
+
+---
+class: left, top
+
+
+## summarise()
+
+.font140[ 
+Algunas de las funciones resumen provistas por el lenguaje R son:
+
+
+- .bold[tendencia central] - **mean()** - **median()**
+
+- .bold[posición] - **min()** - **max()** - **quantile()**
+
+- .bold[dispersión] - **var()** - **sd()** - **IQR()** 
+
+- .bold[conteo] - **n()** - **n_distinct()**
+
+- .bold[orden] - **first()** - **last()**
+
+La mayoría de estas funciones aplican en tipos de datos int (enteros), dbl (reales), date (fecha) y ddtm (fecha - hora).
+]
+
+
+---
+class: center, middle, inverse, hide-logo
+
+## Abrimos el script practica5.R 
+
+## Trabajamos con summarise() integrando las  funciones conocidas 
+
+---
+class: left, top
+
+## group_by()
+
+.font140[ 
+La función **group_by()** del inglés .bold[agrupar por], sirve para agrupar a partir de valores o categorías distintas.
+
+Aplicado sólo no produce ningún resultado interesante, por eso está pensando para usarlo principalmente asociado a **summarise()**.
+]
+
+.font180[.center[datos %&gt;% **group_by**(variable)]]
+
+&lt;br&gt;
+
+.font140[ 
+Junto a esta función aparece **ungroup()** que .bold[deshace] el agrupamiento.]
+
+.font180[.center[datos %&gt;% **ungroup**()]]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica5.R 
+
+## Aplicamos group_by() asociado a summarise()
+
+---
+background-image: url(assets/group_by-summarize.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## En resumen...
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+
+---
+
+
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 5.6 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/transform.html)]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

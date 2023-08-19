@@ -1,0 +1,235 @@
+---
+title: "Manipulación de datos"
+subtitle: "Parte I"  
+author: 
+  - "Christian Ballejo"
+date: '03-03-2021'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro3
+
+---
+class: left, middle
+
+background-image: url(assets/dplyr.PNG)
+background-size: 180px
+background-position: 50% 10%
+
+
+
+.font140[ 
+<br> 
+<br> 
+<br> 
+- **dplyr** es un paquete para **transformar datos** que pertenece al ecosistema **tidyverse**
+
+- Implementa una **_gramática "humana"_**
+
+- Está constituido por funciones definidas como **_"verbos"_**
+
+- Hoy vamos a ver dos de esas funciones-verbos (**select** y **filter**)
+]
+
+---
+class: left, top
+
+background-image: url(assets/select.PNG)
+background-size: 300px
+background-position: 50% 80%
+
+## select()
+
+.font140[ 
+La función **select()** del inglés .bold[seleccionar], sirve para seleccionar variables (columnas) de una tabla de datos.
+]
+
+
+
+.font160[.center[  
+**select**(datos, a, c)  ó  
+datos %>% **select**(a,c)
+]]
+
+
+---
+class: center, middle, inverse, hide-logo
+
+## Abrimos el script practica3.R 
+
+## Explicamos el funcionamiento de select() y sus variantes
+
+---
+background-image: url(assets/select.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## Mapa conceptual de select()
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+---
+class: left, top
+
+## filter()
+
+.font140[ 
+La función **filter()** del inglés .bold[filtrar], sirve para filtrar un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición.
+
+
+Para construir la condición se utilizan una serie de .bold[operadores de comparación] y .bold[operadores lógicos] similares a la de otros lenguajes de programación.
+
+La estructura de la función puede ser cualquiera de las siguientes: 
+]
+
+.font180[.center[**filter**(datos, condición)]]
+<br>
+.font180[.center[datos %>% **filter**(condición)]]
+
+---
+background-image: url(assets/operadores.PNG)
+background-size: 600px
+background-position: 50% 60%
+
+## Operadores de comparación
+
+
+---
+background-image: url(assets/booleanos2.PNG)
+background-size: 700px
+background-position: 50% 60%
+
+## Operadores lógicos (booleanos)
+
+---
+background-image: url(assets/booleanos.PNG)
+background-size: 750px
+background-position: 50% 60%
+
+## Operadores lógicos (booleanos)
+
+---
+## Tipos de datos
+
+.font140[
+Tipos de datos posibles para variables con sus abreviaturas 
+
+- **int**  números enteros
+
+- **dbl**  números reales 
+
+- **chr**  cadena de caracteres (*texto*)
+
+- **date** fechas
+
+- **dttm** fechas y horas
+
+- **lgl**  valores lógicos (*TRUE - FALSE*)
+
+- **fctr** factores (representan variables categóricos con valores fijos)
+]
+
+---
+## Valores faltantes
+
+.font140[
+- Los valores faltantes se implementan en **R** como un .bold[valor especial] .blue[NA]
+
+- .blue[NA] significa .bold[Not Available] (No Disponible) y es un **_"no valor"_**.
+
+- Esto hace que los valores perdidos sean "contagiosos". Cualquier operación que involucre un valor .blue[NA] también será .blue[NA].
+
+.code[
+```{r, }
+NA > 5
+10 == NA
+```
+]
+
+.plot[
+```{r, }
+NA + 10
+NA / 2
+```
+]
+
+]
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica3.R 
+
+## Explicamos el funcionamiento de filter() y sus variantes, vinculando los subconjuntos de datos a salidas gráficas.
+---
+background-image: url(assets/filter.svg) 
+background-size: 580px
+background-position: 50% 55%
+
+## Mapa conceptual de filter()
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 5.1, 5.2 y 5.4 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/transform.html)]

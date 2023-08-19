@@ -1,0 +1,159 @@
+---
+title: "Prueba con themer"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+background-image: url(logo_INE.png)
+background-position: 96% 2%
+background-size: 5%
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+
+---
+class: left, upper
+
+
+
+El [sitio oficial](https://www.r-project.org/) del lenguaje dice que:
+
+
+_**“R es un entorno de software libre para gráficos y computación estadística.**_ 
+
+_**Se compila y se ejecuta en una amplia variedad de plataformas UNIX, Windows y MacOS.”**_
+
+--
+
+
+Profundizando en su descripción podemos decir, más técnicamente, que:
+
+.green[
+> es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.
+
+]
+
+
+---
+Por lo tanto ![](libs/images/logoR.png) ... 
+
+--
+
+
+**...es un lenguaje de programación estadístico**
+
+
+Básicamente es un lenguaje de programación, con sus estructuras y reglas
+de sintaxis, que posee una gran variedad de funciones desarrolladas para
+estadística y otras librerías con diversas aplicaciones.
+
+--
+
+**...es un lenguaje Orientado a Objetos**
+
+
+Implementa los conceptos de la programación orientada a objetos y esto
+le otorga simpleza y flexibilidad en el manejo de datos. 
+
+--
+
+
+**...es un lenguaje interpretado**
+
+No es necesario compilar el código para construir
+ejecutables sino que directamente se ejecuta por medio del intérprete
+que el software instala.
+
+--
+
+**...es multiplataforma**
+
+
+Se puede instalar en diferentes sistemas operativos como Linux, Windows
+y Mac. 
+
+--
+
+
+**...es Open Source y se distribuye bajo licencia GNU - GPL**
+
+Se distribuye gratuitamente bajo [licencia GNU](https://es.wikipedia.org/wiki/GNU_General_Public_License) (General Public License) -- GPL y que los usuarios tienen la libertad de usar, estudiar, compartir (copiar) y modificar el software.
+
+---
+class: center, middle, inverse
+
+
+# Historia
+
+
+
+---
+background-image: url("libs/images/Ross_ihaka.jpg"), url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Rober_Gentleman.png/220px-Rober_Gentleman.png)
+background-size: 180px, 180px
+background-position: 75% 20%, 75% 70%
+
+.pull-left[
+R es un lenguaje que fue desarrollado a partir del [***lenguaje
+S***](https://en.wikipedia.org/wiki/S_(programming_language)) que a su
+vez tiene sus orígenes en [Bell
+Labs](https://en.wikipedia.org/wiki/Bell_Labs) de la **AT&T** (actualmente
+Lucent Technologies) de mediados de la década del '70. Posteriormente, S
+fue vendido y dio origen a una versión propietaria denominada S-Plus que
+es comercializada por Insighful Corporation.
+
+En 1995 dos profesores de estadística de la *Universidad de Auckland*, en
+Nueva Zelanda ([Ross Ihaka](https://en.wikipedia.org/wiki/Ross_Ihaka) y
+[Robert
+Gentleman](https://en.wikipedia.org/wiki/Robert_Gentleman_(statistician)),
+iniciaron el **"Proyecto R"**, con la intención de desarrollar un programa
+estadístico inspirado en el lenguaje S pero de dominio público.
+]
+
+
+---
+
+.pull-left[
+Aunque se dice que R es un dialecto de S, existen diferencias
+importantes en el diseño de ambos lenguajes.
+
+
+El software está desarrollado en lenguaje C++ con algunas rutinas
+agregadas en Fortran) y su nombre se debe a la letra con la que inician
+los nombres de pila de sus autores (Ross y Robert).
+]
+
+
+.pull-right[
+Actualmente R es mantenido por un grupo internacional de desarrolladores
+voluntarios denominado [Core Development
+Team](https://www.r-project.org/contributors.html).
+]
+
+---
+
+## Otra mirada "comunicativa"
+
+---

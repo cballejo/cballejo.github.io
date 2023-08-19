@@ -1,0 +1,148 @@
+---
+title: "Factores"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '2021-07-07'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro14
+
+---
+## Introducción
+.font150[ 
+
+- Los factores son el formato de datos que el lenguaje R reserva para trabajar con **variables categóricas**, es decir, variables que tienen un conjunto fijo y conocido de valores posibles. 
+
+- Están compuesto por valores numéricos internos asociados a etiquetas que definen cada uno de los **niveles** (categorías de la variable).
+
+- También son útiles cuando necesitamos mostrar vectores de caracteres en un **orden** específico (no alfabético).
+]
+---
+class: left, middle
+background-image: url(assets/forcats.PNG)
+background-size: 180px
+background-position: 50% 10%
+
+## Paquete forcats
+
+.font150[ 
+<br> 
+<br> 
+<br> 
+- El paquete forcats proporciona un conjunto de herramientas útiles que resuelven problemas comunes con factores en R.
+
+- Respeta los principios del tidyverse
+
+- Todas sus funciones comienzan con __fct_*__
+]
+
+---
+## Funciones mas relevantes
+
+.font150[
+- fct_recode(): recodifica niveles
+
+- fct_relevel(): reordena niveles
+
+- fct_expand(): agrega nuevos niveles
+
+- fct_drop(): elimina niveles no utilizados
+
+- fct_rev(): revierte orden de los niveles
+
+- fct_unique(): muestra valores únicos del factor
+]
+---
+## Funciones mas relevantes
+
+.font150[
+- fct_infreq(): ordena niveles por frecuencia
+
+- fct_explicit_na(): explicita valores NA (agrega etiqueta al nivel)
+ 
+- fct_other(): unifica niveles en "otros"
+
+- fct_lump(): unifica niveles menos frecuentes en "otros"
+
+- fct_lump_prop(): unifica niveles menos frecuentes en "otros" usando %
+]
+
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 15 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/factores.html)]
+
+---
+class:  middle
+## Practica 14 - Factores
+.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1YFt8ywDm8PrFHSsgzm6weSZF7Z5CQtrs/view?usp=sharing) de la web
+
+- Descomprimimos la carpeta con el proyecto Factores
+
+- Ejecutamos las líneas del script guiado.
+]
+

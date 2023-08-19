@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Manipulación de datos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Manipulación de datos
+## Parte II
+### Christian Ballejo
+### 10-03-2021
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+&lt;br&gt;
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro4
+
+---
+class: left, middle
+
+background-image: url(assets/dplyr.PNG)
+background-size: 180px
+background-position: 50% 10%
+
+
+
+.font140[ 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+- En este encuentro seguiremos conociendo otras funciones del paquete **dplyr** pensado para **transformar/gestionar/manipular datos**.
+
+- Hoy vamos a ver dos nuevas funciones-verbos (**arrange** y **count**)
+
+- También, vamos a retomar el script .bold[practica3.R] uniendo todo lo visto hasta ahora e incorporando una nueva ejercitación.
+]
+
+---
+class: left, top
+
+
+## arrange()
+
+.font140[ 
+La función **arrange()** del inglés .bold[ordenar], sirve para ordenar observaciones de una tabla de datos a partir de una o más variables (columnas).
+]
+
+&lt;br&gt;
+
+.font160[.center[  
+**arrange**(datos, var1, var2, ...)  
+
+ó  
+
+datos %&gt;% **arrange**(var1, var2, ...)
+]]
+
+---
+class: left, top
+
+
+## arrange()
+
+.font140[ 
+El ordenamiento _predeterminado_ es **_ascendente_**. 
+
+Si la variable contiene números, las filas se van a ordenar ubicando esos números de menor a mayor (1,2,3...). 
+
+Si la variable contiene texto, las filas se van a ordenar ubicando las palabras alfabéticamente en forma ascendente (a,b,c...).
+
+Si deseamos invertir el orden debemos incorporar la función **desc()** dentro de **arrange()**.
+]
+
+
+.font160[.center[  
+datos %&gt;% **arrange**(var1)  *# ascendente*
+
+datos %&gt;% **arrange**(**desc**(var1)) *# descendente*
+]]
+
+
+---
+class: center, middle, inverse, hide-logo
+
+## Abrimos el script practica3.R 
+
+## Ordenamos la tabla datos_covid a partir de diferentes variables para ver el funcionamiento de arrange() y desc()
+
+---
+class: middle, inverse, hide-logo
+
+## Filtrar observaciones de Chaco de mayo de 2020,
+## ordenar por fecha_inicio_sintomas,
+## seleccionar variables provincia, departamento y fis,
+## finalmente visualizar - View()
+
+---
+class: left, top
+
+## count()
+
+.font140[ 
+La función **count()** del inglés .bold[contar], sirve para contabilizar categorías o valores diferentes de variables resumiendo los datos en una **_tabla de frecuencia_**. 
+
+Reconoce y también contabiliza los valores .bold[NA] de las variables.
+]
+
+.font180[.center[datos %&gt;% **count**(variable)]]
+
+.font140[ 
+Tiene algunos argumentos opcionales como:
+
+- **name** (nombre de la variable que contabiliza - por defecto se llama n)
+- **sort** (si es TRUE se ordena de mayor a menor)
+- **wt** (variable peso / ponderación / expansión opcional)
+
+También se pueden agregar más variables separadas por una coma.
+]
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica3.R 
+
+## Explicamos el funcionamiento de count() aplicándolo a datos_covid para obtener información similar a la vista en gráficos pero en forma de tablas.
+
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 5.3 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/transform.html)]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

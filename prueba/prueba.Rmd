@@ -6,13 +6,23 @@ institute: "INE"
 date: "2021/01/25 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
+    transition: slide
+    css: [default, ./css/fonts_mtheme.css, ./css/theme_IntroR.css]
     lib_dir: libs
+    seal: true
     nature:
       highlightStyle: github
       highlightLines: true
-      countIncrementalSlides: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+      beforeInit: "macros.js"
+      
 ---
 
+layout: true
+background-image: url(logo_INE.png)
+background-position: 96% 2%
+background-size: 5%
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
@@ -20,59 +30,173 @@ options(htmltools.dir.version = FALSE)
 
 
 ---
-class: center, middle
+class: left, upper
 
-El sitio oficial del lenguaje dice que:
 
-_**“R es un entorno de software libre para gráficos y computación estadística. Se compila y se ejecuta en una amplia variedad de plataformas UNIX, Windows y MacOS.”**_
 
+El [sitio oficial](https://www.r-project.org/) del lenguaje dice que:
+
+.br50[]
+
+.centrar[
+.font110[
+.coltema[
+_**“R es un entorno de software libre para gráficos y computación estadística.**_ 
+
+_**Se compila y se ejecuta en una amplia variedad de plataformas UNIX, Windows y MacOS.”**_
+]
+]
+]
 --
 
+.br50[]
 Profundizando en su descripción podemos decir, más técnicamente, que:
 
+.br30[]
+
+
+.font120[
 > es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.
 
----
-
-You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
-
-- Create a new R Markdown document from the menu `File -> New File -> R Markdown -> From Template -> Ninja Presentation`;<sup>1</sup>
-
---
-
-- Click the `Knit` button to compile it;
-
---
-
-- or use the [RStudio Addin](https://rstudio.github.io/rstudioaddins/)<sup>2</sup> "Infinite Moon Reader" to live preview the slides (every time you update and save the Rmd document, the slides will be automatically reloaded in RStudio Viewer.
-
-.footnote[
-[1] 中文用户请看[这份教程](https://slides.yihui.org/xaringan/zh-CN.html)
-
-[2] See [#2](https://github.com/yihui/xaringan/issues/2) if you do not see the template or addin in RStudio.
 ]
 
----
-background-image: url(`r xaringan:::karl`)
-background-position: 50% 50%
-class: center, bottom, inverse
-
-# You only live once!
 
 ---
 
-# Hello Ninja
+Por lo tanto ![](logoR.png) ... 
 
-As a presentation ninja, you certainly should not be satisfied by the "Hello World" example. You need to understand more about two things:
+--
 
-1. The [remark.js](https://remarkjs.com) library;
+.font110[
+.coltema[
+**...es un lenguaje de programación estadístico**
+]
+]
 
-1. The **xaringan** package;
+Básicamente es un lenguaje de programación, con sus estructuras y reglas
+de sintaxis, que posee una gran variedad de funciones desarrolladas para
+estadística y otras librerías con diversas aplicaciones.
 
-Basically **xaringan** injected the chakra of R Markdown (minus Pandoc) into **remark.js**. The slides are rendered by remark.js in the web browser, and the Markdown source needed by remark.js is generated from R Markdown (**knitr**).
+--
+
+.font110[
+.coltema[
+**...es un lenguaje Orientado a Objetos**
+]
+]
+
+Implementa los conceptos de la programación orientada a objetos y esto
+le otorga simpleza y flexibilidad en el manejo de datos. 
+
+--
+
+.font110[
+.coltema[
+**...es un lenguaje interpretado**
+]
+]
+
+No es necesario compilar el código para construir
+ejecutables sino que directamente se ejecuta por medio del intérprete
+que el software instala.
+
+--
+
+.font110[
+.coltema[
+**...es multiplataforma**
+]
+]
+
+Se puede instalar en diferentes sistemas operativos como Linux, Windows
+y Mac. 
+
+--
+
+.font110[
+.coltema[
+**...es Open Source y se distribuye bajo licencia GNU - GPL**
+]
+]
+
+Se distribuye gratuitamente bajo [licencia GNU](https://es.wikipedia.org/wiki/GNU_General_Public_License) (General Public License) -- GPL y que los usuarios tienen la libertad de usar, estudiar, compartir (copiar) y modificar el software.
+
+---
+class: center, middle, inverse
+
+
+# Historia
+
+
+
+---
+background-image: url(https://www.stat.auckland.ac.nz/en/about/news-and-events-5/news/news-2017/2017/12/ross-ihaka-retires/_jcr_content/par/contentblock/par/textimage/image.img.jpg/1517954773376.jpg), url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Rober_Gentleman.png/220px-Rober_Gentleman.png)
+background-size: 180px, 180px
+background-position: 75% 20%, 75% 70%
+
+.br50[]
+ 
+.br30[]
+
+.pull-left[
+.font110[
+R es un lenguaje que fue desarrollado a partir del [***lenguaje
+S***](https://en.wikipedia.org/wiki/S_(programming_language)) que a su
+vez tiene sus orígenes en [Bell
+Labs](https://en.wikipedia.org/wiki/Bell_Labs) de la **AT&T** (actualmente
+Lucent Technologies) de mediados de la década del '70. Posteriormente, S
+fue vendido y dio origen a una versión propietaria denominada S-Plus que
+es comercializada por Insighful Corporation.
+
+.br50[]
+
+En 1995 dos profesores de estadística de la *Universidad de Auckland*, en
+Nueva Zelanda ([Ross Ihaka](https://en.wikipedia.org/wiki/Ross_Ihaka) y
+[Robert
+Gentleman](https://en.wikipedia.org/wiki/Robert_Gentleman_(statistician))),
+iniciaron el **"Proyecto R"**, con la intención de desarrollar un programa
+estadístico inspirado en el lenguaje S pero de dominio público.
+]
+]
+
+
 
 ---
 
+.br50[]
+ 
+.br30[]
+
+.font110[
+.pull-left[
+.br50[]
+
+Aunque se dice que R es un dialecto de S, existen diferencias
+importantes en el diseño de ambos lenguajes.
+
+.br50[]
+
+El software está desarrollado en lenguaje C++ con algunas rutinas
+agregadas en Fortran) y su nombre se debe a la letra con la que inician
+los nombres de pila de sus autores (Ross y Robert).
+]
+
+
+.pull-right[
+.br50[]
+
+Actualmente R es mantenido por un grupo internacional de desarrolladores
+voluntarios denominado [Core Development
+Team](https://www.r-project.org/contributors.html).
+]
+]
+---
+
+
+
+
+
+---
 # remark.js
 
 You can see an introduction of remark.js from [its homepage](https://remarkjs.com). You should read the [remark.js Wiki](https://github.com/gnab/remark/wiki) at least once to know how to

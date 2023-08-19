@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Interacción, predicción y validación de modelos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Andrea Silva - Christian Ballejo" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link href="libs/countdown/countdown.css" rel="stylesheet" />
+    <script src="libs/countdown/countdown.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Interacción, predicción y validación de modelos
+]
+.author[
+### Andrea Silva - Christian Ballejo
+]
+.date[
+### 22 de noviembre de 2022
+]
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.code2 {
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+## Parte 1
+
+.font150[ 
+
+- Interacción
+
+- Introducción al dataset Titanic
+
+- Interacción en modelos logísticos
+
+- Sospechas de interacción
+
+  - Gráficos EDA
+  
+  - Tablas de contingencia estratificadas
+
+- Resultados como probabilidades predichas
+
+- Paquete ggeffects
+
+]
+---
+class: middle, center
+
+## Cronograma
+
+| Hora          | Actividad                                                     |
+|:--------------|:--------------------------------------------------------------|
+| 09:45 - 11:00 | Interpretación de la interacción en modelos de regresión logística                              |
+| 11:00 - 11:15 | *Pausa* ☕ 🥐                             |
+| 11:15 - 13:00 | Modelos logísticos para predicción: clasificación             |
+| 13:00 - 14:00 | *Almuerzo* 🍔 🥗                                |
+| 14:00 - 15:00 | Modelos logísticos para predicción: clasificación   (cont)    |
+| 15:00 - 15:15 | *Pausa* ☕ 🥐                                    |
+| 15:15 - 17:00 | tidymodels - validación cruzada   
+
+
+
+---
+class: inverse, hide-logo, center
+## Interacción
+
+&lt;br&gt;
+&lt;br&gt;
+
+.remark-code[.font190[
+Se habla de interacción biológica entre dos o más factores causales cuando existe una interdependencia entre sus mecanismos de acción para causar, prevenir o controlar una enfermedad, de manera que la incidencia de enfermedad atribuible a este conjunto de factores causales es diferente de la incidencia esperable de sus efectos individuales
+
+]]
+---
+## Conceptos
+
+.code2[.font130[
+### Interacción
+
+- Cuando hay modificación de un efecto, no es correcto hablar del efecto de una exposición sin tener en cuenta (sin conocer) el valor de la otra variable o el estrato de la otra variable en el que se valora dicho efecto
+
+]]
+
+.plot[.font130[
+### Confusión
+
+- No corresponde a un fenómeno biológico: una variable (o factor) de confusión es una variable que distorsiona la medida de la asociación entre otras dos variables.
+
+- se habla de confusión cuando existen diferencias importantes entre las estimaciones brutas de una asociación y las ajustadas por los posibles factores de confusión
+
+]]
+
+---
+background-image: url(assets/graf_int.png)
+background-size: 450px
+background-position: 50% 30%
+## Representación gráfica del fenómeno de interacción
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.font140[
+- cuando no hay interacción: podemos describir el efecto de cada variable con independencia de las otras. 
+
+- en presencia de interacción: no es posible estimar el efecto de una variable (semilla) sin conocer previamente el valor de la otra (lluvia), dado que los efectos de una variable dependen siempre de los valores que toma la otra, porque existe una modificación del efecto (interacción) entre ambas.
+
+]
+---
+## Interacción
+
+.font130[
+- La consecuencia de la identificación de variables como modificadores de efectos significativos es que el efecto sobre el resultado de una de esas variables dependerá de los valores que tomen la(s) otra(s) variable(s) involucrada(s) en la interacción. 
+
+- Esto implica que los coeficientes de los modelos obtenidos por cualquier paquete estadístico no pueden interpretarse directamente sin realizar cálculos adicionales. Los únicos coeficientes del modelo que se pueden usar directamente para estimar las razones de probabilidades son los que no se incluyen en los términos de interacción. 
+
+- Las razones de probabilidad restantes y sus correspondientes intervalos de confianza deben estimarse a través de los diferentes niveles de las otras variables del término de interacción (a través de diferentes categorías si la variable es cualitativa o a través de una serie de valores, a veces el mínimo, la media y el máximo, si es cuantitativa). La mayor dificultad de este proceso radica en la correcta estimación de la varianza de cada una de estas razones de probabilidad.
+]
+---
+class:  center
+## Interacción en Modelos Lineales Generalizados
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font180[
+El exceso de riesgo relativo debido a la interacción implica una desviación de la aditividad de los efectos.
+]
+---
+background-image: url(assets/Titanic.jpg)
+background-size: 700px
+background-position: 50% 70%
+
+## Dataset Titanic
+---
+## Dataset Titanic
+
+.font150[
+Diccionario de datos
+]
+
+.font150[
+- .blue[survival]: Superviviente (*variable respuesta*)
+- .blue[pclass]: Clase de ticket 
+- .blue[sex]: Sexo
+- .blue[age]: Edad en años
+- .blue[sibsp]: nro. de hermanos/cónyuges a bordo 
+- .blue[parch]: nro. de padres/hijos a bordo 
+- .blue[ticket]: Número de ticket 
+- .blue[fare]: Tarifa de pasaje
+- .blue[cabin]: Número de cabina
+- .blue[embarked]: Puerto de embarcado
+]
+---
+## Interacción
+.font140[
+Existe interacción cuando la asociación entre dos variables varía según los diferentes niveles de otra u otras variables.
+
+- Se la conoce también como **_modificadora de efecto_**.
+
+- Se identifica en tablas bivariadas con **estratificación** o en modelos multivariados con relaciones **multiplicativas** entre variables.
+
+- Cuando la interacción es significativa, no se puede hablar del efecto de una variable sin tener en cuenta el efecto de la otra.
+
+- Los gráficos pueden ayudar al entendimiento cuando comunicamos.
+]
+---
+## Interacción en modelo Titanic
+### Exploración y sospechas
+&lt;br&gt;
+
+.font140[
+
+- Gráficos en análisis exploratorio de datos (*EDA*)
+
+- Abordaje con tablas de contingencia estratificadas (.orange[Mantel-Haenszel])
+
+- Test de homogeneidad (.green[Woolf], .blue[Breslow-Day], etc)
+
+]
+
+---
+background-image: url(assets/barras_int.PNG)
+background-size: 1100px
+background-position: 50% 80%
+
+## Interacción en modelo Titanic
+
+### Gráficos (EDA)
+
+
+---
+## Interacción en modelo Titanic
+### Tabla de contingencia estratificada
+
+
+```
+## $female
+##  pclass         Si         No
+##       1 96.4% (80)  3.6%  (3)
+##       2 91.9% (68)  8.1%  (6)
+##       3 46.1% (47) 53.9% (55)
+## 
+## $male
+##  pclass         Si          No
+##       1 39.6% (40) 60.4%  (61)
+##       2 15.2% (15) 84.8%  (84)
+##       3 15.0% (38) 85.0% (215)
+```
+---
+## Interacción en modelo Titanic
+
+### Análisis bivariado estratificado
+
+
+```r
+library(epiR)
+
+epi.2by2(tabla, method = "case.control")
+```
+
+
+```
+##              Outcome +    Outcome -      Total        Prevalence *        Odds
+## Exposed +          195           64        259                75.3       3.047
+## Exposed -           93          360        453                20.5       0.258
+## Total              288          424        712                40.4       0.679
+## 
+## Point estimates and 95% CIs:
+## -------------------------------------------------------------------
+## Odds ratio (crude)                             11.79 (8.20, 16.95)
+## Odds ratio (M-H)                               12.47 (8.40, 18.51)
+## Odds ratio (crude:M-H)                         0.95
+## Attrib fraction (est) in the exposed (%)      0.92 (0.88, 0.94)
+## Attrib fraction (est) in the population (%) * 0.62 (0.59, 0.65)
+## -------------------------------------------------------------------
+##  Woolf test of homogeneity of ORs: chi2(2) = 24.868 Pr&gt;chi2 = &lt;0.001
+##  Test that M-H adjusted OR = 1:  chi2(1) = 191.033 Pr&gt;chi2 = &lt;0.001
+##  Wald confidence limits
+##  M-H: Mantel-Haenszel; CI: confidence interval
+##  * Outcomes per 100 population units
+```
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado 
+
+.font140[
+
+Modelo sin interacción
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+$$
+`\begin{aligned}
+\log\left[ \frac { P( survived = Si ) }{ 1 - P( survived = Si ) } \right] &amp;= \alpha + \beta_{1}({\color{firebrick}{age}}) + \beta_{2}({\color{blue}{sex}}_{female})\ + \\
+&amp;\quad \beta_{3}({\color{green}{pclass}}_{2}) + \beta_{4}({\color{green}{pclass}}_{1}) + \beta_{5}({\color{orange}{sibSp}})
+\end{aligned}`
+$$
+]
+---
+class: inverse, hide-logo
+# Su turno:
+&lt;br&gt;
+&lt;br&gt;
+.font160[
+- Sobre las mismas variables predictoras de este modelo, construya uno con interacción (*mod_int*) entre sexo (*sex*) y clase (*pclass*).
+
+- Muestre el resumen con los coeficientes
+]
+
+<div class="countdown" id="timer_0aeff74a" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado 
+
+.font140[
+
+Modelo con interacción
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+$$
+`\begin{aligned}
+\log\left[ \frac { P( survived = Si ) }{ 1 - P( survived = Si ) } \right] &amp;= \alpha + \beta_{1}({\color{firebrick}{age}}) + \beta_{2}({\color{blue}{sex}}_{female})\ + \\
+&amp;\quad \beta_{3}({\color{green}{pclass}}_{2}) + \beta_{4}({\color{green}{pclass}}_{1}) + \beta_{5}({\color{orange}{sibSp}})\ + \\
+&amp;\quad \beta_{6}({\color{blue}{sex}}_{female} \times {\color{green}{pclass}}_{2}) + \beta_{7}({\color{blue}{sex}}_{female} \times {\color{green}{pclass}}_{1})
+\end{aligned}`
+$$
+]
+---
+
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Odds ratio
+
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;survived&lt;/th&gt;
+&lt;th colspan="3" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;survived&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Odds Ratios&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;CI&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;p&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Odds Ratios&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;CI&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  col7"&gt;p&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;age&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.96&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.94&amp;nbsp;&amp;ndash;&amp;nbsp;0.97&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.95&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.93&amp;nbsp;&amp;ndash;&amp;nbsp;0.97&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sex [female]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;13.72&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;9.09&amp;nbsp;&amp;ndash;&amp;nbsp;21.14&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;4.64&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.70&amp;nbsp;&amp;ndash;&amp;nbsp;8.05&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;pclass [2]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;3.45&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.14&amp;nbsp;&amp;ndash;&amp;nbsp;5.61&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.12&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.56&amp;nbsp;&amp;ndash;&amp;nbsp;2.14&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;0.742&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;pclass [1]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;14.08&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.15&amp;nbsp;&amp;ndash;&amp;nbsp;25.04&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.01&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;4.36&amp;nbsp;&amp;ndash;&amp;nbsp;15.02&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sibSp&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.68&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.54&amp;nbsp;&amp;ndash;&amp;nbsp;0.86&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;strong&gt;0.002&lt;/strong&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.69&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.54&amp;nbsp;&amp;ndash;&amp;nbsp;0.86&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;0.002&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sex [female] * pclass [2]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;18.45&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;6.01&amp;nbsp;&amp;ndash;&amp;nbsp;64.05&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;&amp;lt;0.001&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;sex [female] * pclass [1]&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;8.83&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.57&amp;nbsp;&amp;ndash;&amp;nbsp;41.64&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  col7"&gt;&lt;strong&gt;0.002&lt;/strong&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;712&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="3"&gt;712&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;AIC&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;648.040&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="3"&gt;618.324&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+&lt;br&gt;
+.font130[
+1.- Se aplican y suman los coeficientes obtenidos en el modelo a los valores posibles de las variables predictoras (incluido el intercepto)
+]
+&lt;br&gt;
+
+`$$ln(Odds) = \alpha + \sum \beta_ix_i$$`
+
+&lt;br&gt;
+
+$$
+`\begin{aligned}
+\log\left[ \frac { \widehat{P( \operatorname{survived} = \operatorname{Si} )} }{ 1 - \widehat{P( \operatorname{survived} = \operatorname{Si} )} } \right] &amp;= -0.28 - 0.05({\color{firebrick}{\operatorname{age}}}) + 1.53({\color{blue}{\operatorname{sex}}}_{\operatorname{female}}) + 0.11({\color{green}{\operatorname{pclass}}}_{\operatorname{2}})\ + \\
+&amp;\quad 2.08({\color{green}{\operatorname{pclass}}}_{\operatorname{1}}) - 0.37({\color{orange}{\operatorname{sibSp}}}) + 2.91({\color{blue}{\operatorname{sex}}}_{\operatorname{female}} \times {\color{green}{\operatorname{pclass}}}_{\operatorname{2}}) + 2.18({\color{blue}{\operatorname{sex}}}_{\operatorname{female}} \times {\color{green}{\operatorname{pclass}}}_{\operatorname{1}})
+\end{aligned}`
+$$
+
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+
+.font120[
+2.- Se calculan los Odds, exponenciando el resultado anterior (logit).
+&lt;br&gt;
+$$Odds = exp(ln(Odds))  $$
+&lt;br&gt;
+Ejemplo: pasajero varón de 30 años que viaja en 3ra clase y sin hermanos/conyuges a bordo
+
+`$$ln(Odds) = -0.28 - 0.05*\color{red}{30} +1.53*\color{blue}0+0.11*\color{green}0+2.1*\color{green}0-0.37*\color{orange}0+2.91*0+2.18*0$$`
+`$$ln(Odds) = -0.28 - 0.05*30$$`
+`$$exp(ln(Odds)) = 0.16$$`
+]
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+&lt;br&gt;
+.font130[
+3.- Se calculan probabilidades a partir de los Odds
+&lt;br&gt;
+$$P =\frac{Odds}{1 + Odds} $$
+Seguimos con el ejemplo:
+
+$$P = \frac{0.16}{1 + 0.16} = 0.14 = 14 \% $$
+
+]
+---
+class: inverse, hide-logo
+# Su turno:
+&lt;br&gt;
+&lt;br&gt;
+.font160[
+- A partir del modelo final con interacción, obtenga la probabilidad de sobrevivir en el Titanic de un hombre de 30 años que viaja en 3ra. clase sin hermanos/cónyuge a bordo.
+
+- Utilice la función *predict()*.
+]
+
+<div class="countdown" id="timer_7fd013ef" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">03</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+background-image: url(assets/ggeffects.png)
+background-size: 100px
+background-position: 80% 5%
+
+## Paquete ggeffects()
+&lt;br&gt;
+.font150[
+El paquete tiene como objetivo calcular fácilmente predicciones ajustadas en valores representativos de covariables a partir de modelos estadísticos.
+
+- Admite numerosos modelos: *lm, glm, coxph, tidymodels*, etc.
+
+- Permite visualizar los resultados en forma gráfica.
+]
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Probabilidades en forma gráfica
+
+&lt;img src="index_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Probabilidades en forma gráfica
+
+&lt;img src="index_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, hide-logo
+# Su turno:
+&lt;br&gt;
+&lt;br&gt;
+.font160[
+- Visualice las probabilidades predichas de sobrevivir integrando todas las variables participantes de los modelos (sin y con interacción).
+
+- Para una visualización coordinada utilice el siguiente orden: *age*, *sibSp*, *pclass* y *sex*.
+
+- Realice un gráfico por vez (no los muestre juntos)
+]
+
+<div class="countdown" id="timer_ed714d3e" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">04</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+---
+class: inverse, hide-logo, center, middle
+
+## Fin primera parte
+
+---
+## Parte 2
+&lt;br&gt;
+.font150[
+
+- Validación
+
+- Modelos logísticos para predicción: clasificación
+
+- Entrenamiento y testeo
+
+- Matriz de confusión y métricas
+
+- Curvas ROC: Umbrales (threshold) 
+
+- Sobreajuste
+]
+
+---
+## Validación
+
+&lt;br&gt;
+.font150[
+- Los modelos nunca constituyen una finalidad en sí misma: procuran representar una realidad general, usando para ello información específica que proviene de ella. 
+
+- Para que pueda aplicarse en otro contexto, el modelo debe ser validado con datos procedentes de ese otro contexto. 
+
+- El acto de corroborar que tiene este mérito (o sea, que hace las predicciones que se supone que hace) se conoce como *“validación”* del modelo. 
+]
+---
+## Validación
+
+&lt;br&gt;
+.font150[
+- La validez es el grado en que las predicciones coinciden con las observaciones y tiene 2 componentes: **_calibración_** y **_discriminación_**. 
+
+- La calibración compara el número predicho de eventos con el número observado en grupos de individuos, mientras que la discriminación evalúa el grado en que el modelo distingue entre individuos en los que ocurre el evento y los que no. 
+
+- La prueba estadística que evalúa la calibración es la de *Hosmer-Lemeshow*
+
+- El área bajo la curva ROC evalúa la discriminación
+
+]
+
+---
+background-image: url(assets/validacion_pasos.PNG)
+background-size: 600px
+background-position: 50% 55%
+---
+## Modelos logísticos para predicción: clasificación
+&lt;br&gt;
+.font140[
+- Modelo de clasificación binaria (**estadística**)
+
+- Algoritmo supervisado de clasificación (**machine learning**)
+
+- La finalidad última del modelo es predecir la variable respuesta en observaciones que el modelo no ha “visto” antes. (generalmente una **aplicación futura**)
+
+- Ejemplos: modelos predictivos de mortalidad en hospitalizaciones, de daños específicos en pacientes, de riesgo de depresión, etc.
+
+- Se puede optimizar el umbral de decisión. 
+
+- Cuidado con el sobreajuste (*overfitting*)
+]
+
+---
+background-image: url(assets/model_train.png)
+background-size: 700px
+background-position: 50% 60%
+## Entrenando modelos
+
+---
+background-image: url(assets/model_test.png)
+background-size: 600px
+background-position: 50% 70%
+## Haciendo predicciones
+
+---
+class: center, middle
+## Mejor modelo = mejores predicciones 
+### (menor tasa de error)
+
+---
+background-image: url(assets/model_metricas.png)
+background-size: 800px
+background-position: 50% 80%
+## Obteniendo métricas
+---
+background-image: url(assets/matrix_c.png)
+background-size: 750px
+background-position: 50% 55%
+
+## Matriz de confusión y métricas
+
+---
+background-image: url(assets/precision_exactitud.PNG)
+background-size: 800px
+background-position: 50% 60%
+
+## Métricas: exactitud y precisión
+
+---
+background-image: url(assets/mc_modelos_train.PNG)
+background-size: 750px
+background-position: 50% 25%
+## Matrices de confusión (Titanic)
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font120[
+**Modelo sin interacción**
+
+Exactitud = (361 + 212) / (361 + 212 + 78 + 63) = 0,80
+
+Precisión = 212 / (212 + 63) = 0,77
+
+**Modelo con interacción**
+
+Exactitud = (386 + 194) / (386 + 194 + 96 + 38) = 0,81
+
+Precisión = 194 / (194 + 38) = 0,84
+]
+---
+background-image: url(assets/mc_modelos_train.PNG)
+background-size: 750px
+background-position: 50% 25%
+## Matrices de confusión (Titanic)
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font120[
+**Modelo sin interacción**
+
+Sensibilidad = 212 / (212 + 78) = 0,73
+
+Especificidad = 361 / (361 + 63) = 0,85
+
+**Modelo con interacción**
+
+Sensibilidad =  194 / (194 + 96) = 0,67
+
+Especificidad = 386 / (386 + 38) = 0,91
+
+]
+---
+background-image: url(assets/Roc_curve.svg)
+background-size: 450px
+background-position: 50% 65%
+
+## Métricas: Curva ROC
+---
+background-image: url(assets/roc_modelos_train.PNG)
+background-size: 1100px
+background-position: 50% 60%
+## Curvas ROC y umbral optimo (Titanic)
+
+---
+class: inverse, hide-logo
+# Su turno:
+&lt;br&gt;
+.font160[
+- Construya dos nuevas variables dentro del dataframe *titanic* con las predicciones de sobrevida y muerte (categorías *Si* y *No*) utilizando los umbrales (threshold) calculados como "mejores" por la curva ROC.
+
+- Defina como *aciertos_sin_int2* a la variable resultado relacionada con las probabilidades del modelo sin interacción (*prob_titanic_s_int*).
+
+
+- Defina como *aciertos_int2* a la variable resultado relacionada con las probabilidades del modelo con interacción (*prob_titanic_int*).
+]
+
+<div class="countdown" id="timer_6e3adcbb" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">05</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+
+
+---
+background-image: url(assets/metricas_train.PNG)
+background-size: 1100px
+background-position: 50% 60%
+## Métricas entrenamiento (Titanic)
+
+---
+
+background-image: url(assets/overfitting.PNG)
+background-size: 450px
+background-position: 50% 90%
+## Sobreajuste (Overfitting)
+
+.font130[
+El sobreajuste es un error de modelado que ocurre cuando una función está demasiado alineada con un conjunto limitado de datos. Como resultado, el modelo es útil solo al conjunto de datos utilizado para su construcción y no a ningún otro conjunto de datos.
+
+
+- Los modelos de regresión logística tienden a sobreajustar los datos, particularmente en configuraciones con muchos predictores (alta dimensión)
+- Detección: el error del modelo en el conjunto de prueba es mayor al error en el conjunto de entrenamiento.
+- Solución: Tener en cuenta la parsimonia en la construcción de modelos y obtener métricas con validación cruzada. Otros métodos: reducción de la dimensionalidad, regularización, etc.
+]
+---
+class: center, middle
+
+## La mejor manera de medir el rendimiento de un modelo para predecir nuevos datos es *predecir nuevos datos*.
+
+---
+background-image: url(assets/metricas_train_test.PNG)
+background-size: 1000px
+background-position: 50% 60%
+## Comparativa métricas
+
+---
+class: inverse, hide-logo, center, middle
+
+## Fin segunda parte
+---
+## Parte 3
+
+.font150[
+- **tidymodels**: framework para modelado en machine learning
+
+- Métodos de validación de modelos predictivos
+
+- .bolder[Remuestreo]: paquete **rsample**
+
+- .bolder[Preproceso]: paquete **recipes**
+
+- .bolder[Ajuste]: paquete **parsnip**
+
+- .bolder[Flujo de trabajo]: paquetes **workflows** y **workflowset**
+
+- .bolder[Métricas]: paquete **yardstick**
+
+]
+---
+background-image: url(assets/tidymodels.svg)
+background-size: 100px
+background-position: 80% 5%
+
+## Introducción a tidymodels
+
+&lt;br&gt;
+&lt;br&gt;
+
+.font140[
+El framework tidymodels es una colección de paquetes para modelado y aprendizaje automático utilizando los principios de tidyverse.
+
+- Permite emplear la misma sintaxis para ajustar, optimizar, evaluar y predecir un amplio abanico de modelos, variando únicamente el nombre del algoritmo.
+
+- El núcleo de tidymodels activa a los siguientes paquetes: broom, *dials*, dplyr, ggplot2, **_infer_**, *modeldata*, **_parsnip_**, purrr, **_recipes_**, **_rsample_**, tibble, tidyr, *tune*, **_workflows_**, *workflowsets* y **_yardstick_**. 
+
+- Existen muchos otros más, de aplicación específica, como: *tidypredict*, **_probably_**, *tidyposterior*, *multilevelmod*, etc.
+]
+---
+background-image: url(assets/pipeline_tidymodels.png)
+background-size: 900px
+background-position: 50% 60%
+## Flujo de trabajo
+
+---
+## Validación de modelos predictivos
+
+
+.font140[
+- La finalidad última del modelo es predecir la variable respuesta en observaciones que el modelo no ha “visto” antes.
+
+- Las métricas de validación, con los mismos datos con los que se construyó el modelo (error de entrenamiento), suelen ser demasiado optimistas.
+
+- Muchas veces no se tiene a disposición nuevos datos y por lo tanto se decide "dividir" aleatoriamente el conjunto de datos original.
+
+- Esta división aleatoria presupone múltiples composiciones de muestras de entrenamiento y testeo.
+
+- La mejor forma de asegurarse métricas estables y coherentes es mediante la estrategia conocida como remuestreo (**resampling**)
+
+]
+---
+## Validación de modelos predictivos
+### Métodos de remuestreo 
+
+.bolder[.font160[
+Validación simple
+]]
+
+.font140[
+- La estimación del error es altamente variable dependiendo de qué observaciones se incluyan como conjunto de entrenamiento y cuáles como conjunto de validación (problema de varianza).
+
+- Al excluir parte de las observaciones disponibles como datos de entrenamiento (generalmente el 20% o 30%), se dispone de menos información con la que entrenar el modelo y, por lo tanto, se reduce su capacidad. 
+
+- Se suele tomar la variable salida como variable de estratificación, para que ambos conjuntos de datos tengan la misma distribución aproximada.
+]
+
+---
+background-image: url(assets/split_data.png)
+background-size: 550px
+background-position: 50% 60%
+## Dividiendo datos (split)
+---
+background-image: url(assets/split_train.png)
+background-size: 850px
+background-position: 50% 60%
+## Entrenando modelos
+---
+background-image: url(assets/split_predict.png)
+background-size: 750px
+background-position: 50% 70%
+## Haciendo predicciones
+---
+background-image: url(assets/split_metricas.png)
+background-size: 800px
+background-position: 50% 70%
+## Obteniendo métricas
+---
+class: center
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+]
+---
+class: center
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+
+nuevos datos(.purple[x]) + modelo ajustado = predicciones (.green[y])
+]
+---
+class: center
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+
+nuevos datos(.purple[x]) + modelo ajustado = predicciones (.green[y])
+
+nuevos datos + predicciones = métricas
+]
+
+---
+## Validación de modelos predictivos
+### Métodos de remuestreo 
+
+.font140[
+- .bolder[K-Fold Cross-Validation]: proceso iterativo que consiste en dividir los datos de forma aleatoria en k grupos de aproximadamente el mismo tamaño, k-1 grupos se emplean para entrenar el modelo y uno de los grupos se emplea como validación.
+
+- .bolder[Bootstraping]: proceso iterativo de pseudomuestras con repetición (resampling with replacement) a partir de la muestra original. El set de validación es out-of-bag (OOB).
+
+- .bolder[Otros]: repeated k-Fold Cross-Validation, Leave One Out Cross-Validation (LOOCV), etc.
+
+- **Nota**: tener en cuenta división estratificada
+]
+---
+## Validación de modelos predictivos
+### Elección del mejor método
+
+&lt;br&gt;
+
+.font150[
+- .bolder[Tamaño de muestra pequeño]: se recomienda *repeated k-Fold Cross-Validation* (consigue un buen equilibrio bias-varianza)
+
+- .bolder[Tamaño de muestra grande]: no hay grandes diferencias entre métodos y se prefiere *10-Fold-Cross-Validation* simple (eficiencia computacional)
+
+- .bolder[Comparar modelos]: se recomienda *bootstrapping* (varianza menor) 
+
+]
+---
+background-image: url(assets/vfold.png)
+background-size: 600px
+background-position: 50% 70%
+## Método k-fold cross-validation
+
+---
+background-image: url(assets/bootstraping.PNG)
+background-size: 700px
+background-position: 50% 70%
+## Método bootstrapping
+
+---
+background-image: url(assets/rsample.svg)
+background-size: 100px
+background-position: 80% 5%
+## Remuestreo: paquete rsample
+
+&lt;br&gt;
+&lt;br&gt;
+.font140[
+- El paquete contiene funciones para generar **diferentes tipos de remuestreos** con sus respectivas clases.
+
+- Se utiliza para producir remuestreos para *estimar la distribución muestral de un estadístico* y/o *estimar rendimientos de modelos*.
+
+- Sus funciones conectan con otras de otros paquetes como *recipes* y *parsnip* dentro de **tidymodels**. 
+]
+---
+background-image: url(assets/recipes.svg)
+background-size: 100px
+background-position: 80% 5%
+## Preproceso (feature engineering)
+
+.font130[
+- En estadística se conoce como **preproceso** y desde la óptica informática del modelado, se lo conoce como **feature engineering**.
+
+- Incluye la selección y transformación individual de variables predictoras o grupos de variables.
+
+- Estrategias de imputación de datos en valores perdidos u omisión de los mismos.
+
+- Conversiones de escalas (logaritmo, BoxCox, etc), centrado, escalado, etc... en variables cuantitativas.
+
+- Creación de variables dummy, fusión de categorías infrecuentes, ordenado de niveles de factores, etc... en variables cualitativas.
+
+- Más complejo, en modelos de machine learning, reducción de dimensiones (PCA, etc)
+]
+---
+background-image: url(assets/recipes.svg)
+background-size: 100px
+background-position: 80% 5%
+
+## Paquete recipes
+
+.font130[
+Algunas funciones comunes:
+
+- **step_rm()**: elimina variables antes del modelado
+
+- **step_naomit()**: elimina observaciones con valores perdidos en las variables definidas
+
+- **step_nzv()**: elimina variables desbalanceadas (varianza cercana a cero)
+
+- **step_dummy()**: Convierte datos categóricos en uno o más términos numéricos de modelo binario para los niveles de los datos originales. Tiene argumentos que permite mayor control.
+
+- **step_center()**: Centra los datos numéricos para tener una media de cero.
+
+- **step_scale()**: Normaliza los datos numéricos para tener media cero y desvío estándar de uno.
+
+- etc...
+]
+---
+background-image: url(assets/parsnip.svg)
+background-size: 100px
+background-position: 80% 5%
+## Ajuste: paquete parsnip
+
+.font130[
+- Una interfaz unificada de modelos 
+
+- Se requieren de 3 pasos: definir el tipo de modelo y sus parámetros, definir su implementación (*engine*) y finalmente ajustarlo.
+
+- Ejemplo: **logistic_reg()** lleva a cabo una regresión logística. Pero puede utilizar diferentes "motores" para el proceso.
+
+  - **glm** para modelos lineales generalizados
+  
+  - **glmnt** para modeloes de regresión regularizados 
+  
+  - **stan** para regresiones bayesianas
+  
+  - etc...
+
+- Cada tipo de modelo tiene su propia interfaz y recordarlas a todas es difícil, por ese motivo desarrollaron la interfaz de **parsnip**. 
+]
+---
+background-image: url(assets/workflows.svg)
+background-size: 100px
+background-position: 80% 5%
+## Flujo de trabajo: paquete workflows
+&lt;br&gt;
+&lt;br&gt;
+.font140[
+
+- Construye objetos de flujo de trabajo combinando secuencias de preprocesamiento, modelado y postprocesamiento.
+
+- Una variante útil es el paquete **workflowset**, que se basa en *workflows* pero que permite varios flujos de trabajo simultáneos con especificaciones de modelos y/o preprocesamientos diferentes.
+
+- **workflowset** ofrece también la posibilidad de evaluar modelos con diferentes conjuntos de predictores automáticamente (*leave_var_out_formulas*)
+
+]
+---
+background-image: url(assets/yardstick.svg)
+background-size: 100px
+background-position: 80% 5%
+## Métricas: paquete yardstick
+&lt;br&gt;
+.font140[
+Contiene funciones para estimar que tan bien funcionan los modelos utilizando los principios de datos ordenados.
+
+Métricas de rendimiento: 
+
+- **Clase**: matriz de confusión, precisión, exactitud, sensibilidad, etc.
+
+- **Probabilidad de clase**: área bajo la curva, gráficos ROC, etc 
+
+- **Numéricas**: raíz del error cuadrático medio (diferencia media entre los valores previstos por el modelo predictivo y los valores reales), error absoluto medio, etc.
+
+Sus funciones se adaptan a resultados provenientes de diferentes remuestreos. 
+
+]
+---
+## Algunas convenciones en nombres de objetos
+
+.font140[
+Usaremos algunos sufijos que identifican bien a ciertos tipos de objetos
+
+- **_kf** para remuestras por kfolds
+
+- **_boot** para remuestras por bootstraps
+
+- **_rec** para recetas de **recipes**
+
+- **_mod** para especificaciones de modelos de **parsnip**
+
+- **_wfl** para worflow
+
+- **_fit** para modelos ajustados
+
+- **_res** para resultados en general
+
+- **mc_** para matrices de confusion
+]
+---
+background-image: url(assets/nombre_objetos.png)
+background-size: 1000px
+background-position: 50% 50%
+## Secuencia script
+---
+background-image: url(assets/Resultados_comparativos.PNG)
+background-size: 700px
+background-position: 50% 65%
+## Resultados comparativos
+---
+## Enlaces sobre tidymodels
+&lt;br&gt;
+.font140[
+
+- Sitio web oficial de [tidymodels](https://www.tidymodels.org/)
+
+- Lista de todas las [funciones de tidymodels](https://www.tidymodels.org/find/#search-all-of-tidymodels)
+
+- Lista de todos los modelos de [parsnisp](https://www.tidymodels.org/find/parsnip/)
+
+- Lista de todos los steps de [recipes](https://www.tidymodels.org/find/recipes/)
+
+- Libro online [Tidy Modeling with R](https://www.tmwr.org/)
+
+]
+---
+class: inverse, hide-logo
+# Su turno:
+&lt;br&gt;
+.font160[
+- Reutilizando los objetos de las distintas etapas del proceso, ajuste una estructura de múltiples modelos logísticos (*mod_multi_wf*) a un remuestreo .bolder[repeated k-Fold Cross-Validation] con 10-fold y 3 repeticiones.
+
+- Tenga en cuenta que el remuestreo con el argumento agregado es: kfold_cv(v = ##, strata = survived, repeat = #)
+
+- Obtenga sus métricas resultantes.
+]
+
+<div class="countdown" id="timer_d1bfac01" data-update-every="1" data-start-immediately="true" tabindex="0" style="right:0;bottom:0;">
+<div class="countdown-controls"><button class="countdown-bump-down">&minus;</button><button class="countdown-bump-up">&plus;</button></div>
+<code class="countdown-time"><span class="countdown-digits minutes">08</span><span class="countdown-digits colon">:</span><span class="countdown-digits seconds">00</span></code>
+</div>
+
+---
+background-image: url(assets/final.PNG) 
+background-size: 900px
+background-position: 50% 50%
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

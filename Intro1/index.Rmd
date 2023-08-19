@@ -1,0 +1,753 @@
+---
+title: "Lenguaje R"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+
+layout: true
+class: animated, fadeIn
+
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+---
+class: left, upper
+
+
+
+El [sitio oficial](https://www.r-project.org/) del lenguaje dice que:
+
+.font120[
+_**“R es un entorno de software libre para gráficos y computación estadística.**_ 
+
+_**Se compila y se ejecuta en una amplia variedad de plataformas UNIX, Windows y MacOS.”**_
+]
+
+
+--
+
+
+.font120[
+Profundizando en su descripción podemos decir, más técnicamente, que:
+
+.green[
+> es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.
+
+]
+]
+---
+
+Por lo tanto ![](assets/logoR.PNG) ... 
+
+--
+
+
+**...es un lenguaje de programación estadístico**
+
+
+Básicamente es un lenguaje de programación, con sus estructuras y reglas
+de sintaxis, que posee una gran variedad de funciones desarrolladas para
+estadística y otras librerías con diversas aplicaciones.
+
+--
+
+**...es un lenguaje Orientado a Objetos**
+
+
+Implementa los conceptos de la programación orientada a objetos y esto
+le otorga simpleza y flexibilidad en el manejo de datos. 
+
+--
+
+
+**...es un lenguaje interpretado**
+
+No es necesario compilar el código para construir
+ejecutables sino que directamente se ejecuta por medio del intérprete
+que el software instala.
+
+--
+
+**...es multiplataforma**
+
+
+Se puede instalar en diferentes sistemas operativos como Linux, Windows
+y Mac. 
+
+--
+
+
+**...es Open Source y se distribuye bajo licencia GNU - GPL**
+
+Se distribuye gratuitamente bajo [licencia GNU](https://es.wikipedia.org/wiki/GNU_General_Public_License) (General Public License) -- GPL y que los usuarios tienen la libertad de usar, estudiar, compartir (copiar) y modificar el software.
+
+---
+class: center, middle, inverse, hide-logo
+
+
+# Historia
+
+
+
+---
+background-image: url(assets/Ross_Ihaka.jpg), url(https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Rober_Gentleman.png/220px-Rober_Gentleman.png)
+background-size: 180px, 180px
+background-position: 75% 10%, 75% 70%
+
+template:logo
+
+.pull-left[
+.font120[
+R es un lenguaje que fue desarrollado a partir del [***lenguaje
+S***](https://en.wikipedia.org/wiki/S_(programming_language)) que a su
+vez tiene sus orígenes en [Bell
+Labs](https://en.wikipedia.org/wiki/Bell_Labs) de la **AT&T** (actualmente
+Lucent Technologies) de mediados de la década del '70. Posteriormente, S
+fue vendido y dio origen a una versión propietaria denominada S-Plus que
+es comercializada por Insighful Corporation.
+
+En 1995 dos profesores de estadística de la *Universidad de Auckland*, en
+Nueva Zelanda ([Ross Ihaka](https://en.wikipedia.org/wiki/Ross_Ihaka) y
+[Robert
+Gentleman](https://en.wikipedia.org/wiki/Robert_Gentleman_(statistician)),
+iniciaron el **"Proyecto R"**, con la intención de desarrollar un programa
+estadístico inspirado en el lenguaje S pero de dominio público.
+]
+]
+
+
+---
+background-image: url(assets/contributors.PNG)
+background-size: 700px
+background-position: 60% 85%
+
+.pull-left[
+Aunque se dice que R es un dialecto de S, existen diferencias
+importantes en el diseño de ambos lenguajes.
+
+
+El software está desarrollado en lenguaje C++ con algunas rutinas
+agregadas en Fortran) y su nombre se debe a la letra con la que inician
+los nombres de pila de sus autores (Ross y Robert).
+]
+
+
+.pull-right[
+Actualmente R es mantenido por un grupo internacional de desarrolladores
+voluntarios denominado [Core Development
+Team](https://www.r-project.org/contributors.html).
+]
+
+---
+
+## Enfoque "comunicativo"
+
+
+.font120[
+- Visto como un lenguaje para **_"comunicarse"_** (similar a un segundo lenguaje como el inglés, francés, etc.)
+
+- R es similar, pues contiene una estructura **_semántica_**, **_gramatical_** y **_sintáctica_**.
+
+- Se busca comenzar a **_"decir cosas con datos"_** y luego profundizar en las estructuras del lenguaje.
+
+- Diferencias entre ser **_"usuario"_** y **_"programador"_** (algo así como un linguista de R)
+
+
+- Ver ponencia “How to do things with words: Learning to program with a ‘communicative approach’" de Riva Quiroga en [rstudio::global(2021)](https://rstudio.com/resources/rstudioglobal-2021/how-to-do-things-with-words-learning-to-program-in-r-with-a-communicative-approach/)
+
+]
+---
+class: center, middle, inverse, hide-logo
+
+
+# Paquetes de R
+
+---
+background-image: url(assets/baseR.PNG)
+background-size: 280px
+background-position: 10% 10%
+
+.pull-right[  
+.font110[ 
+- Paquete es sinónimo de librería y contiene una serie de funciones y/o datos con su documentación para ser utilizados.
+
+- El conjunto base de R tiene varias funciones fundamentales contenidas en algunos paquetes (base, stats, utils, graphics, methods, etc)
+
+- Los paquetes se instalan, activan y desactivan.
+
+- El sitio oficial donde se publican se encuentra en [CRAN - packages](https://cran.r-project.org/web/packages/available_packages_by_name.html)
+
+- Visto como un lenguaje (idioma) los paquetes vendrían a ser conjuntos de palabras que "agregamos" a nuestro vocabulario para poder "comunicarnos" con el interprete de R.
+]
+]
+---
+background-image: url(assets/baseR2.PNG)
+background-size: 1100px
+background-position: 10% 10%
+
+---
+background-image: url(assets/paquetes.PNG)
+background-size: 1000px
+background-position: 10% 10%
+
+---
+class: center, middle, inverse, hide-logo
+
+
+# Tidyverse
+
+---
+background-image: url(assets/tidyverse.PNG), url(assets/tidyverse2.PNG)
+background-size: 200px, 350px
+background-position: 50% 10%, 50% 90%
+
+class: center, middle
+
+.font140[ 
+Una colección de paquetes de R modernos, que comparten una gramática y filosofía común, diseñados para resolver los desafíos de la ciencia de datos.
+]
+
+---
+background-image: url(assets/tidy.PNG)
+background-size: 450px
+background-position: 85% 40%
+
+## Fundamentos
+
+- **Estructura ordenada de datos (tidy)**
+
+  - Cada _variable_ es una _columna_ de la tabla de datos
+  
+  - Cada _observación_ es una _fila_ de la tabla de datos
+  
+  - Cada _tabla_ responde a una _unidad observacional_
+
+- **Principios básicos** 
+
+  - Reutilizar las estructuras de datos
+  
+  - Resolver problemas complejos combinando varias piezas sencillas
+  
+  - Utilizar programación funcional
+  
+  - Diseño para humanos incorporando gramática al lenguaje
+
+---
+background-image: url(assets/cd.PNG)
+background-size: 1000px
+background-position: 50% 50%
+
+---
+background-image: url(assets/paquetes_tidy.PNG)
+background-size: 1000px
+background-position: 50% 50%
+
+---
+class: center, middle, inverse, hide-logo
+
+
+# Visualización
+
+### Un simple gráfico ha traído más información a la mente del analista de datos que cualquier otro dispositivo.
+### John Tukey
+
+---
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+.pull-left[
+Supongamos que deseamos construir este gráfico.
+
+- De qué **tipo** de gráfico se trata?
+
+- Cuáles son los **elementos** del gráfico?
+
+- Cuántas **variables** participan del gráfico?
+]
+
+.plot[  
+```{r, echo=F, message=F, warning=F, fig.retina=4}
+library(tidyverse)
+library(tidycovid19)
+
+datos <- download_merged_data(silent = T, cached = T)
+
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+]
+
+---
+
+.fon120[ 
+Para construirlo vamos a utilizar información recolectada por la _Universidad Johns Hopkins_ que [Joachim Gassen](https://joachim-gassen.github.io/tidycovid19/index.html) empaquetó en la librería llamada **tidycovid19** y que se encuentra publicada desde junio de 2020.
+]
+
+--
+
+.fon120[
+Accedemos a los datos instalando el paquete **tidycovid19**, luego activando la librería y finalmente ejecutando la función **_download_merged_data()_**
+]
+
+--
+
+```{r, eval=F}
+library(tidycovid19)  # activamos paquete
+
+datos <- download_merged_data(silent = T, cached = T)
+```
+
+```{r}
+dim(datos) # dimensiones de la tabla
+```
+
+```{r}
+names(datos) # nombres de las variables
+```
+
+---
+
+Vamos a hojear las observaciones para Argentina, seleccionando solo las variables necesarias para realizar el gráfico.
+
+Estas variables son: país, fecha, confirmados, muertos y población.
+
+```{r, echo=F}
+datos %>% 
+  select(iso3c, country, date, confirmed, deaths, population) %>% 
+  filter(iso3c == "ARG") %>% 
+  arrange(desc(date)) %>% 
+DT::datatable(
+  fillContainer = F, options = list(pageLength = 6)
+)
+```
+
+Observemos que tanto los casos confirmados como los fallecidos son conteos acumulados.
+---
+
+Para comenzar veamos el código completo que permite generar el gráfico buscado.
+
+```{r, eval=F}
+datos %>%  #<<
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+Analicemos la primera línea del código:
+
+- **datos**  es el nombre de la tabla con los datos descargados de la Universidad Johns Hopkins
+
+- **%>%** es un conector incluido dentro del ecosistema _tidyverse_ denominado "tubería" (pipe en inglés). Se utiliza para conectar cada función de R y traslada el termino de la izquierda hacia la función de la derecha.
+En este caso define que la tarea que realice la función **_arrange()_** (2da línea) se hará sobre los datos de la tabla **datos**.
+
+---
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% #<<
+  filter(iso3c %in% c("ARG", "USA")) %>% #<<
+  mutate(inc = confirmed/population*100000) %>% #<<
+  ggplot(aes(x = date, y = inc, color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+- **_arrange()_**  ordena la variable **_date_** (fecha) que se encuentra en **datos**. Esto nos asegura que el eje x del gráfico va estar ordenado de menor a mayor.
+
+- **_filter()_** filtra las observaciones de la tabla **datos** según la condición definida. En este caso le indicamos que se quede con aquellas  observaciones donde la variable **_iso3c_** sea igual a "ARG" o "USA".
+
+- **%in%** es un operador del lenguaje R que se utiliza para identificar si un elemento pertenece a un conjunto de elementos. Aquí le dice que pregunte en cada celda de **_iso3c_** si el valor pertenece al conjunto **c("ARG", "USA")**.
+
+- **_c()_** también es una función. Muy utilizada en R, sirve para _concatenar_ elementos.
+
+- **_mutate()_** es una función que agrega nuevas variables dentro de la tabla de datos. Aquí la usamos para crear la variable **_inc_** (incidencia) definida como el cociente entre **_confirmed_** sobre **_population_**, multiplicado por 100.000. 
+
+---
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + #<<
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+- **_ggplot()_**  es la función gráfica del ecosistema tidyverse. 
+- Su sistema gráfico se basa en [The Grammar of Graphics](https://amzn.to/2ef1eWp) de Leland Wilkinson. Funciona con una estructura de capas donde se van definiendo distintos elementos constitutivos del gráfico.
+
+- Estas capas están conectada entre sí con el símbolo **+**
+
+- Los argumentos principales de **ggplot** se declaran dentro de la función **_aes()_** que deberá contener las variables participantes del mapeo estético del gráfico.
+
+- En este ejemplo **x** e **y** son los ejes cartesianos del _gráfico de líneas_ que estamos construyendo. En **x** tenemos la variable **_date_** (fecha) y en **y** la variable **_inc_** (incidencia acumulada).
+
+- **color** es el otro argumento definido por la variable **_country_** (país)
+
+---
+
+.pull-left[
+El código detallado hasta ahora muestra los ejes y las escalas (tomadas de las variables) pero aún no se ven elementos geométricos que representen los datos. 
+
+Algo así, como vemos a la derecha de la pantalla.
+
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) 
+```
+]
+
+
+.plot[
+```{r, echo=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) 
+```
+]
+
+---
+
+Para que se dibujen los elementos geométricos debemos agregar la capa con la definición que deseamos. 
+
+En este caso si el gráfico es de líneas necesitamos escribir **_geom_line()_**
+
+Otras funciones de elementos geométricos son: **_geom_point()_**, **_geom_bar()_**, **_geom_histogram()_**, etc...
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) + #<<
+  scale_color_manual(values = c("blue", "red"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+-  Las funciones de capas geométricas poseen argumentos que se pueden configurar, como **size** que determina el grosor de la línea de este gráfico.
+
+---
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)") +
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
+```
+
+- **_scale_color_manual()_**  es la función de escala manual de color para definir que color van a tomar las líneas de cada país. 
+
+- Existen varias formas de escalas (mediante paletas, colores hexadecimales, etc)
+
+- Aquí están definidos manualmente por nombre de color (blue y red).
+
+- También genera la leyenda y por lo tanto le podemos indicar cual será su título (País)
+
+---
+
+```{r, eval=F}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + 
+  xlab("Fecha") + #<<
+  ylab("Incidencia acumulada (x 100.000 hab.)") + #<<
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)", #<<
+       caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") #<<
+```
+
+- En estas últimas capas agregamos las etiquetas de ejes x e y (con  **_xlab()_**  y **_ylab()_**). 
+
+- También el título y pie de gráfico (con  **_labs()_**). 
+
+- El argumento **title** para el título y **caption** para pie de gráfico.
+
+---
+
+Si este código construye este gráfico, qué deberíamos cambiar para generar otro que compare Argentina con Gran Bretaña, por ejemplo?
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "USA")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+---
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+---
+
+qué deberíamos cambiar para que el color de la línea de Argentina sea verde en lugar de azul?
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("blue", "red"), name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+---
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red"), name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+
+---
+
+qué deberíamos hacer si queremos incorporar otro país (por ejemplo España)?
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red"), 
+                     name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) + 
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red"), name = "País")  + 
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.)")
+```
+]
+
+---
+
+.code[
+```{r, eval=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR", "ESP")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red", "blue"), 
+                     name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.")
+```
+]
+
+.plot[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+datos %>% 
+arrange(date) %>% 
+  filter(iso3c %in% c("ARG", "GBR", "ESP")) %>% 
+  mutate(inc = confirmed/population*100000) %>% 
+  ggplot(aes(x = date, y = inc, 
+             color = country)) +
+  geom_line(size = 1) +
+  scale_color_manual(values = c("green", "red", "blue"), name = "País")  +
+  xlab("Fecha") + 
+  ylab("Incidencia acumulada (x 100.000 hab.")
+
+```
+]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Para jugar en su PC
+
+### Realicen un gráfico similar comparando mortalidad cada millon de habitantes entre Argentina y Brasil (BRA)
+
+#### Nota: la finalidad de este ejercicio es trabajar con R. Para realizar una comparación correcta antes deberíamos ajustar la tasa de mortalidad por edad

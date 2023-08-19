@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Lectura de datos</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <meta name="date" content="2021-05-05" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Lectura de datos
+### Christian Ballejo
+### 2021-05-05
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+&lt;br&gt;
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro10
+
+---
+.font150[ 
+&lt;br&gt;
+- En el mundo informático existen numerosos formatos de archivos de tablas / base de datos.
+
+- El lenguaje R permite importar y exportar de una amplia variedad de formatos a partir de utilizar diferentes paquetes. Muchos de ellos pertenecientes al ecosistema **tidyverse**.
+
+- Hoy nos vamos a centrar en dos formatos básicos habituales donde tenemos almacenada comúnmente la información:
+  - Archivos **texto plano separados por comas** u otro caracter (extensiones .csv, .txt, etc)
+  - Archivos con formato **Excel** (.xls y .xlsx)]
+---
+class: left, middle
+
+background-image: url(assets/readr.png)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+El paquete **readr** se instala y activa cuando ejecutamos `library(tidyverse)`.
+
+- Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)
+
+- Sus funciones de lectura comienzan todas con **read_**
+
+- Sus funciones de escritura comienzan con **write_**
+
+]
+
+---
+## Lectura con funciones de readr
+.font140[ 
+La primera función de lectura que vamos a ver es `read_delim()`
+
+El estructura de esta función sirve de base para las demás.
+
+Sus principales argumentos son:
+
+- **file**: nombre del archivo
+
+- **delim**: caracter separador de columna
+
+- **col_names**: Valor lógico. Si es *TRUE* lee la primera fila como nombres de las variables. Si es *FALSE* no lo hace.
+
+- **skip**: número de líneas que saltea para comenzar a leer.
+
+]
+
+---
+## Lectura con funciones de readr
+.font140[ 
+Para archivos separados por comas en formato regional Estadounidense se utiliza la función `read_csv()`.
+
+Tiene la misma base de `read_delim()` con valor predeterminado en en el  argumento:
+
+- **delim**: separador coma ","
+
+
+```r
+read_csv(file = "datos.csv")
+```
+
+
+]
+
+---
+## Lectura con funciones de readr
+.font140[ 
+Para archivos separados por comas en formato regional Español/Argentino se utiliza la función `read_csv2()`.
+
+Tiene la misma base de `read_delim()` con valor predeterminado en en el  argumento:
+
+- **delim**: separador punto y coma ";"
+
+
+```r
+read_csv2(file = "datos.csv")
+```
+]
+---
+background-image: url(assets/Import.PNG)
+background-size: 950px
+background-position: 50% 50%
+
+## Herramienta de lectura de RStudio
+
+---
+class: left, middle
+
+background-image: url(assets/readxl.png)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+El paquete **readxl** se instala con tidyverse pero hay que activarlo aparte mediante `library(readxl)`.
+
+- Contiene funciones que permiten leer archivos de Microsoft Excel tan extendidos en nuestras oficinas.
+
+- La función comodín para leer, tanto formatos .xls como .xlsx, es `read_excel()`
+]
+---
+## Lectura con funciones de readxl
+.font140[ 
+La estructura de los argumentos de la función `read_excel()` es:
+
+
+- **path**: nombre del archivo
+
+- **sheet**: hoja del libro del archivo Excel
+
+- **range**: rango de celdas (opcional)
+
+- **col_names**: Valor lógico. Si es *TRUE* lee la primera fila como nombres de las variables. Si es *FALSE* no lo hace.
+
+- **skip**: número de líneas que saltea para comenzar a leer.
+
+]
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 11 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/importaci%C3%B3n-de-datos.html]
+
+---
+class:  middle
+
+.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1UQL4Sc8N_IX27Vz1gmJ3DYy9Rk6Nd32m/view?usp=sharing) de la web
+
+- Descomprimimos la carpeta con el proyecto practica10
+
+- Trabajamos siguiendo las consignas del práctico.
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

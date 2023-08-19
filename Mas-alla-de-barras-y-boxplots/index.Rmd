@@ -1,0 +1,134 @@
+---
+title: "Más allá de los gráficos de barras y boxplots"
+subtitle: "Gráficos alternativos y como crearlos con ggplot2"  
+author: 
+  - "Christian Ballejo"
+date: '2022-06-08'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+## Temas
+.font150[ 
+
+- Barras / gráficos dinamita 
+
+- Boxplots
+
+- Violin
+
+- Halfeye
+
+- Ridgeline
+
+- Tiras de intervalos / Sina plots
+
+- Dot Plot / Enjambre de abejas
+
+- Gráficos híbridos
+
+]
+---
+background-image: url(assets/Grafico1.PNG)
+background-size: 900px
+background-position: 50% 50%
+
+---
+class: bottom, center
+background-image: url(assets/cedric.JPG)
+background-size: 900px
+background-position: 50% 50%
+
+.font150[[www.cedricscherer.com](https://www.cedricscherer.com)]
+
+---
+
+background-image: url(assets/Grafico2.PNG)
+background-size: 900px
+background-position: 50% 50%
+
+---
+
+.font120[
+<br> 
+<br> 
+<br> 
+Las figuras en las publicaciones científicas son de vital importancia porque a menudo muestran los datos que respaldan los hallazgos encontrados. 
+
+Nuestra revisión sistemática de artículos de investigación publicados en las principales revistas de fisiología (n = 703) sugiere que, como científicos, necesitamos cambiar urgentemente nuestras prácticas para presentar datos continuos en estudios de tamaño de muestra pequeño. 
+
+Los artículos rara vez incluían gráficos de dispersión, gráficos de caja e histogramas que permitieran a los lectores evaluar críticamente datos continuos. 
+
+La mayoría de los artículos presentaron datos continuos en gráficos de barras y líneas. Esto es problemático, ya que muchas distribuciones de datos diferentes pueden conducir al mismo gráfico de barras o de líneas. Los datos completos pueden sugerir conclusiones diferentes de las estadísticas resumidas. 
+
+Recomendamos capacitar a los investigadores en la presentación de datos, fomentar una presentación más completa de los datos y cambiar las políticas editoriales de las revistas.
+]
+
+---
+background-image: url(assets/Grafico3.PNG) 
+background-size: 900px
+background-position: 50% 50%
+
+---
+class: bottom, center
+background-image: url(assets/barbaplots.PNG) 
+background-size: 400px
+background-position: 50% 50%
+
+.font150[[www.barbarplots.github.io](https://barbarplots.github.io)]
+---
+
+### Material de R para descargar
+
+Haga click en este enlace -> [Proyecto de R Mas allá de los graficos de barras y boxplots](https://drive.google.com/file/d/1xu4H0H2Jv7RMuCGuZP2ll6IlSgED-Q2V/view?usp=sharing).
+
+---
+background-image: url(assets/final.PNG) 
+background-size: 900px
+background-position: 50% 50%

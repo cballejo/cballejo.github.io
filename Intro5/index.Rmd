@@ -1,0 +1,198 @@
+---
+title: "Manipulación de datos"
+subtitle: "Parte III"  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro5
+
+---
+class: left, middle
+
+background-image: url(assets/dplyr.PNG)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+<br> 
+<br> 
+<br> 
+- Hasta el momento hemos visto las funciones .bold[select(), filter(), arrange()] y .bold[count()] del paquete **dplyr** perteneciente al ecosistema **tidyverse**.
+
+- Hoy vamos a presentar dos nuevas funciones-verbos (**summarise** y **group_by**)
+
+- A estas funciones las vamos a utilizar para realizar distintos resúmenes de datos.
+]
+
+---
+.font140[ 
+<br> 
+<br> 
+El encuentro pasado utilizamos la función **count()** para construir *tablas de frecuencia*.
+
+La tabla de frecuencia es la forma de resumir la información en **variables cualitativas (categóricas)**.
+
+Para las **variables cuantitativas** existen varias medidas resumen clasificadas como de .bold[tendencia central, posición, dispersión, forma, etc.]
+
+La acción de resumen siempre se ejecutan en forma vertical, es decir por **variable** (columnas en los datos ordenados)
+
+La función que se encarga de resumir toda una variable a un solo valor es **summarise**
+]
+---
+class: left, top
+
+
+## summarise()
+
+.font140[ 
+La función **summarise()** del inglés .bold[resumir], se utiliza justamente para resumir las observaciones de una tabla de datos mediante alguna .bold[medida resumen].
+
+Otra forma de escribir la función es **summarize()**. Ambas realizan la misma operación.
+]
+
+<br>
+
+.font160[.center[  
+datos %>% **summarise**(var_resumen = función_resumen)
+
+datos %>% **summarize**(var_resumen = función_resumen)
+]]
+
+---
+class: left, top
+
+
+## summarise()
+
+.font140[ 
+Algunas de las funciones resumen provistas por el lenguaje R son:
+
+
+- .bold[tendencia central] - **mean()** - **median()**
+
+- .bold[posición] - **min()** - **max()** - **quantile()**
+
+- .bold[dispersión] - **var()** - **sd()** - **IQR()** 
+
+- .bold[conteo] - **n()** - **n_distinct()**
+
+- .bold[orden] - **first()** - **last()**
+
+La mayoría de estas funciones aplican en tipos de datos int (enteros), dbl (reales), date (fecha) y ddtm (fecha - hora).
+]
+
+
+---
+class: center, middle, inverse, hide-logo
+
+## Abrimos el script practica5.R 
+
+## Trabajamos con summarise() integrando las  funciones conocidas 
+
+---
+class: left, top
+
+## group_by()
+
+.font140[ 
+La función **group_by()** del inglés .bold[agrupar por], sirve para agrupar a partir de valores o categorías distintas.
+
+Aplicado sólo no produce ningún resultado interesante, por eso está pensando para usarlo principalmente asociado a **summarise()**.
+]
+
+.font180[.center[datos %>% **group_by**(variable)]]
+
+<br>
+
+.font140[ 
+Junto a esta función aparece **ungroup()** que .bold[deshace] el agrupamiento.]
+
+.font180[.center[datos %>% **ungroup**()]]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica5.R 
+
+## Aplicamos group_by() asociado a summarise()
+
+---
+background-image: url(assets/group_by-summarize.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## En resumen...
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+
+---
+
+
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 5.6 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/transform.html)]

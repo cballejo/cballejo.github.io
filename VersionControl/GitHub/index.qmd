@@ -1,0 +1,255 @@
+---
+title: "Control de Versiones: GitHub"
+author: "Christian Ballejo"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    css: styles.css
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## GitHub
+
+-   Es un sitio web que ofrece un servicio para almacenar repositorios en base a control de versiones que se integra con Git.
+
+-   Se utiliza principalmente para alojar código y fuente de productos digitales (material educativo, libros, etc)
+
+-   Fue desarrollado en 2008 y actualmente pertenece a Microsoft
+
+-   Es de acceso gratuito y tiene también planes de pago con servicios especiales (mayor cantidad de colaboradores en repositorios privados, por ejemplo)
+
+## Crear cuenta
+
+Necesitamos ingresar:
+
+1.  Dirección de correo electrónico (email)
+
+2.  Contraseña (password)
+
+3.  Nombre de usuario (username)
+
+4.  Debemos verificar que somos humanos
+
+5.  Listo (Crear cuenta)
+
+## Paso 1
+
+![](images/Paso1.PNG){fig-align="center"}
+
+## Paso 2
+
+![](images/Paso2.PNG){fig-align="center"}
+
+## Paso 3
+
+![](images/Paso3.PNG){fig-align="center"}
+
+## Paso 4
+
+![](images/Paso4.PNG){fig-align="center"}
+
+## Paso 5
+
+![](images/Paso5.PNG){fig-align="center"}
+
+## Verificación
+
+Nos va a llegar un código de verificación a nuestra cuenta de correo electrónico declarada, que debemos ingresar en la siguiente pantalla:
+
+![](images/Paso6.PNG){fig-align="center"}
+
+## Últimos pasos
+
+A partir de aquí, nos dan la bienveniva y sigue una serie de consultas sobre el uso que le pensamos dar a nuestra cuenta en GitHub.
+
+Por ejemplo: ¿Qué características específicas le interesa utilizar?
+
+![](images/Paso7.PNG){fig-align="center"}
+
+## Finalmente
+
+Nos ofrece la versión paga o continuar con la gratuita.
+
+![](images/Paso8.PNG){fig-align="center"}
+
+## Estamos dentro de GitHub
+
+![](images/Paso9.PNG){fig-align="center"}
+
+## Personalizar cuenta en GitHub
+
+Podemos ir a [Your Profile (github.com)](https://github.com/settings/profile) para personalizar el perfil publico de la cuenta y definir:
+
+-   Nombre
+
+-   Biografía
+
+-   URL de sitio web (si tiene)
+
+-   Compañia
+
+-   Ubicación
+
+## Token de acceso {.smaller}
+
+-   Cuando interactuamos con GitHub, debemos incluir credenciales en la solicitud. Esto demuestra que somos un usuario específico de GitHub, que puede hacer lo que le pidamos.
+
+-   Git puede comunicarse con un servidor remoto usando uno de dos protocolos, HTTPS o SSH, y los diferentes protocolos usan credenciales diferentes.
+
+-   HTTPS más fácil de usar y es el que recomienda el mismo GitHub para usuarios Windows. Si quiere saber mas de SSH puede ver <https://happygitwithr.com/ssh-keys.html>
+
+-   Este token se denomina **PAT** *(**personal access token**)*
+
+## Token de acceso
+
+-   Para crear un nuevo token vaya a [Personal access tokens](https://github.com/settings/tokens)
+-   Pulse sobre [Generate a personal access token](https://github.com/settings/tokens/new)
+-   Escriba *RStudio* en **Note**
+-   Seleccione al menos los alcances (*scopes*) de **repo**, **workflow** y **user**.
+-   Finalmente presione en ***generate token***
+
+## Token de acceso
+
+![](images/Token.PNG){fig-align="center"}
+
+Debemos copiar el token PAT ahora porque no podremos volver a verlo. (Tratemos este token como una contraseña!!).
+
+## Paquete gitcreds {.smaller}
+
+Gestiona credenciales git almacenadas (adminstra tokens GitHub, entre otros)
+
+1.  Instalamos el paquete **gitcredits**
+2.  Ejecutemos la siguiente función:
+
+```{r}
+#| eval: false
+#| echo: true
+gitcreds::gitcreds_set()
+```
+
+![](images/gitcredits_2.PNG){fig-align="center" width="50%"}
+
+3.  Pegamos el token PAT generado GitHub
+
+<br>
+
+<br>
+
+## Paquete gitcreds {.smaller}
+
+4.  Veremos una salida similar a la siguiente:
+
+![](images/gitcredits_3.PNG){fig-align="center"}
+
+5.  Si queremos chequear podemos ejecutar `gitcreds::gitcreds_get()`
+
+![](images/gitcredits_4.PNG){fig-align="center"}
+
+## Repositorios en GitHub
+
+<br>
+
+Existen varias formas de crear y vincular repositorios de GitHub con nuestros proyectos en RStudio.
+
+-   Proyecto existente -\> luego GitHub
+
+-   Proyecto existente -\> primero GitHub
+
+-   Proyecto nuevo -\> primero GitHub
+
+## Proyecto existente -\> luego GitHub
+
+<br>
+
+Desde RStudio y con el proyecto con Git habilitado, vamos a utilizar la función `use_github()` del paquete **usethis**.
+
+![](images/subir_repositorio_usethis.PNG){fig-align="center"}
+
+Esta acción necesita de nuestras credenciales (token) pero al haberlo almacenado con **gitcreds** lo hace automáticamente.
+
+## Proyecto existente -\> primero GitHub
+
+1.  Dentro del sitio buscamos el signo + en la parte superior del menú y seleccionamos **New repository**
+
+![](images/repositorio_1.PNG){fig-align="center"}
+
+<br>
+
+<br>
+
+## Proyecto existente -\> primero GitHub
+
+2.  Completamos la información de: Repository name y Descripcion (opcional) con el mismo nombre de nuestro proyecto.
+
+![](images/repositorio_2.PNG){fig-align="center"}
+
+## Proyecto existente -\> primero GitHub
+
+3.  Finalmente pulsamos en el botón de **Create repository**
+
+![](images/repositorio_3.PNG){fig-align="center"}
+
+## Proyecto existente -\> primero GitHub {.smaller}
+
+4.  GitHub nos ofrece una serie de opciones para vincular este repositorio con uno local (en nuestro equipo).
+
+![](images/repositorio_6.PNG){fig-align="center" width="100%"}
+
+## Proyecto existente -\> primero GitHub
+
+5.  Vamos a usar y copiar al portapapeles la segunda de ellas (*... or push an existing repository from the command line*)
+
+![](images/repositorio_7.PNG){fig-align="center" width="100%"}
+
+## Proyecto existente -\> primero GitHub
+
+6.  Pasamos a RStudio con el proyecto abierto y pegamos los comandos copiados dentro de la pestaña Terminal.
+
+![](images/repositorio_8.PNG){fig-align="center" width="50%"}
+
+## Proyecto nuevo -\> primero GitHub {.smaller}
+
+Si el proyecto no existe, podemos comenzar creando un repositorio en GitHub y luego crear un nuevo proyecto desde RStudio conectado directamente.
+
+1.  Hacemos todos los pasos para crear un nuevo repositorio en GitHub y copiamos la URL HTTPS que nos ofrece (termina en .git) en **Code**.
+
+![](images/clonar_1.PNG){fig-align="center"}
+
+## Proyecto nuevo -\> primero GitHub
+
+2.  En RStudio creamos un proyecto nuevo con Control de versiones.
+
+![](images/clonar_2a.PNG){fig-align="center"}
+
+3.  Seleccionamos la opcion GIT.
+
+![](images/clonar_2b.PNG){fig-align="center"}
+
+## Proyecto nuevo -\> primero GitHub {.smaller}
+
+4.  Pegamos la dirección URL en el espacio "Repository URL", ponemos el mismo nombre que el repositorio GitHub y finalmente seleccionamos en que lugar queremos que construya la carpeta.
+
+![](images/clonar_3.PNG){fig-align="center"}
+
+## Resumen
+
+1.  Instalar **R** y **RStudio** en sus versiones actualizadas
+2.  Instalar **Git**
+3.  Instalar el paquete **usethis** en RStudio
+4.  Configurar Git con nuestro **nombre** y **mail** a partir de `usethis::edit_git_config()`
+5.  Crear **proyecto** en RStudio y vincularlo con **Git** a partir de `usethis::use_git()`
+
+## Resumen
+
+6.  Crear una cuenta en **GitHub** con el **mismo mail** que configuramos en **Git**.
+
+7.  Crear un **token (PAT)** desde GitHub y copiarlo.
+
+8.  Instalar el paquete **gitcreds** en RStudio
+
+9.  Almacenar el token (PAT) con `gitcreds::gitcreds_set()`
+
+10. Subir y crear repositorio en GitHub mediante `use_github()`

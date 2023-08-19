@@ -1,0 +1,1105 @@
+---
+title: "Interacción, predicción y validación de modelos"
+subtitle: ""  
+author: 
+  - "Andrea Silva - Christian Ballejo"
+date: '22 de noviembre de 2022'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#00746B", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.code2 {
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+## Parte 1
+
+.font150[ 
+
+- Interacción
+
+- Introducción al dataset Titanic
+
+- Interacción en modelos logísticos
+
+- Sospechas de interacción
+
+  - Gráficos EDA
+  
+  - Tablas de contingencia estratificadas
+
+- Resultados como probabilidades predichas
+
+- Paquete ggeffects
+
+]
+---
+class: middle, center
+
+## Cronograma
+
+| Hora          | Actividad                                                     |
+|:--------------|:--------------------------------------------------------------|
+| 09:45 - 11:00 | Interpretación de la interacción en modelos de regresión logística                              |
+| 11:00 - 11:15 | *Pausa* `r emo::ji("coffee")` `r emo::ji("croissant")`                             |
+| 11:15 - 13:00 | Modelos logísticos para predicción: clasificación             |
+| 13:00 - 14:00 | *Almuerzo* `r emo::ji("hamburger")` `r emo::ji("green_salad")`                                |
+| 14:00 - 15:00 | Modelos logísticos para predicción: clasificación   (cont)    |
+| 15:00 - 15:15 | *Pausa* `r emo::ji("coffee")` `r emo::ji("croissant")`                                    |
+| 15:15 - 17:00 | tidymodels - validación cruzada   
+
+
+
+---
+class: inverse, hide-logo, center
+## Interacción
+
+<br>
+<br>
+
+.remark-code[.font190[
+Se habla de interacción biológica entre dos o más factores causales cuando existe una interdependencia entre sus mecanismos de acción para causar, prevenir o controlar una enfermedad, de manera que la incidencia de enfermedad atribuible a este conjunto de factores causales es diferente de la incidencia esperable de sus efectos individuales
+
+]]
+---
+## Conceptos
+
+.code2[.font130[
+### Interacción
+
+- Cuando hay modificación de un efecto, no es correcto hablar del efecto de una exposición sin tener en cuenta (sin conocer) el valor de la otra variable o el estrato de la otra variable en el que se valora dicho efecto
+
+]]
+
+.plot[.font130[
+### Confusión
+
+- No corresponde a un fenómeno biológico: una variable (o factor) de confusión es una variable que distorsiona la medida de la asociación entre otras dos variables.
+
+- se habla de confusión cuando existen diferencias importantes entre las estimaciones brutas de una asociación y las ajustadas por los posibles factores de confusión
+
+]]
+
+---
+background-image: url(assets/graf_int.png)
+background-size: 450px
+background-position: 50% 30%
+## Representación gráfica del fenómeno de interacción
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.font140[
+- cuando no hay interacción: podemos describir el efecto de cada variable con independencia de las otras. 
+
+- en presencia de interacción: no es posible estimar el efecto de una variable (semilla) sin conocer previamente el valor de la otra (lluvia), dado que los efectos de una variable dependen siempre de los valores que toma la otra, porque existe una modificación del efecto (interacción) entre ambas.
+
+]
+---
+## Interacción
+
+.font130[
+- La consecuencia de la identificación de variables como modificadores de efectos significativos es que el efecto sobre el resultado de una de esas variables dependerá de los valores que tomen la(s) otra(s) variable(s) involucrada(s) en la interacción. 
+
+- Esto implica que los coeficientes de los modelos obtenidos por cualquier paquete estadístico no pueden interpretarse directamente sin realizar cálculos adicionales. Los únicos coeficientes del modelo que se pueden usar directamente para estimar las razones de probabilidades son los que no se incluyen en los términos de interacción. 
+
+- Las razones de probabilidad restantes y sus correspondientes intervalos de confianza deben estimarse a través de los diferentes niveles de las otras variables del término de interacción (a través de diferentes categorías si la variable es cualitativa o a través de una serie de valores, a veces el mínimo, la media y el máximo, si es cuantitativa). La mayor dificultad de este proceso radica en la correcta estimación de la varianza de cada una de estas razones de probabilidad.
+]
+---
+class:  center
+## Interacción en Modelos Lineales Generalizados
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font180[
+El exceso de riesgo relativo debido a la interacción implica una desviación de la aditividad de los efectos.
+]
+---
+background-image: url(assets/Titanic.jpg)
+background-size: 700px
+background-position: 50% 70%
+
+## Dataset Titanic
+---
+## Dataset Titanic
+
+.font150[
+Diccionario de datos
+]
+
+.font150[
+- .blue[survival]: Superviviente (*variable respuesta*)
+- .blue[pclass]: Clase de ticket 
+- .blue[sex]: Sexo
+- .blue[age]: Edad en años
+- .blue[sibsp]: nro. de hermanos/cónyuges a bordo 
+- .blue[parch]: nro. de padres/hijos a bordo 
+- .blue[ticket]: Número de ticket 
+- .blue[fare]: Tarifa de pasaje
+- .blue[cabin]: Número de cabina
+- .blue[embarked]: Puerto de embarcado
+]
+---
+## Interacción
+.font140[
+Existe interacción cuando la asociación entre dos variables varía según los diferentes niveles de otra u otras variables.
+
+- Se la conoce también como **_modificadora de efecto_**.
+
+- Se identifica en tablas bivariadas con **estratificación** o en modelos multivariados con relaciones **multiplicativas** entre variables.
+
+- Cuando la interacción es significativa, no se puede hablar del efecto de una variable sin tener en cuenta el efecto de la otra.
+
+- Los gráficos pueden ayudar al entendimiento cuando comunicamos.
+]
+---
+## Interacción en modelo Titanic
+### Exploración y sospechas
+<br>
+
+.font140[
+
+- Gráficos en análisis exploratorio de datos (*EDA*)
+
+- Abordaje con tablas de contingencia estratificadas (.orange[Mantel-Haenszel])
+
+- Test de homogeneidad (.green[Woolf], .blue[Breslow-Day], etc)
+
+]
+
+---
+background-image: url(assets/barras_int.PNG)
+background-size: 1100px
+background-position: 50% 80%
+
+## Interacción en modelo Titanic
+
+### Gráficos (EDA)
+
+
+---
+## Interacción en modelo Titanic
+### Tabla de contingencia estratificada
+
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+library(janitor)
+
+titanic <- read_csv("train.csv") |> 
+  select(-passengerId, -name, -ticket, -cabin) |> 
+  drop_na() |> 
+   mutate(survived = factor(survived, levels = 1:0, labels = c("Si", "No")),
+         pclass = factor(pclass),
+         sex = factor(sex))
+
+tabla_estratificada <- titanic %>% 
+  tabyl(pclass, survived, sex) 
+
+tabla_estratificada %>% 
+  adorn_percentages("row")  %>% 
+  adorn_pct_formatting(digits = 1)  %>% 
+  adorn_ns() 
+```
+---
+## Interacción en modelo Titanic
+
+### Análisis bivariado estratificado
+
+```{r, eval=FALSE}
+library(epiR)
+
+epi.2by2(tabla, method = "case.control")
+```
+
+```{r, echo=FALSE, message=F, warning=F}
+library(epiR)
+
+estratificada_tidy <- titanic |> 
+  group_by(pclass, sex, survived) |> 
+  summarise(n = n())
+
+epi.2by2(estratificada_tidy, method = "case.control")
+
+
+```
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado 
+
+.font140[
+
+Modelo sin interacción
+<br>
+<br>
+<br>
+
+```{r, echo=F, message=F, warning=F}
+library(equatiomatic)
+
+titanic <- titanic |> 
+  mutate(survived = fct_relevel(survived, "No"),
+         pclass = fct_relevel(pclass, "3", "2", "1"),
+         sex = fct_relevel(sex, "male"))
+
+mod_sin_int <-  glm(survived ~ age + sex + pclass + sibSp,
+                    data = titanic, 
+                    family = binomial)
+
+mod_int <- glm(survived ~ age + sex*pclass + sibSp,
+               data = titanic, 
+               family = binomial)
+
+extract_eq(model = mod_sin_int, wrap = T, ital_vars = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green", "sibSp" = "orange"), terms_per_line = 3)
+```
+]
+---
+class: inverse, hide-logo
+# Su turno:
+<br>
+<br>
+.font160[
+- Sobre las mismas variables predictoras de este modelo, construya uno con interacción (*mod_int*) entre sexo (*sex*) y clase (*pclass*).
+
+- Muestre el resumen con los coeficientes
+]
+
+```{r, echo = F, warning=F, message=F}
+library(countdown)
+countdown(minutes = 3, start_immediately = T, play_sound = F)
+```
+
+
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado 
+
+.font140[
+
+Modelo con interacción
+<br>
+<br>
+<br>
+
+```{r, echo=F, message=F, warning=F}
+extract_eq(model = mod_int, wrap = T, ital_vars = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green", "sibSp" = "orange"),  terms_per_line = 3)
+```
+]
+---
+
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Odds ratio
+
+```{r, echo=F, message=F, warning=F}
+library(sjPlot)
+
+tab_model(mod_sin_int, mod_int, show.aic = T, show.r2 = F, show.intercept = F)
+```
+
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+<br>
+.font130[
+1.- Se aplican y suman los coeficientes obtenidos en el modelo a los valores posibles de las variables predictoras (incluido el intercepto)
+]
+<br>
+
+$$ln(Odds) = \alpha + \sum \beta_ix_i$$
+
+<br>
+
+```{r, echo=F, message=F, warning=F}
+extract_eq(model = mod_int, wrap = T, use_coefs = T, var_colors = c("age" = "firebrick", "sex" = "blue", "pclass" = "green", "sibSp" = "orange"), terms_per_line = 4)
+```
+
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+
+.font120[
+2.- Se calculan los Odds, exponenciando el resultado anterior (logit).
+<br>
+$$Odds = exp(ln(Odds))  $$
+<br>
+Ejemplo: pasajero varón de 30 años que viaja en 3ra clase y sin hermanos/conyuges a bordo
+
+$$ln(Odds) = -0.28 - 0.05*\color{red}{30} +1.53*\color{blue}0+0.11*\color{green}0+2.1*\color{green}0-0.37*\color{orange}0+2.91*0+2.18*0$$
+$$ln(Odds) = -0.28 - 0.05*30$$
+$$exp(ln(Odds)) = 0.16$$
+]
+---
+## Interacción
+
+.font150[
+Presentación de resultados en forma de probabilidades predichas
+]
+<br>
+.font130[
+3.- Se calculan probabilidades a partir de los Odds
+<br>
+$$P =\frac{Odds}{1 + Odds} $$
+Seguimos con el ejemplo:
+
+$$P = \frac{0.16}{1 + 0.16} = 0.14 = 14 \% $$
+
+]
+---
+class: inverse, hide-logo
+# Su turno:
+<br>
+<br>
+.font160[
+- A partir del modelo final con interacción, obtenga la probabilidad de sobrevivir en el Titanic de un hombre de 30 años que viaja en 3ra. clase sin hermanos/cónyuge a bordo.
+
+- Utilice la función *predict()*.
+]
+
+```{r, echo = F, warning=F, message=F}
+countdown(minutes = 3, start_immediately = T, play_sound = F)
+```
+
+---
+background-image: url(assets/ggeffects.png)
+background-size: 100px
+background-position: 80% 5%
+
+## Paquete ggeffects()
+<br>
+.font150[
+El paquete tiene como objetivo calcular fácilmente predicciones ajustadas en valores representativos de covariables a partir de modelos estadísticos.
+
+- Admite numerosos modelos: *lm, glm, coxph, tidymodels*, etc.
+
+- Permite visualizar los resultados en forma gráfica.
+]
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Probabilidades en forma gráfica
+
+```{r, echo=F, message=F, warning=F, fig.align = 'center', fig.width=12, fig.asp=0.5}
+library(ggeffects)
+
+theme_custom1 <- function(base_size = 16) {
+  theme_bw(base_size = base_size) %+replace%
+    theme(
+      # L'ensemble de la figure
+      plot.title = element_text(size = rel(1), face = "bold", margin = margin(0,0,5,0), hjust = 0),
+      # Zone où se situe le graphique
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      # Les axes
+      axis.title = element_text(size = rel(0.85), face = "bold"),
+      axis.text = element_text(size = rel(0.70), face = "bold"),
+      axis.line = element_line(color = "black", arrow = arrow(length = unit(0.3, "lines"), type = "closed")),
+      # La légende
+      legend.title = element_text(size = rel(0.85), face = "bold"),
+      legend.text = element_text(size = rel(0.70), face = "bold"),
+      legend.key = element_rect(fill = "transparent", colour = NA),
+      legend.key.size = unit(1.5, "lines"),
+      legend.background = element_rect(fill = "transparent", colour = NA),
+      # Les étiquettes dans le cas d'un facetting
+      strip.background = element_rect(fill = "#eeeeee", color = "#eeeeee"),
+      strip.text = element_text(size = rel(0.85), face = "bold", color = "black", margin = margin(5,0,5,0)))
+}
+
+library(cowplot)
+
+g1 <- ggpredict(mod_sin_int, c("sex", "pclass"), typical = "zero") |> 
+  plot(line.size = 1, dot.size = 3) + labs(subtitle = "Sin interaccion") + theme_custom1()
+
+g2 <- ggpredict(mod_int, c("sex", "pclass"), typical = "zero") |> 
+  plot(line.size = 1, dot.size = 3) + labs(subtitle = "Con interaccion") + theme_custom1()
+
+plot_grid(g1, NULL, g2, align = "h", nrow = 1, rel_widths = c(1, 0.3, 1))
+
+```
+
+---
+## Interacción en modelo Titanic
+
+### Análisis multivariado - Probabilidades en forma gráfica
+
+```{r, echo=F, message=F, warning=F, fig.align = 'center', fig.width=15, fig.asp=0.4}
+
+g3 <- ggpredict(mod_sin_int, c("age", "pclass", "sex"), typical = "zero")  |> 
+  plot(line.size = 1, dot.size = 3) + labs(subtitle = "Sin interaccion") + theme_custom1()
+
+g4 <- ggpredict(mod_int, c("age", "pclass", "sex"), typical = "zero") |> 
+  plot(line.size = 1, dot.size = 3) + labs(subtitle = "Con interaccion") + theme_custom1()
+
+plot_grid(g3, NULL, g4, align = "h", nrow = 1, rel_widths = c(1, 0.1, 1))
+
+```
+
+---
+class: inverse, hide-logo
+# Su turno:
+<br>
+<br>
+.font160[
+- Visualice las probabilidades predichas de sobrevivir integrando todas las variables participantes de los modelos (sin y con interacción).
+
+- Para una visualización coordinada utilice el siguiente orden: *age*, *sibSp*, *pclass* y *sex*.
+
+- Realice un gráfico por vez (no los muestre juntos)
+]
+
+```{r, echo = F, warning=F, message=F}
+countdown(minutes = 4, start_immediately = T, play_sound = F)
+```
+---
+class: inverse, hide-logo, center, middle
+
+## Fin primera parte
+
+---
+## Parte 2
+<br>
+.font150[
+
+- Validación
+
+- Modelos logísticos para predicción: clasificación
+
+- Entrenamiento y testeo
+
+- Matriz de confusión y métricas
+
+- Curvas ROC: Umbrales (threshold) 
+
+- Sobreajuste
+]
+
+---
+## Validación
+
+<br>
+.font150[
+- Los modelos nunca constituyen una finalidad en sí misma: procuran representar una realidad general, usando para ello información específica que proviene de ella. 
+
+- Para que pueda aplicarse en otro contexto, el modelo debe ser validado con datos procedentes de ese otro contexto. 
+
+- El acto de corroborar que tiene este mérito (o sea, que hace las predicciones que se supone que hace) se conoce como *“validación”* del modelo. 
+]
+---
+## Validación
+
+<br>
+.font150[
+- La validez es el grado en que las predicciones coinciden con las observaciones y tiene 2 componentes: **_calibración_** y **_discriminación_**. 
+
+- La calibración compara el número predicho de eventos con el número observado en grupos de individuos, mientras que la discriminación evalúa el grado en que el modelo distingue entre individuos en los que ocurre el evento y los que no. 
+
+- La prueba estadística que evalúa la calibración es la de *Hosmer-Lemeshow*
+
+- El área bajo la curva ROC evalúa la discriminación
+
+]
+
+---
+background-image: url(assets/validacion_pasos.PNG)
+background-size: 600px
+background-position: 50% 55%
+---
+## Modelos logísticos para predicción: clasificación
+<br>
+.font140[
+- Modelo de clasificación binaria (**estadística**)
+
+- Algoritmo supervisado de clasificación (**machine learning**)
+
+- La finalidad última del modelo es predecir la variable respuesta en observaciones que el modelo no ha “visto” antes. (generalmente una **aplicación futura**)
+
+- Ejemplos: modelos predictivos de mortalidad en hospitalizaciones, de daños específicos en pacientes, de riesgo de depresión, etc.
+
+- Se puede optimizar el umbral de decisión. 
+
+- Cuidado con el sobreajuste (*overfitting*)
+]
+
+---
+background-image: url(assets/model_train.png)
+background-size: 700px
+background-position: 50% 60%
+## Entrenando modelos
+
+---
+background-image: url(assets/model_test.png)
+background-size: 600px
+background-position: 50% 70%
+## Haciendo predicciones
+
+---
+class: center, middle
+## Mejor modelo = mejores predicciones 
+### (menor tasa de error)
+
+---
+background-image: url(assets/model_metricas.png)
+background-size: 800px
+background-position: 50% 80%
+## Obteniendo métricas
+---
+background-image: url(assets/matrix_c.png)
+background-size: 750px
+background-position: 50% 55%
+
+## Matriz de confusión y métricas
+
+---
+background-image: url(assets/precision_exactitud.PNG)
+background-size: 800px
+background-position: 50% 60%
+
+## Métricas: exactitud y precisión
+
+---
+background-image: url(assets/mc_modelos_train.PNG)
+background-size: 750px
+background-position: 50% 25%
+## Matrices de confusión (Titanic)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font120[
+**Modelo sin interacción**
+
+Exactitud = (361 + 212) / (361 + 212 + 78 + 63) = 0,80
+
+Precisión = 212 / (212 + 63) = 0,77
+
+**Modelo con interacción**
+
+Exactitud = (386 + 194) / (386 + 194 + 96 + 38) = 0,81
+
+Precisión = 194 / (194 + 38) = 0,84
+]
+---
+background-image: url(assets/mc_modelos_train.PNG)
+background-size: 750px
+background-position: 50% 25%
+## Matrices de confusión (Titanic)
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font120[
+**Modelo sin interacción**
+
+Sensibilidad = 212 / (212 + 78) = 0,73
+
+Especificidad = 361 / (361 + 63) = 0,85
+
+**Modelo con interacción**
+
+Sensibilidad =  194 / (194 + 96) = 0,67
+
+Especificidad = 386 / (386 + 38) = 0,91
+
+]
+---
+background-image: url(assets/Roc_curve.svg)
+background-size: 450px
+background-position: 50% 65%
+
+## Métricas: Curva ROC
+---
+background-image: url(assets/roc_modelos_train.PNG)
+background-size: 1100px
+background-position: 50% 60%
+## Curvas ROC y umbral optimo (Titanic)
+
+---
+class: inverse, hide-logo
+# Su turno:
+<br>
+.font160[
+- Construya dos nuevas variables dentro del dataframe *titanic* con las predicciones de sobrevida y muerte (categorías *Si* y *No*) utilizando los umbrales (threshold) calculados como "mejores" por la curva ROC.
+
+- Defina como *aciertos_sin_int2* a la variable resultado relacionada con las probabilidades del modelo sin interacción (*prob_titanic_s_int*).
+
+
+- Defina como *aciertos_int2* a la variable resultado relacionada con las probabilidades del modelo con interacción (*prob_titanic_int*).
+]
+
+```{r, echo = F, warning=F, message=F}
+countdown(minutes = 5, start_immediately = T, play_sound = F)
+```
+
+
+
+---
+background-image: url(assets/metricas_train.PNG)
+background-size: 1100px
+background-position: 50% 60%
+## Métricas entrenamiento (Titanic)
+
+---
+
+background-image: url(assets/overfitting.PNG)
+background-size: 450px
+background-position: 50% 90%
+## Sobreajuste (Overfitting)
+
+.font130[
+El sobreajuste es un error de modelado que ocurre cuando una función está demasiado alineada con un conjunto limitado de datos. Como resultado, el modelo es útil solo al conjunto de datos utilizado para su construcción y no a ningún otro conjunto de datos.
+
+
+- Los modelos de regresión logística tienden a sobreajustar los datos, particularmente en configuraciones con muchos predictores (alta dimensión)
+- Detección: el error del modelo en el conjunto de prueba es mayor al error en el conjunto de entrenamiento.
+- Solución: Tener en cuenta la parsimonia en la construcción de modelos y obtener métricas con validación cruzada. Otros métodos: reducción de la dimensionalidad, regularización, etc.
+]
+---
+class: center, middle
+
+## La mejor manera de medir el rendimiento de un modelo para predecir nuevos datos es *predecir nuevos datos*.
+
+---
+background-image: url(assets/metricas_train_test.PNG)
+background-size: 1000px
+background-position: 50% 60%
+## Comparativa métricas
+
+---
+class: inverse, hide-logo, center, middle
+
+## Fin segunda parte
+---
+## Parte 3
+
+.font150[
+- **tidymodels**: framework para modelado en machine learning
+
+- Métodos de validación de modelos predictivos
+
+- .bolder[Remuestreo]: paquete **rsample**
+
+- .bolder[Preproceso]: paquete **recipes**
+
+- .bolder[Ajuste]: paquete **parsnip**
+
+- .bolder[Flujo de trabajo]: paquetes **workflows** y **workflowset**
+
+- .bolder[Métricas]: paquete **yardstick**
+
+]
+---
+background-image: url(assets/tidymodels.svg)
+background-size: 100px
+background-position: 80% 5%
+
+## Introducción a tidymodels
+
+<br>
+<br>
+
+.font140[
+El framework tidymodels es una colección de paquetes para modelado y aprendizaje automático utilizando los principios de tidyverse.
+
+- Permite emplear la misma sintaxis para ajustar, optimizar, evaluar y predecir un amplio abanico de modelos, variando únicamente el nombre del algoritmo.
+
+- El núcleo de tidymodels activa a los siguientes paquetes: broom, *dials*, dplyr, ggplot2, **_infer_**, *modeldata*, **_parsnip_**, purrr, **_recipes_**, **_rsample_**, tibble, tidyr, *tune*, **_workflows_**, *workflowsets* y **_yardstick_**. 
+
+- Existen muchos otros más, de aplicación específica, como: *tidypredict*, **_probably_**, *tidyposterior*, *multilevelmod*, etc.
+]
+---
+background-image: url(assets/pipeline_tidymodels.png)
+background-size: 900px
+background-position: 50% 60%
+## Flujo de trabajo
+
+---
+## Validación de modelos predictivos
+
+
+.font140[
+- La finalidad última del modelo es predecir la variable respuesta en observaciones que el modelo no ha “visto” antes.
+
+- Las métricas de validación, con los mismos datos con los que se construyó el modelo (error de entrenamiento), suelen ser demasiado optimistas.
+
+- Muchas veces no se tiene a disposición nuevos datos y por lo tanto se decide "dividir" aleatoriamente el conjunto de datos original.
+
+- Esta división aleatoria presupone múltiples composiciones de muestras de entrenamiento y testeo.
+
+- La mejor forma de asegurarse métricas estables y coherentes es mediante la estrategia conocida como remuestreo (**resampling**)
+
+]
+---
+## Validación de modelos predictivos
+### Métodos de remuestreo 
+
+.bolder[.font160[
+Validación simple
+]]
+
+.font140[
+- La estimación del error es altamente variable dependiendo de qué observaciones se incluyan como conjunto de entrenamiento y cuáles como conjunto de validación (problema de varianza).
+
+- Al excluir parte de las observaciones disponibles como datos de entrenamiento (generalmente el 20% o 30%), se dispone de menos información con la que entrenar el modelo y, por lo tanto, se reduce su capacidad. 
+
+- Se suele tomar la variable salida como variable de estratificación, para que ambos conjuntos de datos tengan la misma distribución aproximada.
+]
+
+---
+background-image: url(assets/split_data.png)
+background-size: 550px
+background-position: 50% 60%
+## Dividiendo datos (split)
+---
+background-image: url(assets/split_train.png)
+background-size: 850px
+background-position: 50% 60%
+## Entrenando modelos
+---
+background-image: url(assets/split_predict.png)
+background-size: 750px
+background-position: 50% 70%
+## Haciendo predicciones
+---
+background-image: url(assets/split_metricas.png)
+background-size: 800px
+background-position: 50% 70%
+## Obteniendo métricas
+---
+class: center
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+]
+---
+class: center
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+
+nuevos datos(.purple[x]) + modelo ajustado = predicciones (.green[y])
+]
+---
+class: center
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font150[
+viejos datos(.purple[x], .green[y]) + modelo = modelo ajustado
+
+nuevos datos(.purple[x]) + modelo ajustado = predicciones (.green[y])
+
+nuevos datos + predicciones = métricas
+]
+
+---
+## Validación de modelos predictivos
+### Métodos de remuestreo 
+
+.font140[
+- .bolder[K-Fold Cross-Validation]: proceso iterativo que consiste en dividir los datos de forma aleatoria en k grupos de aproximadamente el mismo tamaño, k-1 grupos se emplean para entrenar el modelo y uno de los grupos se emplea como validación.
+
+- .bolder[Bootstraping]: proceso iterativo de pseudomuestras con repetición (resampling with replacement) a partir de la muestra original. El set de validación es out-of-bag (OOB).
+
+- .bolder[Otros]: repeated k-Fold Cross-Validation, Leave One Out Cross-Validation (LOOCV), etc.
+
+- **Nota**: tener en cuenta división estratificada
+]
+---
+## Validación de modelos predictivos
+### Elección del mejor método
+
+<br>
+
+.font150[
+- .bolder[Tamaño de muestra pequeño]: se recomienda *repeated k-Fold Cross-Validation* (consigue un buen equilibrio bias-varianza)
+
+- .bolder[Tamaño de muestra grande]: no hay grandes diferencias entre métodos y se prefiere *10-Fold-Cross-Validation* simple (eficiencia computacional)
+
+- .bolder[Comparar modelos]: se recomienda *bootstrapping* (varianza menor) 
+
+]
+---
+background-image: url(assets/vfold.png)
+background-size: 600px
+background-position: 50% 70%
+## Método k-fold cross-validation
+
+---
+background-image: url(assets/bootstraping.PNG)
+background-size: 700px
+background-position: 50% 70%
+## Método bootstrapping
+
+---
+background-image: url(assets/rsample.svg)
+background-size: 100px
+background-position: 80% 5%
+## Remuestreo: paquete rsample
+
+<br>
+<br>
+.font140[
+- El paquete contiene funciones para generar **diferentes tipos de remuestreos** con sus respectivas clases.
+
+- Se utiliza para producir remuestreos para *estimar la distribución muestral de un estadístico* y/o *estimar rendimientos de modelos*.
+
+- Sus funciones conectan con otras de otros paquetes como *recipes* y *parsnip* dentro de **tidymodels**. 
+]
+---
+background-image: url(assets/recipes.svg)
+background-size: 100px
+background-position: 80% 5%
+## Preproceso (feature engineering)
+
+.font130[
+- En estadística se conoce como **preproceso** y desde la óptica informática del modelado, se lo conoce como **feature engineering**.
+
+- Incluye la selección y transformación individual de variables predictoras o grupos de variables.
+
+- Estrategias de imputación de datos en valores perdidos u omisión de los mismos.
+
+- Conversiones de escalas (logaritmo, BoxCox, etc), centrado, escalado, etc... en variables cuantitativas.
+
+- Creación de variables dummy, fusión de categorías infrecuentes, ordenado de niveles de factores, etc... en variables cualitativas.
+
+- Más complejo, en modelos de machine learning, reducción de dimensiones (PCA, etc)
+]
+---
+background-image: url(assets/recipes.svg)
+background-size: 100px
+background-position: 80% 5%
+
+## Paquete recipes
+
+.font130[
+Algunas funciones comunes:
+
+- **step_rm()**: elimina variables antes del modelado
+
+- **step_naomit()**: elimina observaciones con valores perdidos en las variables definidas
+
+- **step_nzv()**: elimina variables desbalanceadas (varianza cercana a cero)
+
+- **step_dummy()**: Convierte datos categóricos en uno o más términos numéricos de modelo binario para los niveles de los datos originales. Tiene argumentos que permite mayor control.
+
+- **step_center()**: Centra los datos numéricos para tener una media de cero.
+
+- **step_scale()**: Normaliza los datos numéricos para tener media cero y desvío estándar de uno.
+
+- etc...
+]
+---
+background-image: url(assets/parsnip.svg)
+background-size: 100px
+background-position: 80% 5%
+## Ajuste: paquete parsnip
+
+.font130[
+- Una interfaz unificada de modelos 
+
+- Se requieren de 3 pasos: definir el tipo de modelo y sus parámetros, definir su implementación (*engine*) y finalmente ajustarlo.
+
+- Ejemplo: **logistic_reg()** lleva a cabo una regresión logística. Pero puede utilizar diferentes "motores" para el proceso.
+
+  - **glm** para modelos lineales generalizados
+  
+  - **glmnt** para modeloes de regresión regularizados 
+  
+  - **stan** para regresiones bayesianas
+  
+  - etc...
+
+- Cada tipo de modelo tiene su propia interfaz y recordarlas a todas es difícil, por ese motivo desarrollaron la interfaz de **parsnip**. 
+]
+---
+background-image: url(assets/workflows.svg)
+background-size: 100px
+background-position: 80% 5%
+## Flujo de trabajo: paquete workflows
+<br>
+<br>
+.font140[
+
+- Construye objetos de flujo de trabajo combinando secuencias de preprocesamiento, modelado y postprocesamiento.
+
+- Una variante útil es el paquete **workflowset**, que se basa en *workflows* pero que permite varios flujos de trabajo simultáneos con especificaciones de modelos y/o preprocesamientos diferentes.
+
+- **workflowset** ofrece también la posibilidad de evaluar modelos con diferentes conjuntos de predictores automáticamente (*leave_var_out_formulas*)
+
+]
+---
+background-image: url(assets/yardstick.svg)
+background-size: 100px
+background-position: 80% 5%
+## Métricas: paquete yardstick
+<br>
+.font140[
+Contiene funciones para estimar que tan bien funcionan los modelos utilizando los principios de datos ordenados.
+
+Métricas de rendimiento: 
+
+- **Clase**: matriz de confusión, precisión, exactitud, sensibilidad, etc.
+
+- **Probabilidad de clase**: área bajo la curva, gráficos ROC, etc 
+
+- **Numéricas**: raíz del error cuadrático medio (diferencia media entre los valores previstos por el modelo predictivo y los valores reales), error absoluto medio, etc.
+
+Sus funciones se adaptan a resultados provenientes de diferentes remuestreos. 
+
+]
+---
+## Algunas convenciones en nombres de objetos
+
+.font140[
+Usaremos algunos sufijos que identifican bien a ciertos tipos de objetos
+
+- **_kf** para remuestras por kfolds
+
+- **_boot** para remuestras por bootstraps
+
+- **_rec** para recetas de **recipes**
+
+- **_mod** para especificaciones de modelos de **parsnip**
+
+- **_wfl** para worflow
+
+- **_fit** para modelos ajustados
+
+- **_res** para resultados en general
+
+- **mc_** para matrices de confusion
+]
+---
+background-image: url(assets/nombre_objetos.png)
+background-size: 1000px
+background-position: 50% 50%
+## Secuencia script
+---
+background-image: url(assets/Resultados_comparativos.PNG)
+background-size: 700px
+background-position: 50% 65%
+## Resultados comparativos
+---
+## Enlaces sobre tidymodels
+<br>
+.font140[
+
+- Sitio web oficial de [tidymodels](https://www.tidymodels.org/)
+
+- Lista de todas las [funciones de tidymodels](https://www.tidymodels.org/find/#search-all-of-tidymodels)
+
+- Lista de todos los modelos de [parsnisp](https://www.tidymodels.org/find/parsnip/)
+
+- Lista de todos los steps de [recipes](https://www.tidymodels.org/find/recipes/)
+
+- Libro online [Tidy Modeling with R](https://www.tmwr.org/)
+
+]
+---
+class: inverse, hide-logo
+# Su turno:
+<br>
+.font160[
+- Reutilizando los objetos de las distintas etapas del proceso, ajuste una estructura de múltiples modelos logísticos (*mod_multi_wf*) a un remuestreo .bolder[repeated k-Fold Cross-Validation] con 10-fold y 3 repeticiones.
+
+- Tenga en cuenta que el remuestreo con el argumento agregado es: kfold_cv(v = ##, strata = survived, repeat = #)
+
+- Obtenga sus métricas resultantes.
+]
+
+```{r, echo = F, warning=F, message=F}
+countdown(minutes = 8, start_immediately = T, play_sound = F)
+```
+
+---
+background-image: url(assets/final.PNG) 
+background-size: 900px
+background-position: 50% 50%

@@ -1,0 +1,325 @@
+---
+title: "Análisis multinivel aplicado a epidemiología"
+subtitle: "Unidad 2"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    css: styles.css
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## Definición de epidemiología
+
+<br>
+
+<br>
+
+John M. Last, A Dictionary of Epidemiology
+
+<br>
+
+::: {style="color: #00746B"}
+***"El estudio de la distribución y de los determinantes de las salud en poblaciones..."***
+:::
+
+## Individualización del riesgo
+
+::: incremental
+-   Factores de riesgo a nivel individual
+
+    -   genético
+
+    -   biomédico
+
+    -   comportamientos
+
+-   Poblaciones como simple suma de individuos
+
+-   Se cree que las verdaderas causas de enfermedad se encuentran exclusivamente a nivel individual
+:::
+
+## Individualismo metodológico {.incremental}
+
+-   Individuos como unidades de analisis
+-   Variables a nivel individual
+-   Inferencia a nivel individual
+-   Variables de grupo o a nivel poblacional unicamente como indicadores indirectos de variables a nivel individual
+
+## Recuperar la dimension de grupo (población) {.incremental}
+
+-   Variables grupales (ambientales y contextuales)
+
+-   La relacion entre dos variables a nivel individual puede variar de grupo en grupo
+
+-   Variabilidad intra e intergrupal
+
+## Estudios según unidad de análisis {.smaller}
+
+::: panel-tabset
+## Ecológicos
+
+-   los grupos son las unidades de análisis.
+
+-   variable dependiente e independientes se miden para los grupos
+
+-   se examinan los factores a nivel de grupo asociados con la variabilidad de grupo a grupo en la variable dependiente
+
+-   implican medir tasas de enfermedad para diferentes áreas y relacionarlas con las características socioambientales del área (medidas del ingreso medio del área) o características físicas del área (niveles de contaminación del aire).
+
+-   no pueden examinar variables a nivel individual como factores de confusión o mediadores de la asociación ecológica observada.
+
+## Individuos
+
+-   los individuos son las unidades análisis
+
+-   variable dependente e independientes se miden para los individuos
+
+-   se examinan los factores a nivel de individual asociados con la variabilidad de individuos a individuo en la variable dependiente
+
+-   relacionan características y comportamientos individuales a la probabilidad de desarrollar una enfermedad en un momento dado tiempo o durante un período de seguimiento.
+
+-   se constituyen agrupamientos de individuos según características o exposición individual
+:::
+
+## Pensando en poblaciones
+
+*Considero cada vez más útil hacer una distinción entre dos tipos de preguntas etiológicas. Las primeras buscan las causas de los casos y las segundas las causas de la incidencia.*
+
+*"**¿Por qué algunos individuos sufren de hipertensión?**" es una pregunta que difiere bastante de "**¿por qué en algunas poblaciones es tan frecuente la hipertensión mientras que en otras es rara?**"*
+
+*Estas preguntas exigen diferentes tipos de estudios y tienen distintas respuestas.*
+
+::: aside
+Rose, G. Sick Individuals and Sick Populations. Int J Epidemiol 1985
+:::
+
+## Pensando en poblaciones
+
+![](images/Dist_hta.PNG){fig-align="center"}
+
+::: aside
+Rose, G. Sick Individuals and Sick Populations. Int J Epidemiol 1985
+:::
+
+## Pensando en poblaciones
+
+<br>
+
+*La pregunta habitual **"¿por qué algunos individuos tienen presión arterial más alta que otros?"** podría plantearse con igual propiedad en los dos medios, dado que en ambos la presión arterial de los individuos varía aproximadamente en la misma medida (proporcionalmente); y las respuestas bien podrían ser muy similares en los dos casos (es decir, principalmente por variabilidad genética, y en menor grado por diferencias ambientales y del comportamiento).*
+
+::: aside
+Rose, G. Sick Individuals and Sick Populations. Int J Epidemiol 1985
+:::
+
+## Pensando en poblaciones
+
+<br>
+
+*Podríamos llegar a comprender plenamente la causa de las diferencias entre los individuos y, no obstante, pasar completamente por alto la pregunta más importante para la salud pública: **"¿Por qué la hipertensión no existe en Kenya y es común en Londres?"***
+
+::: aside
+Rose, G. Sick Individuals and Sick Populations. Int J Epidemiol 1985
+:::
+
+## Pensando en poblaciones
+
+*La respuesta a esta pregunta se vincula con los factores determinantes de la media de la población, puesto que lo que distingue a los dos grupos no depende en absoluto de las características de los individuos sino que es más bien un desplazamiento de la distribución en su conjunto: **una influencia masiva que actúa sobre toda la población**. Para encontrar los factores determinantes de las tasas de prevalencia e incidencia tenemos que estudiar las características de las poblaciones, no las de los individuos.*
+
+::: aside
+Rose, G. Sick Individuals and Sick Populations. Int J Epidemiol 1985
+:::
+
+## Problemas con niveles
+
+La falta de reconocimiento de que las construcciones definidas en diferentes niveles pueden ser importantes en la comprensión de la variabilidad dentro de un nivel dado, y la incapacidad de distinguir adecuadamente los constructos definidos en diferentes niveles conduce a graves riesgos teóricos y técnicos.
+
+Obviar el anidamiento de casos puede llevar a falacias interpretativas de diversa naturaleza, como las falacias ecológicas y atomista
+
+## Falacias {.smaller}
+
+Son errores conceptuales a la hora de interpretar resultados (*"falacia del nivel equivocado"* - Dansereau et al., 2006)
+
+<br>
+
+**Falacia ecológica :** es la inferencia falsa que se hace cuando se deduce incorrectamente a nivel individual (es decir, acerca de la variabilidad interindividual) a partir de información a nivel grupal. (Jargowsky, 2005)
+
+<br>
+
+**Falacia atomista:** es la que puede surgir cuando se hacen inferencias sobre la variabilidad intergrupal (o la relación entre variables grupales) a partir de datos individuales. (Subramanian et al., 2009)
+
+## Gráficamente
+
+![](images/falacia.png){fig-align="center" width="40%"}
+
+## Problemas estadísticos {.smaller}
+
+Antes de la aparición de los modelos multinivel se solía **"desagregar"** los niveles superiores, moviendo variables a un nivel más bajo y asignando sus valores para todo el grupo.
+
+Esto conduce a tratar los observaciones con estructura como si fueran independientes entre si (*supuesto de independencia*) , lo que provoca los siguientes problemas estadísticos:
+
+-   **errores estándar** de los coeficientes subestimados
+
+-   **intervalos de confianza** demasiado estrechos y **valores p** pequeños
+
+-   **conclusión errónea** de la/s variable/s explicativa/s tiene/n efecto real en la variable respuesta cuando en realidad no es cierto\
+
+## Composición del dato científico
+
+1.  **Unidad de análisis**: entidades de estudio
+
+2.  **Variables:** aspectos de las unidades análisis que se han seleccionado para estudiar.
+
+3.  **Valores**: estados particulares que pueden asumir las variables.
+
+4.  **Indicadores**: formas de medir o evaluar las variables seleccionadas (dimensiones)
+
+::: aside
+Juan Samaja - "Epistemología y Metodología. Elementos para una teoría de la investigación científica. Buenos Aires. Eudeba. 1993
+:::
+
+## Unidades y niveles
+
+"La relación entre indicadores y variables remite a otro asunto igualmente relevante para la comprensión del proceso de construcción de los datos: la de las relaciones de **jerarquías entre niveles de análisis**."
+
+Denomina "contexto" a los *niveles supra-unitarios* y *nivel focal o de anclaje* al del individuo, que tiene niveles sub-unitarios en función de la dimensiones componentes del nivel de anclaje.
+
+::: aside
+Juan Samaja - "Epistemología y Metodología. Elementos para una teoría de la investigación científica. Buenos Aires. Eudeba. 1993
+:::
+
+## Niveles de los datos {.smaller}
+
+<br>
+
+**Nivel 1:** denota observaciones en el nivel más detallado de los datos. En un conjunto de datos agrupados, el Nivel 1 representa las unidades de análisis (o sujetos) en el estudio. En un conjunto de medidas repetidas o de datos longitudinales, el Nivel 1 representa las medidas repetidas realizadas en la misma unidad de análisis.
+
+*La variable dependiente siempre se mide en el Nivel 1 de los datos*.
+
+**Nivel 2:** representa el siguiente nivel de la jerarquía. En conjuntos de datos agrupados, las observaciones de Nivel 2 representan grupos de unidades. En conjuntos de datos de medidas repetidas y longitudinales, el Nivel 2 representa las unidades de análisis.
+
+**Nivel 3,...,n:** representan los siguientes niveles de la jerarquía
+
+## Terminología
+
+<br>
+
+**Variables individuales:** refiere a variables que caracterizan a los individuos y se refieren a constructos individuales (por ejemplo, la edad o los ingresos personales).
+
+<br>
+
+**Variables grupales:** refiere a las variables que caracterizan a los grupos. A menudo se usan indistintamente los términos variables grupales, macrovariables, variables macro y variables ecológicas.
+
+## Terminología {.smaller}
+
+**Variables derivadas (agregadas)**: son un tipo de variables grupales que se construye agregando matemáticamente (por ejemplo, mediante una media o una proporción) las características de los individuos del grupo (por ejemplo, el porcentaje de personas analfabetas)
+
+**Variables integrales o globales:** son un tipo de variables grupales que no tienen ningún análogo individual y se refieren necesariamente a constructos grupales. Son ejemplos de variables integrales la existencia de ciertos tipos de leyes, el sistema político o económico, la desorganización social o la densidad de población.
+
+**Variables ambientales:** en los estudios ecológicos y en el análisis multinivel se emplea a veces el término variables ambientales para referirse a mediciones grupales de exposiciones físicas o químicas. Las variables ambientales, así definidas, se han propuesto como tipo de variable grupal, diferente de las variables derivadas y de las variables integrales.
+
+## Estructura de los datos
+
+<br>
+
+**2 niveles: *jerárquico o anidado***
+
+<br>
+
+![](images/Estudiantes_escuelas.PNG){fig-align="center"}
+
+## Estructura de los datos
+
+<br>
+
+**3 niveles: *jerárquico o anidado***
+
+<br>
+
+![](images/Estudiantes_escuelas_3.PNG){fig-align="center"}
+
+## Estructura de los datos
+
+<br>
+
+**2 niveles: *medidas repetidas (datos de panel)***
+
+<br>
+
+![](images/Repetitivas.PNG){fig-align="center"}
+
+## Estructura de los datos
+
+**No jerárquico**
+
+**3 niveles: *clasificación cruzada con medidas repetidas***
+
+<br>
+
+![](images/Repetidas_cruzada.PNG){fig-align="center"}
+
+## Nivel o variable: clasificación fija o aleatoria?
+
+¿cuándo se debe tratar una variable como una clasificación o nivel en lugar de una variable explicativa?
+
+**Clasificación fija**: sus valores son conocidos y tiene un pequeño número fijo de categorías. Se tratan como variables.
+
+**Clasificación aleatoria**: corresponde a un nivel de la estructura de los datos. Sus unidades pueden considerarse como una muestra aleatoria de una población más amplia de unidades.
+
+## Nivel o variable: clasificación fija o aleatoria?
+
+::: {style="font-size: 80%"}
+Supongamos que agregamos una clasificación de escuelas, como estatales y privadas.
+
+¿Es tipo de escuelas un nivel (clasificación aleatoria) o una variable (clasificación fija)?
+:::
+
+![](images/Tipos_escuelas.PNG){fig-align="center" width="80%"}
+
+## Nivel o variable: clasificación fija o aleatoria?
+
+::: {style="font-size: 80%"}
+El tipo de escuela tiene un pequeño número fijo de categorías. No hay una población más amplia de tipos de escuelas. Estatal y privada no son dos tipos muestreados de un gran número de tipos de escuelas, por lo que corresponde a una clasificación fija, y por eso trataríamos el tipo de escuela como una variable y no como un nivel.
+
+La distinción entre clasificaciones fijas y aleatorias también está vinculada al concepto de objetivo de inferencia. Si quisieramos inferir a todas y cada una de las escuelas específicas como una elementos en sí mismo, entonces esta sería una clasificación fija. Usando una clasificación fija, podría estimar si la Escuela X es diferente en términos de progreso de la Escuela Z y la Escuela W, etc. Sin embargo, si el objetivo de la inferencia son las diferencias entre escuelas, entonces se debe usar la clasificación aleatoria. (inferencia sobre la "población" de escuelas)
+:::
+
+## Matriz de datos
+
+Matriz para ejemplo anterior (2 niveles jerárquicos)
+
+![](images/matriz_datos.PNG){fig-align="center"}
+
+## La pregunta de investigación en el análisis multinivel
+
+El abordaje multinivel permite responder preguntas para cada nivel y también sobre el efecto de variables de un nivel en variables de otro.
+
+Ejemplos sobre la última estructura vista:
+
+-   ¿Los hombres progresan más que las mujeres?
+
+-   ¿Varía la brecha de género entre las escuelas?
+
+-   ¿Los estudiantes progresan más en las escuelas privadas que en las públicas?
+
+## Resumen
+
+<br>
+
+-   El mundo real tiene una estructura compleja y/o se la imponemos a través de nuestro diseño de investigación.
+
+-   Las estructuras complejas tienden a crear dependencias entre las observaciones.
+
+-   El modelado multinivel se ocupa de la estructura compleja que se deriva de la realidad y el diseño del estudio; modela explícitamente dependencias y hace frente a estructuras de datos desequilibradas
+
+## 
+
+<br>
+
+<br>
+
+::: {style="color: #00746B; font-size: 180%"}
+En **epidemiología** la presencia de niveles múltiples y de estructuras anidadas y cruzadas en los datos es la norma (*y no la excepción*).
+:::

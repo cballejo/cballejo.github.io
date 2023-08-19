@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Encuestas transversales</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <meta name="date" content="2022-06-15" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Encuestas transversales
+]
+.author[
+### Christian Ballejo
+]
+.date[
+### 2022-06-15
+]
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+class: inverse, hide-logo, center
+
+
+# Diapositivas
+
+&lt;br&gt; 
+&lt;br&gt; 
+
+## https: //cballejo.github.io/EMSE
+
+---
+## Estudios transversales
+.font150[
+- Observacionales
+
+- Descriptivos
+
+- De base poblacional
+
+- Objetivo de estimación de parámetros poblacionales de variables de salud, factores de riesgo y daños a la salud.
+
+- Llamados también encuestas transversales o de prevalencia. 
+
+]
+---
+## Población y muestra
+
+.font140[
+- Definir claramente la población de referencia 
+
+- Conocer el marco muestral
+
+- Definir las variables de interés
+
+- Decidir el tamaño muestral conforme al tipo de muestreo probabilístico propuesto
+
+- Decidir cómo se seleccionarán los sujetos para la investigación (unidades de análisis)
+
+- Calcular qué incertidumbre le imprime este “muestreo” a nuestra estimación
+]
+
+
+---
+## Algunas definiciones
+
+.font150[
+**MUESTREO:** Es un conjunto de métodos y procedimientos estadísticos destinados a la selección de una o mas muestras. El objetivo principal de un diseño de muestreo es
+proporcionar procedimientos para la selección de muestras que sean representativas de la población en estudio.
+
+**MARCO MUESTRAL:** Es la totalidad de unidades de muestreo de la que se selecciona una muestra. El marco puede ser una lista de personas, o unidades de vivienda, hogares, escuelas, etc.
+
+**MUESTRA PROBABILÍSTICA:** Es aquella muestra obtenida por un mecanismo de probabilidades, en el cual cada elemento de la población total o universo tiene una probabilidad conocida de selección.  
+]
+---
+## Algunas definiciones
+
+.font150[
+**CONGLOMERADO:** Es una subpoblación que reúne características presentes en la población. Los elementos que la componen poseen cierta característica que les hace ser propios de cierta cualidad o atributo, tal como lugar geográfico, grupo étnico, ideología, organización social, etc.
+
+**ESTRATO:** Es una subpoblación o parte de una población que reúne características comunes que le hacen ser homogénea. Los estratos son mutuamente excluyentes. Ello significa que los elementos que pertenecen a un estrato no pueden pertenecer a otro.
+
+**FACTOR DE EXPANSIÓN:**  se interpreta como la cantidad de personas en la población, que representa una persona en la muestra. 
+]
+---
+## EMSE 2018
+
+.font150[
+- Tercera Encuesta Mundial de Salud Escolar (EMSE 2018) 
+
+- Objetivo de proporcionar datos precisos sobre comportamientos relativos a la salud y los factores de riesgo y de protección entre estudiantes de Argentina para: diseñar estrategias sanitarias, establecer prioridades y formular políticas de salud escolar y adolescentes.
+
+- Utiliza una metodología estandarizada a nivel mundial para monitorear la prevalencia de comportamientos de riesgo para la salud y factores de protección más importantes entre los adolescentes.
+]
+
+---
+## EMSE 2018
+
+.font150[
+- Llevada a cabo por el Ministerio de Salud y Desarrollo Social de la Nación, contó con la colaboración de los Ministerios de Educación Nacional y Provinciales, la OPS/OMS Argentina, OPS/OMS Washington y el CDC.
+
+- Diseño de muestreo en dos etapas (selección de escuelas y luego de divisiones al azar) para producir una muestra representativa de alumnos de 1º a 5º año de educación media a nivel nacional (8º EGB a 3º polimodal en el caso de la provincia de Buenos Aires) y provincial. Se relevaron 523 escuelas en todo el país y se encuestaron 57.095 alumnos de los cuales se analizaron 56.981 cuestionarios correspondientes a las edades de 13 a 17 años, con una tasa de respuesta global de 63%.
+
+
+]
+
+---
+## Enlace oficial a descarga de la EMSE 2018
+
+.font150[
+&lt;br&gt; 
+&lt;br&gt; 
+[Datos abiertos Ministerio de Salud - EMSE 2018](http://datos.salud.gob.ar/dataset/base-de-datos-de-la-3-encuesta-mundial-de-salud-escolar-emse-con-resultados-nacionales-argentina)
+
+]
+---
+background-image: url(assets/Encuesta1.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+
+background-image: url(assets/Encuesta2.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+background-image: url(assets/Encuesta3.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+background-image: url(assets/Encuesta4.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+background-image: url(assets/Encuesta5.PNG) 
+background-size: 800px
+background-position: 50% 50%
+
+---
+## Proyecto R
+
+.font150[
+&lt;br&gt; 
+&lt;br&gt; 
+[Introducción al análisis de encuestas poblacionales](https://drive.google.com/file/d/1rlnHyb9Yp5FBGWDoPu2KJMw6ljqAfzlG/view?usp=sharing)
+
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

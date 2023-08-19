@@ -1,0 +1,234 @@
+---
+title: "Confusión"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '14 de diciembre de 2022'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#00746B", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.code2 {
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+## Confusión
+
+.font150[
+- Los llamados factores o .purple[variables de confusión] (o confundentes, o confundidoras), son variables externas a la relación que se evalúa y están asociadas tanto con la exposición como con la respuesta (no deben encontrarse en la vía causal entre X e Y)
+
+- Su presencia produce sesgos en la relación de la variable dependiente e independiente, que se deben eliminar (o controlar) a través de ajustes estadísticos realizados con análisis estratificado o con técnicas de análisis multivariante.
+
+- Se ajustan en la etapa de análisis (estudios observacionales) o controlan en la etapa de diseño (estudios experimentales) 
+]
+---
+background-image: url(assets/DAG.JPG)
+background-size: 700px
+background-position: 50% 50%
+## Relación 
+---
+## Modelo teórico
+<br>
+.font150[
+- Es fundamental conocer y/o elaborar un modelo teórico conceptual que *a priori* nos permita establecer relaciones entre las variables en estudio. (modelo explicativo)
+
+- El modelo teórico se realiza durante la etapa de diseño del estudio, a partir de la mejor evidencia científica disponible.
+
+- Estas covariables recolectadas en un estudio, que acompañan a las variables resultado y exposición, pueden no tener influencia alguna, pueden ser **confundentes**, pueden ser **mediadoras** o producir **interacción**.
+
+- Correlacion = efectos causales + efectos confundentes
+]
+
+---
+## Variables mediadoras
+<br>
+.font150[
+- Conocidas también como variables intermedias, intermediarias o intervinientes.
+
+- Son parte de un modelo donde la variable independiente no puede influir directamente en la variable dependiente, sino que lo hace por medio de una tercera variable, un ‘intermediario’.
+
+- Es decir, aparece una tercer variable en la ruta (vía causal) entre la exposición y el desenlace, que puede ser total o parcial. 
+]
+---
+## DAG con variables intermediarias
+```{r, echo=F, message=F, warning=F, dpi=300, out.width="50%"}
+library(ggplot2)
+library(ggdag)
+
+g <- dagify(Y ~ M + X, M ~ X)
+
+g |> 
+  tidy_dagitty() |> 
+  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_dag_point() +
+  geom_dag_edges() +
+  geom_dag_text() +
+  theme_dag()
+
+g <- dagify(Y ~ M, M ~ X)
+
+g |> 
+  tidy_dagitty() |> 
+  ggplot(aes(x = x, y = y, xend = xend, yend = yend)) +
+  geom_dag_point() +
+  geom_dag_edges() +
+  geom_dag_text() +
+  theme_dag()
+```
+
+---
+## Modificador de efecto (interacción) 
+<br>
+.font150[
+- Se dice que hay un modificador de efecto cuando la fuerza de asociación entre dos variables cambia de acuerdo a un tercer factor.
+
+- La idea general detrás de la interacción es que el efecto de una variable (en alguna escala) depende del nivel en el que se establece otra variable.
+
+- Cuando hay modificación de un efecto, no es correcto hablar del efecto de una exposición sin tener en cuenta (sin conocer) el valor de la otra variable o el estrato de la otra variable en el que se valora dicho efecto.
+]
+---
+## Detección de confusión en el análisis estratificado
+<br>
+.font150[
+- Luego de obtener la medida de asociación “bruta” (relación entre la dependiente y la
+independiente, sin tener en cuenta la variable presumiblemente confundente), 
+
+- se procede a obtener la misma medida en cada estrato definido por la variable sospechada 
+como confundente, y una medida final ajustada (en ocasiones llamado OR global o ponderada de
+Mantel-Haenszel).
+] 
+---
+## Situaciones posibles
+
+.font140[
+Los valores de las medidas de asociación en cada estrato son similares entre sí, y
+diferentes de las medidas de asociación “brutas”. 
+
+Pueden darse varias combinaciones:
+
+- **Relación espuria**: El OR global detecta asociación (valor > 1), mientras que el OR en cada estrato no lo detecta, arrojando valores próximos al valor nulo (OR = 1).
+
+- **Confusión enmascarando el efecto**: el OR global es 1 (no hay asociación), mientras que los OR en cada estrato ponen de manifiesto una asociación (valores > 1).
+
+- **Confusión invirtiendo el efecto (_Paradoja de Simpson_)**: Los OR en cada estrato muestran asociación (valores > 1), mientras que el OR global muestra una relación o asociación invertida (valor < 1).
+]
+---
+## Limitaciones
+<br>
+.font150[
+El análisis estratificado requiere que la variable por la que se estratifica o ajusta sea de tipo categórico y que el tamaño muestral sea suficientemente grande como para que no existan celdas con pocos representantes. 
+
+Por ello hoy en día ha sido casi sustituido por las técnicas de análisis multivariante, mucho más eficientes (estimaciones más precisas con menos tamaños muestrales) y que permiten evaluar varios factores de confusión simultáneamente. 
+
+Sin embargo, el abordaje estratificado sigue siendo muy útil para comprender las relaciones entre las variables analizadas.
+]
+---
+background-image: url(assets/Tabla2x2_R.JPG)
+background-size: 400px
+background-position: 50% 30%
+## Tabla de contingencia
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.font130[
+.red[Odds expuestos] = a / b
+
+.green[Odds no expuestos] = c / d
+
+.blue[OR] = .red[(a/b)] / .green[(c/d)] = a\*d / b\*c
+
+]
+---
+background-image: url(assets/OR-MH.svg)
+background-size: 200px
+background-position: 50% 90%
+## Estimador de Mantel-Haenszel
+
+.font140[
+- Estimador OR global más utilizado para ajustar confusión en abordaje bivariado.
+
+- La variable confusora se divide en estratos y se estudia la tabla para cada uno de esos estratos.
+
+- Se calcula como el Promedio de las medidas de asociación de cada estrato de la variable confusora ponderados por el número de individuos de cada estrato .purple[OR-MH] = sum(a\*d/n) / sum(b\*c/n)
+
+- Es válido siempre y cuando la distribución en los estratos sea homogénea (test de homogeneidad)
+]
+---
+## Análisis multivariado
+<br>
+.font150[
+- Permite estimar de manera eficiente las medidas de asociación controlando simultáneamente las
+posibles variables confusoras.
+
+- Es conveniente cuando se desea ajustar por varios factores de confusión, identificar modificadores de efecto o cuando la estratificación no es posible (por ejemplo por número insuficiente de individuos)
+
+- Si la medida de efecto se modifica en el análisis ajustado un 10 % respecto del análisis crudo, la confusión podría existir y debe ser presentada (ajustada) en el análisis de nuestro trabajo.
+]
+---
+## Ejercicio
+<br>
+.font150[
+- En un estudio de casos y controles se pretende demostrar la asociación entre tener estrés y desarrollar cáncer.
+
+- El archivo **estres.csv** tiene 200 observaciones con tres variables recolectadas (Status [caso-control], stress [SI-NO] y Grupo_edad [<40 - >=40]).
+
+- Éxiste asociación entre estrés y cancer? como se comporta la edad?
+]
+---
+background-image: url(assets/final.PNG) 
+background-size: 900px
+background-position: 50% 50%

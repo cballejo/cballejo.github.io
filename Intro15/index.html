@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Comunicar con R y RStudio</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <meta name="date" content="2021-09-02" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Comunicar con R y RStudio
+### Christian Ballejo
+### 2021-09-02
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+class: inverse, hide-logo, center
+
+
+# Diapositivas
+
+&lt;br&gt; 
+&lt;br&gt; 
+
+## https: //cballejo.github.io/Intro15
+
+---
+class: left
+background-image: url(assets/Captura1.PNG)
+background-size: 850px
+background-position: 50% 60%
+
+## Comunicar como parte del proceso del análisis
+
+---
+class: left
+background-image: url(assets/Captura2.PNG)
+background-size: 700px
+background-position: 50% 60%
+
+## Productos de RStudio
+
+---
+class: left
+background-image: url(assets/Captura3.PNG)
+background-size: 700px
+background-position: 50% 70%
+
+## Investigación reproducible
+
+.font150[
+Se encuadra en el paradigma de la **investigación reproducible** y la **programación literal**, que es adoptada por una creciente cantidad de revistas científicas internacionales.
+]
+---
+## Programación literaria o literal (Literate Programming)
+
+.font150[
+- La idea original proviene de Don Knuth
+
+- Un artículo es un flujo de texto y código
+
+- El código del análisis se divide en texto y porciones de código “chunks”
+
+- El código de la presentación da formato a los resultados (tablas, figuras, etc)
+
+- El texto del artículo explica lo que está sucediendo en el análisis
+
+- Los programas literarios se tejen para producir documentos legibles 
+
+En definitiva, la programación literaria mezcla:
+
+- Un lenguaje de documentación
+- Un lenguaje de programación
+]
+
+---
+class: left
+background-image: url(assets/Captura4.PNG) 
+background-size: 300px
+background-position: 50% 90%
+
+## R Notebook (cuadernos de RStudio)
+
+.font150[
+Los **Notebook** son un método de programación literal que permite la interacción directa con código R mientras se produce un documento reproducible con buenos resultados de calidad (para publicación). 
+
+Se puede publicar y compartir directamente , o procesarlo mediante el paquete knitr (tejer) convirtiendo la salida en unos de los formato de publicación soportado.
+]
+---
+background-image: url(assets/Captura5.PNG) 
+background-size: 750px
+background-position: 50% 50%
+
+## Flujo de trabajo
+---
+
+class: left
+
+## Markdown
+
+.font150[
+**Markdown** es un lenguaje de marcas ligero que trata de conseguir la máxima legibilidad y “publicabilidad” .
+
+Se ubica en el grupo de los lenguajes de marcas como HTML, XML, entre otros, aunque es mucho más sencillo de utilizar.
+
+Viene soportado por RStudio, tanto para sus Notebooks como para documentos R Makdown y presentaciones (slides)
+
+Luego se conecta con el convertidor de documentos universal Pandoc (http://pandoc.org/) para transformarse en formatos html (web), pdf o Word. 
+]
+
+---
+background-image: url(assets/Captura6.PNG) 
+background-size: 400px
+background-position: 80% 50%
+
+## YAML
+
+.code[.font140[
+RStudio incorpora un encabezado construido en **lenguaje YAML** en los archivos R Markdown para indicarle a Pandoc que tipo de documento queremos construir.
+
+Un encabezado YAML es un conjunto de pares clave:valor al comienzo del archivo. Siempre comienza y termina con tres rayas (- - -)
+
+YAML es la sigla de **“yet another markup language”** y es un lenguaje de estructuración de datos sencillo.
+
+]]
+
+---
+background-image: url(assets/Captura7.PNG) 
+background-size: 600px
+background-position: 50% 80%
+
+## knitr
+
+.font150[
+**knitr** es una herramienta para la generación de informes dinámico en R (integrada en Rstudio). 
+
+Es un paquete de R (disponible en CRAN) que permite integrar código y sus salidas en documentos **Latex** y **HTML**, entre otros formatos conocidos.
+
+El propósito de knitr es dar espacio a la reproducibilidad de investigación en R a través de Programación Literaria (código, salida y documentación en la misma salida)
+
+]
+
+---
+
+## Elementos que se pueden integrar
+
+.font150[
+- Lenguaje hmtl o latex (dependiendo la salida final)
+- Tablas con estilos diferentes  (https://www.tablesgenerator.com) 
+- Figuras importadas (archivos jpg o png)
+- Formatos con estilos predefinidos (mediante plantillas – paquetes como rticules por ejemplo.)
+- Citas bibliográficas
+- Índices (marcadores para PDF’s)
+
+Resultados de fragmentos de código R
+
+- Resultados entre líneas de texto
+- Tablas 
+- Resúmenes de modelos estadísticos
+- Gráficos y mapas estáticos
+- Gráficos y mapas interactivos (en formato Html)
+
+
+]
+
+---
+
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 26 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/introducci%C3%B3n-18.html)]
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

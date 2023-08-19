@@ -1,0 +1,618 @@
+---
+title: "Visualización de datos"
+subtitle: "parte II"  
+author: 
+  - "Christian Ballejo"
+date: '24-02-2021'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro2
+
+---
+class: left, middle
+
+background-image: url(assets/ggplot2.PNG), url(assets/str_ggplot2.PNG), url(assets/sistema_ggplot2.PNG)
+background-size: 180px, 600px, 400px
+background-position: 50% 15%, 50% 65%, 50% 95%
+
+**ggplot2** es un paquete que se autodefine como librería para _**“crear elegantes visualizaciones de datos usando una gramática de gráficos”**_
+
+El paquete propone un sistema que se basa en la idea que cualquier gráfico se puede construir usando tres componentes básicos:
+
+---
+class: left, top
+
+### gapminder
+
+.font110[ 
+**Gapminder Foundation** es una empresa sueca sin fines de lucro que promueve el desarrollo global sostenible y el logro de los **_Objetivos de Desarrollo del Milenio de las Naciones Unidas_** mediante un mayor uso y comprensión de las estadísticas sobre el desarrollo social, económico y ambiental a nivel local, nacional y global.
+]
+
+```{r, eval=FALSE}
+install.packages(datos)  # instalamos paquete datos
+
+library(datos)  # activamos paquete datos
+
+paises # llamamos al componente paises para visualizar sus datos
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+library(datos)
+DT::datatable(data = paises,
+  fillContainer = F, options = list(pageLength = 4)
+)
+```
+
+---
+class: center, middle, inverse, hide-logo
+
+## Conversamos en grupo. 
+
+## ¿Qué relación esperamos ver entre el PBI per capita y la esperanza de vida?
+
+---
+
+.center[ 
+###Escriba y ejecute el siguiente código para hacer un gráfico. 
+]
+
+###¡Preste especial atención a la ortografía, las mayúsculas y los paréntesis!
+
+
+.font150[ 
+```{r, eval=F}
+library(tidyverse)
+
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point()
+```
+
+
+
+Nos tomamos un momento para conocer las herramientas básicas de **RStudio**,  útiles para escribir código minimizando errores de sintaxis.
+]
+
+---
+
+.center[ 
+```{r, echo=F, out.width="600px", message=FALSE, warning=FALSE}
+library(tidyverse)
+
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point()
+```
+]
+
+---
+.font160[ 
+.bold[Una plantilla básica]
+
+
+.content-box-green[
+```{r, eval=FALSE}
+<DATOS> %>% 
+  ggplot(mapping = aes(<MAPEO>)) +
+  <GEOM_FUNCION>()
+```
+]
+]
+
+.font140[ 
+```{r, eval=FALSE}
+paises %>% 
+  ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point()
+```
+]
+
+---
+class: center, middle, inverse, hide-logo
+
+## MAPEO 
+## (Mappings)
+
+---
+
+### El mapeo es la operación de relacionar los datos de la observaciones contenidos en las variables con las estéticas del gráfico.
+
+.font130[ 
+Algunas de los elementos estéticos son:
+
+- color de contorno (**color**)
+
+- color de relleno (**fill**)
+
+- tamaño (**size**)
+
+- forma (**shape**)
+
+- opacidad (**alpha**)
+
+Los mapeos se definen dentro de la función **aes()** y puede ir asociado a todo el gráfico o a cada elemento geométrico.
+
+Los elementos estéticos también se pueden establecer (setear)
+]
+
+---
+
+### Diferencias entre mapear y establecer
+
+.font120[ 
+- Mapeamos cuando asociamos la estética a una variable.
+- Establecemos (seteamos) cuando definimos manualmente la estética deseada.
+]
+
+.code[
+```{r, echo=FALSE, out.height="450px"}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida)) +
+  geom_point(color = "blue") +
+  labs(title = "Seteo de color")
+```
+]
+
+.plot[
+```{r, echo=FALSE, out.height="450px"}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida, color = continente)) +
+  geom_point() +
+  labs(title = "Mapeo de color")
+```
+]
+
+---
+
+### Estableciendo estéticas
+
+.font130[ 
+- El elemento estético se define en el elemento geográfico (geom) por **"fuera"** de la función **_aes()_** y sin vincular con ninguna variable.
+]
+
+.code[
+```{r, eval=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, 
+                       y = esperanza_de_vida)) +
+  geom_point(color = "blue") #<<
+```
+]
+
+.plot[
+```{r, echo=FALSE, out.height="450px"}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, 
+                       y = esperanza_de_vida)) +
+  geom_point(color = "blue") 
+```
+]
+
+---
+
+### Mapeando estéticas
+
+.font130[ 
+- El elemento estético se define **"dentro"** de la función **_aes()_** y vinculada a alguna variable.
+]
+
+.code[
+```{r, eval=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, 
+                       y = esperanza_de_vida,
+                       color = continente)) +  #<<
+  geom_point() 
+```
+]
+
+.plot[
+```{r, echo=FALSE, out.height="450px"}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(mapping = aes(x = pib_per_capita, 
+                       y = esperanza_de_vida,
+                       color = continente)) +  
+  geom_point() 
+```
+]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Manos a la obra!
+
+### Copien el código base del gráfico y mapeen la estética shape con la variable continente
+
+---
+background-image: url(assets/shapes.PNG) 
+background-size: 280px
+background-position: 10% 65%
+
+### Elemento estético shape
+
+
+.code[ 
+```{r, eval=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, 
+             y = esperanza_de_vida,
+             shape = continente)) + #<<
+  geom_point() 
+```
+]
+
+
+.plot[ 
+```{r, echo=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida,
+             shape = continente)) +
+  geom_point() 
+```
+]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Ahora pensemos...
+
+### Si quisiera mapear la estética size (tamaño), con que variable podría hacerlo? 
+### Sirve cualquiera?
+
+---
+
+## Elemento estético size
+
+.code[ 
+```{r, eval=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, 
+             y = esperanza_de_vida,
+             size = poblacion)) + #<<
+  geom_point() 
+```
+]
+
+
+.plot[ 
+```{r, echo=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida, size = poblacion)) + 
+  geom_point() 
+```
+]
+---
+background-image: url(assets/dif_esteticas.PNG) 
+background-size: 600px
+background-position: 50% 50%
+
+### Relación entre estéticas y tipo de variable
+---
+class: center, middle, inverse, hide-logo
+
+## Elementos geométricos
+## (GEOMS)
+
+---
+.font120[
+.bold[En qué se parecen estos dos gráficos?]]
+
+.code[ 
+```{r, echo=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
+  geom_point() 
+```
+]
+
+.plot[ 
+```{r, echo=FALSE, warning=F, message=F}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
+  geom_smooth() 
+```
+]
+
+---
+
+.font120[
+.bold[En qué se diferencian?]]
+
+.code[ 
+```{r, echo=FALSE}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
+  geom_point() 
+```
+]
+
+.plot[ 
+```{r, echo=FALSE, warning=F, message=F}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
+  geom_smooth() 
+```
+]
+
+---
+
+### Elementos geométricos
+
+.font130[ 
+- Todas sus funciones comienzan por **geom_**
+
+- Cada uno conforma una capa 
+
+- Pueden tener definiciones estéticas particulares o tomar las globales del gráfico
+
+- Permiten realizar gráficos de puntos, líneas, barras, histogramas, boxplot, área, densidad, polígonos de frecuencia, violin, etc...
+
+- En el siguiente [enlace](https://rstudio.com/wp-content/uploads/2016/12/ggplot2-cheatsheet-2.1-Spanish.pdf) se puede descargar una **guía rápida de ggplot2** que muestra todas las posibilidades ofrecidas.
+
+]
+---
+
+### Algunos ejemplos con la tabla paises
+
+```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
+paises %>% 
+  filter(continente == "Oceanía") %>% 
+  ggplot(aes(x = pais, y = esperanza_de_vida, fill = pais)) + 
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2")
+```
+
+---
+
+### Algunos ejemplos con la tabla paises
+
+```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
+paises %>% 
+  filter(continente == "Europa") %>% 
+  ggplot(aes(x = pib_per_capita)) + 
+  geom_histogram(fill = "olivedrab", color = " white", bins = 10) 
+```
+
+---
+
+### Algunos ejemplos con la tabla paises
+
+```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
+paises %>% 
+  filter(pais == "Afganistán") %>% 
+  ggplot(aes(x = anio, y = poblacion)) + 
+  geom_bar(stat = "identity", fill = "maroon", width = 2) 
+```
+
+---
+
+### Estéticas globales vs locales
+
+.bold[.font130[Definición de aes() global:]]
+
+.code[ 
+```{r, eval=FALSE, message=F, warning=FALSE}
+paises %>% 
+  filter(anio == 2007, 
+         continente %in% c("África", 
+                           "Europa")) %>% 
+  ggplot(aes(x = pib_per_capita,   #<<
+             y = esperanza_de_vida, #<<
+             color = continente)) + #<<
+  geom_point() +
+  geom_smooth()
+```
+]
+
+
+.plot[ 
+```{r, echo=FALSE, fig.retina=3, message=F, warning=FALSE}
+paises %>% 
+  filter(anio == 2007, 
+         continente %in% c("África", 
+                           "Europa")) %>% 
+  ggplot(aes(x = pib_per_capita,   #<<
+             y = esperanza_de_vida, #<<
+             color = continente)) + #<<
+  geom_point() +
+  geom_smooth()
+```
+]
+
+---
+
+### Estéticas globales vs locales
+
+.bold[.font130[Definición de aes() local:]]
+
+.code[ 
+```{r, eval=FALSE, message=F, warning=FALSE, fig.retina=3}
+paises %>% 
+  filter(anio == 2007, 
+         continente %in% c("África", 
+                           "Europa")) %>% 
+  ggplot(aes(x = pib_per_capita,   
+             y = esperanza_de_vida)) + 
+  geom_point(aes(color = continente)) + #<<
+  geom_smooth(color = "blue")
+```
+]
+
+.plot[ 
+```{r, echo=FALSE, message=F, warning=FALSE, fig.retina=3}
+paises %>% 
+  filter(anio == 2007, 
+         continente %in% c("África", 
+                           "Europa")) %>% 
+  ggplot(aes(x = pib_per_capita,   
+             y = esperanza_de_vida)) + 
+  geom_point(aes(color = continente)) + #<<
+  geom_smooth(color = "blue")
+```
+]
+
+---
+
+### Estéticas globales vs locales
+
+.bold[.font130[Definición de aes() local con filtro de datos:]]
+
+.code[ 
+```{r, eval=FALSE, message=F, warning=FALSE, fig.retina=3}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita,   
+             y = esperanza_de_vida)) + 
+  geom_point(aes(color = continente)) + 
+  geom_smooth(data = filter(paises,                  #<<
+                            continente == "Europa"), #<<
+              color = "blue") 
+```
+]
+
+.plot[ 
+```{r, echo=FALSE, message=F, warning=FALSE, fig.retina=3}
+paises %>% 
+  filter(anio == 2007) %>% 
+  ggplot(aes(x = pib_per_capita,   
+             y = esperanza_de_vida)) + 
+  geom_point(aes(color = continente)) + 
+  geom_smooth(data = filter(paises,                  #<<
+                            continente == "Europa"), #<<
+              color = "blue")                        #<<
+```
+]
+
+---
+
+### Otras capas posibles
+
+.font120[ 
+- **Escalas** que asignan valores que hay en los datos a los valores visuales de una estética. Se pueden modificar escalas de los ejes, de color y relleno, de forma y tamaño.
+
+- **Coordenadas** por ejemplo para hacer gráficos de torta se necesita cambiar las coordenadas a polares - coord_polar()
+
+- **Facetas** dividen un gráfico en múltiples subgráficos basado en una o varias variables discretas.
+
+- **Ajustes de posición** determina que hacer con Geoms que ocuparían la misma posición en el gráfico.
+
+- **Etiquetas y leyendas** titulo del gráfico, subtítulo, nombres de ejes, etc.
+
+- **Temas** plantillas visuales para el gráfico
+]
+
+---
+
+### Exportar gráficos realizados
+
+.font120[ 
+- Desde el **_panel Plot_** de .bold[RStudio]
+
+- En formatos conocidos como JPG, PNG, PDF, etc
+
+- Con la función **_ggsave()_**
+
+```{r, eval=FALSE}
+ggsave(filename,               # nombre del archivo
+  plot = last_plot(),          # nombre del objeto gráfico
+  device = NULL,               # formato de salida "jpeg", "png", "tiff", "pdf", etc
+  width = NA,                  # ancho en unidades de units
+  height = NA,                 # alto en unidades de units
+  units = c("in", "cm", "mm"), # unidades de medidas
+  dpi = 300)                   # resolución de salida en dpi
+```
+]
+
+---
+background-image: url(assets/visualization.svg) 
+background-size: 550px
+background-position: 50% 50%
+
+## En resumen...
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 3 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/visualizaci%C3%B3n-de-datos.html)]
+

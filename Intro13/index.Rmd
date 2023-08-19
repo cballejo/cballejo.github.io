@@ -1,0 +1,172 @@
+---
+title: "Gestion de variables de tiempo con R"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro13
+
+---
+## Introducción
+.font150[ 
+
+- Las variables de tiempo pueden estar expresadas en diferentes unidades y formatos (fecha, hora, dia, mes, año, etc...)
+
+- Las fechas y las horas son complicadas porque tienen que reconciliar dos *fenómenos físicos* (la rotación de la Tierra y su órbita alrededor del sol), con todo un conjunto de *fenómenos geopolíticos* que incluyen: formatos distintos (dd/mm/aaaa - mm/dd/aaaa), husos horarios y horarios de verano (en algunas ocasiones y países).
+
+- Para pensar lo complejo del asunto contestemos estas preguntas:
+
+ - ¿Todos los años tienen 365 días?
+ - ¿Todos los días tienen 24 horas?
+ - ¿Cada minuto tiene 60 segundos?
+
+]
+---
+background-image: url(assets/Captura1.PNG)
+background-size: 650px
+background-position: 50% 65%
+
+## Sistemas de fechas
+
+Las variables de tiempo nos obliga a gestionar tipos de datos fecha y hora, así como también intervalos entre esos instantes.
+
+Coexisten 2 clases de objetos básicos en el lenguaje R
+
+.footnote[
+**POSIX** (acrónimo de **P**ortable **O**perating **S**ystem **I**nterface, y **X** viene de UNIX como seña de identidad de la API) es una norma escrita por la *IEEE*, que define una interfaz estándar del sistema operativo y el entorno.
+]
+---
+## Gestión de datos de tiempo
+<br>
+
+.font150[
+- Convertir a formato Date o POSIX
+
+- Extraer componentes (día, año, mes, semana, nombre del día, etc)
+
+- Lapsos de tiempo (intervalos, duraciones y períodos)
+
+- Operaciones con variables de tiempo
+]
+---
+background-image: url(assets/lubridate.svg), url(assets/hms.svg)
+background-size: 100px, 100px
+background-position: 40% 30%, 60% 30%
+
+## Paquete lubridate y hms
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.font150[
+- Paquetes diseñados dentro del ecosistema **tidyverse** para el manejo de fechas y de horas.
+
+- Compatibles con tuberías y datos ordenados basados en clases de tiempo incluidas en R.
+]
+---
+background-image: url(assets/Captura2.PNG)
+background-size: 900px
+background-position: 50% 50%
+
+---
+## Lapsos de tiempo
+
+.font150[
+Un año trópico dura 365 días 5 h 48 min 45,10 s (365,242189 días), por lo que se produce un desfasaje con respecto a nuestro año calendario.
+
+Para realizar operaciones con fechas y date-times sorteando estas dificultades, **lubridate** ofrece tres tipos de lapsos:
+
+- **Intervalos**: lapso de tiempo que ocurre entre dos instantes específicos.
+
+- **Duraciones**: lapso de tiempo medidos en segundos exactos (máxima unidad temporal con una longitud consistente).
+
+- **Períodos**: intervalo de tiempo en unidades "humanas" mayores que segundos (minutos, días, meses, etc)
+]
+---
+background-image: url(assets/Captura3.PNG)
+background-size: 1100px
+background-position: 50% 50%
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 16 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/fechas-y-horas.html)]
+
+---
+class:  middle
+## Practica 13 - Variables de tiempo
+.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1RiEtVRGoY1h4UOgOOXGEqyzpYX4LgJUe/view?usp=sharing) de la web
+
+- Descomprimimos la carpeta con el proyecto Tiempo
+
+- Ejecutamos las líneas del script guiado.
+]
+

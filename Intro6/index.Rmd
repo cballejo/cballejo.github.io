@@ -1,0 +1,211 @@
+---
+title: "Manipulación de datos"
+subtitle: "Parte IV"  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro6
+
+---
+class: left, middle
+
+background-image: url(assets/dplyr.PNG)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+<br> 
+<br> 
+<br> 
+- En el encuentro de hoy presentaremos la última función importante del **paquete dplyr** que tienen como propósito la manipulación de datos dentro del ecosistema **tidyverse**.
+
+- Como siempre vamos a integrarla en la práctica con las vistas anteriormente. (**select**, **filter**, **arrange**, **count**, **summarise** y **group_by**)
+
+- Esta función-verbo se llama **mutate()**.
+]
+
+---
+class: left, top
+
+
+## mutate()
+
+.font140[ 
+La función **mutate()** del inglés .bold[mutar o transformar], sirve para crear nuevas variables, a partir de los valores de otras variables, dentro de la tabla de datos.
+
+La o las nuevas variables creadas se incorporan al final de las columnas del conjunto de datos.
+
+Dentro de los argumentos de **mutate()** se aplican funciones vectorizadas, lo que significa que la función toma un vector de valores como entrada y devuelve el mismo número de valores como salida.
+]
+
+<br>
+
+.font160[.center[  
+datos %>% **mutate**(nueva_var = operación/función)
+]]
+
+---
+class: left, top
+
+
+## mutate()
+
+.font140[ 
+Algunas de las operaciones y funciones vectorizadas provistas por el lenguaje R son:
+
+
+- .bold[Operadores aritméticos] - **+**, **-**, __\*__, **/**, **^**   
+
+- .bold[Aritmética modular] - **%/%** - **%%** 
+
+- .bold[Transformación - escala] - **log()** - **log2()** - **log10()** - **exp()** - **sqrt()**
+
+- .bold[Comparaciones] - **>**, **>=**, **<**, **<=**, **==**, **!=**
+
+- .bold[Atrasos/adelantos] - **lag()** - **lead()**
+
+- .bold[Ordenamiento] - **min_rank()** - **percent_rank()**, etc...
+
+- .bold[Acumulativos] - **cumcum()** - **cummean()** - etc...
+
+- .bold[Condicional] - **if_else()** - **case_when()**.
+
+]
+
+
+---
+class: center, middle, inverse, hide-logo
+
+## Abrimos el script practica6.R 
+
+## Trabajamos con mutate() integrando las funciones conocidas 
+
+---
+class: left, top
+
+## if_else()
+
+.font140[ 
+La función **if_else()** devuelve valores dependiendo del resultado de una condición lógica (TRUE/FALSE).
+
+Los valores devueltos para cada observación se almacenan dentro de una variable definida en **mutate()**.
+]
+
+.font180[.center[datos %>% mutate(x = **if_else**(condicion, valor_T, valor_F)]]
+
+
+---
+class: left, top
+
+## case_when()
+
+.font140[ 
+La función **case_when()** ejecuta una vectorización múltiple de funciones if_else().
+
+Los valores devueltos para cada observación se almacenan dentro de una variable definida en **mutate()**.
+
+La asignación de valores NA difiere según tipo de variable creada (NA\_character\_, NA\_integer\_, NA\_real\_)
+]
+
+.font180[.center[datos %>% mutate(x = **case_when**(condicion ~ valor_T)]]
+
+
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica6.R 
+
+## Aplicamos if_else() y case_when() dentro de mutate().
+
+---
+background-image: url(assets/mutate.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## Mapa conceptual de mutate()
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+
+---
+background-image: url(assets/dplyr.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## En resumen...
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+
+---
+background-image: url(assets/dplyr_covid.jpg) 
+background-size: 750px
+background-position: 50% 55%
+
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 5.5 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/transform.html)]

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Cadenas de caracteres</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Christian Ballejo" />
+    <meta name="date" content="2021-05-19" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="animate.min.css" type="text/css" />
+    <link rel="stylesheet" href="fonts_mtheme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Cadenas de caracteres
+### Christian Ballejo
+### 2021-05-19
+
+---
+
+layout: true
+class: animated, fadeIn
+
+
+
+
+
+&lt;style type="text/css"&gt;
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+&lt;/style&gt;
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+&lt;br&gt;
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro11
+
+---
+.font150[ 
+
+- Para el lenguaje R, todo caracter que se encuentre entre comillas es una
+cadena de caracteres (en inglés llamada **“string”**).
+
+- Las cadenas de caracteres pueden contener letras (**“a”**), números (**“1”**)
+y símbolos (**“&amp;”**) o una combinación de todos ellos.
+
+- Esta sucesión de caracteres tiene forma de secuencia ordenada con
+longitud arbitraria, aunque finita de elementos.
+
+Ejemplos de datos tipo cadena regular:
+
+| Valores ejemplo             | Descripción      |
+|-----------------------------|------------------|
+| GAT-AAU-ATC-GAA             | Secuencia ADN    |
+| B18X - B181 - B188          | Códigos CIE10    |
+| 7600XAD - 7600XAE - 7600XAJ | Códigos postales |
+
+]
+---
+class: left, middle
+
+background-image: url(assets/stringr.png)
+background-size: 180px
+background-position: 50% 10%
+
+.font150[ 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+&lt;br&gt; 
+El paquete **stringr** se instala y activa cuando ejecutamos `library(tidyverse)`.
+
+- Contiene una familia de funciones diseñadas para trabajar con cadenas de caracteres.
+
+- Permite utilizar expresiones regulares.
+
+- Sus funciones comienzan con **str_**
+
+]
+
+---
+## Algunas de sus funciones comunes
+.font150[ 
+- **str_lengtht()**: devuelve longitud de cadena
+
+- **str_sub()**: extrae o reemplaza caracteres por posición
+
+- **str_to_upper()**: convierte a mayúsculas
+
+- **str_to_lower()**: convierte a minúsculas
+
+- **str_trim()**: elimina espacios en blanco
+
+- **str_pad()**: agrega espacios en blanco
+]
+
+---
+background-image: url(assets/expreg1.PNG)
+background-size: 500px
+background-position: 50% 95%
+
+## Expresiones regulares
+.font140[ 
+Una expresión regular es una cadena de texto especial para describir un patrón de búsqueda que se puede utilizar generalmente para:
+
+- localizar cadenas de caracteres
+
+- extraer una porción de los datos
+
+- modificar los datos localizados
+
+Una expresión regular habitualmente se construye concatenando la especificación de caracteres secuenciados.
+]
+
+---
+## Opreaciones y funciones que permiten expresiones regulares
+.font150[ 
+- Detectar patrones `str_detect()`: Devuelve vector lógico
+
+- Filtrar patrones `str_subset()`: Devuelve coincidencia en patrón
+
+- Extraer patrones `str_extract()`: Extrae coincidencias
+
+- Localizar patrones `str_locate()`: Localiza comienzo y final del patrón
+
+- Reemplazar patrones `str_replace()`: Reemplaza por otra cadena
+
+]
+---
+## Expresiones regulares 
+|Símbolos y metacaracteres    |Descripción                                |
+|-----------------------------|-------------------------------------------|
+|^                            |Inicio de la cadena                                                 |
+|$                            |Final de la cadena                                                  |
+|[ ]                          |Cualquier carácter del conjunto entre   paréntesis                  |
+|[^]                          |Cualquier carácter no incluido en el   conjunto                     |
+|?                            |Cero   o una ocurrencia de lo que precede al símbolo                |
+|+                            |El caracter   que le precede debe aparecer al menos una vez         |
+|*                            |El caracter   que le precede debe aparecer cero, una o más veces    |
+|{x}                          |x   ocurrencias del caracter   que lo precede                       |
+|{x,z}                        |Entre   x y z ocurrencias del caracter   que lo precede             |
+|{x,}                         |x o   más ocurrencias de lo que lo precede                          |
+---
+## Expresiones regulares 
+
+|Símbolos y metacaracteres    |     Descripción    |
+|-|-|
+| &amp;#124;    |Une subexpresiones    |
+|.    |Concuerda con cualquier carácter individual    |
+|( )    |Agrupa   subexpresiones    |
+|0-9   a-z A-Z    |Rangos de números, letras…    |
+|\\    |Marca el carácter siguiente como un   carácter especial    |
+|\.    |Representa un punto dentro del patrón    |
+|\s    |Representa un espacio en blanco dentro   del patrón    |
+|\n    |Representa un salto de línea dentro del patrón    |
+|\d    |Representa un dígito numérico dentro del patrón    |
+|\w    |Representa un carácter alfanumérico dentro   del patrón    |
+---
+## Expresiones regulares
+.font140[ 
+Algunos ejemplos sencillos:
+
+**^[ML][0-9]$**
+
+Cadenas que comiencen con M o L y finalicen con algún número entre 0 y 9
+
+**4{3}**
+
+Cadenas que contengan tres números 4 repetidos continuos
+
+**^E\\\\d** 
+
+Cadenas que comiencen con E y continúen con un número cualquiera
+
+**[A-z]$** 
+
+Cadenas que finaliza con alguna letra mayúscula o minúscula
+]
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 14 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/cadenas-de-caracteres.html)
+
+Otro paquete muy interesante con una mayor cantidad de funciones destinadas a trabajar con cadenas de caracteres es [stringi](https://stringi.gagolewski.com/)]
+
+
+
+---
+class:  middle
+## Practica 11
+.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1XkJj6DDap8ZP35da5GDv64RdGMv-2LGh/view?usp=sharing) de la web
+
+- Descomprimimos la carpeta con el proyecto practica11
+
+- Trabajamos siguiendo las consignas del práctico.
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url(logo_INE.PNG);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  width: 55px;
+  height: 64px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

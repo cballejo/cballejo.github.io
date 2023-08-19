@@ -1,0 +1,430 @@
+---
+title: "Tidy - Data"
+subtitle: ""  
+author: 
+  - "Christian Ballejo"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    includes:
+      after_body: insert-logo.html
+    transition: slide
+    lib_dir: libs
+    css: 
+     - "xaringan-themer.css"
+     - "animate.min.css"
+     - "fonts_mtheme.css"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: '16:9'
+---
+layout: true
+class: animated, fadeIn
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE, htmltools.preserve.raw = FALSE)
+library(xaringan)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_mono_accent(base_color = "#004b00", 
+                  colors = c(red = "#f34213",
+  purple = "#3e2f5b",
+  orange = "#ff8811",
+  green = "#1d771d",
+  white = "#FFFFFF"))
+```
+
+```{css, echo=F}
+.code {
+  color: #777;
+  width: 48%;
+  height: 92%;
+  float: left;
+}
+.plot {
+  width: 50%;
+  height: 70%;
+  float: right;
+  padding-left: 1%;
+}
+```
+
+---
+class: inverse, hide-logo, center
+
+# Internet
+
+## Red: Aula alumnos  -  Clave: internet
+
+<br>
+
+# Diapositivas
+
+## https: //cballejo.github.io/Intro8
+
+---
+class: left, middle
+
+background-image: url(assets/tidyr.png)
+background-size: 180px
+background-position: 50% 10%
+
+.font140[ 
+<br> 
+<br> 
+<br> 
+<br> 
+Iniciamos este encuentro con la presentación de un nuevo paquete que agrupa funciones destinadas a dar **_formato "ordenado"_** (tidy-data) a datos tabulares que no lo están.
+
+Como es parte del ecosistema **tidyverse** respeta sus principios y puede integrarse con otras funciones y paquetes para construir código.
+
+Su nombre es tidyr y sus funciones más relevantes son: .bold[pivot_longer, pivot_wider, separate, unite, replace_na, drop_na, complete, nest, unnest y uncount.] 
+]
+
+---
+class: left, top
+
+background-image: url(assets/tidy.PNG)
+background-size: 800px
+background-position: 50% 75%
+
+## Tidy data
+
+.font140[ 
+Llamamos **tidy data** o "datos ordenados" cuando:
+
+- Cada variable está en una columna
+- Cada observación está en una fila
+- Cada celda del cruce entre una columna y una fila es un valor
+]
+
+---
+class: left, top
+
+
+## Ejemplo de tabla de datos
+<br> 
+```{r, echo = F, warning=F, message=F}
+library(tidyverse)
+tabla_ancho <- tidyr::population %>% 
+  filter(country %in% c("Argentina", "Brazil", "Uruguay"), year > 2009) %>% 
+  pivot_wider(names_from = year, values_from = population)
+
+knitr::kable(tabla_ancho, format = "html")
+```
+<br> 
+<br> 
+<br>
+.center[.font160[La tabla cumple con las reglas de "datos ordenados"?]]
+
+---
+## Mismos datos de diferentes formas
+
+.font150[Ejemplo 1]
+<br>
+```{r, echo = F, warning=F, message=F}
+library(datos)
+knitr::kable(tabla1, format = "html")
+```
+---
+
+## Mismos datos de diferentes formas
+
+.font150[Ejemplo 2]
+<br>
+```{r, echo = F, warning=F, message=F}
+knitr::kable(tabla2, format = "html")
+```
+
+---
+## Mismos datos de diferentes formas
+
+.font150[Ejemplo 3]
+<br>
+```{r, echo = F, warning=F, message=F}
+knitr::kable(tabla3, format = "html")
+```
+---
+## Mismos datos de diferentes formas
+
+.font150[Ejemplo 4 - Dividido en dos tablas]
+
+<br> 
+<br>
+.left-column[
+```{r, echo = F, warning=F, message=F}
+knitr::kable(tabla4b, format = "html", caption = "Tabla con población")
+```
+]
+
+.righ-column[
+```{r, echo = F, warning=F, message=F}
+knitr::kable(tabla4a, format = "html", caption = "Tabla con casos")
+```
+]
+
+---
+## Problemas comunes en tabla de datos "desordenadas"
+
+.font150[
+- Una variable se extiende por varias columnas.
+
+- Una observación está dispersa entre múltiples filas
+] 
+
+### Solución:
+
+.font150[
+Usamos funciones pivot del paquete **tidyr**
+
+- Función **pivot_longer()** - Convierte nombres de variables en valores de una nueva variable.
+
+- Función **pivot_wider()** - Convierte valores de una variable en variables nuevas.
+]
+---
+background-image: url(assets/tabla_longer.png)
+background-size: 700px
+background-position: 50% 75%
+
+## pivot_longer()
+.font140[
+```{r, eval=FALSE}
+tabla_casos %>% 
+  pivot_longer(cols = 2:3, names_to = "anio", values_to = "casos")
+```
+]
+---
+background-image: url(assets/tabla_wider.PNG)
+background-size: 700px
+background-position: 50% 70%
+
+## pivot_longer()
+.font140[
+```{r, eval=FALSE}
+tabla_ejemplo2 %>% 
+  pivot_wider(names_from = tipo, values_from = casos)
+```
+]
+
+---
+class: center, middle 
+
+## Para visualizar estas funciones necesitamos descargar el archivo practica8.R
+
+.font160[.bold[Haga click en el [enlace](https://drive.google.com/file/d/1mVNADEOpNj7lScMkklVJ2Bze7eqa5S9Z/view?usp=sharing) para proceder a su descarga]]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Abrimos el script practica8.R 
+
+## Trabajamos con las funciones pivot_longer() y pivot_wider().
+
+---
+background-image: url(assets/tabla_separate.PNG)
+background-size: 700px
+background-position: 50% 80%
+
+## separate()
+.font150[
+La función separate() divide datos de una columna en 2 o en más variables.
+]
+.font140[
+```{r, eval=FALSE}
+tabla_ejemplo3 %>% 
+  separate(col = tasa, into = c("casos", "poblacion"), sep = "/")
+```
+]
+
+---
+## unite()
+.font150[
+La función unite() hace lo inverso a separate().
+]
+.font140[
+```{r, eval=FALSE}
+datos %>% 
+  unite(col = nueva_variable, var1, var2, sep = " ")
+```
+]
+.font150[
+Supongamos que en una tabla tenemos el nombres de establecimientos de salud y en otra la localidad en la que se encuentra y necesitamos tener en una única variable la combinación "Localidad - Establecimiento". 
+
+Podemos unir:
+]
+
+.font140[
+```{r, eval=FALSE}
+datos %>% 
+  unite(col = nombre, Localidad, Establecimiento, sep = " - ")
+```
+]
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica8.R 
+
+## Trabajamos con las funciones separate() y unite().
+---
+## Funciones para trabajar con valores faltantes
+
+.font150[
+El **_paquete tidyr_** ofrece tres funciones para manipular tablas con valores NA.
+
+- **replace_na()** es una función que reemplaza valores NA por etiquetas definidas.
+
+Necesita solo de dos argumentos: los *datos* sobre la que se aplica y la *etiqueta* que queremos utilizar como reemplazo.
+]
+
+.font140[
+```{r, eval=FALSE}
+datos %>% 
+  mutate(Sexo = replace_na(Sexo, replace = "Sin dato")
+```
+]
+
+.font150[Este código reemplazará todos los valores NA de la variable Sexo con la etiqueta "Sin dato"]
+
+---
+## Funciones para trabajar con valores faltantes
+
+.font140[
+- **drop_na()** es una función que omite (elimina) observaciones con valores NA.
+
+Es una versión actualizada de la función .bold[na.omit()] del *R base*, que se puede utilizar en toda la tabla o en variables específicas.Como argumento necesita solo del nombre de la tabla y/o de la o las variables donde se aplicará. 
+]
+
+.font140[
+```{r, eval=FALSE}
+datos %>% drop_na()
+```
+]
+.font140[
+El ejemplo anterior es igual al funcionamiento de na.omit(), es decir elimina todas las observaciones en las que haya algún valor **NA** en cualquier variable.
+]
+.font140[
+```{r, eval=FALSE}
+datos %>% drop_na(Sexo)
+```
+]
+.font140[
+Este otro código elimina solo las observaciones donde *Sexo* sea **NA**.
+]
+---
+## Funciones para trabajar con valores faltantes
+
+.font150[
+- **complete()** es una función que convierte valores perdidos implícitos en valores perdidos explícitos NA.
+
+Esta situación se presenta habitualmente cuando cambiamos la representación de tablas de datos mediante el uso de las funciones pivot.
+]
+
+.font110[
+```{r, echo=FALSE}
+knitr::kable(tibble(
+  Pais = c("BR", "AR", "UR", "AR", "UR", "AR", "UR"),
+  Anio = c(2011, 2011, 2011, 2012, 2012, 2013, 2013),
+  Casos = c(37737,22045,3456,23458,4531,21678,5210)
+), format = "html") 
+```
+]
+---
+## Funciones para trabajar con valores faltantes
+
+.font150[
+Convertimos los valores faltantes implícitos en explícitos
+]
+
+.font140[
+```{r, eval=FALSE}
+datos %>% complete(Pais, Anio)
+```
+]
+
+.font110[
+```{r, echo=F}
+datos <- tibble(
+  Pais = c("BR", "AR", "UR", "AR", "UR", "AR", "UR"),
+  Anio = c(2011, 2011, 2011, 2012, 2012, 2013, 2013),
+  Casos = c(37737,22045,3456,23458,4531,21678,5210)
+)
+
+datos <- datos %>%  complete(Pais, Anio)
+
+knitr::kable(datos, format = "html")
+
+```
+]
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos al script practica8.R 
+
+## Trabajamos con las funciones replace_na(), drop_nap() y complete().
+
+---
+## Tablas anidadas (columnas-listas)
+
+.font150[
+Una tabla de datos dentro del ecosistema **tidyverse** puede tener una columna de tipo lista anidada con datos que pertenezcan a cada observación. 
+
+Esta es una estructura útil cuando se tienen listas que son salidas de funciones estadísticas como los modelos lineales por ejemplo.
+
+La idea es que cada observación pueda contener en alguna variable un conjunto de otras variables o componentes de una lista.
+
+Las funciones que realizan el trabajo de anidar y desanidar son:  **nest()** y **unnest()**.
+]
+
+---
+## Tablas anidadas (columnas-listas)
+
+.font140[
+```{r, eval=FALSE}
+datos %>% 
+  group_by(pais) %>% 
+  nest()
+```
+]
+
+.pull-left[
+```{r, echo=F}
+tabla1
+```
+]
+
+
+.pull-right[
+```{r, echo=F}
+tabla1 %>% group_by(pais) %>% nest()
+```
+]
+
+---
+class: center, middle, inverse, hide-logo
+
+## Volvemos por última vez al script practica8.R 
+
+## Trabajamos con las funciones nest() y unnest().
+
+---
+background-image: url(assets/pivoting.svg) 
+background-size: 750px
+background-position: 50% 55%
+
+## Mapa conceptual sobre pivoteo...
+
+.footnote[Copyright (c) RStudio - [Licencia Creative Commons]( http://creativecommons.org/licenses/by/4.0/)]
+
+---
+class: middle
+background-image: url(assets/r4ds.PNG) 
+background-size: 200px
+background-position: 50% 10%
+
+## Para profundizar...
+
+.font150[Capítulo 12 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/datos-ordenados.html]

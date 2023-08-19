@@ -1,0 +1,220 @@
+---
+title: "Análisis multinivel aplicado a epidemiología"
+subtitle: "Unidad 1"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    css: styles.css
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## Repaso sobre regresión
+
+::: incremental
+-   Método probabilistico que permite modelar la relación entre dos o más variables.
+
+-   Posee un componente sistemático y un componente aleatorio (error / residuos)
+
+-   La ecuación de un modelo de regresión simple es: $y = \beta_0 + \beta_1x_1 + \epsilon$
+
+-   A la variable $y$ se la denomina dependiente y a la variable $x$ , independiente.
+:::
+
+## Repaso sobre regresión
+
+-   El término $\epsilon$ es conocido como el "error" y contiene la variabilidad de la variable dependiente no explicada por la(s) variable(s) independiente(s).
+
+::: incremental
+-   Dos posibles objetivos:
+
+    -   **Explicativo**: ajustar un modelo para explicar las interrelaciones entre un conjunto de variables.
+
+    -   **Predictivo**: ajustar un modelo a un conjunto de datos observados y luego usar ese modelo para hacer predicciones sobre un resultado a partir de un nuevo conjunto de variables explicativas
+:::
+
+## Regresión lineal
+
+-   La variable respuesta es cuantitativa continua.
+
+-   La estimación se basa en el método de mínimos cuadrados (minimización del error cuadrático medio) - ver [Wiki](https://es.wikipedia.org/wiki/Mínimos_cuadrados)
+
+-   Se consideran 4 supuestos sobre los residuos del modelo para un correcto ajuste: *linealidad, independencia, normalidad* y *homocedasticidad.*
+
+-   Función en R: ***lm()***
+
+## Terminología
+
+::: columns
+::: {.column width="50%"}
+<br> ***Variable dependiente***: respuesta, salida, resultado.
+
+<br>
+
+***Variable independiente***: explicativa, predictora, regresor.
+:::
+
+::: {.column width="50%"}
+![](images/Regresion1.png){width="90%"}
+:::
+:::
+
+## Ajuste
+
+![](images/Regresion2.png){fig-align="center"}
+
+## Supuestos
+
+::: {layout-ncol="2"}
+![](images/Regresion3a.PNG){width="120%"}
+
+![](images/Regresion3b.PNG)
+:::
+
+## Ecuación lineal {.smaller}
+
+$$
+y = \beta_0 + \beta_1x_1 + \beta_2x_2 + \epsilon
+$$
+
+Donde:
+
+$y$ = variable dependiente (respuesta)
+
+$x_1$ = variable independiente (explicativa - predictora)
+
+$x_2$ = variable independiente (explicativa - predictora)
+
+$\beta_0$ = intercepto (ordenada al origen)
+
+$\beta_1$ = coeficiente de la variable x1 (pendiente de la recta)
+
+$\beta_2$ = coeficiente de la variable x2
+
+$\epsilon$ = residuos (error - componente aleatorio)
+
+## Regresión múltiple {.smaller}
+
+::: panel-tabset
+## Gráfico
+
+![](images/Regresion4a.PNG){fig-align="center" width="575"}
+
+## Salida en R
+
+![](images/Regresion4b.PNG){fig-align="center" width="622"}
+:::
+
+## Coeficiente de determinación
+
+-   $R^2$ es una medida de qué tan cerca están los datos de la recta ajustada.
+
+-   Se conoce como coeficiente de determinación y representa la proporción de la variable dependiente que se explica por la(s) variable(s) explicativa(s).
+
+-   Si es 0 indica que ninguna de las variaciones en la dependiente se explica por la explicativa.
+
+-   Si es 1 indica que el modelo explica toda la variabilidad en la dependiente (la recta sigue exactamente los puntos de datos).
+
+## Coeficiente de determinación en R
+
+-   El lenguaje R proporciona el $R^2$ y el $R^2$ ajustado.
+
+-   Este último incluye una penalización cuantas más variables explicativas se incluyan en el modelo. Entonces, si el modelo incluye variables que no contribuyen a la descripción de la variable dependiente, el $R^2$ ajustado será menor.
+
+## Rol de las variables independientes {.smaller}
+
+::: panel-tabset
+## DAGs
+
+![](images/Regresion5.png){fig-align="center" width="75%"}
+
+## Detalles
+
+**Posibles caminos causales**
+
+En el primero, fumar no está asociado con el resultado (presión arterial) ni con nuestra variable explicativa de interés (consumo de café).
+
+En el segundo, fumar se asocia con presión arterial elevada, pero no con el consumo de café. Este es un ejemplo de modificación de efecto (interacción).
+
+En el tercero, fumar se asocia con presión arterial elevada y con el consumo de café. Este es un ejemplo de confusión.
+:::
+
+## Interacción {.smaller .scrollable}
+
+::: panel-tabset
+## Gráfico
+
+![](images/Regresion6.png){fig-align="center"}
+
+## Explicación
+
+La modificación del efecto ocurre cuando el tamaño del efecto de la variable explicativa de interés (exposición) sobre el resultado (variable dependiente) difiere según el nivel de una tercera variable. Dicho de otra manera, se trata de una situación en la que una variable explicativa modifica diferencialmente (positiva o negativamente) el efecto observado de otra variable explicativa sobre el resultado.
+
+¿Qué significa esto en el ejemplo? Bueno, puede ser biológicamente plausible que el efecto de fumar sobre la presión arterial aumente multiplicativamente debido a una interacción química entre el humo del cigarrillo y la cafeína, por ejemplo.
+:::
+
+## Confusión {.smaller .scrollable}
+
+::: panel-tabset
+## Gráfico
+
+![](images/Regresion7.png){fig-align="center"}
+
+## Explicación
+
+La confusión es una situación en la que la asociación entre una variable explicativa (exposición) y el resultado (variable dependiente) se distorsiona por la presencia de otra variable explicativa.
+
+Si solo ajustamos la presión arterial por el consumo de café, entonces podemos concluir erróneamente que existe una relación entre el consumo de café y la presión arterial.
+
+Si incluimos el factor de confusión en el modelo al agregar fumar, la verdadera relación se hace evidente. Dos líneas planas paralelas que indican que el café no tiene efecto sobre la presión arterial, pero sí una relación entre fumar y la presión arterial. Este procedimiento se conoce como ajuste de factores de confusión.
+:::
+
+## Regresión Lineal Generalizada
+
+-   Extensión de los modelos lineales que permiten utilizar distribuciones de errores no normales.
+
+-   Para el ajuste implementa la estimación de maxima verosimilitud - ver [Wiki](https://es.wikipedia.org/wiki/M%C3%A1xima_verosimilitud)
+
+-   Se caracterizan por tener una estructura con tres elementos:
+
+    1.  Una distribución (componente aleatorio)
+    2.  Un componente sistémico lineal
+    3.  Una función de enlace (logit, log, etc)
+
+## Regresión logística
+
+-   **Variable dependiente:** categórica binaria (si - no)
+
+-   **Componente aleatorio:** Distribución binomial
+
+-   **Componentes sistémicos (predictores lineales):** $log(Odds) = X_i\beta$
+
+-   **Función de enlace:** $logit = g(\mu_i) = log(\frac{\mu_𝑖}{(1−\mu_𝑖})$
+
+-   **Conversión:** exp(coeficiente) = OR
+
+## Ejemplo logística {.smaller .scrollable}
+
+::: panel-tabset
+## Gráfico
+
+![](images/Logistica_A.png){fig-align="center" width="70%"}
+
+## Salida en R
+
+![](images/Logistica_B.png){fig-align="center" width="80%"}
+:::
+
+## Regresión Poisson
+
+-   **Variable dependiente:** conteos o tasas (offset)
+
+-   **Componente aleatorio:** Distribución de Poisson
+
+-   **Componentes sistémicos (predictores lineales):** $ln(\lambda_i) = X_i\beta$
+
+-   **Función de enlace:** $log = g(\lambda_i) = ln(\lambda_i)$
+
+-   **Conversión:** exp(coeficiente) = RR / razón de densidad de incidencia
