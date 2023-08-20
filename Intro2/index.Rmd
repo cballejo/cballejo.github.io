@@ -601,5 +601,5 @@ background-position: 50% 10%
 
 ## Para profundizar...
 
-.font150[Capítulo 3 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/visualizaci%C3%B3n-de-datos.html)]
+.font150[Capítulo 3 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/03-visualize.html)]
 
