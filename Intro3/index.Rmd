@@ -219,4 +219,4 @@ background-position: 50% 10%
 
 ## Para profundizar...
 
-.font150[Capítulo 5.1, 5.2 y 5.4 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/transform.html)]
+.font150[Capítulo 5.1, 5.2 y 5.4 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/05-transform.html)]
