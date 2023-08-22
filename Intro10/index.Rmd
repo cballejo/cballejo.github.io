@@ -2,8 +2,8 @@
 title: "Lectura de datos"
 subtitle: ""  
 author: 
-  - "Christian Ballejo"
-date: '`r Sys.Date()`'
+  - "Instituto Nacional de Epidemiología"
+date: 
 output:
   xaringan::moon_reader:
     includes:
@@ -30,7 +30,7 @@ library(xaringan)
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_mono_accent(base_color = "#004b00", 
+style_mono_accent(base_color = "#00746B", 
                   colors = c(red = "#f34213",
   purple = "#3e2f5b",
   orange = "#ff8811",
@@ -52,19 +52,6 @@ style_mono_accent(base_color = "#004b00",
   padding-left: 1%;
 }
 ```
-
----
-class: inverse, hide-logo, center
-
-# Internet
-
-## Red: Aula alumnos  -  Clave: internet
-
-<br>
-
-# Diapositivas
-
-## https: //cballejo.github.io/Intro10
 
 ---
 .font150[ 
@@ -189,6 +176,11 @@ La estructura de los argumentos de la función `read_excel()` es:
 
 ]
 ---
+class: center, middle, inverse, hide-logo
+
+## Trabajamos con el práctico 10
+
+---
 class: middle
 background-image: url(assets/r4ds.PNG) 
 background-size: 200px
@@ -196,14 +188,4 @@ background-position: 50% 10%
 
 ## Para profundizar...
 
-.font150[Capítulo 11 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/importaci%C3%B3n-de-datos.html]
-
----
-class:  middle
-
-.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1UQL4Sc8N_IX27Vz1gmJ3DYy9Rk6Nd32m/view?usp=sharing) de la web
-
-- Descomprimimos la carpeta con el proyecto practica10
-
-- Trabajamos siguiendo las consignas del práctico.
-]
+.font150[Capítulo 11 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/11-import.html)]
