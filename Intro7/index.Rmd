@@ -1,5 +1,5 @@
 ---
-title: "Encuentro 7"
+title: "Practica integradora dplyr - ggplot2"
 output: html_document
 ---
 
@@ -7,7 +7,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Practica integradora dplyr - ggplot2
 
 En este encuentro vamos a trabajar con una tabla de datos en formato Excel que podrán descargar de este [enlace](https://drive.google.com/open?id=1HLt_uGKpuO5h6zioDWPb_pZpCatMeVnr).
 

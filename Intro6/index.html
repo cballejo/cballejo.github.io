@@ -3,8 +3,7 @@
   <head>
     <title>Manipulación de datos</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Christian Ballejo" />
-    <meta name="date" content="2021-03-31" />
+    <meta name="author" content="Instituto Nacional de Epidemiología" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="animate.min.css" type="text/css" />
@@ -14,10 +13,15 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Manipulación de datos
+]
+.subtitle[
 ## Parte IV
-### Christian Ballejo
-### 2021-03-31
+]
+.author[
+### Instituto Nacional de Epidemiología
+]
 
 ---
 
@@ -42,19 +46,6 @@ class: animated, fadeIn
   padding-left: 1%;
 }
 &lt;/style&gt;
-
----
-class: inverse, hide-logo, center
-
-# Internet
-
-## Red: Aula alumnos  -  Clave: internet
-
-&lt;br&gt;
-
-# Diapositivas
-
-## https: //cballejo.github.io/Intro6
 
 ---
 class: left, middle
@@ -198,7 +189,7 @@ background-position: 50% 10%
 
 ## Para profundizar...
 
-.font150[Capítulo 5.5 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/transform.html)]
+.font150[Capítulo 5.5 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/05-transform.html)]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -247,6 +238,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
