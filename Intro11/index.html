@@ -3,8 +3,7 @@
   <head>
     <title>Cadenas de caracteres</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Christian Ballejo" />
-    <meta name="date" content="2021-05-19" />
+    <meta name="author" content="Instituto Nacional de Epidemiología" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="animate.min.css" type="text/css" />
@@ -14,9 +13,12 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
+.title[
 # Cadenas de caracteres
-### Christian Ballejo
-### 2021-05-19
+]
+.author[
+### Instituto Nacional de Epidemiología
+]
 
 ---
 
@@ -41,19 +43,6 @@ class: animated, fadeIn
   padding-left: 1%;
 }
 &lt;/style&gt;
-
----
-class: inverse, hide-logo, center
-
-# Internet
-
-## Red: Aula alumnos  -  Clave: internet
-
-&lt;br&gt;
-
-# Diapositivas
-
-## https: //cballejo.github.io/Intro11
 
 ---
 .font150[ 
@@ -197,6 +186,11 @@ Cadenas que comiencen con E y continúen con un número cualquiera
 Cadenas que finaliza con alguna letra mayúscula o minúscula
 ]
 ---
+class: center, middle, inverse, hide-logo
+
+## Trabajamos con el práctico 11
+
+---
 class: middle
 background-image: url(assets/r4ds.PNG) 
 background-size: 200px
@@ -204,21 +198,10 @@ background-position: 50% 10%
 
 ## Para profundizar...
 
-.font150[Capítulo 14 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/cadenas-de-caracteres.html)
+.font150[Capítulo 14 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/14-strings.html)
 
 Otro paquete muy interesante con una mayor cantidad de funciones destinadas a trabajar con cadenas de caracteres es [stringi](https://stringi.gagolewski.com/)]
 
-
-
----
-class:  middle
-## Practica 11
-.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1XkJj6DDap8ZP35da5GDv64RdGMv-2LGh/view?usp=sharing) de la web
-
-- Descomprimimos la carpeta con el proyecto practica11
-
-- Trabajamos siguiendo las consignas del práctico.
-]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -267,6 +250,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

@@ -2,7 +2,11 @@
 title: "Manipulación de datos"
 subtitle: "Parte II"  
 author: 
+<<<<<<< HEAD
   - "Instituo Nacional de Epidemiología"
+=======
+  - "Instituto Nacional de Epidemiología"
+>>>>>>> c6f2a98a2556852179bbce440e13b0785bd3a320
 date: 
 output:
   xaringan::moon_reader:

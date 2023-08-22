@@ -492,7 +492,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "USA")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) + #<<
+  geom_line(linewidth = 1) + #<<
   scale_color_manual(values = c("blue", "red"), name = "País")  +
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)") +
@@ -500,7 +500,7 @@ arrange(date) %>%
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
 ```
 
--  Las funciones de capas geométricas poseen argumentos que se pueden configurar, como **size** que determina el grosor de la línea de este gráfico.
+-  Las funciones de capas geométricas poseen argumentos que se pueden configurar, como **linewidth** que determina el grosor de la línea de este gráfico.
 
 ---
 
@@ -510,7 +510,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "USA")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)") +
@@ -534,7 +534,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "USA")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + 
   xlab("Fecha") + #<<
   ylab("Incidencia acumulada (x 100.000 hab.)") + #<<
@@ -559,7 +559,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "USA")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), 
                      name = "País")  + 
   xlab("Fecha") + 
@@ -574,7 +574,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "USA")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)")
@@ -590,7 +590,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), 
                      name = "País")  + 
   xlab("Fecha") + 
@@ -605,7 +605,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)")
@@ -623,7 +623,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), 
                      name = "País")  + 
   xlab("Fecha") + 
@@ -638,7 +638,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + 
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)")
@@ -654,7 +654,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red"), 
                      name = "País")  + 
   xlab("Fecha") + 
@@ -669,7 +669,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red"), name = "País")  + 
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)")
@@ -688,7 +688,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red"), 
                      name = "País")  + 
   xlab("Fecha") + 
@@ -703,7 +703,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) + 
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red"), name = "País")  + 
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)")
@@ -719,7 +719,7 @@ arrange(date) %>%
   filter(iso3c %in% c("ARG", "GBR", "ESP")) %>% 
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, color = country)) +
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red", "blue"), 
                      name = "País")  +
   xlab("Fecha") + 
@@ -735,7 +735,7 @@ arrange(date) %>%
   mutate(inc = confirmed/population*100000) %>% 
   ggplot(aes(x = date, y = inc, 
              color = country)) +
-  geom_line(size = 1) +
+  geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red", "blue"), name = "País")  +
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.")
@@ -746,7 +746,7 @@ arrange(date) %>%
 ---
 class: center, middle, inverse, hide-logo
 
-## Para jugar en su PC
+## Para hacer en su equipo
 
 ### Realicen un gráfico similar comparando mortalidad cada millon de habitantes entre Argentina y Brasil (BRA)
 

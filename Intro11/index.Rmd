@@ -2,8 +2,8 @@
 title: "Cadenas de caracteres"
 subtitle: ""  
 author: 
-  - "Christian Ballejo"
-date: '`r Sys.Date()`'
+  - "Instituto Nacional de Epidemiología"
+date: 
 output:
   xaringan::moon_reader:
     includes:
@@ -30,7 +30,7 @@ library(xaringan)
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_mono_accent(base_color = "#004b00", 
+style_mono_accent(base_color = "#00746B", 
                   colors = c(red = "#f34213",
   purple = "#3e2f5b",
   orange = "#ff8811",
@@ -52,19 +52,6 @@ style_mono_accent(base_color = "#004b00",
   padding-left: 1%;
 }
 ```
-
----
-class: inverse, hide-logo, center
-
-# Internet
-
-## Red: Aula alumnos  -  Clave: internet
-
-<br>
-
-# Diapositivas
-
-## https: //cballejo.github.io/Intro11
 
 ---
 .font150[ 
@@ -208,6 +195,11 @@ Cadenas que comiencen con E y continúen con un número cualquiera
 Cadenas que finaliza con alguna letra mayúscula o minúscula
 ]
 ---
+class: center, middle, inverse, hide-logo
+
+## Trabajamos con el práctico 11
+
+---
 class: middle
 background-image: url(assets/r4ds.PNG) 
 background-size: 200px
@@ -215,18 +207,7 @@ background-position: 50% 10%
 
 ## Para profundizar...
 
-.font150[Capítulo 14 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/cadenas-de-caracteres.html)
+.font150[Capítulo 14 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/14-strings.html)
 
 Otro paquete muy interesante con una mayor cantidad de funciones destinadas a trabajar con cadenas de caracteres es [stringi](https://stringi.gagolewski.com/)]
 
-
-
----
-class:  middle
-## Practica 11
-.font150[- Descargamos el [archivo zip](https://drive.google.com/file/d/1XkJj6DDap8ZP35da5GDv64RdGMv-2LGh/view?usp=sharing) de la web
-
-- Descomprimimos la carpeta con el proyecto practica11
-
-- Trabajamos siguiendo las consignas del práctico.
-]
