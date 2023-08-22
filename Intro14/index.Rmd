@@ -1,9 +1,9 @@
 ---
-title: "Factores"
-subtitle: ""  
+title: "Más allá de los gráficos de barras y boxplots"
+subtitle: "Gráficos alternativos y como crearlos con ggplot2"  
 author: 
   - "Christian Ballejo"
-date: '2021-07-07'
+date: '2022-06-08'
 output:
   xaringan::moon_reader:
     includes:
@@ -54,77 +54,32 @@ style_mono_accent(base_color = "#004b00",
 ```
 
 ---
-class: inverse, hide-logo, center
-
-# Internet
-
-## Red: Aula alumnos  -  Clave: internet
-
-<br>
-
-# Diapositivas
-
-## https: //cballejo.github.io/Intro14
-
----
-## Introducción
+## Temas
 .font150[ 
 
-- Los factores son el formato de datos que el lenguaje R reserva para trabajar con **variables categóricas**, es decir, variables que tienen un conjunto fijo y conocido de valores posibles. 
+- Barras / gráficos dinamita 
 
-- Están compuesto por valores numéricos internos asociados a etiquetas que definen cada uno de los **niveles** (categorías de la variable).
+- Boxplots
 
-- También son útiles cuando necesitamos mostrar vectores de caracteres en un **orden** específico (no alfabético).
+- Violin
+
+- Halfeye
+
+- Ridgeline
+
+- Tiras de intervalos / Sina plots
+
+- Dot Plot / Enjambre de abejas
+
+- Gráficos híbridos
+
 ]
 ---
-class: left, middle
-background-image: url(assets/forcats.PNG)
-background-size: 180px
-background-position: 50% 10%
-
-## Paquete forcats
-
-.font150[ 
-<br> 
-<br> 
-<br> 
-- El paquete forcats proporciona un conjunto de herramientas útiles que resuelven problemas comunes con factores en R.
-
-- Respeta los principios del tidyverse
-
-- Todas sus funciones comienzan con __fct_*__
-]
+background-image: url(assets/cedric.JPG)
+background-size: 900px
+background-position: 50% 50%
 
 ---
-## Funciones mas relevantes
-
-.font150[
-- fct_recode(): recodifica niveles
-
-- fct_relevel(): reordena niveles
-
-- fct_expand(): agrega nuevos niveles
-
-- fct_drop(): elimina niveles no utilizados
-
-- fct_rev(): revierte orden de los niveles
-
-- fct_unique(): muestra valores únicos del factor
-]
----
-## Funciones mas relevantes
-
-.font150[
-- fct_infreq(): ordena niveles por frecuencia
-
-- fct_explicit_na(): explicita valores NA (agrega etiqueta al nivel)
- 
-- fct_other(): unifica niveles en "otros"
-
-- fct_lump(): unifica niveles menos frecuentes en "otros"
-
-- fct_lump_prop(): unifica niveles menos frecuentes en "otros" usando %
-]
 
 ---
 class: middle
