@@ -1,9 +1,9 @@
 ---
 title: "Gestion de variables de tiempo con R"
-subtitle: ""  
+subtitle: "Instituto Nacional de Epidemiología"  
 author: 
-  - "Christian Ballejo"
-date: '`r Sys.Date()`'
+  - ""
+date: 
 output:
   xaringan::moon_reader:
     includes:
@@ -30,7 +30,7 @@ library(xaringan)
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_mono_accent(base_color = "#004b00", 
+style_mono_accent(base_color = "#00746B", 
                   colors = c(red = "#f34213",
   purple = "#3e2f5b",
   orange = "#ff8811",
@@ -52,19 +52,6 @@ style_mono_accent(base_color = "#004b00",
   padding-left: 1%;
 }
 ```
-
----
-class: inverse, hide-logo, center
-
-# Internet
-
-## Red: Aula alumnos  -  Clave: internet
-
-<br>
-
-# Diapositivas
-
-## https: //cballejo.github.io/Intro13
 
 ---
 ## Introducción
@@ -158,7 +145,7 @@ background-position: 50% 10%
 
 ## Para profundizar...
 
-.font150[Capítulo 16 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/fechas-y-horas.html)]
+.font150[Capítulo 16 del libro ["R para Ciencias de Datos"](https://es.r4ds.hadley.nz/16-datetimes.html)]
 
 ---
 class:  middle
