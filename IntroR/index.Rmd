@@ -1,5 +1,5 @@
 ---
-title: "Taller de introducción al Lenguaje R"
+title: "Taller Introducción al Lenguaje R"
 output: html_document
 ---
 
@@ -37,10 +37,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #### [Gestión de factores](https://cballejo.github.io/Intro14)
 
-#### [SIG con R](https://cballejo.github.io/Intro12)
-
 #### [Comunicar con R y RStudio](https://cballejo.github.io/Intro15)
 
+#### [SIG con R](https://cballejo.github.io/Intro12)
 
 
 ### Material bibliográfico
