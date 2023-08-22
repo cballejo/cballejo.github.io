@@ -2,8 +2,8 @@
 title: "Factores"
 subtitle: ""  
 author: 
-  - "Christian Ballejo"
-date: '2021-07-07'
+  - "Instituto Nacional de Epidemiología"
+date: 
 output:
   xaringan::moon_reader:
     includes:
@@ -30,7 +30,7 @@ library(xaringan)
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_mono_accent(base_color = "#004b00", 
+style_mono_accent(base_color = "#00746B", 
                   colors = c(red = "#f34213",
   purple = "#3e2f5b",
   orange = "#ff8811",
@@ -52,19 +52,6 @@ style_mono_accent(base_color = "#004b00",
   padding-left: 1%;
 }
 ```
-
----
-class: inverse, hide-logo, center
-
-# Internet
-
-## Red: Aula alumnos  -  Clave: internet
-
-<br>
-
-# Diapositivas
-
-## https: //cballejo.github.io/Intro14
 
 ---
 ## Introducción
