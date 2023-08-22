@@ -1,0 +1,53 @@
+---
+title: "Taller de introducción al Lenguaje R"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Temario
+
+#### [Instalación del software](https://cballejo.github.io/Instalacion)
+
+#### [Introducción al lenguaje R](https://cballejo.github.io/Intro1)  (Introducción a tidyverse - Visualización de datos - parte 1)
+
+#### [Visualización de datos - parte 2](https://cballejo.github.io/Intro2)
+
+#### [Manipulación de datos - parte 1](https://cballejo.github.io/Intro3)
+
+#### [Manipulación de datos - parte 2](https://cballejo.github.io/Intro4)
+
+#### [Manipulación de datos - parte 3](https://cballejo.github.io/Intro5) 
+
+#### [Manipulación de datos - parte 4](https://cballejo.github.io/Intro6)
+
+#### [Practica integradora dplyr - ggplot2](https://cballejo.github.io/Intro7)
+
+#### [Datos ordenados - tidyr](https://cballejo.github.io/Intro8) 
+
+#### [Datos relacionales](https://cballejo.github.io/Intro9)
+
+#### [Lectura de datos](https://cballejo.github.io/Intro10)
+
+#### [Cadenas de caracteres](https://cballejo.github.io/Intro11)
+
+#### [Gestión de variables de tiempo](https://cballejo.github.io/Intro13)
+
+#### [Gestión de factores](https://cballejo.github.io/Intro14)
+
+#### [SIG con R](https://cballejo.github.io/Intro12)
+
+#### [Comunicar con R y RStudio](https://cballejo.github.io/Intro15)
+
+
+
+### Material bibliográfico
+
+#### [R para Ciencia de datos](https://es.r4ds.hadley.nz/) (versión en español - 2017)
+
+#### [R for Data Science](https://r4ds.hadley.nz/) (2da. versión en inglés - 2023)
+
+### Descargas 
+

@@ -2,8 +2,8 @@
 title: "Lenguaje R"
 subtitle: ""  
 author: 
-  - "Christian Ballejo"
-date: '`r Sys.Date()`'
+  - "Instituto Nacional de Epidemiología"
+date: 
 output:
   xaringan::moon_reader:
     includes:
@@ -32,7 +32,7 @@ library(xaringan)
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_mono_accent(base_color = "#004b00", 
+style_mono_accent(base_color = "#00746B", 
                   colors = c(red = "#f34213",
   purple = "#3e2f5b",
   orange = "#ff8811",
