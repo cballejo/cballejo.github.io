@@ -2,8 +2,8 @@
 title: "Instalando R"
 subtitle: ""  
 author: 
-  - "Instituto Nacional de Epidemiología  \"Dr. Juan H. Jara\""
-date: ''
+  - "Instituto Nacional de Epidemiología"
+date: 
 output:
   xaringan::moon_reader:
     includes:
@@ -32,7 +32,7 @@ library(xaringan)
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_mono_accent(base_color = "#004b00", 
+style_mono_accent(base_color = "#00746B", 
                   colors = c(red = "#f34213",
   purple = "#3e2f5b",
   orange = "#ff8811",
@@ -77,16 +77,17 @@ background-position: 50% 10%
 <br>
 .font160[RStudio es un IDE, es decir, un Entorno de Desarrollo Integrado (IDE es el acrónimo de Integrated Development Environment). 
 
-Esto quiere decir que RStudio es una aplicación que nos entrega herramientas para hacer más fácil el desarrollo de proyectos usando R.]
+Esto quiere decir que RStudio es una aplicación que nos entrega herramientas para hacer más fácil el desarrollo de proyectos usando R.
 
-<br>
+La empresa que lo desarrolla cambio de nombre a **posit** hace poco tiempo y se puede acceder con el siguiente enlace:]
 
-### .center[https://www.rstudio.com/products/rstudio/download/#download]
+
+### .center[https://posit.co/download/rstudio-desktop/#download]
 
 
 ---
 background-image: url(assets/RStudio_install.PNG)
-background-size: 1100px
+background-size: 800px
 background-position: 50% 50%
 
 ---
@@ -100,14 +101,14 @@ background-image: url(assets/Rtools.PNG)
 background-size: 1100px
 background-position: 50% 70%
 ## Rtools
-### https://cran.r-project.org/bin/windows/Rtools/
+### https://cran.r-project.org/bin/windows/Rtools/rtools43/rtools.html
 
 
 
 ---
 class: center, top
 background-image: url(assets/instaladores.PNG)
-background-size: 400px
+background-size: 300px
 background-position: 50% 50%
 
 # Instaladores
