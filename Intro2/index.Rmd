@@ -408,7 +408,7 @@ paises %>%
 
 - Permiten realizar gráficos de puntos, líneas, barras, histogramas, boxplot, área, densidad, polígonos de frecuencia, violin, etc...
 
-- En el siguiente [enlace](https://rstudio.com/wp-content/uploads/2016/12/ggplot2-cheatsheet-2.1-Spanish.pdf) se puede descargar una **guía rápida de ggplot2** que muestra todas las posibilidades ofrecidas.
+- En el siguiente [enlace](https://drive.google.com/file/d/10H7eio0KTvqzdyWpFfcVcaIiEjtkQsDQ/view?usp=sharing) se puede descargar una **guía rápida de ggplot2** que muestra todas las posibilidades ofrecidas.
 
 ]
 ---
