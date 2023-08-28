@@ -314,10 +314,10 @@ library(tidycovid19)
 
 datos <- download_merged_data(silent = T, cached = T)
 
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) +
   geom_line(size = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  +
@@ -363,10 +363,10 @@ Vamos a hojear las observaciones para Argentina, seleccionando solo las variable
 Estas variables son: país, fecha, confirmados, muertos y población.
 
 ```{r, echo=F}
-datos %>% 
-  select(iso3c, country, date, confirmed, deaths, population) %>% 
-  filter(iso3c == "ARG") %>% 
-  arrange(desc(date)) %>% 
+datos |> 
+  select(iso3c, country, date, confirmed, deaths, population) |> 
+  filter(iso3c == "ARG") |> 
+  arrange(desc(date)) |> 
 DT::datatable(
   fillContainer = F, options = list(pageLength = 6)
 )
@@ -378,10 +378,10 @@ Observemos que tanto los casos confirmados como los fallecidos son conteos acumu
 Para comenzar veamos el código completo que permite generar el gráfico buscado.
 
 ```{r, eval=F}
-datos %>%  #<<
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |>  #<<
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) +
   geom_line(size = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  +
@@ -395,16 +395,16 @@ Analicemos la primera línea del código:
 
 - **datos**  es el nombre de la tabla con los datos descargados de la Universidad Johns Hopkins
 
-- **%>%** es un conector incluido dentro del ecosistema _tidyverse_ denominado "tubería" (pipe en inglés). Se utiliza para conectar cada función de R y traslada el termino de la izquierda hacia la función de la derecha.
+- **|>** es un conector incluido dentro del ecosistema _tidyverse_ denominado "tubería" (pipe en inglés). Se utiliza para conectar cada función de R y traslada el termino de la izquierda hacia la función de la derecha.
 En este caso define que la tarea que realice la función **_arrange()_** (2da línea) se hará sobre los datos de la tabla **datos**.
 
 ---
 
 ```{r, eval=F}
-datos %>% 
-arrange(date) %>% #<<
-  filter(iso3c %in% c("ARG", "USA")) %>% #<<
-  mutate(inc = confirmed/population*100000) %>% #<<
+datos |> 
+arrange(date) |> #<<
+  filter(iso3c %in% c("ARG", "USA")) |> #<<
+  mutate(inc = confirmed/population*100000) |> #<<
   ggplot(aes(x = date, y = inc, color = country)) +
   geom_line(size = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  +
@@ -427,10 +427,10 @@ arrange(date) %>% #<<
 ---
 
 ```{r, eval=F}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + #<<
   geom_line(size = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  +
@@ -459,10 +459,10 @@ El código detallado hasta ahora muestra los ejes y las escalas (tomadas de las 
 Algo así, como vemos a la derecha de la pantalla.
 
 ```{r, eval=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) 
 ```
 ]
@@ -470,10 +470,10 @@ arrange(date) %>%
 
 .plot[
 ```{r, echo=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) 
 ```
 ]
@@ -487,10 +487,10 @@ En este caso si el gráfico es de líneas necesitamos escribir **_geom_line()_**
 Otras funciones de elementos geométricos son: **_geom_point()_**, **_geom_bar()_**, **_geom_histogram()_**, etc...
 
 ```{r, eval=F}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) + #<<
   scale_color_manual(values = c("blue", "red"), name = "País")  +
@@ -505,10 +505,10 @@ arrange(date) %>%
 ---
 
 ```{r, eval=F}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
@@ -529,10 +529,10 @@ arrange(date) %>%
 ---
 
 ```{r, eval=F}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + 
@@ -554,10 +554,10 @@ Si este código construye este gráfico, qué deberíamos cambiar para generar o
 
 .code[
 ```{r, eval=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), 
@@ -569,10 +569,10 @@ arrange(date) %>%
 
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "USA")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "USA")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
@@ -585,10 +585,10 @@ arrange(date) %>%
 
 .code[
 ```{r, eval=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), 
@@ -600,10 +600,10 @@ arrange(date) %>%
 
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
@@ -618,10 +618,10 @@ qué deberíamos cambiar para que el color de la línea de Argentina sea verde e
 
 .code[
 ```{r, eval=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), 
@@ -633,10 +633,10 @@ arrange(date) %>%
 
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("blue", "red"), name = "País")  + 
@@ -649,10 +649,10 @@ arrange(date) %>%
 
 .code[
 ```{r, eval=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red"), 
@@ -664,10 +664,10 @@ arrange(date) %>%
 
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red"), name = "País")  + 
@@ -683,10 +683,10 @@ qué deberíamos hacer si queremos incorporar otro país (por ejemplo España)?
 
 .code[
 ```{r, eval=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red"), 
@@ -698,10 +698,10 @@ arrange(date) %>%
 
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red"), name = "País")  + 
@@ -714,10 +714,10 @@ arrange(date) %>%
 
 .code[
 ```{r, eval=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR", "ESP")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR", "ESP")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) +
   geom_line(linewidth = 1) +
   scale_color_manual(values = c("green", "red", "blue"), 
@@ -729,10 +729,10 @@ arrange(date) %>%
 
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-datos %>% 
-arrange(date) %>% 
-  filter(iso3c %in% c("ARG", "GBR", "ESP")) %>% 
-  mutate(inc = confirmed/population*100000) %>% 
+datos |> 
+arrange(date) |> 
+  filter(iso3c %in% c("ARG", "GBR", "ESP")) |> 
+  mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, 
              color = country)) +
   geom_line(linewidth = 1) +
