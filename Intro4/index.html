@@ -84,7 +84,7 @@ La función **arrange()** del inglés .bold[ordenar], sirve para ordenar observa
 
 ó  
 
-datos %&gt;% **arrange**(var1, var2, ...)
+datos |&gt; **arrange**(var1, var2, ...)
 ]]
 
 ---
@@ -105,9 +105,9 @@ Si deseamos invertir el orden debemos incorporar la función **desc()** dentro d
 
 
 .font160[.center[  
-datos %&gt;% **arrange**(var1)  *# ascendente*
+datos |&gt; **arrange**(var1)  *# ascendente*
 
-datos %&gt;% **arrange**(**desc**(var1)) *# descendente*
+datos |&gt; **arrange**(**desc**(var1)) *# descendente*
 ]]
 
 
@@ -137,7 +137,7 @@ La función **count()** del inglés .bold[contar], sirve para contabilizar categ
 Reconoce y también contabiliza los valores .bold[NA] de las variables.
 ]
 
-.font180[.center[datos %&gt;% **count**(variable)]]
+.font180[.center[datos |&gt; **count**(variable)]]
 
 .font140[ 
 Tiene algunos argumentos opcionales como:
