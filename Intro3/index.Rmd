@@ -92,7 +92,7 @@ La función **select()** del inglés .bold[seleccionar], sirve para seleccionar 
 
 .font160[.center[  
 **select**(datos, a, c)  ó  
-datos %>% **select**(a,c)
+datos |> **select**(a,c)
 ]]
 
 
@@ -127,7 +127,7 @@ La estructura de la función puede ser cualquiera de las siguientes:
 
 .font180[.center[**filter**(datos, condición)]]
 <br>
-.font180[.center[datos %>% **filter**(condición)]]
+.font180[.center[datos |> **filter**(condición)]]
 
 ---
 background-image: url(assets/operadores.PNG)
