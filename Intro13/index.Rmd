@@ -141,7 +141,7 @@ background-position: 50% 50%
 ---
 class: center, middle, inverse, hide-logo
 
-## Trabajamos con la práctica 13
+## Trabajamos con la práctica 12
 ---
 class: middle
 background-image: url(assets/r4ds.PNG) 
