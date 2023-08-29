@@ -80,7 +80,7 @@ library(readxl)
 
 datos <- read_excel("DM.xlsx")
 
-datos <- datos %>% mutate(IMC = PESO/(TALLA/100)^2, 
+datos <- datos |> mutate(IMC = PESO/(TALLA/100)^2, 
   Clasificacion = case_when(
   IMC < 18.5 ~ "1.Bajo peso",
   IMC >= 18.5 & IMC < 25 ~ "2.Peso normal",
@@ -88,8 +88,8 @@ datos <- datos %>% mutate(IMC = PESO/(TALLA/100)^2,
   IMC >= 30 ~ "4.Obesidad"
 ))
 
-datos %>% 
-  filter(!is.na(Clasificacion)) %>% 
+datos |> 
+  filter(!is.na(Clasificacion)) |> 
   ggplot(aes(x = SEXO, fill = Clasificacion)) + 
   geom_bar(position = "fill") +
   scale_fill_brewer(palette = "Set1") 
@@ -104,11 +104,11 @@ datos %>%
 14. Utilizando las variables **HTA**, **TABACO** y **SEXO** realice un gráfico igual al siguiente (*preste atención a las categorías de TABACO*):
 
 ```{r, echo = F, warning=F, message=F}
-datos <- datos %>% 
+datos <- datos |> 
   mutate(HTA = if_else(TAS >= 140 | TAD >= 90,"Si", "No"))
 
-datos %>% 
-  filter(!is.na(TABACO)) %>%
+datos |> 
+  filter(!is.na(TABACO)) |>
   ggplot(aes(x = TABACO, fill = HTA)) + 
   geom_bar(position = "stack") +
   scale_fill_brewer(palette = "Set2") + 
