@@ -323,7 +323,7 @@ arrange(date) |>
   scale_color_manual(values = c("blue", "red"), name = "País")  +
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)") +
-  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2023)",
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
 ```
 ]
@@ -365,8 +365,8 @@ Estas variables son: país, fecha, confirmados, muertos y población.
 ```{r, echo=F}
 datos |> 
   select(iso3c, country, date, confirmed, deaths, population) |> 
-  filter(iso3c == "ARG") |> 
-  arrange(desc(date)) |> 
+  filter(iso3c == "ARG" & date >= "2020-03-01") |> 
+  arrange(date) |> 
 DT::datatable(
   fillContainer = F, options = list(pageLength = 6)
 )
@@ -387,7 +387,7 @@ arrange(date) |>
   scale_color_manual(values = c("blue", "red"), name = "País")  +
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)") +
-  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2023)",
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
 ```
 
@@ -395,14 +395,13 @@ Analicemos la primera línea del código:
 
 - **datos**  es el nombre de la tabla con los datos descargados de la Universidad Johns Hopkins
 
-- **|>** es un conector incluido dentro del ecosistema _tidyverse_ denominado "tubería" (pipe en inglés). Se utiliza para conectar cada función de R y traslada el termino de la izquierda hacia la función de la derecha.
-En este caso define que la tarea que realice la función **_arrange()_** (2da línea) se hará sobre los datos de la tabla **datos**.
+- **|>** es un conector incluido recientemente dentro del lenguaje R. Similar al conector **%>%** del ecosistema _tidyverse_. Son denominados "tuberías" (pipe en inglés). Se utilizan para conectar cada función de R y trasladan el termino de la izquierda hacia la función de la derecha.
+En este caso define que la tarea que realice la función **_filter()_** (2da línea) se hará sobre los datos de la tabla **datos**.
 
 ---
 
 ```{r, eval=F}
 datos |> 
-arrange(date) |> #<<
   filter(iso3c %in% c("ARG", "USA")) |> #<<
   mutate(inc = confirmed/population*100000) |> #<<
   ggplot(aes(x = date, y = inc, color = country)) +
@@ -410,11 +409,10 @@ arrange(date) |> #<<
   scale_color_manual(values = c("blue", "red"), name = "País")  +
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)") +
-  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2023)",
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
 ```
 
-- **_arrange()_**  ordena la variable **_date_** (fecha) que se encuentra en **datos**. Esto nos asegura que el eje x del gráfico va estar ordenado de menor a mayor.
 
 - **_filter()_** filtra las observaciones de la tabla **datos** según la condición definida. En este caso le indicamos que se quede con aquellas  observaciones donde la variable **_iso3c_** sea igual a "ARG" o "USA".
 
@@ -428,7 +426,6 @@ arrange(date) |> #<<
 
 ```{r, eval=F}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + #<<
@@ -436,7 +433,7 @@ arrange(date) |>
   scale_color_manual(values = c("blue", "red"), name = "País")  +
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)") +
-  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2023)",
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
 ```
 
@@ -460,7 +457,6 @@ Algo así, como vemos a la derecha de la pantalla.
 
 ```{r, eval=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) 
@@ -471,7 +467,6 @@ arrange(date) |>
 .plot[
 ```{r, echo=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) 
@@ -488,7 +483,6 @@ Otras funciones de elementos geométricos son: **_geom_point()_**, **_geom_bar()
 
 ```{r, eval=F}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -496,7 +490,7 @@ arrange(date) |>
   scale_color_manual(values = c("blue", "red"), name = "País")  +
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)") +
-  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2023)",
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
 ```
 
@@ -506,7 +500,6 @@ arrange(date) |>
 
 ```{r, eval=F}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -514,7 +507,7 @@ arrange(date) |>
   scale_color_manual(values = c("blue", "red"), name = "País")  + #<<
   xlab("Fecha") + 
   ylab("Incidencia acumulada (x 100.000 hab.)") +
-  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)",
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2023)",
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") 
 ```
 
@@ -530,7 +523,6 @@ arrange(date) |>
 
 ```{r, eval=F}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -538,7 +530,7 @@ arrange(date) |>
   scale_color_manual(values = c("blue", "red"), name = "País")  + 
   xlab("Fecha") + #<<
   ylab("Incidencia acumulada (x 100.000 hab.)") + #<<
-  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2021)", #<<
+  labs(title = "Incidencia acumulada Covid-19. Comparativo Argentina - USA (2020-2023)", #<<
        caption = "Fuente: Dataset del Johns Hopkins University Center for Systems Science and Engineering") #<<
 ```
 
@@ -555,7 +547,6 @@ Si este código construye este gráfico, qué deberíamos cambiar para generar o
 .code[
 ```{r, eval=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -570,7 +561,6 @@ arrange(date) |>
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -586,7 +576,6 @@ arrange(date) |>
 .code[
 ```{r, eval=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -601,7 +590,6 @@ arrange(date) |>
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -619,7 +607,6 @@ qué deberíamos cambiar para que el color de la línea de Argentina sea verde e
 .code[
 ```{r, eval=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -634,7 +621,6 @@ arrange(date) |>
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -650,7 +636,6 @@ arrange(date) |>
 .code[
 ```{r, eval=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -665,7 +650,6 @@ arrange(date) |>
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -684,7 +668,6 @@ qué deberíamos hacer si queremos incorporar otro país (por ejemplo España)?
 .code[
 ```{r, eval=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -699,7 +682,6 @@ arrange(date) |>
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) + 
@@ -715,7 +697,6 @@ arrange(date) |>
 .code[
 ```{r, eval=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR", "ESP")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) +
@@ -730,7 +711,6 @@ arrange(date) |>
 .plot[
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "GBR", "ESP")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, 
@@ -750,4 +730,4 @@ class: center, middle, inverse, hide-logo
 
 ### Realicen un gráfico similar comparando mortalidad cada millon de habitantes entre Argentina y Brasil (BRA)
 
-#### Nota: la finalidad de este ejercicio es trabajar con R. Para realizar una comparación correcta antes deberíamos ajustar la tasa de mortalidad por edad
+#### Nota: la finalidad de este ejercicio es trabajar con R. Para realizar una comparación correcta antes deberíamos ajustar la tasa de mortalidad por edad en cada país.
