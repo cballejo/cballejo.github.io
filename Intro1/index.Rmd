@@ -315,7 +315,6 @@ library(tidycovid19)
 datos <- download_merged_data(silent = T, cached = T)
 
 datos |> 
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) +
@@ -379,7 +378,6 @@ Para comenzar veamos el código completo que permite generar el gráfico buscado
 
 ```{r, eval=F}
 datos |>  #<<
-arrange(date) |> 
   filter(iso3c %in% c("ARG", "USA")) |> 
   mutate(inc = confirmed/population*100000) |> 
   ggplot(aes(x = date, y = inc, color = country)) +
