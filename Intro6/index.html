@@ -82,7 +82,7 @@ Dentro de los argumentos de **mutate()** se aplican funciones vectorizadas, lo q
 &lt;br&gt;
 
 .font160[.center[  
-datos %&gt;% **mutate**(nueva_var = operación/función)
+datos |&gt; **mutate**(nueva_var = operación/función)
 ]]
 
 ---
@@ -132,7 +132,7 @@ La función **if_else()** devuelve valores dependiendo del resultado de una cond
 Los valores devueltos para cada observación se almacenan dentro de una variable definida en **mutate()**.
 ]
 
-.font180[.center[datos %&gt;% mutate(x = **if_else**(condicion, valor_T, valor_F)]]
+.font180[.center[datos |&gt; mutate(x = **if_else**(condicion, valor_T, valor_F)]]
 
 
 ---
@@ -148,7 +148,7 @@ Los valores devueltos para cada observación se almacenan dentro de una variable
 La asignación de valores NA difiere según tipo de variable creada (NA\_character\_, NA\_integer\_, NA\_real\_)
 ]
 
-.font180[.center[datos %&gt;% mutate(x = **case_when**(condicion ~ valor_T)]]
+.font180[.center[datos |&gt; mutate(x = **case_when**(condicion ~ valor_T)]]
 
 
 ---
