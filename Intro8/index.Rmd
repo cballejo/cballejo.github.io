@@ -97,8 +97,8 @@ class: left, top
 <br> 
 ```{r, echo = F, warning=F, message=F}
 library(tidyverse)
-tabla_ancho <- tidyr::population %>% 
-  filter(country %in% c("Argentina", "Brazil", "Uruguay"), year > 2009) %>% 
+tabla_ancho <- tidyr::population |> 
+  filter(country %in% c("Argentina", "Brazil", "Uruguay"), year > 2009) |> 
   pivot_wider(names_from = year, values_from = population)
 
 knitr::kable(tabla_ancho, format = "html")
@@ -180,7 +180,7 @@ background-position: 50% 75%
 ## pivot_longer()
 .font140[
 ```{r, eval=FALSE}
-tabla_casos %>% 
+tabla_casos |> 
   pivot_longer(cols = 2:3, names_to = "anio", values_to = "casos")
 ```
 ]
@@ -192,17 +192,10 @@ background-position: 50% 70%
 ## pivot_longer()
 .font140[
 ```{r, eval=FALSE}
-tabla_ejemplo2 %>% 
+tabla_ejemplo2 |> 
   pivot_wider(names_from = tipo, values_from = casos)
 ```
 ]
-
----
-class: center, middle 
-
-## Para visualizar estas funciones necesitamos descargar el archivo practica8.R
-
-.font160[.bold[Haga click en el [enlace](https://drive.google.com/file/d/1mVNADEOpNj7lScMkklVJ2Bze7eqa5S9Z/view?usp=sharing) para proceder a su descarga]]
 
 ---
 class: center, middle, inverse, hide-logo
@@ -222,7 +215,7 @@ La función separate() divide datos de una columna en 2 o en más variables.
 ]
 .font140[
 ```{r, eval=FALSE}
-tabla_ejemplo3 %>% 
+tabla_ejemplo3 |> 
   separate(col = tasa, into = c("casos", "poblacion"), sep = "/")
 ```
 ]
@@ -234,7 +227,7 @@ La función unite() hace lo inverso a separate().
 ]
 .font140[
 ```{r, eval=FALSE}
-datos %>% 
+datos |> 
   unite(col = nueva_variable, var1, var2, sep = " ")
 ```
 ]
@@ -246,7 +239,7 @@ Podemos unir:
 
 .font140[
 ```{r, eval=FALSE}
-datos %>% 
+datos |> 
   unite(col = nombre, Localidad, Establecimiento, sep = " - ")
 ```
 ]
@@ -269,7 +262,7 @@ Necesita solo de dos argumentos: los *datos* sobre la que se aplica y la *etique
 
 .font140[
 ```{r, eval=FALSE}
-datos %>% 
+datos |> 
   mutate(Sexo = replace_na(Sexo, replace = "Sin dato")
 ```
 ]
@@ -287,7 +280,7 @@ Es una versión actualizada de la función .bold[na.omit()] del *R base*, que se
 
 .font140[
 ```{r, eval=FALSE}
-datos %>% drop_na()
+datos |> drop_na()
 ```
 ]
 .font140[
@@ -295,7 +288,7 @@ El ejemplo anterior es igual al funcionamiento de na.omit(), es decir elimina to
 ]
 .font140[
 ```{r, eval=FALSE}
-datos %>% drop_na(Sexo)
+datos |> drop_na(Sexo)
 ```
 ]
 .font140[
@@ -328,7 +321,7 @@ Convertimos los valores faltantes implícitos en explícitos
 
 .font140[
 ```{r, eval=FALSE}
-datos %>% complete(Pais, Anio)
+datos |> complete(Pais, Anio)
 ```
 ]
 
@@ -340,7 +333,7 @@ datos <- tibble(
   Casos = c(37737,22045,3456,23458,4531,21678,5210)
 )
 
-datos <- datos %>%  complete(Pais, Anio)
+datos <- datos |>  complete(Pais, Anio)
 
 knitr::kable(datos, format = "html")
 
@@ -371,8 +364,8 @@ Las funciones que realizan el trabajo de anidar y desanidar son:  **nest()** y *
 
 .font140[
 ```{r, eval=FALSE}
-datos %>% 
-  group_by(pais) %>% 
+datos |> 
+  group_by(pais) |> 
   nest()
 ```
 ]
@@ -386,7 +379,7 @@ tabla1
 
 .pull-right[
 ```{r, echo=F}
-tabla1 %>% group_by(pais) %>% nest()
+tabla1 |> group_by(pais) |> nest()
 ```
 ]
 

@@ -95,9 +95,9 @@ Otra forma de escribir la función es **summarize()**. Ambas realizan la misma o
 &lt;br&gt;
 
 .font160[.center[  
-datos %&gt;% **summarise**(var_resumen = función_resumen)
+datos |&gt; **summarise**(var_resumen = función_resumen)
 
-datos %&gt;% **summarize**(var_resumen = función_resumen)
+datos |&gt; **summarize**(var_resumen = función_resumen)
 ]]
 
 ---
@@ -142,14 +142,14 @@ La función **group_by()** del inglés .bold[agrupar por], sirve para agrupar a 
 Aplicado sólo no produce ningún resultado interesante, por eso está pensando para usarlo principalmente asociado a **summarise()**.
 ]
 
-.font180[.center[datos %&gt;% **group_by**(variable)]]
+.font180[.center[datos |&gt; **group_by**(variable)]]
 
 &lt;br&gt;
 
 .font140[ 
 Junto a esta función aparece **ungroup()** que .bold[deshace] el agrupamiento.]
 
-.font180[.center[datos %&gt;% **ungroup**()]]
+.font180[.center[datos |&gt; **ungroup**()]]
 
 ---
 class: center, middle, inverse, hide-logo

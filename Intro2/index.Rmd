@@ -108,8 +108,8 @@ class: center, middle, inverse, hide-logo
 ```{r, eval=F}
 library(tidyverse)
 
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) +
   geom_point()
 ```
@@ -125,8 +125,8 @@ Nos tomamos un momento para conocer las herramientas básicas de **RStudio**,  �
 ```{r, echo=F, out.width="600px", message=FALSE, warning=FALSE}
 library(tidyverse)
 
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) +
   geom_point()
 ```
@@ -139,7 +139,7 @@ paises %>%
 
 .content-box-green[
 ```{r, eval=FALSE}
-<DATOS> %>% 
+<DATOS> |> 
   ggplot(mapping = aes(<MAPEO>)) +
   <GEOM_FUNCION>()
 ```
@@ -148,7 +148,7 @@ paises %>%
 
 .font140[ 
 ```{r, eval=FALSE}
-paises %>% 
+paises |> 
   ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida)) +
   geom_point()
 ```
@@ -193,8 +193,8 @@ Los elementos estéticos también se pueden establecer (setear)
 
 .code[
 ```{r, echo=FALSE, out.height="450px"}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida)) +
   geom_point(color = "blue") +
   labs(title = "Seteo de color")
@@ -203,8 +203,8 @@ paises %>%
 
 .plot[
 ```{r, echo=FALSE, out.height="450px"}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(mapping = aes(x = pib_per_capita, y = esperanza_de_vida, color = continente)) +
   geom_point() +
   labs(title = "Mapeo de color")
@@ -221,8 +221,8 @@ paises %>%
 
 .code[
 ```{r, eval=FALSE}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(mapping = aes(x = pib_per_capita, 
                        y = esperanza_de_vida)) +
   geom_point(color = "blue") #<<
@@ -231,8 +231,8 @@ paises %>%
 
 .plot[
 ```{r, echo=FALSE, out.height="450px"}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(mapping = aes(x = pib_per_capita, 
                        y = esperanza_de_vida)) +
   geom_point(color = "blue") 
@@ -249,8 +249,8 @@ paises %>%
 
 .code[
 ```{r, eval=FALSE}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(mapping = aes(x = pib_per_capita, 
                        y = esperanza_de_vida,
                        color = continente)) +  #<<
@@ -260,8 +260,8 @@ paises %>%
 
 .plot[
 ```{r, echo=FALSE, out.height="450px"}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(mapping = aes(x = pib_per_capita, 
                        y = esperanza_de_vida,
                        color = continente)) +  
@@ -286,8 +286,8 @@ background-position: 10% 65%
 
 .code[ 
 ```{r, eval=FALSE}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, 
              y = esperanza_de_vida,
              shape = continente)) + #<<
@@ -298,8 +298,8 @@ paises %>%
 
 .plot[ 
 ```{r, echo=FALSE}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida,
              shape = continente)) +
   geom_point() 
@@ -320,8 +320,8 @@ class: center, middle, inverse, hide-logo
 
 .code[ 
 ```{r, eval=FALSE}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, 
              y = esperanza_de_vida,
              size = poblacion)) + #<<
@@ -332,8 +332,8 @@ paises %>%
 
 .plot[ 
 ```{r, echo=FALSE}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida, size = poblacion)) + 
   geom_point() 
 ```
@@ -356,8 +356,8 @@ class: center, middle, inverse, hide-logo
 
 .code[ 
 ```{r, echo=FALSE}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
   geom_point() 
 ```
@@ -365,8 +365,8 @@ paises %>%
 
 .plot[ 
 ```{r, echo=FALSE, warning=F, message=F}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
   geom_smooth() 
 ```
@@ -379,8 +379,8 @@ paises %>%
 
 .code[ 
 ```{r, echo=FALSE}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
   geom_point() 
 ```
@@ -388,8 +388,8 @@ paises %>%
 
 .plot[ 
 ```{r, echo=FALSE, warning=F, message=F}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita, y = esperanza_de_vida)) + 
   geom_smooth() 
 ```
@@ -408,7 +408,7 @@ paises %>%
 
 - Permiten realizar gráficos de puntos, líneas, barras, histogramas, boxplot, área, densidad, polígonos de frecuencia, violin, etc...
 
-- En el siguiente [enlace](https://rstudio.com/wp-content/uploads/2016/12/ggplot2-cheatsheet-2.1-Spanish.pdf) se puede descargar una **guía rápida de ggplot2** que muestra todas las posibilidades ofrecidas.
+- En el siguiente [enlace](https://drive.google.com/file/d/10H7eio0KTvqzdyWpFfcVcaIiEjtkQsDQ/view?usp=sharing) se puede descargar una **guía rápida de ggplot2** que muestra todas las posibilidades ofrecidas.
 
 ]
 ---
@@ -416,8 +416,8 @@ paises %>%
 ### Algunos ejemplos con la tabla paises
 
 ```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
-paises %>% 
-  filter(continente == "Oceanía") %>% 
+paises |> 
+  filter(continente == "Oceanía") |> 
   ggplot(aes(x = pais, y = esperanza_de_vida, fill = pais)) + 
   geom_boxplot() +
   scale_fill_brewer(palette = "Set2")
@@ -428,8 +428,8 @@ paises %>%
 ### Algunos ejemplos con la tabla paises
 
 ```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
-paises %>% 
-  filter(continente == "Europa") %>% 
+paises |> 
+  filter(continente == "Europa") |> 
   ggplot(aes(x = pib_per_capita)) + 
   geom_histogram(fill = "olivedrab", color = " white", bins = 10) 
 ```
@@ -439,8 +439,8 @@ paises %>%
 ### Algunos ejemplos con la tabla paises
 
 ```{r, echo=FALSE, warning=F, message=F, fig.align='center', fig.retina=4}
-paises %>% 
-  filter(pais == "Afganistán") %>% 
+paises |> 
+  filter(pais == "Afganistán") |> 
   ggplot(aes(x = anio, y = poblacion)) + 
   geom_bar(stat = "identity", fill = "maroon", width = 2) 
 ```
@@ -453,10 +453,10 @@ paises %>%
 
 .code[ 
 ```{r, eval=FALSE, message=F, warning=FALSE}
-paises %>% 
+paises |> 
   filter(anio == 2007, 
          continente %in% c("África", 
-                           "Europa")) %>% 
+                           "Europa")) |> 
   ggplot(aes(x = pib_per_capita,   #<<
              y = esperanza_de_vida, #<<
              color = continente)) + #<<
@@ -468,10 +468,10 @@ paises %>%
 
 .plot[ 
 ```{r, echo=FALSE, fig.retina=3, message=F, warning=FALSE}
-paises %>% 
+paises |> 
   filter(anio == 2007, 
          continente %in% c("África", 
-                           "Europa")) %>% 
+                           "Europa")) |> 
   ggplot(aes(x = pib_per_capita,   #<<
              y = esperanza_de_vida, #<<
              color = continente)) + #<<
@@ -488,10 +488,10 @@ paises %>%
 
 .code[ 
 ```{r, eval=FALSE, message=F, warning=FALSE, fig.retina=3}
-paises %>% 
+paises |> 
   filter(anio == 2007, 
          continente %in% c("África", 
-                           "Europa")) %>% 
+                           "Europa")) |> 
   ggplot(aes(x = pib_per_capita,   
              y = esperanza_de_vida)) + 
   geom_point(aes(color = continente)) + #<<
@@ -501,10 +501,10 @@ paises %>%
 
 .plot[ 
 ```{r, echo=FALSE, message=F, warning=FALSE, fig.retina=3}
-paises %>% 
+paises |> 
   filter(anio == 2007, 
          continente %in% c("África", 
-                           "Europa")) %>% 
+                           "Europa")) |> 
   ggplot(aes(x = pib_per_capita,   
              y = esperanza_de_vida)) + 
   geom_point(aes(color = continente)) + #<<
@@ -520,8 +520,8 @@ paises %>%
 
 .code[ 
 ```{r, eval=FALSE, message=F, warning=FALSE, fig.retina=3}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita,   
              y = esperanza_de_vida)) + 
   geom_point(aes(color = continente)) + 
@@ -533,8 +533,8 @@ paises %>%
 
 .plot[ 
 ```{r, echo=FALSE, message=F, warning=FALSE, fig.retina=3}
-paises %>% 
-  filter(anio == 2007) %>% 
+paises |> 
+  filter(anio == 2007) |> 
   ggplot(aes(x = pib_per_capita,   
              y = esperanza_de_vida)) + 
   geom_point(aes(color = continente)) + 

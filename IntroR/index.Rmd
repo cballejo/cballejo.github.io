@@ -39,7 +39,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #### [Comunicar con R y RStudio](https://cballejo.github.io/Intro15)
 
-#### [SIG con R](https://cballejo.github.io/Intro12)
+#### Bonus Track: [SIG con R](https://cballejo.github.io/Intro12)
 
 
 ### Material bibliográfico
@@ -50,3 +50,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Descargas 
 
+#### [Material práctico](https://drive.google.com/file/d/10zPzS9RUldBpYZU82_r1Ms77YcHhWkMK/view?usp=sharing)
+
+#### [Material SIG con R]() - **Proximamente!!!**
