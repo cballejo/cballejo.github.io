@@ -39,6 +39,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 #### [Comunicar con R y RStudio](https://cballejo.github.io/Intro15)
 
+#### [Practico - Brote alimentario](https://cballejo.github.io/Intro17/)
+
 #### Bonus Track: [SIG con R](https://cballejo.github.io/Intro12)
 
 
