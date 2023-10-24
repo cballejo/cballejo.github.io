@@ -1,0 +1,274 @@
+---
+title: "Practico sobre un brote alimentario"
+output: html_document
+---
+
+## Introducción
+
+La tabla de datos con la que vamos a trabajar en este práctico está basada en la investigación de brote sucedida en la aldea de Lycoming, condado de Oswego, Nueva York en 1940. La base de datos es conocida en el mundo de los software de análisis epidemiológico desde hace muchos años y lleva el nombre de __*oswego*__.  (https://www.cdc.gov/eis/casestudies/xoswego.401-303.student.pdf)
+
+En este caso está adaptada con fines docentes dado que no nos interesa el análisis del brote en particular sino tener un grupo de variables para aplicar recursos del ecosistema *tidyverse*.
+
+Sobre la tabla de datos podemos decir que se trata del volcado de la recopilación de información sobre un brote de enfermedad gastrointestinal aguda ficticio sucedido en abril del 2018. 
+
+- Las observaciones responden a las 75 entrevistas de las 80 personas que asistieron a una cena. 
+- De estas 75 personas entrevistadas, 46 personas reportaron enfermedades gastrointestinales. 
+- La aparición de la enfermedad en todos los casos fue aguda, caracterizada principalmente por náuseas, vómitos, diarrea y dolor abdominal. Ninguna de las personas enfermas informó haber tenido una temperatura elevada
+- Todos los afectados se han recuperado dentro de las 24 a 30 horas.  
+- El encuentro comenzó aproximadamente a las 18 hs y continuó hasta las 23 hs. 
+- El horario aproximado de ingesta se recolectó solo para la mitad de las personas que tenían la enfermedad gastrointestinal.
+
+La tabla de datos tiene 19 variables y podemos descargar desde este [enlace](https://drive.google.com/file/d/1p7TUHQiUKW9ve9VkTkk7bDqN6L_FXiEs/view?usp=sharing) con el nombre de `datos.csv`.
+
+## Actividades
+
+Usted es parte del equipo de epidemiólogos que conducen la investigación de brote y deberá realizar las siguientes actividades con los datos almacenados en este archivo.
+
+IMPORTANTE: todas las actividades deben resolverse mediante código dentro de un script creado en un proyecto de RStudio donde haya descargado el archivo de datos.
+
+```{r, echo=F, warning=F, message=F}
+library(tidyverse)
+library(lubridate)
+```
+
+### Lectura de los datos
+
+
+1. Lea/importe el archivo `datos.csv` en un *dataframe/tibble* de nombre __datos__. Recuerde observar el archivo previamente con el fin de conocer su estructura, (por ejemplo: cuál es el caracter separador, etc) para completar los argumentos de lectura.
+
+```{r,echo=FALSE, message=F, warning=F}
+datos <-  read_csv2("datos.csv")
+```
+
+
+2. Asegúrese que los tipos de datos de cada variable fueron bien reconocidos. Para que tenga una idea estos deberían ser:
+
+```{r,echo=F}
+glimpse(datos)
+```
+
+
+### Formateo de variables
+
+Los primeros pasos generalmente estan vinculados con darle formato adecuado a las variables que utilizaremos en análisis posteriores. 
+
+3. En principio, tomaremos la variable __SEXO__ que fue leída como caracter (chr) y la convertiremos en tipo factor. Además, en otro paso, recodificaremos sus niveles para transformarla los valores __F__ en __*Femenino*__ y __M__ en __*Masculino*__.   
+
+Al solicitar sus niveles nos deberían de quedar así:
+
+```{r, echo=F}
+datos$SEXO <- factor(datos$SEXO)
+datos$SEXO <-  fct_recode(datos$SEXO,Femenino = "F", Masculino = "M")
+levels(datos$SEXO)
+```
+
+4. Continuamos con otra variable categórica que tiene cargado quienes enfermermaron y quienes no lo hicieron en este brote.
+
+A la variable __ENFERMO__, también la convertimos en tipo factor y dejamos las etiquetas que tiene pero le vamos a modificar el orden de los niveles, para que queden así:
+
+```{r, echo=F}
+datos$ENFERMO <- factor(datos$ENFERMO)
+datos$ENFERMO <-fct_relevel(datos$ENFERMO,"SI")
+cat("Categorías de ENFERMO: ",levels(datos$ENFERMO))
+```
+
+5. Otra variable a la que debemos corregir su tipo es __INICIO_SINTOMAS__ que contiene la fecha en que comenzaron los síntomas en los afectados por el brote alimentario.
+
+Si solicitamos su clase encontraremos que fue interpretada, cuando se leyó, como:
+
+```{r, echo=F}
+class(datos$INICIO_SINTOMAS)
+```
+
+Necesitamos que tenga formato fecha, con la estructura dmy (día,mes,año) y con nuestra zona horaria para que el tipo de dato sea *POSIX*.
+
+Para asegurarse de utilizar nuestra zona horaria puede incorporar como argumento `tz = Sys.timezone()`
+
+Finalizada la conversión deberíamos ver que la clase de __INICIO_SINTOMAS__ es:
+
+```{r, echo=F}
+datos$INICIO_SINTOMAS <- dmy(datos$INICIO_SINTOMAS, tz = Sys.timezone())
+class(datos$INICIO_SINTOMAS)
+```
+
+
+### Construcción de nuevas variables
+
+Una tarea habitual en los análisis es construir nuevas variables que surgen del procesamiento de las variables recolectadas. (Definimos que los nombres de estas nuevas variables serán en minúsculas para diferenciarlas de las variables recolectadas que se encuentran en mayúsculas.)
+
+6.- Comenzaremos con la variable __EDAD__ a la cual categorizaremos para construir una nueva variable llamada __gedad__.
+Las edades de los encuestados tienen un rango de:
+
+```{r}
+range(datos$EDAD)
+```
+
+Los intervalos del agrupamiento que deseamos constuir serán irregulares según el siguiente criterio:
+
+|Intervalo                  |  Etiqueta       |
+|---------------------------|-----------------|
+|EDAD > 12                  |  1.Niño         |
+|12 >= EDAD < 18            |  2.Adolescente  |
+|18 >= EDAD < 30            |  3.Adulto joven |
+|30 >= EDAD < 65            |  4.Adulto       |
+|EDAD >= 65                 |  5.Adulto mayor |
+
+
+7. Con la intención de calcular el tiempo de incubación promedio realizaremos una serie de pasos que comienza en la producción de un tibble nuevo a partir de la selección de los encuestados que poseen hora de cena (variable __HORA_COMIDA__) y hora de inicio de síntomas (**HORA_SINTOMAS**).
+
+En la introducción decíamos que "el horario aproximado de ingesta se recolectó solo para la mitad de las personas que tenían la enfermedad gastrointestinal" y esto causa que las variables tengan algunos valores "missing" ( __NA__ en lenguaje R).
+
+Entonces necesitamos generar un nuevo objeto tibble que denominaremos `datos_incu` con las observaciones que tengan dato completo en las variables __HORA_COMIDA__ y __HORA_SINTOMAS__.
+
+Además, en la misma expresión o en otra subsiguiente, vamos a crear dos nuevas variables (siempre dentro de `datos_incu`):
+
+- __inicio__: producto de la unión de la variable __INICIO_SINTOMAS__ y la variable __HORA_SINTOMAS__, para producir una variable con formato date-time (es decir, que contenga fecha y hora del inicio de los síntomas)
+- __comida__: producto de la unión de una fecha constante __"2018-04-18"__ (que es la fecha de la cena) con la variable __HORA_COMIDA__, para producir otra variable con formato date-time (es decir, que contenga la fecha (18/04/2018) y hora de la ingesta de cada asistente a la cena)
+
+La salida final debe ser de este tipo:
+```{r, echo=F}
+datos_incu <- datos %>% 
+                filter(!is.na(HORA_COMIDA) & !is.na(HORA_SINTOMAS)) %>% 
+                mutate(inicio = as_datetime(paste0(INICIO_SINTOMAS,"-",HORA_SINTOMAS)),
+                  comida = as_datetime(paste0("2018-04-18","-",HORA_COMIDA)))
+```
+
+```{r}
+head(datos_incu[20:21])
+```
+
+Es decir, un tibble de 22 observaciones con las 19 variables originales más las dos nuevas que se muestran en la salida anterior.
+
+8. En este punto calcularemos los tiempos de incubación para cada observación de la tabla `datos_incu`.
+
+Aprovechando la potencialidad del paquete `lubridate`, este cálculo lo vamos a realizar con tres unidades diferentes y por lo tanto generaremos tres nuevas variables:
+
+- __tiempo__: intervalo entre las variables __comida__ e __inicio__ expresado como período
+- __duracion__: el mismo intervalo anterior expresado como duración
+- __incubacion__: la longitud exacta del lapso de tiempo transcurrido entre la ingesta y el inicio de los síntomas. Esta variable surge de aplicar la función time_length() y definiendo como unidad la hora (argumento unit="hour").
+
+La salida final debe ser de este tipo:
+
+```{r,echo=F}
+datos_incu <- datos_incu %>% 
+                mutate(tiempo = as.period(interval(comida,inicio)),
+                       duracion = as.duration(tiempo),
+                       incubacion = time_length(duracion, unit = "hour"))
+```
+
+```{r}
+head(datos_incu[22:24])
+```
+
+### Análisis descriptivo 
+
+A partir de las variables recolectadas y generadas en las dos tablas de datos, en este bloque, iremos respondiendo algunas preguntas que describan el brote. 
+
+
+9. Construiremos un histograma de la variable EDAD para conocer su distribución. A fin de definir los intervalos de clase a utilizar puede asignar la función __nclass.Sturges()__ al argumento __*bindwidth*__ de `ggplot2`. También puede usar cualquiera de las otras dos reglas ofrecidas por la función (Scott y FD).
+
+El resultado debería ser similar a este:
+
+```{r,echo=FALSE,out.width="60%", fig.align="center"}
+ggplot(datos, aes(EDAD)) + 
+  geom_histogram(fill = "steelblue", 
+                 binwidth = nclass.Sturges(datos$EDAD), 
+                 colour = "white")  + 
+  labs(x = "Años", y = "Frecuencia", title = "Histograma de EDAD",
+       subtitle = "(intervalos según Sturges)", caption = "n=75")
+```
+
+
+10. Trabajando sobre las 22 observaciones de `datos_incu`, queremos saber: 
+
+- en qué semana epidemiológica sucedió el primer caso? (tomar la fecha de inicio de sintomas)
+- cuál es el tiempo medio de incubación? (calcular la mediana)
+- cuál es el rango intercuartílico del tiempo de incubación?
+
+Los resultados serían:
+
+```{r, echo=F}
+cat("Semana epidemiológica  ", epiweek(datos_incu$INICIO_SINTOMAS) %>% min())
+```
+```{r, echo=F}
+cat("Mediana de tiempo de incubación  ", median(datos_incu$incubacion),
+    " horas")
+```
+
+```{r,echo=F}
+cat("Rango intercuartílico de tiempo de incubación  ",round(IQR(datos_incu$incubacion),1), " horas")
+```
+
+11. A continuación construiremos un boxplot del tiempo de incubación (de las 22 observaciones de `datos_incu`), similar al siguiente:
+
+```{r,echo=F,out.width="60%", fig.align="center"}
+ggplot(datos_incu,aes(x="", incubacion)) + 
+       geom_boxplot(fill="moccasin",width=0.5) +
+  labs(x = "Tiempo de Incubación", y = "Horas", title = "Boxplot de tiempo de incubación", caption = "n=22")
+```
+
+12. En este punto deseamos calcular la frecuencia de consumo de alimentos para todas las personas (tabla `datos`) por cada alimento y con esa información mostrar en una tabla la lista de alimentos consumidos ordenados de los más consumidos a los menos (orden decreciente).
+
+El resultado podría ser:
+
+```{r, echo=F}
+datos %>%
+  pivot_longer(cols = 8:19, names_to = "alimento", values_to = "valor") %>%
+  count(alimento, valor) %>%
+  group_by(alimento) %>%
+  mutate(prop = round(prop.table(n)*100,2)) %>%
+  filter(valor == "SI") %>%
+  select(-valor) %>%
+  arrange(desc(prop))
+```
+
+Notese que el porcentaje calculado para cada alimento refiere al total de asistentes a la cena (por ejemplo: encabeza el listado el 72 % de los asistentes consumieron helado de vainilla). No confundir con porcentaje entre categorías (alimentos) de la lista.
+
+13. Finalmente, calcularemos las tasas de ataque para los que comieron y no comieron cada alimento y la diferencia entre ellas, que nos permite observar cual podría ser el alimento involucrado en el brote.
+
+La tabla ordenada en orden decreciente es similar a esta:
+
+```{r, echo=F}
+datos %>%
+  pivot_longer(cols = 8:19, names_to = "alimento", values_to = "valor") %>%
+  group_by(alimento) %>% 
+  summarise(Tasa_C = round(100*sum(ENFERMO=="SI" & valor=="SI")/sum(valor=="SI"),2),
+            Tasa_NC = round(100*sum(ENFERMO=="SI" & valor == "NO")/sum(valor=="NO"),2),
+            Dif_C.NC = Tasa_C - Tasa_NC) %>% 
+  arrange(desc(Dif_C.NC))
+```
+
+El helado de vainilla aparece como principal sospechoso del brote con una diferencia de 65,3 entre las tasas de ataque.
+
+### Extra
+
+Como elemento extra interesante para los estudios de brote incorporamos el código para la producción de una curva epidémica donde hacemos uso de la integración de algunas funciones vistas y a la vez profundizamos el nivel de complejidad (lo discutimos en clase).
+
+```{r, message=F, warning=F}
+library(scales)
+
+datos |> 
+  filter(ENFERMO == "SI" & !is.na(INICIO_SINTOMAS) & !is.na(HORA_SINTOMAS)) |> 
+  mutate(inicio = as_datetime(paste0(INICIO_SINTOMAS,"-",
+                                                   HORA_SINTOMAS))) |> 
+  group_by(inicio) |> 
+  summarise(casos = sum(n())) |> 
+  ggplot(aes(inicio,casos)) +
+  geom_bar(stat = "identity", fill="olivedrab", color="white") +
+  scale_y_continuous(limits = c(0,12),
+                     breaks = seq(0,12,1)) +
+  scale_x_datetime(breaks = date_breaks("15 min"),
+                   labels = time_format("%b %d - %H:%M"),
+                   limits = c(ymd_hms("2018-04-18 20:45:00"), 
+                             ymd_hms("2018-04-19 02:45:00"))) +
+  geom_hline(yintercept = seq(1, 10, by = 1), 
+           colour = "white", size = 0.3) +
+  geom_text(aes(label = casos), nudge_y = 0.5, color = "black") +
+  labs(x = "Inicio de síntomas", y = "Nro. de Casos", 
+       title = "Curva epidémica", caption = "n=46") + 
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), 
+      panel.grid.minor = element_blank()) + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
