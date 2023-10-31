@@ -359,9 +359,9 @@ adolescentes</h1>
 <p>En el año 2016, en el marco del <strong>Programa Municipal de Salud
 Integral del Adolescente</strong>, se llevó a cabo un estudio en algunas
 de las escuelas públicas de Mar del Plata.</p>
-<p>1252 estudiantes de la ciudad completaron una encuesta
-auto-administradas con una serie de preguntas que dieron lugar a 140
-variables.</p>
+<p>1252 estudiantes de 2do y 4to año de la ciudad completaron una
+encuesta auto-administradas con una serie de preguntas que dieron lugar
+a 140 variables.</p>
 <p>El recorrido de los bloques de preguntas incluyeron: Tu familia y
 entorno, tu tiempo, tu salud, tus hábitos y acerca de vos.</p>
 <p>La tabla de datos la pueden descargar <a href="https://drive.google.com/file/d/1qxYdFKR6jktPjjpzZz9_7f7EN8uiW-Sd/view?usp=drive_link">aquí</a>
@@ -377,44 +377,48 @@ dentro de un script creado en un proyecto de RStudio donde haya
 descargado el archivo de datos.</p>
 <ol style="list-style-type: decimal">
 <li><p>Construya un proyecto de RStudio en torno a una carpeta que
-llamará TP Adolescencia donde va a incluir el archivo <em>datos.csv</em>
-descargado.</p></li>
-<li><p>Lea el archivo <strong>datos.csv</strong>.</p></li>
+llamará <strong>TP Adolescencia</strong> donde va a incluir el archivo
+<em>datos.csv</em> descargado.</p></li>
+<li><p>Lea correctamente el archivo <strong>datos.csv</strong>.</p></li>
 <li><p>Explore su estructura.</p></li>
 <li><p>Transforme la variable <em>F1_FNac</em> a formato fecha
 (date).</p></li>
 <li><p>Resuma la variable <em>F2_Edad</em> con medidas de tendencia
 central y dispersión según Anio.</p></li>
-<li><p>Resuma la variable F3_Sexo mediante una tabla de frecuencia
-relativa según Anio.</p></li>
+<li><p>Resuma la variable <em>F3_Sexo</em> mediante una tabla de
+frecuencia relativa según <em>Anio</em>.</p></li>
 <li><p>Realice un gráfico que describa la información sobre los
 convivientes de los adolescentes, cuantificando la frecuencia de las
 categorías (ordenado de mayor a menor). Tenga en cuenta que las
-variables que comienzan con F4_ son categorías de una variable
+variables que comienzan con <em>F4_</em> son categorías de una variable
 conceptual <em>Conviviente</em>, que primero deberá pivotear
 correctamente.</p></li>
-<li><p>Almacene todas las variable del bloque TUS HABITOS en otro
-dataframe llamado <strong>habitos</strong>.</p></li>
-<li><p>Revise la calidad de la variable H1_Alcohol de este dataframe, en
-cuanto a sus valores perdidos. Que porcentaje de sus observaciones son
-<strong>NA</strong>?</p></li>
+<li><p>Almacene todas las variable del bloque <em>TUS HABITOS</em> en
+otro dataframe llamado <strong>habitos</strong>.</p></li>
+<li><p>Revise la calidad de la variable <em>H1_Alcohol</em> de este
+dataframe, en cuanto a sus valores perdidos. Que porcentaje de sus
+observaciones son <strong>NA</strong>?</p></li>
 <li><p>Cuál es la frecuencia de los adolescentes que toman bebidas
-alcohólicas? (variable H1_Alcohol - 0 es Sí y 1 es No.). Calcule lo
-mismo estratificado por sexo y por año (2do. y 4to.).</p></li>
+alcohólicas? (variable <em>H1_Alcohol</em> - 0 es Sí y 1 es No.).
+Calcule lo mismo estratificado por sexo y por año (2do. y
+4to.).</p></li>
 <li><p>Cuál es el anticonceptivo mas conocido por los adolescentes según
-sexo? (variables S4_ - tipo lógicas donde TRUE es Sí y FALSE es No).
-Aquí deberán hacer también un pivoteo que ordene los datos de ancho a
-largo.</p></li>
+sexo? (variables <em>S4_</em> - tipo lógicas donde TRUE es Sí y FALSE es
+No). Aquí deberán hacer también un pivoteo que ordene los datos de ancho
+a largo.</p></li>
 <li><p>Realice un gráfico de boxplot sobre la edad en que tuvieron
-relaciones sexuales la 1era vez (variable S3_Edad) según sexo.</p></li>
+relaciones sexuales la 1era vez (variable <em>S3_Edad</em>) según
+sexo.</p></li>
 <li><p>Cuantos adolescentes concurren a una iglesia o templo? -
-(variable T7_Iglesia donde 0 es Sí y 1 es No)</p></li>
+(variable <em>T7_Iglesia</em> donde 0 es Sí y 1 es No)</p></li>
 <li><p>Cómo se distribuye el porcentaje en las diferentes religiones de
 los que concurren a una iglesia o templo. (variable
-T7_Religion)</p></li>
+<em>T7_Religion</em>). Para su mejor visualización, construya un gráfico
+de barras para esta variable donde las barras se ordenen de mayor a
+menor frecuencia.</p></li>
 <li><p>A que hora se acuestan habitualmente. Cambia en función del año
 al que asisten? Y según el turno escolar? (variable
-H5_HoraDormir)</p></li>
+<em>H5_HoraDormir</em>)</p></li>
 </ol>
 </div>
 
