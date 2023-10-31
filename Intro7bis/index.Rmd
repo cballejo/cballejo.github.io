@@ -1,0 +1,130 @@
+---
+title: "Practica integradora DM - parte 2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+En este practico vamos a seguir trabajando con la tabla de datos anterior (DM.xlsx). 
+
+Podemos continuar dentro del mismo script de trabajo o bien crear una segunda parte dividida en otro script **.R**
+
+Las variables creadas en la primera parte como IMC, Clasificacion, HTA y Tol_Glucosa van a ser utilizadas en este ejercicio, por lo que la idea es tenerlas guardadas en el dataframe.
+
+A continuación, responda las siguientes consignas construyendo y ejecutando el código dentro del script. 
+
+Utilice comentarios (iniciados con #) cuando deba responder preguntas tipo texto o si desea realizar cualquier aclaración.
+
+```{r, echo = F, warning=F, message=F}
+library(tidyverse)
+library(readxl)
+
+datos <- read_excel("DM.xlsx")
+
+datos <- datos  |>  mutate(IMC = PESO/(TALLA/100)^2, 
+  Clasificacion = case_when(
+  IMC < 18.5 ~ "1.Bajo peso",
+  IMC >= 18.5 & IMC < 25 ~ "2.Peso normal",
+  IMC >= 25 & IMC < 30 ~ "3.Sobrepeso",
+  IMC >= 30 ~ "4.Obesidad"
+))
+
+datos <- datos |> 
+  mutate(HTA = if_else(TAS >= 140 | TAD >= 90,"Si", "No"))
+
+datos <- datos |> 
+  mutate(Tol_Glucosa = case_when(
+    A1C < 5.7 ~ "Normal",
+    A1C >= 5.7 & A1C < 6.5  ~ "IGT",
+    A1C >= 6.5 ~ "DM"))
+
+diabetes <- datos |> 
+  filter(Tol_Glucosa == "DM") |> 
+  select(ID, EDAD, SEXO, Clasificacion, HTA, A_DIAB) |> 
+  arrange(ID)
+
+```
+
+1. Calcule la mediana de la edad de los participantes y utilicela para construir una nueva variable llamada **grupo_edad1** que divida la muestra en dos (menores a la edad mediana y mayores o iguales a la edad mediana). Guardela dentro del dataframe de trabajo.
+
+```{r, echo = F}
+
+datos <- datos |> 
+  mutate(grupo_edad1 = if_else(EDAD < 46, "1.Menor a 46", "2.Mayor o igual a 46"))
+
+```
+
+2. Genere y almacene dentro de dataframe una nueva variable denominada **grupo_edad2** a partir de la **EDAD** según el siguiente cuadro:
+
+|      EDAD      | grupo_edad2       |
+|:--------------:|:-----------------:|
+| < 25           | 1.Hasta 24 años   |
+| >= 25 y <= 39  | 2.de 25 a 39 años |
+| >= 40 y <= 49  | 3.de 40 a 49 años |
+| >= 50 y <= 64  | 4.de 50 a 64 años |
+| >= 65          | 5.65 y mas años   |
+
+```{r, echo = F}
+datos <- datos |> 
+  mutate(grupo_edad2 = case_when(
+    between(EDAD, 0, 24) ~ "1.Hasta 24 años",
+    between(EDAD, 25, 39) ~ "2.de 25 a 39 años",
+    between(EDAD, 40, 49) ~ "3.de 40 a 49 años",
+    between(EDAD, 50, 64) ~ "4.de 50 a 64 años",
+    between(EDAD, 65, Inf) ~ "5.65 y mas años"
+  ))
+```
+
+
+3. Construya un gráfico para observar la correlación de valores de cintura en centímetros (variable CINTURA) y el índice de masa corporal (IMC). Que gráfico se le ocurre que podría mostrar esta relación? Se observa relación? De qué forma?
+
+```{r, echo = F, eval = F}
+datos |> 
+  ggplot(aes(x = CINTURA, y = IMC)) +
+  geom_point() +
+  geom_smooth(method = "lm") 
+```
+
+4. Que otro gráfico podría utilizar para mostrar esta misma relación, pero utilizando la variable **clasificacion** que categoriza ordinalmente la variable IMC? (esta variable fue construida en la primera parte del ejercicio)
+
+```{r, echo = F, eval = F}
+datos |> 
+  filter(!is.na(Clasificacion), !is.na(CINTURA)) |> 
+  ggplot(aes(x = Clasificacion, y = CINTURA, fill = Clasificacion)) +
+  geom_boxplot() 
+```
+
+
+5. Resuma las categorías de la **variable Tol_Glucosa** mediante una tabla de frecuencias porcentual según condición de sedentarismo (**variable SEDENTARIO**). Fuerce el orden para que aparezca de la siguiente forma, acompañada de su frecuencia porcentual, tomando en cuenta como total a las observaciones según sedentarismo (porcentaje de categorías sobre total del grupo Si y porcentaje de categorías sobre total del grupo No):
+
+```{r, echo = F, eval = F}
+datos |> 
+  mutate(SEDENTARIO = fct_relevel(SEDENTARIO, "Si", "No"),
+         Tol_Glucosa = fct_relevel(Tol_Glucosa, "Normal", "IGT", "DM")) |> 
+  count(SEDENTARIO, Tol_Glucosa) |> select(-n)
+```
+
+
+6. Construya un **histograma** de la **variable HDL** con un ancho de barra de 10 unidades, facetado por la **variable grupo_edad1**.
+
+```{r, echo = F, eval = F}
+datos |> 
+  ggplot(aes(x = HDL)) +
+  geom_histogram(binwidth = 10) +
+  facet_wrap(~grupo_edad1, nrow = 2)
+```
+
+7. Construya un gráfico de barras de la variable grupo_edad2 relacionado al consumo de alcohol (variable ALCOHOL) donde podamos visualizar la distribución absoluta. El producto final debería verse así:
+
+```{r, echo=F}
+datos |> 
+  ggplot(aes(x = ALCOHOL, fill = grupo_edad2)) +
+  geom_bar(position = "dodge") +
+  ylab("Frecuencia") +
+  scale_fill_brewer(palette = "Dark2", name = "Grupo etario") +
+  theme(legend.position = "bottom")
+```
+
