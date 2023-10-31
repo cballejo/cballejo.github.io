@@ -1,0 +1,59 @@
+---
+title: "Practico sobre Encuesta de adolescentes"
+output: html_document
+---
+
+## Introducción
+
+En el año 2016, en el marco del **Programa Municipal de Salud Integral del Adolescente**, se llevó a cabo un estudio en algunas de las escuelas públicas de Mar del Plata.
+
+1252 estudiantes de la ciudad completaron una encuesta auto-administradas con una serie de preguntas que dieron lugar a 140 variables.
+
+El recorrido de los bloques de preguntas incluyeron: Tu familia y entorno, tu tiempo, tu salud, tus hábitos y acerca de vos.
+
+La tabla de datos la pueden descargar [aquí](https://drive.google.com/file/d/1qxYdFKR6jktPjjpzZz9_7f7EN8uiW-Sd/view?usp=drive_link) y la encuesta en pdf [aquí](https://drive.google.com/file/d/1t3JmKOZyp1Cpu4BqWCs1EZMIdUIYm1wg/view?usp=drive_link).
+
+
+
+```{r, echo=F, message=F, warning=F}
+library(tidyverse)
+datos <- read_csv("datos.csv")
+```
+
+
+## Actividades
+
+Usted es parte del equipo de epidemiólogos del área de salud integral del adolescente de la municipalidad de Gral. Pueyrredón y le solicitan realizar los siguientes items en lenguaje R.
+
+IMPORTANTE: todas las actividades deben resolverse mediante código dentro de un script creado en un proyecto de RStudio donde haya descargado el archivo de datos.
+
+1. Construya un proyecto de RStudio en torno a una carpeta que llamará TP Adolescencia donde va a incluir el archivo *datos.csv* descargado.
+
+2. Lea el archivo **datos.csv**.
+
+3. Explore su estructura.
+
+4. Transforme la variable *F1_FNac* a formato fecha (date).
+
+5. Resuma la variable *F2_Edad* con medidas de tendencia central y dispersión según Anio.
+
+6. Resuma la variable F3_Sexo mediante una tabla de frecuencia relativa según Anio.
+
+7. Realice un gráfico que describa la información sobre los convivientes de los adolescentes, cuantificando la frecuencia de las categorías (ordenado de mayor a menor). Tenga en cuenta que las variables que comienzan con F4_ son categorías de una variable conceptual *Conviviente*, que primero deberá pivotear correctamente.  
+
+8. Almacene todas las variable del bloque TUS HABITOS en otro dataframe llamado **habitos**.
+
+9. Revise la calidad de la variable H1_Alcohol de este dataframe, en cuanto a sus valores perdidos. Que porcentaje de sus observaciones son **NA**?
+
+10. Cuál es la frecuencia de los adolescentes que toman bebidas alcohólicas? (variable H1_Alcohol - 0 es Sí y 1 es No.). Calcule lo mismo estratificado por sexo y por año (2do. y 4to.).
+
+11. Cuál es el anticonceptivo mas conocido por los adolescentes según sexo? (variables S4_ - tipo lógicas donde TRUE es Sí y FALSE es No). Aquí deberán hacer también un pivoteo que ordene los datos de ancho a largo.
+
+12. Realice un gráfico de boxplot sobre la edad en que tuvieron relaciones sexuales la 1era vez (variable S3_Edad) según sexo.
+
+13. Cuantos adolescentes concurren a una iglesia o templo? - (variable T7_Iglesia donde 0 es Sí y 1 es No)
+
+14. Cómo se distribuye el porcentaje en las diferentes religiones de los que concurren a una iglesia o templo. (variable T7_Religion)
+
+15. A que hora se acuestan habitualmente. Cambia en función del año al que asisten? Y según el turno escolar? (variable H5_HoraDormir)
+
