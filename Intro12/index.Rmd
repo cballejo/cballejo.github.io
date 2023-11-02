@@ -107,7 +107,7 @@ background-position: 80% 40%
 
 **LONGITUD**, ángulo entre el meridiano de referencia y el meridiano que pasa por un punto.
 
-**MERIDIANO DE REFERENCIA**, meridiano que pasa por el *Real Observatorio de Greenwich* al sureste de Londres, Inglaterra.
+**MERIDIANO DE REFERENCIA**, meridiano que pasa por el *Real Observatorio de Greenwich* al sureste de Londres, Inglaterra (hoy UTM).
 
 ]]
 ---
@@ -130,32 +130,33 @@ background-position: 80% 90%
 ## Clases espaciales en R
 
 .font140[
-**rgdal** es la interface con libreria GDAL para datos espaciales .
+**rgdal** era la interface (se retirará durante 2023) de la librería GDAL para datos espaciales que soportaba muchos de los paquetes iniciales de mapas
 **Geospatial Data Abstraction Library** (también conocida como **GDAL/OGR**) es una biblioteca de software para la lectura y escritura de formatos de datos geoespaciales, publicada bajo la *MIT License* por la fundación geoespacial de código abierto (*Open Source Geospatial Foundation*).
 ]
 .pull-left[.font130[
-- **sp**: clase espacial para los dos modelos, mejor para vectoriales
+- **sp**: clase espacial para los dos modelos, mejor para vectoriales (vieja)
 
-- **sf**: clase espacial para vectoriales
+- **sf**: nueva clase espacial para vectoriales
 
-- **raster**: clase espacial para raster
+- **raster**: clase espacial para raster (vieja)
 ]
 ]
 
 ---
-background-image: url(assets/archivos.PNG)
-background-size: 700px
-background-position: 50% 60%
-
-
-## Archivos de datos espaciales
+## Evolución de las clases espaciales
 
 .font140[
-Entre los 73 formatos aceptados por las librerías rgdal podemos resaltar:
+En 2022 se inició un proyecto de retiro de algunos paquetes como **rgdal**, **rgeos** y **maptools** con fecha límite final de 2023.
+
+Esto se debe a que *Roger Bivand*, el mantenedor de estas librerías se ha retirado y existen nuevos paquetes modernos que se han independizado.
+
+Por lo tanto, la vinculación con *GDAL* la realizaremos con paquetes modernos como **sf** (2016) y **terra** (2020).
+
+Los paquetes que tienen dependencia en rgdal para su funcionamiento como **sp** fueron migrados a depender de *sf* y otros como **raster** fueron reemplazados por *terra*.
 ]
 
----
 
+---
 ## Paquete sf
 
 .font130[
