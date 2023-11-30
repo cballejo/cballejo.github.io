@@ -3,7 +3,7 @@ title: "Visualización de datos"
 subtitle: ""  
 author: 
   - "Christian Ballejo"
-date: '23 de noviembre de 2022'
+date: '1 de diciembre de 2023'
 output:
   xaringan::moon_reader:
     includes:
