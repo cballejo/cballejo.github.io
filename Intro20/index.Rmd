@@ -39,7 +39,7 @@ realizar los siguientes items en lenguaje R.
 
 1.  Descargue la carpeta RITA con la estructura de carpetas y archivos
     de datos que la integran. La carpeta está en un archivo que deberá
-    descomprimir (rita.zip).
+    descomprimir [rita.zip](https://drive.google.com/file/d/10WVwnr9RVqcb2Mfn06-IdcivP3DEfwNB/view?usp=sharing).
 
 2.  Construya un proyecto de RStudio en torno a la carpeta descargada.
 
@@ -72,20 +72,20 @@ Se le coloca el valor 0 si el dato es *NA*;
 y 9 si el dato es "01/06/1900" o "15/06/1900".
 
 9.  Convierta adecuadamente los formatos de las variables donde hay
-    fechas a **date** y las variables que terminan en N (menos FECON que
+    fechas a **date** y las variables que terminan en N (menos **FECON** que
     es fecha) a factor.
 
-10. Convierta la variable PTESX a factor especificando en el argumento
+10. Convierta la variable **PTESX** a factor especificando en el argumento
     labels que 1 = "Varón" y 2 = "Mujer".
 
-11. Cree una nueva variable llamada año extrayendo el año de la fecha de
-    registro (FEREG).
+11. Cree una nueva variable llamada **año** extrayendo el año de la fecha de
+    registro (**FEREG**).
 
-12. Construya la variable edad (número de años enteros) a partir del
-    cálculo, utilizando la fecha de nacimiento (FENAC) y la fecha de
-    registro (FEREG).
+12. Construya la variable **edad** (número de años enteros) a partir del
+    cálculo, utilizando la fecha de nacimiento (**FENAC**) y la fecha de
+    registro (**FEREG**).
 
-13. Construya la variable **grupo_etario** a partir de la variable edad
+13. Construya la variable **grupo_etario** a partir de la variable **edad**
     con los siguientes intervalos:
 
     | Intervalo         | Etiqueta |
@@ -103,7 +103,7 @@ y 9 si el dato es "01/06/1900" o "15/06/1900".
 15. Cree una variable llamada **demora** medida en días (valor que
     incluya decimales) producto del tiempo transcurrido entre la fecha
     de inicio de los síntomas y la fecha de 1era. Consulta. Para esta
-    operación excluya las observaciones que en FEINI_C o en FECON_C
+    operación excluya las observaciones que en **FEINI_C** o en **FECON_C**
     tengan valores 0, 8 o 9.
 
 16. Almacene la tabla con los cambios anteriores en un archivo bajo el
@@ -125,7 +125,7 @@ y 9 si el dato es "01/06/1900" o "15/06/1900".
 
 19. Construya un gráfico de líneas donde se observe la tendencia de la
     frecuencia absoluta de pacientes registrados en RITA por año (entre
-    2018 y 2023). Antes asegúrese que el id del paciente (IDPTE) sea
+    2018 y 2023). Antes asegúrese que el id del paciente (**IDPTE**) sea
     único en la tabla de datos. Coloque nombres de ejes, título y todo
     aquello que le parezca pertinente modificar y/o agregar.
 
@@ -152,8 +152,8 @@ rita |>
 ```
 
 21. Construya un gráfico de barras para visualizar las frecuencias
-    porcentuales entre las categorías de la variable grupo_etario
-    facetado según sexo de los registros totales del año 2022. Coloque
+    porcentuales entre las categorías de la variable **grupo_etario**
+    facetado según **sexo** de los registros totales del año 2022. Coloque
     nombres de ejes, título y todo aquello que le parezca pertinente
     modificar y/o agregar. Almacénelo en un objeto de nombre
     **grafico_1**.
