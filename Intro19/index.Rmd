@@ -71,7 +71,7 @@ La etapa diagnóstica comprende:
 - las categorías de las variables cualitativas
 - los mínimos y máximos de valores de cada variable cuantitativa
 
-Hay múltiples funciones que se pueden utilizar para cubrir esta etapa. En el curso vamos a mostrar algunas pertenecientes a paquetes especialmente diseñados para la tarea.
+Hay múltiples funciones que se pueden utilizar para cubrir esta etapa y también existen paquetes especiales que se crearon para este fin.
 
 Este diagnóstico es el punto de partida de la depuración de datos, previa a cualquier análisis.
 
@@ -335,4 +335,4 @@ rita |>
  freq_table(PTEDU)
 ```
 
----
+
