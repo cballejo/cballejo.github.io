@@ -271,7 +271,7 @@ across(.blue[ .cols],  .orange[ .fns],  .purple[ ...],  .green[ .names])
 # Ejemplo 
 
 .font140[
-Utilizamos `across()` para transformar el tipo de datos de POSIX a Date en las fechas de la tabla HPV en solo paso.
+Utilizamos `across()` para transformar el tipo de datos de character a Date en las fechas (variables que comienzan con "FE") de la tabla rita en solo paso.
 
 ]
 
