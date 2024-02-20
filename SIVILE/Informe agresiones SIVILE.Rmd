@@ -1,0 +1,221 @@
+---
+title: "Informe agresiones SIVILE"
+author: "Christian Ballejo"
+date: "2024-02-19"
+output: html_document
+---
+
+**Fuente de datos:** Base SIVILE descargada el 16 de diciembre de 2023 desde botón de exportación de SISA (archivo csv)
+
+*Filtro aplicado:* 
+
+**Intencionalidad:** Intencional interpersonal
+
+**Relación victima / agresor:** Amigos / conocidos, Persona desconocida, Otros, Ns/Nc
+
+**Contacto en el que se produjo la agresión:** Riñas o peleas (no familiar), Otro, Ns/Nc
+
+
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+options(scipen = 999, digits = 20)
+
+library(tidyverse)
+library(flextable)
+library(patchwork)
+library(treemap)
+library(highcharter)
+
+agresion <- read_csv2("agresiones.csv")
+
+establecimientos <- agresion |>
+  count(establecimiento_nombre, sort = T) |> 
+  slice(1:10) |> pull(establecimiento_nombre)
+
+```
+
+
+
+```{r, echo=FALSE}
+
+
+agresion |>  filter(establecimiento_nombre %in% establecimientos) |> 
+  count(anio, provincia_nombre) |> 
+  ggplot(aes(x = anio, y = n, color = provincia_nombre, group = provincia_nombre)) +
+  geom_line(linewidth = 1) +
+   scale_color_brewer(palette = "Set3", name = "Provincia") +
+  scale_x_continuous(name = "año", breaks = seq(2000, 2023, by = 1)) + 
+  scale_y_continuous(name = "frecuencia", breaks = seq(0, 800, by = 100)) +
+  theme(legend.position = "bottom") +
+  labs(title = "Tendencia de casos registrados por provincia", 
+       subtitle = "10 establecimientos con mayor cantidad de registros")
+```
+
+```{r, echo=FALSE}
+
+agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> 
+  rstatix::freq_table(SEXO, grupo_etario) |> 
+  ggplot(aes(x = SEXO, y = n, fill = grupo_etario)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_brewer(palette = "Set3", name = "Grupo Etario") +
+  xlab("Relación") + 
+  scale_y_continuous(name = "frecuencia", breaks = seq(0, 800, by = 50)) +
+  theme(legend.position = "bottom") + 
+  labs(title = paste("Victimas de agresiones según sexo y grupo etario (años 2022-2023) - n =", agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> nrow()))
+```
+
+```{r, echo=FALSE}
+
+agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> 
+  rstatix::freq_table(SEXO, CL15_desc) |> 
+  mutate(CL15_desc = fct_reorder(.f = CL15_desc, .x = n, .desc = T)) |> 
+  ggplot(aes(x = CL15_desc, y = n, fill = CL15_desc, label = paste(round(prop, 1),"%"))) +
+  geom_bar(stat = "identity") +
+  geom_text(position = position_stack(vjust = 0.5), color = "white") + 
+  scale_fill_brewer(palette = "Set1") +
+  xlab("Relación") + 
+  scale_y_continuous(name = "frecuencia", breaks = seq(0, 450, by = 25)) +
+  theme(legend.position = "none") + 
+  facet_wrap(facets = ~ SEXO) +
+  labs(title = paste("Relación con la victima según sexo (años 2022-2023) - n =", agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> nrow()))
+```
+```{r, echo=FALSE}
+
+agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> 
+  rstatix::freq_table(SEXO, CL17_desc) |> 
+  mutate(CL17_desc = fct_reorder(.f = CL17_desc, .x = n, .desc = T)) |> 
+  ggplot(aes(x = CL17_desc, y = n, fill = CL17_desc, label = paste(round(prop, 1),"%"))) +
+  geom_bar(stat = "identity") +
+  geom_text(position = position_stack(vjust = 0.5), color = "white") + 
+  scale_fill_brewer(palette = "Set1") +
+  xlab("Contexto") + 
+  scale_y_continuous(name = "frecuencia", breaks = seq(0, 450, by = 25)) +
+  theme(legend.position = "none") + 
+  facet_wrap(facets = ~ SEXO) +
+  labs(title = paste("Contexto de la agresión según sexo (años 2022-2023) - n =", agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> nrow()))
+```
+```{r, echo=FALSE}
+
+agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> 
+  rstatix::freq_table(agresor_victima) |> 
+  mutate(agresor_victima = fct_reorder(.f = agresor_victima, .x = n, .desc = T)) |> 
+  ggplot(aes(x = agresor_victima, y = n, fill = agresor_victima, label = paste(round(prop, 1),"%"))) +
+  geom_bar(stat = "identity") +
+  geom_text(hjust = -0.2) + 
+  coord_flip() +
+  scale_fill_brewer(palette = "Set2") +
+  xlab("Sexo agresor - victima") + 
+  scale_y_continuous(name = "frecuencia", limits = c(0,450), breaks = seq(0, 450, by = 25)) +
+  theme(legend.position = "none") + 
+  labs(title = paste("Relación agresor - victima según sexo (años 2022-2023) - n =", agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> nrow()))
+```
+```{r, echo=FALSE}
+
+meca_varon <- agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO == "M") |> 
+  rstatix::freq_table(CL1_desc) |> 
+  slice_max(n = 3, order_by = n) |> 
+  mutate(CL1_desc = fct_reorder(.f = CL1_desc, .x = n, .desc = T)) |> 
+  ggplot(aes(x = CL1_desc, y = n, fill = CL1_desc, label = paste(round(prop, 1),"%"))) +
+  geom_bar(stat = "identity") +
+  geom_text(position = position_stack(vjust = 0.5), color = "white") + 
+  scale_fill_manual(values = c("royalblue2", "maroon", "olivedrab")) +
+  xlab("Mecanismo") + 
+  scale_y_continuous(name = "frecuencia", limits = c(0,460), breaks = seq(0, 460, by = 50)) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Varones")
+
+meca_mujer <- agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO == "F") |> 
+  rstatix::freq_table(CL1_desc) |> 
+  slice_max(n = 3, order_by = n) |> 
+  mutate(CL1_desc = fct_reorder(.f = CL1_desc, .x = n, .desc = T)) |> 
+  ggplot(aes(x = CL1_desc, y = n, fill = CL1_desc, label = paste(round(prop, 1),"%"))) +
+  geom_bar(stat = "identity") +
+  geom_text(position = position_stack(vjust = 1.5)) + 
+  scale_fill_manual(values = c("royalblue2", "orange", "maroon")) +
+  xlab("Mecanismo") + 
+  scale_y_continuous(name = "frecuencia", limits = c(0,460), breaks = seq(0, 460, by = 50)) +
+  theme(legend.position = "none", axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = "Mujeres")
+
+meca_varon + meca_mujer + plot_layout(axes = "collect") + plot_annotation(
+  title = paste("3 principales mecanismos de la lesión según sexo (años 2022-2023) - n =", agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> nrow()))
+```
+
+### Mecanismo según sexo y grupo etario (2022-2023)
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+resumen <- agresion |> 
+  filter(anio %in% c(2022, 2023), SEXO != "Ns/Nc") |> 
+  count(CL1_desc, SEXO, grupo_etario)
+
+plot1 <- resumen |> 
+  data_to_hierarchical(
+    group_vars = c("CL1_desc", "SEXO", "grupo_etario"),
+    size_var = "n",
+    colors = c("royalblue", "maroon", "olivedrab", "orange", "gray", "firebrick", "skyblue", "gold", "purple", "forestgreen", "pink", "tomato3", "turquoise1", "sienna", "moccasin", "coral"))
+
+highchart() |>  
+  hc_add_series(data = plot1, type = "treemap", crisp = T,
+                allowTraversingTree = T,
+                dataLabels = list(backgroundColor = "white", padding = .5,
+                                  style = list(color = "black")),
+                levels = list(
+                  list(level = 1, borderWidth = 10  # border of the cluster
+                      #dataLabels = list(
+                      # enabled = T, 
+                      #   format = "Mecanismo: {point.name}",
+                      #   connectorAllowed = T, align = "left",
+                      #  verticalAlign = "top")
+                      ),
+                  list(level = 2, borderWidth = 5,   # border of the cluster
+                       dataLabels = list(
+                         enabled = T,
+                         format = "Sexo: {point.name}",
+                         connectorAllowed = T, align = "center",
+                         verticalAlign = "top")),
+                  list(level = 3, 
+                                   # add within parent gradient
+                       colorVariation = list(key = "brightness", to = -.5),
+                       dataLabels = list(
+                         enabled = T,
+                         format = "Grupo: {point.name}"))
+                )
+  )
+```
+
+### Sexo agresor - victima según provincia que reporta al SIVILE (2022-2023)
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+resumen <- agresion |> 
+  filter(anio %in% c(2022, 2023)) |> 
+  count(provincia_nombre, agresor_victima)
+
+plot1 <- resumen |> 
+  data_to_hierarchical(
+    group_vars = c("provincia_nombre", "agresor_victima"),
+    size_var = "n",
+    colors = c("royalblue", "maroon", "olivedrab", "orange", "gray", "firebrick", "skyblue", "gold", "purple", "forestgreen", "pink", "tomato3", "turquoise1", "sienna", "moccasin", "coral"))
+
+highchart() |>  
+  hc_add_series(data = plot1, type = "treemap", crisp = T,
+                allowTraversingTree = T,
+                dataLabels = list(backgroundColor = "white", padding = .5,
+                                  style = list(color = "black")),
+                levels = list(
+                  list(level = 1, borderWidth = 10  # border of the cluster
+                      #dataLabels = list(
+                      # enabled = T, 
+                      #   format = "Mecanismo: {point.name}",
+                      #   connectorAllowed = T, align = "left",
+                      #  verticalAlign = "top")
+                      ),
+                  list(level = 2, 
+                       colorVariation = list(key = "brightness", to = -.5),
+                       dataLabels = list(
+                         enabled = T,
+                         format = "Sexo agresor-victima: {point.name}")
+                ))
+  )
+```
