@@ -58,7 +58,7 @@ agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |>
   ggplot(aes(x = SEXO, y = n, fill = grupo_etario)) +
   geom_bar(stat = "identity", position = "dodge") +
   scale_fill_brewer(palette = "Set3", name = "Grupo Etario") +
-  xlab("Relación") + 
+  xlab("Sexo") + 
   scale_y_continuous(name = "frecuencia", breaks = seq(0, 800, by = 50)) +
   theme(legend.position = "bottom") + 
   labs(title = paste("Victimas de agresiones según sexo y grupo etario (años 2022-2023) - n =", agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> nrow()))
@@ -141,7 +141,7 @@ meca_varon + meca_mujer + plot_layout(axes = "collect") + plot_annotation(
   title = paste("3 principales mecanismos de la lesión según sexo (años 2022-2023) - n =", agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> nrow()))
 ```
 
-### Mecanismo según sexo y grupo etario (2022-2023)
+### Mecanismo según sexo y grupo etario (2022-2023) - n = 917
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -184,7 +184,7 @@ highchart() |>
   )
 ```
 
-### Sexo agresor - victima según provincia que reporta al SIVILE (2022-2023)
+### Sexo agresor - victima según provincia que reporta al SIVILE (2022-2023) -  n = 917
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
