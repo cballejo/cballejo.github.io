@@ -265,12 +265,40 @@ highchart() |>
   )
 ```
 
+
+```{r, echo=FALSE}
+agresion |> 
+  mutate(grupo_etario2 = case_when(
+    between(DL3_EDAD,0,5) ~ "0-5",
+    between(DL3_EDAD,6,14) ~ "06-14",
+    between(DL3_EDAD,15,19) ~ "15-19",
+    between(DL3_EDAD,20,24) ~ "20-24",
+    between(DL3_EDAD,25,34) ~ "25-34",
+    between(DL3_EDAD,35,44) ~ "30-44",
+    between(DL3_EDAD,45,54) ~ "45-54",
+    between(DL3_EDAD,55,64) ~ "55-64",
+    between(DL3_EDAD,65,Inf) ~ "65 y más"
+  )) |> 
+  filter(CL1_desc == "Agresión sexual", anio %in% c(2022, 2023), DL1_SEXO != "N") |> 
+  rstatix::freq_table(SEXO, grupo_etario2) |> 
+  ggplot(aes(x = SEXO, y = n, fill = grupo_etario2)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_brewer(palette = "Set3", name = "Grupo Etario") +
+  xlab("Sexo") + 
+  scale_y_continuous(name = "frecuencia", breaks = seq(0, 15, by = 1)) +
+  theme(legend.position = "bottom") + 
+  labs(title = paste("Victimas de agresión sexual según sexo y grupo etario (años 2022-2023) - n =", agresion |>  
+                       filter(CL1_desc == "Agresión sexual", anio %in% c(2022, 2023), DL1_SEXO != "N") |> 
+                       nrow()))
+```
+
+
 ### Listado de registros por sexo, edad, grupo etario, relación
 
 ```{r, echo=FALSE}
 agresion |> 
   dplyr::select(SEXO, "EDAD" = DL3_EDAD, "GRUPO ETARIO" = grupo_etario, "RELACION" = CL15_desc, "CONTEXTO" = CL17_desc, "MECANISMO" = CL1_desc, "LUGAR" = CL7_desc) |> 
 DT::datatable(filter = "top",
-  fillContainer = F, options = list(pageLength = 15))
+  fillContainer = F, options = list(pageLength = 10))
 ```
 
