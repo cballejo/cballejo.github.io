@@ -5,6 +5,10 @@ date: "2024-02-19"
 output: html_document
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE , fig.width = 10)
+```
+
 **Fuente de datos:** Base SIVILE descargada el 16 de diciembre de 2023 desde botón de exportación de SISA (archivo csv)
 
 *Filtro aplicado:* 
@@ -47,7 +51,7 @@ agresion |>  filter(establecimiento_nombre %in% establecimientos) |>
   scale_x_continuous(name = "año", breaks = seq(2000, 2023, by = 1)) + 
   scale_y_continuous(name = "frecuencia", breaks = seq(0, 800, by = 100)) +
   theme(legend.position = "bottom") +
-  labs(title = "Tendencia de casos registrados por provincia", 
+  labs(title = "Tendencia de casos de agresiones registrados por provincia", 
        subtitle = "10 establecimientos con mayor cantidad de registros")
 ```
 
