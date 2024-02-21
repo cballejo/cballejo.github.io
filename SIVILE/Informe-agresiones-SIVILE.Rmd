@@ -93,6 +93,8 @@ agresion |>  filter(provincia_nombre == "BUENOS AIRES") |>
        subtitle = "Según establecimiento y año")
 ```
 
+
+
 ```{r, echo=FALSE}
 
 agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> 
@@ -263,11 +265,11 @@ highchart() |>
   )
 ```
 
-### Listado de registros por 
+### Listado de registros por sexo, edad, grupo etario, relación
 
-```{r}
+```{r, echo=FALSE}
 agresion |> 
-  dplyr::select(SEXO, DL3_EDAD, grupo_etario, CL15_desc, CL17_desc, CL1_desc, CL7_desc) |> 
+  dplyr::select(SEXO, "EDAD" = DL3_EDAD, "GRUPO ETARIO" = grupo_etario, "RELACION" = CL15_desc, "CONTEXTO" = CL17_desc, "MECANISMO" = CL1_desc, "LUGAR" = CL7_desc) |> 
 DT::datatable(filter = "top",
   fillContainer = F, options = list(pageLength = 15))
 ```
