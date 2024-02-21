@@ -30,6 +30,8 @@ library(patchwork)
 library(treemap)
 library(highcharter)
 
+sivile <- read_csv2("sivile_limpia.csv")
+
 agresion <- read_csv2("agresiones.csv")
 
 establecimientos <- agresion |>
@@ -56,6 +58,42 @@ agresion |>  filter(establecimiento_nombre %in% establecimientos) |>
 ```
 
 ```{r, echo=FALSE}
+sivile |>  filter(provincia_nombre == "BUENOS AIRES") |> 
+  count(establecimiento_nombre, anio) |> 
+  ggplot(aes(x = anio, y = n, fill = establecimiento_nombre)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_brewer(palette = "Set1", name = "Establecimiento") +
+  xlab("") + 
+  scale_y_continuous(name = "frecuencia", breaks = seq(0, 1600, by = 100)) +
+  scale_x_continuous(breaks = seq(2000, 2023)) +
+  theme(legend.position = "bottom",
+        legend.text = element_text(size = 7), 
+        legend.title = element_text(size = 7), 
+        legend.justification = "left", 
+        legend.direction = "vertical") + 
+  labs(title = paste("Registros SIVILE en provincia de Bs. As. - n =", sivile|>  filter(provincia_nombre == "BUENOS AIRES") |> nrow()),
+       subtitle = "Según establecimiento y año")
+```
+
+```{r, echo=FALSE}
+agresion |>  filter(provincia_nombre == "BUENOS AIRES") |> 
+  count(establecimiento_nombre, anio) |> 
+  ggplot(aes(x = anio, y = n, fill = establecimiento_nombre)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_brewer(palette = "Set1", name = "Establecimiento") +
+  xlab("") + 
+  scale_y_continuous(name = "frecuencia", breaks = seq(0, 24, by = 2)) +
+  scale_x_continuous(breaks = seq(2000, 2023)) +
+  theme(legend.position = "bottom", 
+        legend.text = element_text(size = 7), 
+        legend.title = element_text(size = 7),
+        legend.justification = "left", 
+        legend.direction = "vertical") + 
+  labs(title = paste("Registros SIVILE de agresión en provincia de Bs. As. - n =", agresion |>  filter(provincia_nombre == "BUENOS AIRES") |> nrow()),
+       subtitle = "Según establecimiento y año")
+```
+
+```{r, echo=FALSE}
 
 agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> 
   rstatix::freq_table(SEXO, grupo_etario) |> 
@@ -67,6 +105,7 @@ agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |>
   theme(legend.position = "bottom") + 
   labs(title = paste("Victimas de agresiones según sexo y grupo etario (años 2022-2023) - n =", agresion |>  filter(anio %in% c(2022, 2023), DL1_SEXO != "N") |> nrow()))
 ```
+
 
 ```{r, echo=FALSE}
 
@@ -223,3 +262,13 @@ highchart() |>
                 ))
   )
 ```
+
+### Listado de registros por 
+
+```{r}
+agresion |> 
+  dplyr::select(SEXO, DL3_EDAD, grupo_etario, CL15_desc, CL17_desc, CL1_desc, CL7_desc) |> 
+DT::datatable(filter = "top",
+  fillContainer = F, options = list(pageLength = 15))
+```
+
