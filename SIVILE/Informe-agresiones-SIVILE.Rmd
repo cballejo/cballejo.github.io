@@ -1,7 +1,7 @@
 ---
-title: "Informe agresiones SIVILE"
+title: "Exploración agresiones SIVILE y Egresos"
 author: "Christian Ballejo"
-date: "2024-02-19"
+date: "`r Sys.Date()`"
 output: html_document
 ---
 
@@ -294,7 +294,7 @@ agresion |>
 ```
 
 
-### Listado de registros por sexo, edad, grupo etario, relación
+### Listado de registros por sexo, edad, grupo etario, relación, contexto, mecanismo y lugar
 
 ```{r, echo=FALSE}
 agresion |> 
