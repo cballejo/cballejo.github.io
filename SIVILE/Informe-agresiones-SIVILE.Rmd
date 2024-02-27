@@ -491,7 +491,7 @@ agresiones19 |>
   scale_y_continuous(limits = c(0, 2800), breaks = seq(0,2800, by = 500)) + 
   theme(legend.position = "none",
         axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(title = paste("Lugar agresión por objeto cortante - Argentina - n =", sum(agresiones19 |> filter(causa == "Objeto cortante") |>  pull(cant))))
+  labs(title = paste("Lugar agresión por objeto cortante - Egresos 2019 - Argentina - n =", sum(agresiones19 |> filter(causa == "Objeto cortante") |>  pull(cant))))
  
 ```
 
@@ -511,7 +511,7 @@ agresiones19 |>
   theme(legend.position = "none",
         axis.text.x = element_text(angle = 45, hjust = 1) 
   ) +
-  labs(title = paste("Lugar agresión por objeto sin filo - Argentina - n =", sum(agresiones19 |> filter(causa == "Objeto sin filo") |>  pull(cant))))
+  labs(title = paste("Lugar agresión por objeto sin filo - Egresos 2019 - Argentina - n =", sum(agresiones19 |> filter(causa == "Objeto sin filo") |>  pull(cant))))
 
 ```
 
@@ -528,7 +528,7 @@ agresiones19 |>
   xlab("Sexo") + 
   scale_y_continuous(limits = c(0, 6000), breaks = seq(0,6000, by = 500)) + 
   theme(legend.position = "none") +
-  labs(title = paste("Agresiones según sexo de la víctima - Argentina - n =", sum(agresiones19 |> pull(cant))))
+  labs(title = paste("Agresiones según sexo de la víctima - Egresos 2019 - Argentina - n =", sum(agresiones19 |> pull(cant))))
 
 ```
 
@@ -544,7 +544,7 @@ agresiones19 |>
   xlab("Sexo") + 
   scale_y_continuous(limits = c(0, 1800), breaks = seq(0,1800, by = 500)) + 
   theme(legend.position = "bottom") +
-  labs(title = paste("Agresiones según sexo y grupo etario de la víctima - Argentina - n =", sum(agresiones19 |> pull(cant))))
+  labs(title = paste("Agresiones según sexo y grupo etario de la víctima - Egresos 2019 - Argentina - n =", sum(agresiones19 |> pull(cant))))
 
 ```
 
@@ -562,7 +562,7 @@ agresiones19 |>
   theme(legend.position = "none",
         axis.text.x = element_text(angle = 45, hjust = 1) 
   ) +
-  labs(title = paste("Cantidad de registros por gresiones según provincia - Argentina - n =", sum(agresiones19  |>  pull(cant))))
+  labs(title = paste("Cantidad de registros por agresiones según provincia - Egresos 2019 - Argentina - n =", sum(agresiones19  |>  pull(cant))))
 ```
 
 ```{r, echo=FALSE, message=F, warning=F}
@@ -583,7 +583,7 @@ agresiones19 |>
   theme(legend.position = "none",
         axis.text.x = element_text(angle = 45, hjust = 1) 
   ) +
-  labs(title = paste("Tasa de agresiones según provincia - Argentina - n =", sum(agresiones19  |>  pull(cant))))
+  labs(title = paste("Tasa de agresiones por 100000 hab. según provincia - Egresos 2019 - Argentina - n =", sum(agresiones19  |>  pull(cant))))
 ```
 
 ### Mecanismo según sexo y grupo etario (egresos 2019) - n = 6549
