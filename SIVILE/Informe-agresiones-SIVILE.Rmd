@@ -322,7 +322,18 @@ agresiones19 <- egresos2019 |>
                        codcauext1 = str_sub(codcauext, 1, 3))
 
 agresiones19 <- agresiones19 |> 
-  mutate(causa = case_when(
+  mutate(grupo_etario = case_when(
+    between(edading,0,5) ~ "0-5",
+    between(edading,6,14) ~ "06-14",
+    between(edading,15,19) ~ "15-19",
+    between(edading,20,24) ~ "20-24",
+    between(edading,25,34) ~ "25-34",
+    between(edading,35,44) ~ "30-44",
+    between(edading,45,54) ~ "45-54",
+    between(edading,55,64) ~ "55-64",
+    between(edading,65,Inf) ~ "65 y más"
+  ), 
+    causa = case_when(
     codcauext1 == "X85" ~ "Drogas, etc",
     codcauext1 == "X89" ~ "Sustancias quimicas",
     codcauext1 == "X90" ~ "Envenenamiento",
@@ -379,6 +390,8 @@ Esta base de datos es la última completa que la DEIS tiene disponible respecto 
 La cantidad de egresos registrados en el año 2019 es de `r sum(egresos2019$cant)`. 
 
 El total de códigos registrados pertenecientes a agresiones es de `r sum(agresiones19$cant)` lo que representa un `r round(sum(agresiones19$cant) / sum(egresos2019$cant) * 100, 2)` % del total de egresos del año. (`r round(sum(agresiones19$cant) / sum(lesiones19$cant) * 100, 2)` % del total de lesiones por causas externas)
+
+La cantidad de egresos fallecidos de los internados por agresiones del año 2019 fue de 125 casos, es decir un `r round(sum(agresiones19 |> filter(muer == 1) |> pull(cant)) / sum(agresiones19$cant) * 100, 2)` %.  
 
 
 
@@ -502,7 +515,7 @@ agresiones19 |>
 
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 agresiones19 |> 
   group_by(sexo) |> 
   summarise(cantidad = sum(cant)) |> 
@@ -515,11 +528,27 @@ agresiones19 |>
   xlab("Sexo") + 
   scale_y_continuous(limits = c(0, 6000), breaks = seq(0,6000, by = 500)) + 
   theme(legend.position = "none") +
-  labs(title = paste("Agresiones según sexo de la victima - Argentina - n =", sum(agresiones19 |> pull(cant))))
+  labs(title = paste("Agresiones según sexo de la víctima - Argentina - n =", sum(agresiones19 |> pull(cant))))
 
 ```
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+agresiones19 |> 
+  group_by(sexo, grupo_etario) |> 
+  summarise(cantidad = sum(cant)) |> 
+  ggplot(aes(x = sexo, y = cantidad, fill = grupo_etario, label = cantidad)) +
+  geom_bar(stat = "identity", position = "dodge") + 
+  scale_fill_brewer(palette = "Set1", name = "grupo etario") +
+  geom_text(position = position_dodge(width = 0.9), vjust = -0.6, size = 3) +
+  ylab(label = "Cantidad") + 
+  xlab("Sexo") + 
+  scale_y_continuous(limits = c(0, 1800), breaks = seq(0,1800, by = 500)) + 
+  theme(legend.position = "bottom") +
+  labs(title = paste("Agresiones según sexo y grupo etario de la víctima - Argentina - n =", sum(agresiones19 |> pull(cant))))
+
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 agresiones19 |> 
   group_by(Provincia) |> 
   summarise(cantidad = sum(cant)) |> 
@@ -533,7 +562,7 @@ agresiones19 |>
   theme(legend.position = "none",
         axis.text.x = element_text(angle = 45, hjust = 1) 
   ) +
-  labs(title = paste("Agresiones segun provincia - Argentina - n =", sum(agresiones19  |>  pull(cant))))
+  labs(title = paste("Cantidad de registros por gresiones según provincia - Argentina - n =", sum(agresiones19  |>  pull(cant))))
 ```
 
 ```{r, echo=FALSE, message=F, warning=F}
@@ -554,5 +583,50 @@ agresiones19 |>
   theme(legend.position = "none",
         axis.text.x = element_text(angle = 45, hjust = 1) 
   ) +
-  labs(title = paste("Tasa de agresiones segun provincia - Argentina - n =", sum(agresiones19  |>  pull(cant))))
+  labs(title = paste("Tasa de agresiones según provincia - Argentina - n =", sum(agresiones19  |>  pull(cant))))
 ```
+
+### Mecanismo según sexo y grupo etario (egresos 2019) - n = 6549
+#### se excluyeron registros con categorías en Sexo = "Otro" y "S/D"
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+resumen <- agresiones19 |> 
+   filter(sexo %in% c("Varon", "Mujer")) |> 
+  count(causa, sexo, grupo_etario)
+
+plot1 <- resumen |> 
+  data_to_hierarchical(
+    group_vars = c("causa", "sexo", "grupo_etario"),
+    size_var = "n",
+    colors = c("royalblue", "maroon", "olivedrab", "orange", "gray", "firebrick", "skyblue", "gold", "purple", "forestgreen", "pink", "tomato3", "turquoise1", "sienna", "moccasin", "coral"))
+
+highchart() |>  
+  hc_add_series(data = plot1, type = "treemap", crisp = T,
+                allowTraversingTree = T,
+                dataLabels = list(backgroundColor = "white", padding = .5,
+                                  style = list(color = "black")),
+                levels = list(
+                  list(level = 1, borderWidth = 10  # border of the cluster
+                      #dataLabels = list(
+                      # enabled = T, 
+                      #   format = "Mecanismo: {point.name}",
+                      #   connectorAllowed = T, align = "left",
+                      #  verticalAlign = "top")
+                      ),
+                  list(level = 2, borderWidth = 5,   # border of the cluster
+                       dataLabels = list(
+                         enabled = T,
+                         format = "Sexo: {point.name}",
+                         connectorAllowed = T, align = "center",
+                         verticalAlign = "top")),
+                  list(level = 3, 
+                                   # add within parent gradient
+                       colorVariation = list(key = "brightness", to = -.5),
+                       dataLabels = list(
+                         enabled = T,
+                         format = "Grupo: {point.name}"))
+                )
+  )
+``` 
+
