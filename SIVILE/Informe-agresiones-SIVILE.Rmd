@@ -25,6 +25,7 @@ knitr::opts_chunk$set(echo = TRUE , fig.width = 10)
 options(scipen = 999, digits = 20)
 
 library(tidyverse)
+library(readxl)
 library(flextable)
 library(patchwork)
 library(treemap)
@@ -302,3 +303,256 @@ DT::datatable(filter = "top",
   fillContainer = F, options = list(pageLength = 10))
 ```
 
+
+## Base Egresos 2019
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+egresos2019 <- read_csv2("egresos 2019.csv")  |> 
+  mutate(sexo = factor(codsexo, labels = c("Varon", "Mujer", "Otro", "S/D")))
+
+poblacion2019 <- read_excel("Poblacion_2019.xlsx")
+
+lesiones19 <- egresos2019 |> 
+  filter(!is.na(codcauext)) |> 
+  filter(codcauext != "NULL")
+
+agresiones19 <- egresos2019 |> 
+  filter(str_detect(codcauext, "^X8[59]|^X9[09]|^Y0[09]")) |> 
+  mutate(codigo3 = str_sub(codcauext, 4,4),
+                       codcauext1 = str_sub(codcauext, 1, 3))
+
+agresiones19 <- agresiones19 |> 
+  mutate(causa = case_when(
+    codcauext1 == "X85" ~ "Drogas, etc",
+    codcauext1 == "X89" ~ "Sustancias quimicas",
+    codcauext1 == "X90" ~ "Envenenamiento",
+    codcauext1 == "X99" ~ "Objeto cortante",
+    codcauext1 == "Y00" ~ "Objeto sin filo",
+    codcauext1 == "Y09" ~ "Sin especificar",
+  ),
+  lugar = case_when(
+    codigo3 == "0" ~ "Vivienda",
+    codigo3 == "1" ~ "Inst. residencial",
+    codigo3 == "2" ~ "Escuela",
+    codigo3 == "3" ~ "Club",
+    codigo3 == "4" ~ "Calle",
+    codigo3 == "5" ~ "Comercio",
+    codigo3 == "6" ~ "Area industrial",
+    codigo3 == "7" ~ "Granja",
+    codigo3 == "8" ~ "Otro lugar especificado",
+    codigo3 == "9" ~ "Lugar no especificado"
+  ),
+  Provincia = case_when(
+    codprovres == "02" ~ "CABA",
+    codprovres == "06" ~ "Buenos Aires",
+    codprovres == "10" ~ "Catamarca",
+    codprovres == "14" ~ "Cordoba",
+    codprovres == "18" ~ "Corrientes",
+    codprovres == "22" ~ "Chaco",
+    codprovres == "26" ~ "Chubut",
+    codprovres == "30" ~ "Entre Rios",
+    codprovres == "34" ~ "Formosa",
+    codprovres == "38" ~ "Jujuy",
+    codprovres == "42" ~ "La Pampa",
+    codprovres == "46" ~ "La Rioja",
+    codprovres == "50" ~ "Mendoza",
+    codprovres == "54" ~ "Misiones",
+    codprovres == "58" ~ "Neuquen",
+    codprovres == "62" ~ "Rio Negro",
+    codprovres == "66" ~ "Salta",
+    codprovres == "70" ~ "San Juan",
+    codprovres == "74" ~ "San Luis",
+    codprovres == "78" ~ "Santa Cruz",
+    codprovres == "82" ~ "Santa Fe",
+    codprovres == "86" ~ "Santiago del Estero",
+    codprovres == "90" ~ "Tucuman",
+    codprovres == "98" ~ "S/D",
+    codprovres == "99" ~ "S/D"
+    
+  ))
+```
+
+**Fuente de datos:**  
+
+Esta base de datos es la última completa que la DEIS tiene disponible respecto a egresos hospitalarios.
+
+La cantidad de egresos registrados en el año 2019 es de `r sum(egresos2019$cant)`. 
+
+El total de códigos registrados pertenecientes a agresiones es de `r sum(agresiones19$cant)` lo que representa un `r round(sum(agresiones19$cant) / sum(egresos2019$cant) * 100, 2)` % del total de egresos del año. (`r round(sum(agresiones19$cant) / sum(lesiones19$cant) * 100, 2)` % del total de lesiones por causas externas)
+
+
+
+### Código CIE10 - Agresiones
+
+**Incluye:**
+
+-   homicidio
+-   lesiones ocasionadas por otra persona con intento de lesionar o matar, por cualquier medio
+
+**Excluye:**
+
+-   intervención legal (Y35)
+-   operaciones de guerra (Y36)
+
+
+| Código | Descripción |
+|--------|-------------|
+|X85     |Agresión con drogas, medicamentos y sustancias biológicas|
+|X86     |Agresión con sustancia corrosiva      |
+|X87     |Agresión con plaguicidas      |
+|X88     |Agresión con gases y vapores      |
+|X89     |Agresión con otros productos químicos y sustancias nocivas especificadas|
+|X90     |Agresión con productos químicos y sustancias nocivas no especificadas   |
+|X91     |Agresión por ahorcamiento, estrangulamiento y sofocación      |
+|X92     |Agresión por ahogamiento y sumersión      |
+|X93     |Agresión con disparo de arma corta      |
+|X94     |Agresión con disparo de rifle, escopeta y arma larga      |
+|X95     |Agresión con disparo de otras armas de fuego, y las no especificadas    |
+|X96     |Agresión con material explosivo      |
+|X97     |Agresión con humo, fuego y llamas      |
+|X98     |Agresión con vapor de agua, vapores y objetos calientes      |
+|X99     |Agresión con objeto cortante      |
+|Y00     |Agresión con objeto romo o sin filo      |
+|Y01     |Agresión por empujón desde un lugar elevado      |
+|Y02     |Agresión por empujar o colocar a la víctima delante de objeto en movimiento|
+|Y03     |Agresión por colisión de vehículo de motor|
+|Y04     |Agresión con fuerza corporal|
+|Y05     |Agresión sexual con fuerza corporal|
+|Y06     |Negligencia y abandono|
+|Y07     |Otros síndromes de maltrato|
+|Y08     |Agresión por otros medios especificados|
+|Y09     |Agresión por medios no especificados|
+
+El tercer dígito definido en códigos CIE10 de la base de egresos hospitalarios se relaciona al lugar donde ocurrió la agresión, siendo para uno de ellos:
+
+- 0 vivienda
+- 1 institución residencial
+- 2 escuelas, otras instituciones y áreas administrativas públicas
+- 3 áreas de deporte y atletismo
+- 4 calles y carreteras
+- 5 comercio y área de servicios
+- 6 área industrial y de la construcción
+- 7 granja
+- 8 otro lugar especificado
+- 9 lugar no especificado
+ 
+Los códigos Y06 (Neglicencia y abandono) e Y07  (Otros síndromes de maltrato) poseen su tercer dígito asociado a la relación con el agresor:
+
+- 0 esposo o pareja
+- 1 padre o madre
+- 2 conocido o amigo
+- 8 otra persona especificada
+- 9 persona no especificada
+
+
+```{r, echo=FALSE}
+agresiones19 |> 
+  group_by(causa) |> 
+  summarise(cantidad = sum(cant)) |> 
+  mutate(causa = fct_reorder(.f = causa, .x = cantidad, .desc = T)) |> 
+  ggplot(aes(x = causa, y = cantidad, fill = causa, label = cantidad)) +
+  geom_bar(stat = "identity") + 
+  scale_fill_brewer(palette = "Set2") +
+  geom_text(vjust = -0.6) +
+  ylab(label = "Cantidad") + 
+  xlab("Causa externa") + 
+  scale_y_continuous(limits = c(0, 6000), breaks = seq(0,6000, by = 500)) + 
+  theme(legend.position = "bottom") +
+  labs(title = paste("Distribución de agresiones según mecanismo - Egresos 2019 - Argentina - n =", sum(agresiones19$cant)))
+```
+
+
+
+```{r, echo=FALSE}
+agresiones19 |> 
+  filter(causa == "Objeto cortante") |> 
+  group_by(lugar) |> 
+  summarise(cantidad = sum(cant)) |> 
+  mutate(causa = fct_reorder(.f = lugar, .x = cantidad, .desc = T)) |> 
+  ggplot(aes(x = causa, y = cantidad, fill = causa, label = cantidad)) +
+  geom_bar(stat = "identity") + 
+  scale_fill_brewer(palette = "Paired") +
+  geom_text(vjust = -0.6) +
+  ylab(label = "Cantidad") + 
+  xlab("Lugar") + 
+  scale_y_continuous(limits = c(0, 2800), breaks = seq(0,2800, by = 500)) + 
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(title = paste("Lugar agresión por objeto cortante - Argentina - n =", sum(agresiones19 |> filter(causa == "Objeto cortante") |>  pull(cant))))
+ 
+```
+
+```{r, echo=FALSE}
+agresiones19 |> 
+  filter(causa == "Objeto sin filo") |> 
+  group_by(lugar) |> 
+  summarise(cantidad = sum(cant)) |> 
+  mutate(lugar = fct_reorder(.f = lugar, .x = cantidad, .desc = T)) |> 
+  ggplot(aes(x = lugar, y = cantidad, fill = lugar, label = cantidad)) +
+  geom_bar(stat = "identity") + 
+  scale_fill_brewer(palette = "Paired") +
+  geom_text(vjust = -0.6) +
+  ylab(label = "Cantidad") + 
+  xlab("Lugar") + 
+  scale_y_continuous(limits = c(0, 500), breaks = seq(0,500, by = 500)) + 
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1) 
+  ) +
+  labs(title = paste("Lugar agresión por objeto sin filo - Argentina - n =", sum(agresiones19 |> filter(causa == "Objeto sin filo") |>  pull(cant))))
+
+```
+
+```{r, echo=FALSE}
+agresiones19 |> 
+  group_by(sexo) |> 
+  summarise(cantidad = sum(cant)) |> 
+  mutate(sexo = fct_reorder(.f = sexo, .x = cantidad, .desc = T)) |> 
+  ggplot(aes(x = sexo, y = cantidad, fill = sexo, label = cantidad)) +
+  geom_bar(stat = "identity") + 
+  scale_fill_brewer(palette = "Set1") +
+  geom_text(vjust = -0.6) +
+  ylab(label = "Cantidad") + 
+  xlab("Sexo") + 
+  scale_y_continuous(limits = c(0, 6000), breaks = seq(0,6000, by = 500)) + 
+  theme(legend.position = "none") +
+  labs(title = paste("Agresiones según sexo de la victima - Argentina - n =", sum(agresiones19 |> pull(cant))))
+
+```
+
+```{r, echo=FALSE}
+agresiones19 |> 
+  group_by(Provincia) |> 
+  summarise(cantidad = sum(cant)) |> 
+  mutate(Provincia = fct_reorder(.f = Provincia, .x = cantidad, .desc = T)) |> 
+  ggplot(aes(x = Provincia, y = cantidad, fill = Provincia, label = cantidad)) +
+  geom_bar(stat = "identity") + 
+  geom_text(vjust = -0.6, size = 3) +
+  ylab(label = "Cantidad") + 
+  xlab("Provincia") + 
+  scale_y_continuous(limits = c(0, 3200), breaks = seq(0,3200, by = 200)) + 
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1) 
+  ) +
+  labs(title = paste("Agresiones segun provincia - Argentina - n =", sum(agresiones19  |>  pull(cant))))
+```
+
+```{r, echo=FALSE, message=F, warning=F}
+agresiones19 |> 
+  group_by(Provincia) |> 
+  summarise(cantidad = sum(cant)) |> 
+  left_join(poblacion2019) |> 
+  filter(Provincia != "S/D") |> 
+  mutate(porc = round(cantidad / Poblacion * 100000,1),
+         orden = min_rank(porc),
+         Provincia = fct_reorder(.f = Provincia, .x = orden, .desc = T)) |> 
+  ggplot(aes(x = Provincia, y = porc, fill = Provincia, label = porc)) +
+  geom_bar(stat = "identity") + 
+  geom_text(vjust = -0.6, size = 3) +
+  ylab(label = "Tasa x 100000") + 
+  xlab("Provincia") + 
+  scale_y_continuous(limits = c(0, 180), breaks = seq(0,180, by = 20)) + 
+  theme(legend.position = "none",
+        axis.text.x = element_text(angle = 45, hjust = 1) 
+  ) +
+  labs(title = paste("Tasa de agresiones segun provincia - Argentina - n =", sum(agresiones19  |>  pull(cant))))
+```
