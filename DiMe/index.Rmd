@@ -1,0 +1,55 @@
+---
+title: "Registros encuesta DiMe"
+author: "Christian Ballejo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Distribución espacial por fracciones de registros del DiMe
+
+```{r, echo=F, warning=F, message=F}
+library(tidyverse)
+library(sf)
+library(tmap)
+
+fracciones <- st_read("fracciones.shp", quiet = T)
+
+st_crs(fracciones) <- 4326
+
+dime_con_fraccion <- read_csv2("dime_con_fracciones.csv")
+
+DMSI_fraccion <- dime_con_fraccion |> 
+  mutate(Fraccion = if_else(nchar(as.character(Fraccion)) == 1, str_c("0", as.character(Fraccion)), as.character(Fraccion)),
+         DM = if_else(DB2 == 0 & DB3 == 0, "Si", "No")) |> 
+  filter(DM == "Si") |> 
+  count(Fraccion, name = "DM_SI") 
+
+DMNO_fraccion <- dime_con_fraccion |> 
+  mutate(Fraccion = if_else(nchar(as.character(Fraccion)) == 1, str_c("0", as.character(Fraccion)), as.character(Fraccion)),
+         DM = if_else(DB2 == 0 & DB3 == 0, "Si", "No")) |> 
+  filter(DM == "No") |> 
+  count(Fraccion, name = "DM_NO")
+
+DM_fraccion <- dime_con_fraccion |> 
+  mutate(Fraccion = if_else(nchar(as.character(Fraccion)) == 1, str_c("0", as.character(Fraccion)), as.character(Fraccion))) |> 
+  count(Fraccion, name = "Registros")
+
+fracciones_todos <- fracciones |> 
+  left_join(DM_fraccion, by = c("fraccion" = "Fraccion")) |> 
+  left_join(DMSI_fraccion, by = c("fraccion" = "Fraccion")) |> 
+  left_join(DMNO_fraccion, by = c("fraccion" = "Fraccion"))
+
+tmap_mode("view") 
+
+tm_shape(fracciones_todos) +
+  tm_basemap(server = 'OpenStreetMap') +
+  tm_fill(col = "Registros", 
+          alpha = 0.5, 
+          id = "fraccion", 
+          popup.vars = c("fraccion" , "DM_SI", "DM_NO"), 
+          popup.format = list(fun = function(x) formatC(x, digits = 0, format = "f"))) +
+  tm_borders()
+
+
+```
+
