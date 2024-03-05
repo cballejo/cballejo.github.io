@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: html_document
 ---
 
-## Distribución espacial por fracciones de registros del DiMe
+## Distribución espacial de registros del DiMe por fracciones censales
 
 ```{r, echo=F, warning=F, message=F}
 library(tidyverse)
