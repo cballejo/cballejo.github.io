@@ -1,0 +1,182 @@
+---
+title: "Control de Versiones: GitHub"
+subtitle: "Parte 2"
+author: "Christian Ballejo"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    css: styles.css
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## Colaboración
+
+<br>
+
+-   El uso de Git/GitHub nos permite invitar colaboradores a nuestros repositorios que van a tener permiso de edición.
+
+-   Terminológicamente hay un *"dueño/a"* del repositorio y un *"colaborador/a"* invitado/a (puede haber más de uno/a)
+
+-   Todos/as tienen que tener cuenta en GitHub y el equipo donde van a trabajar configurado con Git.
+
+## Colaboración
+
+-   El usuario o usuaria *"dueño/a"* del repositorio debe ingresar a la opción **Settings**
+
+![](images/Colaboracion1.PNG){fig-align="center"}
+
+## Colaboración
+
+-   Luego a la opción **Collaborators**
+
+![](images/Colaboracion2.PNG){fig-align="center"}
+
+## Colaboración {.smaller}
+
+-   Visualizaremos una página con información sobre el repositorio (si es público o privado) y cuantas personas (además del *"dueño/a"*) tienen acceso.
+
+-   También encontraremos un botón verde con la leyenda **Add people** que se utiliza para invitar colaboradores.
+
+![](images/Colaboracion3.PNG){fig-align="center"}
+
+## Colaboración {.smaller}
+
+-   En el cuadro de búsqueda de la ventana emergente debemos escribir el nombre de usuario/a, el nombre completo o el mail de la persona que queremos invitar como colaborador/a.
+-   Si existe en GitHub, aparecerá debajo para seleccionar e invitar.
+
+![](images/Colaboracion4.PNG){fig-align="center"}
+
+## Colaboración {.smaller}
+
+-   El mensaje con la invitación va a llegar al mail del/a colaborador/a.
+
+-   En el área de administración de accesos, el/a usuario/a invitado/a figura como "Inivitación pendiente" hasta que la acepte.
+
+![](images/Colaboracion5.PNG){fig-align="center"}
+
+## Colaboración {.smaller}
+
+-   En el mail del/a usuario/a invitado/a llegará un mensaje similar a este:
+
+![](images/Colaboracion6.PNG){fig-align="center"}
+
+-   Podemos pulsar sobre el botón **View invitation** para aceptar. El mensaje expira en 7 días.
+
+## Colaboración {.smaller}
+
+-   Al pulsar en el botón, nos abre el navegador y nos lleva al sitio de GitHub, donde previamente logueados, debemos aceptar. (botón **Accept invitation**)
+
+![](images/Colaboracion7.PNG){fig-align="center"}
+
+## Colaboración {.smaller}
+
+-   Al aceptar visualizaremos el repositorio en cuestión y podremos leer una leyenda que dice que podemos *hacer **push*** en ese repositorio.
+
+![](images/Colaboracion8.PNG){fig-align="center"}
+
+## Colaboración {.smaller}
+
+-   Ahora debemos abrir el cuadro de diálogo de **Code** y copiar la dirección del repositorio.
+
+![](images/Colaboracion9.PNG){fig-align="center"}
+
+## Colaboración {.smaller}
+
+-   A continuación vamos al RStudio y creamos un nuevo proyecto desde **Version Control -\> Git** y pegamos la URL copiada
+
+![](images/Colaboracion10.PNG){fig-align="center"}
+
+-   A partir de aquí, el repositorio se descarga con la ultima versión actualizada existente en GitHub.
+
+## Colaboración {.smaller}
+
+-   Cualquier cambio que realicemos en los archivos podemos subirlos haciendole **commit** y **push**. Estos cambios se podrán ver desde el mismo GitHub, dentro del repositorio del/a *dueño/a*.
+
+![](images/Colaboracion11.PNG){fig-align="center"}
+
+## Colaboración {.smaller}
+
+Juguemos entre nosotros/as:
+
+-   Construyamos un ***repositorio*** en nuestro **GitHub.**
+
+-   Vinculemos el repositorio nuevo con un nuevo proyecto desde ***RStudio -\> New Project -\> Version Control -\> Git***
+
+-   Invitemos a **colaborar** a un compañer/a
+
+-   Sigamos el paso a paso anterior para poder compartir y modificar archivos de GitHub, donde seamos **dueños/as** y ***colaboradores/as*** de otros/as.
+
+## GitHub Pages {.smaller}
+
+<br>
+
+Las GitHub Pages son páginas web públicas que se publican a través de GitHub.
+
+-   Sirven para mostrar resultados de proyectos de código abierto, hospedar material educativo, blogs o incluso compartir el CV.
+
+-   El nombre del sitio desde donde se publican las páginas tiene el formato `nombre_de_usuario.github.io` (por ejemplo, estas mismas diapositivas están alojadas en cballejo.github.io)
+
+-   Normalmente la forma de visualizar una página nos exige construir archivos de marcas tipo HTML o md (Markdown), es decir, proyectos donde tengamos Rmarkdown y/o Quarto.
+
+## GitHub Pages
+
+Vamos a publicar el contenido perteneciente a un proyecto que van a clonar de manera especial e independiente (**fork**).
+
+Un **fork** es una copia de un repositorio pero creado en tu propia cuenta de GitHub, donde vivirá en un espacio diferente al original y podrá evolucionar de manera distinta.
+
+![](images/Pages1.PNG){height="150" fig-align="center"}
+
+## GitHub Pages
+
+En el usuario ***cballejo*** de GitHub van a encontrar un repositorio denominado **Prueba_web**. Vamos a hacer un fork de ese repositorio.
+
+![](images/Pages2.PNG){fig-align="center"}
+
+## GitHub Pages
+
+El repositorio nos advierte que está "bifurcado" del original cballejo/Prueba_web (forked)
+
+![](images/Pages3.PNG){fig-align="center"}
+
+## GitHub Pages
+
+Luego, desde el fork del repositorio en nuestra cuenta, vamos a copiar la URL para crear un proyecto local que conecte con el repositorio.
+
+![](images/Pages4.PNG){fig-align="center"}
+
+## GitHub Pages
+
+Desde el RStudio de nuestro equipo creamos un nuevo proyecto a partir del camino *RStudio -\> New Project -\> Version Control -\> Git*, pegando la URL copiada.
+
+![](images/Pages5.PNG){fig-align="center"}
+
+## GitHub Pages
+
+Una vez descargado el repositorio en el proyecto local, abrimos el archivo **Ejemplo_web.Rmd** y lo modificamos, editando el *nombre del autor* en la cabecera YAML del mismo y finalmente guardamos.
+
+![](images/Pages6.PNG){fig-align="center"}
+
+Tejemos el archivo *Rmarkdown* desde el **botón Knitr** para producir un HTML con la modificación que realizamos anteriormente.
+
+## GitHub Pages
+
+Seleccionamos los archivos modificados que aparecen en la pestaña Git (**Ejemplo_web.Rmd** y **Ejemplo_web.html**) para hacer un **commit** y luego **Push** (subimos el cambio al GitHub)
+
+![](images/Pages7.PNG){fig-align="center"}
+
+## GitHub Pages {.smaller}
+
+Finalmente, desde el sitio GitHub vamos a activar las **Pages GitHub** del repositorio. Para esto, estando dentro del repositorio **Prueba_web** pulsamos sobre la **opción Settings** y luego el menú **Pages**.
+
+![](images/Pages8.PNG){fig-align="center"}
+
+Seleccionamos la opción **main** en *Branch*, dejamos la ruta **/(root)** y pulsamos el **botón Save**.
+
+## GitHub Pages {.smaller}
+
+A continuación abrimos en un navegador la siguiente dirección: `<<usuario>>.github.io/Prueba_web/Ejemplo_web.html` , para visualizar lo publicado.
+
+![](images/Pages9.PNG){fig-align="center"}
