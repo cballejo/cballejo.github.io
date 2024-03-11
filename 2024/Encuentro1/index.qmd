@@ -1,0 +1,155 @@
+---
+title: "Actualización tidyverse"
+subtitle: "Encuentro 1"
+author: "Christian Ballejo"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    css: styles.css
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## tidyverse 2.0
+
+La nueva versión de tidyverse incorpora **lubridate** al nucleo de paquetes que se activan cuando ejecutamos `library(tidyverse)`
+
+ 
+![](images/Captura1.PNG){fig-align="center"}
+
+## Conflictos 
+
+<br>
+
+```{r}
+#| echo: true
+#| message: true
+library(tidyverse)
+```
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+detach("package:dplyr", unload = TRUE)
+```
+
+
+## Conflictos
+
+<br>
+
+En el caso de la función **filter()**, por ejemplo, mientras no se active tidyverse (o dplyr) el interprete utiliza la función de *stats* (paquete *base* de **R**). En cambio, al activar dplyr o tidyverse la propia función (**dplyr::filter()**) prevalece.
+
+En las situaciones de conflicto confusas se pueden utilizar funciones del paquete **conflicted**.  
+
+## Conflictos
+
+Si ejecutamos código propio de la estructura tidyverse sin haber activado el paquete:
+
+<br>
+
+```{r}
+#| echo: true
+#| error: true
+datos::pinguinos |>
+  filter(especie == "Adelia") |> slice(1:2)
+```
+
+Entonces tendremos un error a causa de utilizar la función **filter()** de stats.
+
+## Conflictos
+
+Si antes activamos tidyverse:
+
+```{r}
+#| echo: false
+library(dplyr)
+```
+
+
+```{r}
+#| echo: true
+#| message: false
+#| warning: false
+#| error: true
+library(tidyverse)
+
+datos::pinguinos |>
+  filter(especie == "Adelia") |> slice(1:2)
+```
+
+El código se ejecuta correctamente y la elección de la función en conflicto se soluciona de forma transparente (siempre prevalece la función perteneciente al último paquete activado)
+
+## Paquete conflicted
+
+<br>
+
+En situaciones complejas, donde existen varias funciones con el mismo nombre de distintos paquetes, podemos utilizar el paquete **conflicted**.
+
+```{r}
+#| echo: true
+#| error: true
+library(conflicted)
+
+datos::pinguinos |>
+  filter(especie == "Adelia") |> slice(1:2)
+```
+
+
+## Paquete conflicted
+
+<br>
+
+Luego con la función `conflicts_prefers()` decidir que función prevalece en el conflicto.
+
+```{r}
+#| echo: true
+#| error: true
+#| code-line-numbers: "1"
+conflicts_prefer(dplyr::filter) 
+
+datos::pinguinos |>
+  filter(especie == "Adelia") |> slice(1:2)
+```
+
+
+## Nueva versión de r4ds
+
+El año pasado, también se actualizó el
+
+## Ciclo de vida de los paquetes
+
+lifecycle
+
+## Tuberías
+
+tubería nativa - ventajas
+
+## Encoding csv
+
+parse encoding
+
+## join
+
+join_by()
+
+manejo de coincidencias (uno a uno, etc)
+
+## agrupamiento dentro de summarise
+
+.by vs group_by()
+
+.groups()
+
+## case_when() e if_else()
+
+.default en lugar de TRUE
+
+## separates
+
+separate_wider_delim()
+
+separate_wider_regex()
+
