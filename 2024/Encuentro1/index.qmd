@@ -4,6 +4,7 @@ subtitle: "Encuentro 1"
 author: "Christian Ballejo"
 format: 
   revealjs:
+    width: 1500
     slide-number: true
     theme: simple
     css: styles.css
@@ -16,10 +17,9 @@ editor: visual
 
 La nueva versión de tidyverse incorpora **lubridate** al nucleo de paquetes que se activan cuando ejecutamos `library(tidyverse)`
 
- 
 ![](images/Captura1.PNG){fig-align="center"}
 
-## Conflictos 
+## Conflictos
 
 <br>
 
@@ -28,6 +28,7 @@ La nueva versión de tidyverse incorpora **lubridate** al nucleo de paquetes que
 #| message: true
 library(tidyverse)
 ```
+
 ```{r}
 #| echo: false
 #| message: false
@@ -35,14 +36,13 @@ library(tidyverse)
 detach("package:dplyr", unload = TRUE)
 ```
 
-
 ## Conflictos
 
 <br>
 
 En el caso de la función **filter()**, por ejemplo, mientras no se active tidyverse (o dplyr) el interprete utiliza la función de *stats* (paquete *base* de **R**). En cambio, al activar dplyr o tidyverse la propia función (**dplyr::filter()**) prevalece.
 
-En las situaciones de conflicto confusas se pueden utilizar funciones del paquete **conflicted**.  
+En las situaciones de conflicto confusas se pueden utilizar funciones del paquete **conflicted**.
 
 ## Conflictos
 
@@ -67,7 +67,6 @@ Si antes activamos tidyverse:
 #| echo: false
 library(dplyr)
 ```
-
 
 ```{r}
 #| echo: true
@@ -97,7 +96,6 @@ datos::pinguinos |>
   filter(especie == "Adelia") |> slice(1:2)
 ```
 
-
 ## Paquete conflicted
 
 <br>
@@ -113,11 +111,6 @@ conflicts_prefer(dplyr::filter)
 datos::pinguinos |>
   filter(especie == "Adelia") |> slice(1:2)
 ```
-
-
-## Nueva versión de r4ds
-
-El año pasado, también se actualizó el
 
 ## Ciclo de vida de los paquetes
 
@@ -153,3 +146,6 @@ separate_wider_delim()
 
 separate_wider_regex()
 
+## Nueva versión de r4ds
+
+El año pasado, también se actualizó el

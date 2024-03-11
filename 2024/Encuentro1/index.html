@@ -8,7 +8,7 @@
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.549">
+  <meta name="generator" content="quarto-1.3.433">
 
   <meta name="author" content="Christian Ballejo">
   <title>Actualización tidyverse</title>
@@ -31,7 +31,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -222,8 +222,7 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -408,18 +407,18 @@ Christian Ballejo
 <h2>tidyverse 2.0</h2>
 <p>La nueva versión de tidyverse incorpora <strong>lubridate</strong> al nucleo de paquetes que se activan cuando ejecutamos <code>library(tidyverse)</code></p>
 
-<img data-src="images/Captura1.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
+<img data-src="images/Captura1.PNG" class="r-stretch quarto-figure-center"></section>
 <section id="conflictos" class="slide level2">
 <h2>Conflictos</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.0     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -439,8 +438,8 @@ Christian Ballejo
 <p>Si ejecutamos código propio de la estructura tidyverse sin haber activado el paquete:</p>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href=""></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in slice(filter(datos::pinguinos, especie == "Adelia"), 1:2): no se pudo encontrar la función "slice"</code></pre>
 </div>
@@ -451,10 +450,10 @@ Christian Ballejo
 <h2>Conflictos</h2>
 <p>Si antes activamos tidyverse:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb5-2"><a href=""></a></span>
-<span id="cb5-3"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href=""></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 8
   especie isla   largo_pico_mm alto_pico_mm largo_aleta_mm masa_corporal_g sexo 
@@ -471,10 +470,10 @@ Christian Ballejo
 <p><br></p>
 <p>En situaciones complejas, donde existen varias funciones con el mismo nombre de distintos paquetes, podemos utilizar el paquete <strong>conflicted</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">library</span>(conflicted)</span>
-<span id="cb7-2"><a href=""></a></span>
-<span id="cb7-3"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
-<span id="cb7-4"><a href=""></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(conflicted)</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error:
 ! [conflicted] filter found in 2 packages.
@@ -492,10 +491,10 @@ Or declare a preference with `conflicts_prefer()`:
 <p><br></p>
 <p>Luego con la función <code>conflicts_prefers()</code> decidir que función prevalece en el conflicto.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter) </span>
-<span id="cb9-2"><a href=""></a></span>
-<span id="cb9-3"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href=""></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter) </span>
+<span id="cb9-2"><a href="#cb9-2"></a></span>
+<span id="cb9-3"><a href="#cb9-3"></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 8
   especie isla   largo_pico_mm alto_pico_mm largo_aleta_mm masa_corporal_g sexo 
@@ -505,10 +504,6 @@ Or declare a preference with `conflicts_prefer()`:
 # ℹ 1 more variable: anio &lt;int&gt;</code></pre>
 </div>
 </div>
-</section>
-<section id="nueva-versión-de-r4ds" class="slide level2">
-<h2>Nueva versión de r4ds</h2>
-<p>El año pasado, también se actualizó el</p>
 </section>
 <section id="ciclo-de-vida-de-los-paquetes" class="slide level2">
 <h2>Ciclo de vida de los paquetes</h2>
@@ -540,11 +535,13 @@ Or declare a preference with `conflicts_prefer()`:
 <h2>separates</h2>
 <p>separate_wider_delim()</p>
 <p>separate_wider_regex()</p>
-<div class="quarto-auto-generated-content">
-<p><img src="logo_INE.PNG" class="slide-logo"></p>
-<div class="footer footer-default">
+</section>
+<section id="nueva-versión-de-r4ds" class="slide level2">
+<h2>Nueva versión de r4ds</h2>
+<p>El año pasado, también se actualizó el</p>
+
+<img src="logo_INE.PNG" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>Instituto Nacional de Epidemiología</p>
-</div>
 </div>
 </section>
     </div>
@@ -573,6 +570,7 @@ Or declare a preference with `conflicts_prefer()`:
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
+'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -723,7 +721,7 @@ Or declare a preference with `conflicts_prefer()`:
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1500,
 
         height: 700,
 
@@ -871,9 +869,10 @@ Or declare a preference with `conflicts_prefer()`:
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -883,17 +882,8 @@ Or declare a preference with `conflicts_prefer()`:
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
