@@ -46,6 +46,8 @@ En las situaciones de conflicto confusas se pueden utilizar funciones del paquet
 
 ## Conflictos
 
+<br>
+
 Si ejecutamos código propio de la estructura tidyverse sin haber activado el paquete:
 
 <br>
@@ -105,30 +107,162 @@ Luego con la función `conflicts_prefers()` decidir que función prevalece en el
 ```{r}
 #| echo: true
 #| error: true
-#| code-line-numbers: "1"
+
 conflicts_prefer(dplyr::filter) 
 
 datos::pinguinos |>
   filter(especie == "Adelia") |> slice(1:2)
 ```
 
-## Ciclo de vida de los paquetes
+## Ciclo de vida 
 
-lifecycle
+El código que conforma o sigue la filosofía del tidyverse se enmarcan en estas etapas del ciclo de vida:
+
+![](images/Captura2.PNG){fig-align="center"}
+
+Las etapas del ciclo de vida pueden aplicarse a paquetes, funciones, argumentos de función e incluso valores específicos de un argumento de función.
+
+Lo **experimental** puede volverse **estable** y lo estable puede quedar **obsoleto** o ser **reemplazado**.
+
+## Ciclo de vida 
+
+La etapa de desarrollo predeterminada es **estable**. Cuando existe una mejor alternativa disponible la etiqueta dirá **obsoleto** (deprecated).
+
+Si llamamos a una función obsoleta recibiremos una advertencia:
+
+<br>
+
+```{r}
+#| echo: true
+#| error: true
+#| warning: true
+df <- tibble::data_frame(x = 1)
+```
+
+En la mayoría de los casos, una función obsoleta acabará por eliminarse luego de un tiempo prudencial en el que los desarrolladores tendrán que dejar de usarla.
+
+## Ciclo de vida 
+
+<br>
+
+La etiqueta **reemplazado** (superseded) significa que existe una alternativa mejor pero la función en sí no va a desaparecer. Una función reemplazada no emitirá una advertencia (ya que no hay riesgo si continúa usándola), pero la documentación le indicará qué se recomienda en su lugar.
+
+Algunas funciones se lanzan con una etiqueta **experimental** para que los usuarios las puedan probar y emitir opiniones al respecto, pero no aseguran estabilidad a largo plazo.
 
 ## Tuberías
 
-tubería nativa - ventajas
+<br>
 
-## Encoding csv
+La *versión 4.1.0* de **R** introdujo una tubería nativa (**`|>`**) similar a `%>%`, que permite canalizaciones directas. 
 
-parse encoding
+La forma simple de la tubería inserta el lado izquierdo como primer argumento en la llamada del lado derecho.
 
-## join
+En la mayoría de las ocasiones se puede utilizar cualquiera de las dos tuberías indistintamente y RStudio puede configurar cual se asocia al atajo de teclado *Ctrl+Shift+M* (Tools > Global Options... > Code > Use native pipe operator)
 
-join_by()
+Para ver las características comparativas entre las dos versiones puede leer este  [documento](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
 
-manejo de coincidencias (uno a uno, etc)
+## Encoding
+
+Cuando trabajamos con archivos de datos de texto plano (csv, txt, etc), a veces es necesario reconocer el **Enconding** de los caracteres utilizados en la creación del archivo de datos para hacer una lectura adecuada.
+
+- La codificación de caracteres en los archivos especifican cómo se representan los caracteres durante el procesamiento de texto.
+
+- Existen diferentes estándares de "encoding" que se adaptan a conjuntos de caracteres específicos (generalmente según el idioma). Estas codificaciones de caracteres se conocen bajo estándares ISO u otros como Unicode.  
+
+
+
+## Encoding
+
+- El estándar de trabajo del **RStudio** es `UTF-8` y cuando el **encoding** de un archivo es otro puede que los caracteres especiales no se vean correctamente. (acentos o eñes que se muestran con otros caracteres equivocados).
+
+- El paquete **readr** tiene la función `guess_enconding()` que sirve para detectar el estándar de un archivo de texto plano.
+
+- Las funciones de lectura del paquete permiten modificar estos estándares dentro de sus argumentos (`locale = locale()`)
+
+
+## Encoding
+
+<br>
+
+```{r}
+#| echo: true
+
+library(readr)
+
+read_csv2("data/prueba.csv") |> 
+  select(centrosalud_informe, region_sanitaria_informe)
+```
+
+La función read_csv2(), así como toda su familia, espera un encoding que evidentemente el archivo no posee, por lo que vemos caracteres mal expresados (\\xd1 en lugar de Ñ)
+
+## Encoding
+
+<br>
+
+La función `guess_enconding()` nos muestra con que estandares se aproximan a los caracteres encontrados dentro del archivo.
+
+```{r}
+#| echo: true
+
+guess_encoding("data/prueba.csv")
+```
+
+A la derecha de cada estandar aparece el grado de confianza del hallazgo. Se aconseja utilizar el código con el mayor grado de confianza. En este ejemplo, es 
+ISO-8859-1 (también conocida como Latin1 - [ver](https://es.wikipedia.org/wiki/ISO/IEC_8859-1))
+
+
+## Encoding
+
+<br>
+
+Con esta información podemos leer correctamente el archivo incorporando el argumento **locale**.
+
+<br>
+
+```{r}
+#| echo: true
+
+read_csv2("data/prueba.csv", 
+          locale = locale(encoding = "ISO-8859-1")) |> 
+  select(centrosalud_informe, region_sanitaria_informe)
+```
+
+
+## Funcionalidad mejorada de *_join()
+
+Cambios opcionales en la familia `*_join()`
+
+```{r}
+#| echo: true
+#| eval: false
+
+# anteriormente
+
+*_join(
+  x, y, 
+  by = c("" = "")
+)
+```
+
+```{r}
+#| echo: true
+#| eval: false
+
+# ahora (opcional)
+
+*_join(
+  x, y, 
+  by = join_by( == )
+)
+```
+
+## Funcionalidad mejorada de *_join()
+
+Cuando necesitamos unir tablas de datos que se encuentran relacionadas muchos a muchos se requieren cuidados especiales, dado que se dan múltiples coincidencias.
+
+
+
+
 
 ## agrupamiento dentro de summarise
 

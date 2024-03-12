@@ -8,7 +8,7 @@
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.433">
+  <meta name="generator" content="quarto-1.4.549">
 
   <meta name="author" content="Christian Ballejo">
   <title>Actualización tidyverse</title>
@@ -31,7 +31,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -222,7 +222,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -407,18 +408,18 @@ Christian Ballejo
 <h2>tidyverse 2.0</h2>
 <p>La nueva versión de tidyverse incorpora <strong>lubridate</strong> al nucleo de paquetes que se activan cuando ejecutamos <code>library(tidyverse)</code></p>
 
-<img data-src="images/Captura1.PNG" class="r-stretch quarto-figure-center"></section>
+<img data-src="images/Captura1.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="conflictos" class="slide level2">
 <h2>Conflictos</h2>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -435,11 +436,12 @@ Christian Ballejo
 </section>
 <section id="conflictos-2" class="slide level2">
 <h2>Conflictos</h2>
+<p><br></p>
 <p>Si ejecutamos código propio de la estructura tidyverse sin haber activado el paquete:</p>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error in slice(filter(datos::pinguinos, especie == "Adelia"), 1:2): no se pudo encontrar la función "slice"</code></pre>
 </div>
@@ -450,10 +452,10 @@ Christian Ballejo
 <h2>Conflictos</h2>
 <p>Si antes activamos tidyverse:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
-<span id="cb5-4"><a href="#cb5-4"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb5-2"><a href=""></a></span>
+<span id="cb5-3"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href=""></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 8
   especie isla   largo_pico_mm alto_pico_mm largo_aleta_mm masa_corporal_g sexo 
@@ -470,10 +472,10 @@ Christian Ballejo
 <p><br></p>
 <p>En situaciones complejas, donde existen varias funciones con el mismo nombre de distintos paquetes, podemos utilizar el paquete <strong>conflicted</strong>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">library</span>(conflicted)</span>
-<span id="cb7-2"><a href="#cb7-2"></a></span>
-<span id="cb7-3"><a href="#cb7-3"></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
-<span id="cb7-4"><a href="#cb7-4"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">library</span>(conflicted)</span>
+<span id="cb7-2"><a href=""></a></span>
+<span id="cb7-3"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb7-4"><a href=""></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
 <pre><code>Error:
 ! [conflicted] filter found in 2 packages.
@@ -491,10 +493,10 @@ Or declare a preference with `conflicts_prefer()`:
 <p><br></p>
 <p>Luego con la función <code>conflicts_prefers()</code> decidir que función prevalece en el conflicto.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter) </span>
-<span id="cb9-2"><a href="#cb9-2"></a></span>
-<span id="cb9-3"><a href="#cb9-3"></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
-<span id="cb9-4"><a href="#cb9-4"></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter) </span>
+<span id="cb9-2"><a href=""></a></span>
+<span id="cb9-3"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href=""></a>  <span class="fu">filter</span>(especie <span class="sc">==</span> <span class="st">"Adelia"</span>) <span class="sc">|&gt;</span> <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 8
   especie isla   largo_pico_mm alto_pico_mm largo_aleta_mm masa_corporal_g sexo 
@@ -505,22 +507,134 @@ Or declare a preference with `conflicts_prefer()`:
 </div>
 </div>
 </section>
-<section id="ciclo-de-vida-de-los-paquetes" class="slide level2">
-<h2>Ciclo de vida de los paquetes</h2>
-<p>lifecycle</p>
+<section id="ciclo-de-vida" class="slide level2">
+<h2>Ciclo de vida</h2>
+<p>El código que conforma o sigue la filosofía del tidyverse se enmarcan en estas etapas del ciclo de vida:</p>
+
+<img data-src="images/Captura2.PNG" class="quarto-figure quarto-figure-center r-stretch"><p>Las etapas del ciclo de vida pueden aplicarse a paquetes, funciones, argumentos de función e incluso valores específicos de un argumento de función.</p>
+<p>Lo <strong>experimental</strong> puede volverse <strong>estable</strong> y lo estable puede quedar <strong>obsoleto</strong> o ser <strong>reemplazado</strong>.</p>
+</section>
+<section id="ciclo-de-vida-1" class="slide level2">
+<h2>Ciclo de vida</h2>
+<p>La etapa de desarrollo predeterminada es <strong>estable</strong>. Cuando existe una mejor alternativa disponible la etiqueta dirá <strong>obsoleto</strong> (deprecated).</p>
+<p>Si llamamos a una función obsoleta recibiremos una advertencia:</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>df <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">data_frame</span>(<span class="at">x =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: `data_frame()` was deprecated in tibble 1.1.0.
+ℹ Please use `tibble()` instead.</code></pre>
+</div>
+</div>
+<p>En la mayoría de los casos, una función obsoleta acabará por eliminarse luego de un tiempo prudencial en el que los desarrolladores tendrán que dejar de usarla.</p>
+</section>
+<section id="ciclo-de-vida-2" class="slide level2">
+<h2>Ciclo de vida</h2>
+<p><br></p>
+<p>La etiqueta <strong>reemplazado</strong> (superseded) significa que existe una alternativa mejor pero la función en sí no va a desaparecer. Una función reemplazada no emitirá una advertencia (ya que no hay riesgo si continúa usándola), pero la documentación le indicará qué se recomienda en su lugar.</p>
+<p>Algunas funciones se lanzan con una etiqueta <strong>experimental</strong> para que los usuarios las puedan probar y emitir opiniones al respecto, pero no aseguran estabilidad a largo plazo.</p>
 </section>
 <section id="tuberías" class="slide level2">
 <h2>Tuberías</h2>
-<p>tubería nativa - ventajas</p>
+<p><br></p>
+<p>La <em>versión 4.1.0</em> de <strong>R</strong> introdujo una tubería nativa (<strong><code>|&gt;</code></strong>) similar a <code>%&gt;%</code>, que permite canalizaciones directas.</p>
+<p>La forma simple de la tubería inserta el lado izquierdo como primer argumento en la llamada del lado derecho.</p>
+<p>En la mayoría de las ocasiones se puede utilizar cualquiera de las dos tuberías indistintamente y RStudio puede configurar cual se asocia al atajo de teclado <em>Ctrl+Shift+M</em> (Tools &gt; Global Options… &gt; Code &gt; Use native pipe operator)</p>
+<p>Para ver las características comparativas entre las dos versiones puede leer este <a href="https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/">documento</a>.</p>
 </section>
-<section id="encoding-csv" class="slide level2">
-<h2>Encoding csv</h2>
-<p>parse encoding</p>
+<section id="encoding" class="slide level2">
+<h2>Encoding</h2>
+<p>Cuando trabajamos con archivos de datos de texto plano (csv, txt, etc), a veces es necesario reconocer el <strong>Enconding</strong> de los caracteres utilizados en la creación del archivo de datos para hacer una lectura adecuada.</p>
+<ul>
+<li><p>La codificación de caracteres en los archivos especifican cómo se representan los caracteres durante el procesamiento de texto.</p></li>
+<li><p>Existen diferentes estándares de “encoding” que se adaptan a conjuntos de caracteres específicos (generalmente según el idioma). Estas codificaciones de caracteres se conocen bajo estándares ISO u otros como Unicode.</p></li>
+</ul>
 </section>
-<section id="join" class="slide level2">
-<h2>join</h2>
-<p>join_by()</p>
-<p>manejo de coincidencias (uno a uno, etc)</p>
+<section id="encoding-1" class="slide level2">
+<h2>Encoding</h2>
+<ul>
+<li><p>El estándar de trabajo del <strong>RStudio</strong> es <code>UTF-8</code> y cuando el <strong>encoding</strong> de un archivo es otro puede que los caracteres especiales no se vean correctamente. (acentos o eñes que se muestran con otros caracteres equivocados).</p></li>
+<li><p>El paquete <strong>readr</strong> tiene la función <code>guess_enconding()</code> que sirve para detectar el estándar de un archivo de texto plano.</p></li>
+<li><p>Las funciones de lectura del paquete permiten modificar estos estándares dentro de sus argumentos (<code>locale = locale()</code>)</p></li>
+</ul>
+</section>
+<section id="encoding-2" class="slide level2">
+<h2>Encoding</h2>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">library</span>(readr)</span>
+<span id="cb13-2"><a href=""></a></span>
+<span id="cb13-3"><a href=""></a><span class="fu">read_csv2</span>(<span class="st">"data/prueba.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-4"><a href=""></a>  <span class="fu">select</span>(centrosalud_informe, region_sanitaria_informe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  centrosalud_informe                   region_sanitaria_informe       
+  &lt;chr&gt;                                 &lt;chr&gt;                          
+1 "HOSPITAL A\xd1ATUYA"                 "REGI\xd3N METROPOLITANA NORTE"
+2 "HOSPITAL CENTRAL"                    "REGI\xd3N METROPOLITANA NORTE"
+3 "CTRO DE SALUD N\xba 17 CARLOS EVANS" "Desconocida"                  </code></pre>
+</div>
+</div>
+<p>La función read_csv2(), así como toda su familia, espera un encoding que evidentemente el archivo no posee, por lo que vemos caracteres mal expresados (\xd1 en lugar de Ñ)</p>
+</section>
+<section id="encoding-3" class="slide level2">
+<h2>Encoding</h2>
+<p><br></p>
+<p>La función <code>guess_enconding()</code> nos muestra con que estandares se aproximan a los caracteres encontrados dentro del archivo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">guess_encoding</span>(<span class="st">"data/prueba.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  encoding   confidence
+  &lt;chr&gt;           &lt;dbl&gt;
+1 ISO-8859-1       0.47
+2 ISO-8859-2       0.32</code></pre>
+</div>
+</div>
+<p>A la derecha de cada estandar aparece el grado de confianza del hallazgo. Se aconseja utilizar el código con el mayor grado de confianza. En este ejemplo, es ISO-8859-1 (también conocida como Latin1 - <a href="https://es.wikipedia.org/wiki/ISO/IEC_8859-1">ver</a>)</p>
+</section>
+<section id="encoding-4" class="slide level2">
+<h2>Encoding</h2>
+<p><br></p>
+<p>Con esta información podemos leer correctamente el archivo incorporando el argumento <strong>locale</strong>.</p>
+<p><br></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">read_csv2</span>(<span class="st">"data/prueba.csv"</span>, </span>
+<span id="cb17-2"><a href=""></a>          <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">"ISO-8859-1"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb17-3"><a href=""></a>  <span class="fu">select</span>(centrosalud_informe, region_sanitaria_informe)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  centrosalud_informe              region_sanitaria_informe  
+  &lt;chr&gt;                            &lt;chr&gt;                     
+1 HOSPITAL AÑATUYA                 REGIÓN METROPOLITANA NORTE
+2 HOSPITAL CENTRAL                 REGIÓN METROPOLITANA NORTE
+3 CTRO DE SALUD Nº 17 CARLOS EVANS Desconocida               </code></pre>
+</div>
+</div>
+</section>
+<section id="funcionalidad-mejorada-de-_join" class="slide level2">
+<h2>Funcionalidad mejorada de *_join()</h2>
+<p>Cambios opcionales en la familia <code>*_join()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="co"># anteriormente</span></span>
+<span id="cb19-2"><a href=""></a></span>
+<span id="cb19-3"><a href=""></a><span class="sc">*</span><span class="fu">_join</span>(</span>
+<span id="cb19-4"><a href=""></a>  x, y, </span>
+<span id="cb19-5"><a href=""></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">""</span> <span class="ot">=</span> <span class="st">""</span>)</span>
+<span id="cb19-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="co"># ahora (opcional)</span></span>
+<span id="cb20-2"><a href=""></a></span>
+<span id="cb20-3"><a href=""></a><span class="sc">*</span><span class="fu">_join</span>(</span>
+<span id="cb20-4"><a href=""></a>  x, y, </span>
+<span id="cb20-5"><a href=""></a>  <span class="at">by =</span> <span class="fu">join_by</span>( <span class="sc">==</span> )</span>
+<span id="cb20-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="funcionalidad-mejorada-de-_join-1" class="slide level2">
+<h2>Funcionalidad mejorada de *_join()</h2>
+<p>Cuando necesitamos unir tablas de datos que se encuentran relacionadas muchos a muchos se requieren cuidados especiales, dado que se dan múltiples coincidencias.</p>
 </section>
 <section id="agrupamiento-dentro-de-summarise" class="slide level2">
 <h2>agrupamiento dentro de summarise</h2>
@@ -539,9 +653,11 @@ Or declare a preference with `conflicts_prefer()`:
 <section id="nueva-versión-de-r4ds" class="slide level2">
 <h2>Nueva versión de r4ds</h2>
 <p>El año pasado, también se actualizó el</p>
-
-<img src="logo_INE.PNG" class="slide-logo r-stretch"><div class="footer footer-default">
+<div class="quarto-auto-generated-content">
+<p><img src="logo_INE.PNG" class="slide-logo"></p>
+<div class="footer footer-default">
 <p>Instituto Nacional de Epidemiología</p>
+</div>
 </div>
 </section>
     </div>
@@ -570,7 +686,6 @@ Or declare a preference with `conflicts_prefer()`:
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -869,10 +984,9 @@ Or declare a preference with `conflicts_prefer()`:
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -882,8 +996,17 @@ Or declare a preference with `conflicts_prefer()`:
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
