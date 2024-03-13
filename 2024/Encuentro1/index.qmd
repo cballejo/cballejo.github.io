@@ -59,6 +59,8 @@ datos::pinguinos |>
   filter(especie == "Adelia") |> slice(1:2)
 ```
 
+<br>
+
 Entonces tendremos un error a causa de utilizar la función **filter()** de stats.
 
 ## Conflictos
@@ -89,6 +91,8 @@ El código se ejecuta correctamente y la elección de la función en conflicto s
 
 En situaciones complejas, donde existen varias funciones con el mismo nombre de distintos paquetes, podemos utilizar el paquete **conflicted**.
 
+<br>
+
 ```{r}
 #| echo: true
 #| error: true
@@ -103,6 +107,8 @@ datos::pinguinos |>
 <br>
 
 Luego con la función `conflicts_prefers()` decidir que función prevalece en el conflicto.
+
+<br>
 
 ```{r}
 #| echo: true
@@ -138,6 +144,8 @@ Si llamamos a una función obsoleta recibiremos una advertencia:
 #| warning: true
 df <- tibble::data_frame(x = 1)
 ```
+
+<br>
 
 En la mayoría de los casos, una función obsoleta acabará por eliminarse luego de un tiempo prudencial en el que los desarrolladores tendrán que dejar de usarla.
 
@@ -244,6 +252,8 @@ Cambios opcionales en la familia `*_join()`
 )
 ```
 
+<br>
+
 ```{r}
 #| echo: true
 #| eval: false
@@ -256,30 +266,186 @@ Cambios opcionales en la familia `*_join()`
 )
 ```
 
-## Funcionalidad mejorada de *_join()
 
-Cuando necesitamos unir tablas de datos que se encuentran relacionadas muchos a muchos se requieren cuidados especiales, dado que se dan múltiples coincidencias.
+## Agrupamientos temporales
+
+Con el objetivo de evitar los agrupamientos permanentes de los resúmenes con `group_by()`, que muchas veces nos obliga al uso de `ungroup()`, en esta versión la función `summarise()` incorpora el argumento `.by`. (*argumento experimental*).
+
+<br>
+
+La estructura del código es:
+
+```{r}
+#| echo: true
+#| eval: false
+
+datos |> 
+  summarise(
+    var_resumen = funcion(var),
+    .by = var_grupo
+  )
+```
+
+## Agrupamientos temporales
+
+La ventaja en su uso resulta en que los resultados se calculan con los datos agrupados pero el dataframe de salida no conserva el agrupamiento activo.
+
+```{r}
+#| echo: true
+
+datos::pinguinos |> 
+  drop_na(sexo, masa_corporal_g) |>
+  summarise(
+    media_peso = mean(masa_corporal_g),
+    .by = c(especie, sexo)
+  )
+```
+
+## Agrupamientos temporales
+
+En cambio, el mismo ejemplo con `group_by()` produce esto:
+
+```{r}
+#| echo: true
+
+datos::pinguinos |> 
+  drop_na(sexo, masa_corporal_g) |>
+  group_by(especie, sexo) |> 
+  summarise(
+    media_peso = mean(masa_corporal_g)
+  ) 
+```
 
 
+## Cambios en case_when() 
+
+Se adecuaron argumentos de la función `case_when()`. 
+
+Anteriormente había que utilizar `TRUE` para indicar *"todo lo demás"* y además los NA debían estar definidos por el tipo de dato de salida (por ejemplo: **NA_character_**) 
+
+```{r}
+#| echo: true
+#| eval: false
+
+datos |>
+  mutate(
+    x = case_when(
+      condicion1 ~ "valor 1",
+      condicion2 ~ "valor 2",
+      condicion3 ~ "valor 3",
+      TRUE       ~ NA_character_
+    )
+  )
+```
+
+##  Cambios en case_when() 
+
+<br>
+
+Ahora, opcionalmente, se puede reemplazar **TRUE** por `.default` y también utilizar **NA** para cualquier tipo de dato.
+
+```{r}
+#| echo: true
+#| eval: false
+
+datos |>
+  mutate(
+    x = case_when(
+      condicion1 ~ "valor 1",
+      condicion2 ~ "valor 2",
+      condicion3 ~ "valor 3",
+      .default = NA
+    )
+  )
+```
 
 
+## Nueva sintaxis para separar columnas
 
-## agrupamiento dentro de summarise
+<br>
 
-.by vs group_by()
+El paquete **tidyr** tenía una función que posibilitaba la separación de columnas llamada `separate()` que a partir de esta actualización fue reemplazada por las funciones `separate_wider_position()` y `separate_wider_delim()` buscando que los usos sean más obvios y el problema se maneje de mejor manera.
 
-.groups()
+También se ha agregado otra función `separate_wider_regex()` que utiliza expresiones regulares como patrones para la separación de columnas.
 
-## case_when() e if_else()
+## Nueva sintaxis para separar columnas
 
-.default en lugar de TRUE
+<br>
 
-## separates
+Imaginemos que tenemos datos expresados de la siguiente forma:
 
-separate_wider_delim()
+```{r}
+#| echo: false
 
-separate_wider_regex()
+ejemplo_pinguinos <- tribble(
+  ~id, ~descripcion,
+  1,   "Especie: Adelie, Isla - Torgersen",
+  2,   "Especie: Gentoo, Isla - Biscoe",
+  3,   "Especie: Chinstrap, Isla - Dream",
+)
+```
+
+```{r}
+#| echo: true
+
+ejemplo_pinguinos
+```
+
+<br>
+
+La tabla de datos tiene dos variables y 3 observaciones. La variable descripcion tiene información perteneciente a dos variables y una estructura con *separadores* que permite su gestión.
+
+## Nueva sintaxis para separar columnas
+
+<br>
+
+Podemos aplicar la función `separate_wider_delim()` para aprovechar la coma que separa la información de cada variable.
+
+```{r}
+#| echo: true
+
+
+ejemplo_pinguinos |>
+  separate_wider_delim(
+    cols = descripcion,
+    delim = ", ",
+    names = c("especie", "isla")
+  )
+```
+
+## Nueva sintaxis para separar columnas
+
+<br>
+
+O también podemos utilizar expresiones regulares en la función `separate_wider_regex()`.
+
+```{r}
+#| echo: true
+
+
+ejemplo_pinguinos |>
+  separate_wider_regex(
+    cols = descripcion,
+    patterns = c(
+      "Especie: ", especie = "[^,]+", 
+      ", ", 
+      "Isla - ", isla = ".*"
+    )
+  )
+```
+
 
 ## Nueva versión de r4ds
 
-El año pasado, también se actualizó el
+<br>
+
+El año pasado, también se publicó la segunda edición del libro **R para ciencia de datos** donde se actualizaron las funciones de los paquetes principales de tidyverse a su ultima versión, se utiliza la nueva tubería nativa en el código de ejemplo y se reemplaza el formato de comunicación Rmarkdown por *Quarto*.
+
+El enlace a la versión web del libro es [R for Data Science (2e)](https://r4ds.hadley.nz/)
+
+<br>
+
+**Nota**: por ahora el libro no se ha traducido al español (solo inglés)
+
+## Práctica
+

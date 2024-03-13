@@ -446,6 +446,7 @@ Christian Ballejo
 <pre><code>Error in slice(filter(datos::pinguinos, especie == "Adelia"), 1:2): no se pudo encontrar la función "slice"</code></pre>
 </div>
 </div>
+<p><br></p>
 <p>Entonces tendremos un error a causa de utilizar la función <strong>filter()</strong> de stats.</p>
 </section>
 <section id="conflictos-3" class="slide level2">
@@ -471,6 +472,7 @@ Christian Ballejo
 <h2>Paquete conflicted</h2>
 <p><br></p>
 <p>En situaciones complejas, donde existen varias funciones con el mismo nombre de distintos paquetes, podemos utilizar el paquete <strong>conflicted</strong>.</p>
+<p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">library</span>(conflicted)</span>
 <span id="cb7-2"><a href=""></a></span>
@@ -492,6 +494,7 @@ Or declare a preference with `conflicts_prefer()`:
 <h2>Paquete conflicted</h2>
 <p><br></p>
 <p>Luego con la función <code>conflicts_prefers()</code> decidir que función prevalece en el conflicto.</p>
+<p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">conflicts_prefer</span>(dplyr<span class="sc">::</span>filter) </span>
 <span id="cb9-2"><a href=""></a></span>
@@ -526,6 +529,7 @@ Or declare a preference with `conflicts_prefer()`:
 ℹ Please use `tibble()` instead.</code></pre>
 </div>
 </div>
+<p><br></p>
 <p>En la mayoría de los casos, una función obsoleta acabará por eliminarse luego de un tiempo prudencial en el que los desarrolladores tendrán que dejar de usarla.</p>
 </section>
 <section id="ciclo-de-vida-2" class="slide level2">
@@ -623,6 +627,7 @@ Or declare a preference with `conflicts_prefer()`:
 <span id="cb19-5"><a href=""></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">""</span> <span class="ot">=</span> <span class="st">""</span>)</span>
 <span id="cb19-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p><br></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="co"># ahora (opcional)</span></span>
 <span id="cb20-2"><a href=""></a></span>
@@ -632,27 +637,177 @@ Or declare a preference with `conflicts_prefer()`:
 <span id="cb20-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="funcionalidad-mejorada-de-_join-1" class="slide level2">
-<h2>Funcionalidad mejorada de *_join()</h2>
-<p>Cuando necesitamos unir tablas de datos que se encuentran relacionadas muchos a muchos se requieren cuidados especiales, dado que se dan múltiples coincidencias.</p>
+<section id="agrupamientos-temporales" class="slide level2">
+<h2>Agrupamientos temporales</h2>
+<p>Con el objetivo de evitar los agrupamientos permanentes de los resúmenes con <code>group_by()</code>, que muchas veces nos obliga al uso de <code>ungroup()</code>, en esta versión la función <code>summarise()</code> incorpora el argumento <code>.by</code>. (<em>argumento experimental</em>).</p>
+<p><br></p>
+<p>La estructura del código es:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb21-3"><a href=""></a>    <span class="at">var_resumen =</span> <span class="fu">funcion</span>(var),</span>
+<span id="cb21-4"><a href=""></a>    <span class="at">.by =</span> var_grupo</span>
+<span id="cb21-5"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="agrupamiento-dentro-de-summarise" class="slide level2">
-<h2>agrupamiento dentro de summarise</h2>
-<p>.by vs group_by()</p>
-<p>.groups()</p>
+<section id="agrupamientos-temporales-1" class="slide level2">
+<h2>Agrupamientos temporales</h2>
+<p>La ventaja en su uso resulta en que los resultados se calculan con los datos agrupados pero el dataframe de salida no conserva el agrupamiento activo.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href=""></a>  <span class="fu">drop_na</span>(sexo, masa_corporal_g) <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb22-4"><a href=""></a>    <span class="at">media_peso =</span> <span class="fu">mean</span>(masa_corporal_g),</span>
+<span id="cb22-5"><a href=""></a>    <span class="at">.by =</span> <span class="fu">c</span>(especie, sexo)</span>
+<span id="cb22-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+  especie sexo   media_peso
+  &lt;fct&gt;   &lt;fct&gt;       &lt;dbl&gt;
+1 Adelia  macho       4043.
+2 Adelia  hembra      3369.
+3 Papúa   hembra      4680.
+4 Papúa   macho       5485.
+5 Barbijo hembra      3527.
+6 Barbijo macho       3939.</code></pre>
+</div>
+</div>
 </section>
-<section id="case_when-e-if_else" class="slide level2">
-<h2>case_when() e if_else()</h2>
-<p>.default en lugar de TRUE</p>
+<section id="agrupamientos-temporales-2" class="slide level2">
+<h2>Agrupamientos temporales</h2>
+<p>En cambio, el mismo ejemplo con <code>group_by()</code> produce esto:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>datos<span class="sc">::</span>pinguinos <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href=""></a>  <span class="fu">drop_na</span>(sexo, masa_corporal_g) <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href=""></a>  <span class="fu">group_by</span>(especie, sexo) <span class="sc">|&gt;</span> </span>
+<span id="cb24-4"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb24-5"><a href=""></a>    <span class="at">media_peso =</span> <span class="fu">mean</span>(masa_corporal_g)</span>
+<span id="cb24-6"><a href=""></a>  ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 3
+# Groups:   especie [3]
+  especie sexo   media_peso
+  &lt;fct&gt;   &lt;fct&gt;       &lt;dbl&gt;
+1 Adelia  hembra      3369.
+2 Adelia  macho       4043.
+3 Barbijo hembra      3527.
+4 Barbijo macho       3939.
+5 Papúa   hembra      4680.
+6 Papúa   macho       5485.</code></pre>
+</div>
+</div>
 </section>
-<section id="separates" class="slide level2">
-<h2>separates</h2>
-<p>separate_wider_delim()</p>
-<p>separate_wider_regex()</p>
+<section id="cambios-en-case_when" class="slide level2">
+<h2>Cambios en case_when()</h2>
+<p>Se adecuaron argumentos de la función <code>case_when()</code>.</p>
+<p>Anteriormente había que utilizar <code>TRUE</code> para indicar <em>“todo lo demás”</em> y además los NA debían estar definidos por el tipo de dato de salida (por ejemplo: <strong>NA_character_</strong>)</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb26-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb26-3"><a href=""></a>    <span class="at">x =</span> <span class="fu">case_when</span>(</span>
+<span id="cb26-4"><a href=""></a>      condicion1 <span class="sc">~</span> <span class="st">"valor 1"</span>,</span>
+<span id="cb26-5"><a href=""></a>      condicion2 <span class="sc">~</span> <span class="st">"valor 2"</span>,</span>
+<span id="cb26-6"><a href=""></a>      condicion3 <span class="sc">~</span> <span class="st">"valor 3"</span>,</span>
+<span id="cb26-7"><a href=""></a>      <span class="cn">TRUE</span>       <span class="sc">~</span> <span class="cn">NA_character_</span></span>
+<span id="cb26-8"><a href=""></a>    )</span>
+<span id="cb26-9"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cambios-en-case_when-1" class="slide level2">
+<h2>Cambios en case_when()</h2>
+<p><br></p>
+<p>Ahora, opcionalmente, se puede reemplazar <strong>TRUE</strong> por <code>.default</code> y también utilizar <strong>NA</strong> para cualquier tipo de dato.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb27-3"><a href=""></a>    <span class="at">x =</span> <span class="fu">case_when</span>(</span>
+<span id="cb27-4"><a href=""></a>      condicion1 <span class="sc">~</span> <span class="st">"valor 1"</span>,</span>
+<span id="cb27-5"><a href=""></a>      condicion2 <span class="sc">~</span> <span class="st">"valor 2"</span>,</span>
+<span id="cb27-6"><a href=""></a>      condicion3 <span class="sc">~</span> <span class="st">"valor 3"</span>,</span>
+<span id="cb27-7"><a href=""></a>      <span class="at">.default =</span> <span class="cn">NA</span></span>
+<span id="cb27-8"><a href=""></a>    )</span>
+<span id="cb27-9"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="nueva-sintaxis-para-separar-columnas" class="slide level2">
+<h2>Nueva sintaxis para separar columnas</h2>
+<p><br></p>
+<p>El paquete <strong>tidyr</strong> tenía una función que posibilitaba la separación de columnas llamada <code>separate()</code> que a partir de esta actualización fue reemplazada por las funciones <code>separate_wider_position()</code> y <code>separate_wider_delim()</code> buscando que los usos sean más obvios y el problema se maneje de mejor manera.</p>
+<p>También se ha agregado otra función <code>separate_wider_regex()</code> que utiliza expresiones regulares como patrones para la separación de columnas.</p>
+</section>
+<section id="nueva-sintaxis-para-separar-columnas-1" class="slide level2">
+<h2>Nueva sintaxis para separar columnas</h2>
+<p><br></p>
+<p>Imaginemos que tenemos datos expresados de la siguiente forma:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>ejemplo_pinguinos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+     id descripcion                      
+  &lt;dbl&gt; &lt;chr&gt;                            
+1     1 Especie: Adelie, Isla - Torgersen
+2     2 Especie: Gentoo, Isla - Biscoe   
+3     3 Especie: Chinstrap, Isla - Dream </code></pre>
+</div>
+</div>
+<p><br></p>
+<p>La tabla de datos tiene dos variables y 3 observaciones. La variable descripcion tiene información perteneciente a dos variables y una estructura con <em>separadores</em> que permite su gestión.</p>
+</section>
+<section id="nueva-sintaxis-para-separar-columnas-2" class="slide level2">
+<h2>Nueva sintaxis para separar columnas</h2>
+<p><br></p>
+<p>Podemos aplicar la función <code>separate_wider_delim()</code> para aprovechar la coma que separa la información de cada variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>ejemplo_pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href=""></a>  <span class="fu">separate_wider_delim</span>(</span>
+<span id="cb30-3"><a href=""></a>    <span class="at">cols =</span> descripcion,</span>
+<span id="cb30-4"><a href=""></a>    <span class="at">delim =</span> <span class="st">", "</span>,</span>
+<span id="cb30-5"><a href=""></a>    <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"especie"</span>, <span class="st">"isla"</span>)</span>
+<span id="cb30-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+     id especie            isla            
+  &lt;dbl&gt; &lt;chr&gt;              &lt;chr&gt;           
+1     1 Especie: Adelie    Isla - Torgersen
+2     2 Especie: Gentoo    Isla - Biscoe   
+3     3 Especie: Chinstrap Isla - Dream    </code></pre>
+</div>
+</div>
+</section>
+<section id="nueva-sintaxis-para-separar-columnas-3" class="slide level2">
+<h2>Nueva sintaxis para separar columnas</h2>
+<p><br></p>
+<p>O también podemos utilizar expresiones regulares en la función <code>separate_wider_regex()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>ejemplo_pinguinos <span class="sc">|&gt;</span></span>
+<span id="cb32-2"><a href=""></a>  <span class="fu">separate_wider_regex</span>(</span>
+<span id="cb32-3"><a href=""></a>    <span class="at">cols =</span> descripcion,</span>
+<span id="cb32-4"><a href=""></a>    <span class="at">patterns =</span> <span class="fu">c</span>(</span>
+<span id="cb32-5"><a href=""></a>      <span class="st">"Especie: "</span>, <span class="at">especie =</span> <span class="st">"[^,]+"</span>, </span>
+<span id="cb32-6"><a href=""></a>      <span class="st">", "</span>, </span>
+<span id="cb32-7"><a href=""></a>      <span class="st">"Isla - "</span>, <span class="at">isla =</span> <span class="st">".*"</span></span>
+<span id="cb32-8"><a href=""></a>    )</span>
+<span id="cb32-9"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+     id especie   isla     
+  &lt;dbl&gt; &lt;chr&gt;     &lt;chr&gt;    
+1     1 Adelie    Torgersen
+2     2 Gentoo    Biscoe   
+3     3 Chinstrap Dream    </code></pre>
+</div>
+</div>
 </section>
 <section id="nueva-versión-de-r4ds" class="slide level2">
 <h2>Nueva versión de r4ds</h2>
-<p>El año pasado, también se actualizó el</p>
+<p><br></p>
+<p>El año pasado, también se publicó la segunda edición del libro <strong>R para ciencia de datos</strong> donde se actualizaron las funciones de los paquetes principales de tidyverse a su ultima versión, se utiliza la nueva tubería nativa en el código de ejemplo y se reemplaza el formato de comunicación Rmarkdown por <em>Quarto</em>.</p>
+<p>El enlace a la versión web del libro es <a href="https://r4ds.hadley.nz/">R for Data Science (2e)</a></p>
+<p><br></p>
+<p><strong>Nota</strong>: por ahora el libro no se ha traducido al español (solo inglés)</p>
+</section>
+<section id="práctica" class="slide level2">
+<h2>Práctica</h2>
 <div class="quarto-auto-generated-content">
 <p><img src="logo_INE.PNG" class="slide-logo"></p>
 <div class="footer footer-default">
