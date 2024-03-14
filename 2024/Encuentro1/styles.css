@@ -92,3 +92,7 @@ body {
   background: none;
 }
 
+.center{
+  margin: 0!important;
+  height: 30px;
+}

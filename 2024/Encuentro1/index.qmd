@@ -132,7 +132,7 @@ Lo **experimental** puede volverse **estable** y lo estable puede quedar **obsol
 
 ## Ciclo de vida 
 
-La etapa de desarrollo predeterminada es **estable**. Cuando existe una mejor alternativa disponible la etiqueta dirá **obsoleto** (deprecated).
+La etapa de desarrollo predeterminada es ![](images/Captura4.PNG){.center}. Cuando existe una mejor alternativa disponible la etiqueta dirá ![](images/Captura5.PNG){.center} (obsoleto).
 
 Si llamamos a una función obsoleta recibiremos una advertencia:
 
@@ -153,9 +153,9 @@ En la mayoría de los casos, una función obsoleta acabará por eliminarse luego
 
 <br>
 
-La etiqueta **reemplazado** (superseded) significa que existe una alternativa mejor pero la función en sí no va a desaparecer. Una función reemplazada no emitirá una advertencia (ya que no hay riesgo si continúa usándola), pero la documentación le indicará qué se recomienda en su lugar.
+La etiqueta ![](images/Captura6.PNG){.center} (reemplazado) significa que existe una alternativa mejor pero la función en sí no va a desaparecer. Una función reemplazada no emitirá una advertencia (ya que no hay riesgo si continúa usándola), pero la documentación le indicará qué se recomienda en su lugar.
 
-Algunas funciones se lanzan con una etiqueta **experimental** para que los usuarios las puedan probar y emitir opiniones al respecto, pero no aseguran estabilidad a largo plazo.
+Algunas funciones se lanzan con una etiqueta ![](images/Captura3.PNG){.center} para que los usuarios las puedan probar y emitir opiniones al respecto, pero no aseguran estabilidad a largo plazo.
 
 ## Tuberías
 
@@ -449,3 +449,9 @@ El enlace a la versión web del libro es [R for Data Science (2e)](https://r4ds.
 
 ## Práctica
 
+La idea de esta práctica es repasar algunos procedimientos del tidyverse vistos en encuentros anteriores y sumar las actualizaciones mostradas hoy. 
+
+1. Descargue la siguiente carpeta comprimida - [Practica1](https://drive.google.com/file/d/10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo/view?usp=sharing)
+2. Descomprima la carpeta 
+3. Inicie el proyecto **Encuentro1.Rproj**
+4. Abra el script _**practica_encuentro1.R**_ y responda las consignas
