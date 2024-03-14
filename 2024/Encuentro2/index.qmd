@@ -1,0 +1,222 @@
+---
+title: "Operaciones simultáneas"
+subtitle: "Encuentro 2"
+author: "Christian Ballejo"
+format: 
+  revealjs:
+    width: 1500
+    slide-number: true
+    theme: simple
+    css: styles.css
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## Operaciones simultáneas por columnas {.smaller}
+
+<br>
+
+La filosofía de trabajo de **tidyverse** se plantea *nunca copiar y pegar más de dos veces* el código escrito, pero cuando necesitamos realizar la misma operación en varias columnas nos encontramos con este problema.
+
+<br>
+
+La solución, ofrecida dentro de **dplyr**, es un andamiaje que permite aplicar  funciones y expresiones a varias columnas simultáneamente.
+
+<br>
+
+Es una forma de **iteración**, donde se repite la misma acción en diferentes objetos. En este caso los objetos serán columnas (variables) de la tabla de datos.
+
+<br>
+
+Las operaciones simultáneas pueden darse como transformación (dentro de un `mutate()`) o de resumen (dentro de un `summarise()`)
+
+## Operaciones simultáneas por columnas
+
+Creación de múltiples columnas con **mutate()**
+
+![](images/mutate_across.PNG){fig-align="center"}
+
+Resumiendo múltiples columnas con **summarise()**
+
+![](images/summarise_across.PNG){fig-align="center"}
+
+## across() {.smaller}
+
+<br>
+
+La función `across()` es la encargada de dar soporte a estas operaciones múltiples (*dplyr \>= 1.0.0*).
+
+<br>
+
+
+Sintaxis:
+
+`across(.cols,  .fns,  ...,  .names)`
+
+
+
+<br>
+
+`.cols` = columnas a transformar
+
+`.fns` = función o funciones para aplicar a cada columna de `.cols`
+
+`...` = argumentos adicionales de las funciones especificadas anteriormente (*ejemplo*: na.rm = T)
+
+`.names` = nombres de las columnas de salida. Aquí, `{col}` es un marcador especial al que se le puede agregar el sufijo deseado.
+
+## Resúmenes múltiples
+
+Tomemos la siguiente tabla de datos ficticios:
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+
+datos <- tibble(
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+
+```
+
+
+```{r}
+#| echo: true
+
+datos
+```
+
+Supongamos que queremos calcular la media de cada variable...
+
+## Resúmenes múltiples
+
+Podríamos hacerlo repitiendo para cada variable
+
+```{r}
+#| echo: true
+
+datos |> summarise(
+  a = mean(a),
+  b = mean(b),
+  c = mean(c),
+  d = mean(d),
+)
+```
+
+<br>
+
+Pero esto rompe la regla general que buscamos de nunca copiar y pegar más de dos veces...
+
+## Resúmenes múltiples
+
+<br>
+
+Para solucionarlo aplicamos `across()` y realizamos el resumen simultáneo en una sola línea.
+
+```{r}
+#| echo: true
+
+datos |> summarise(
+  across(.cols = a:d, .fns = mean),
+)
+```
+
+Nótese que el primer argumento es el rango de nombres de variables y el segundo la función que aplicamos a todas ellas.
+
+## Seleccionar variables (.cols)
+
+<br>
+
+El primer argumento de `across()` responde de la misma forma que la función `select()` y aplican también las *funciones ayudantes de selección*.
+
+```{r}
+#| echo: false
+
+datos <- tibble(
+  grupo = sample(2, 10, replace = TRUE),
+  a = rnorm(10),
+  b = rnorm(10),
+  c = rnorm(10),
+  d = rnorm(10)
+)
+```
+
+```{r}
+#| echo: true
+
+names(datos)
+
+datos |> 
+  group_by(grupo) |> 
+  summarize(across(everything(), mean))
+```
+
+
+
+## Ayudantes de selección {.smaller}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="50%"}
+- `everything()`: coincide con todas las variables.
+
+- `group_cols()`: seleccione todas las columnas de agrupación.
+
+- `starts_with()`: comienza con un prefijo.
+
+- `ends_with()`: termina con un sufijo.
+
+- `contains()`: contiene una cadena literal.
+
+- `matches()`: coincide con una expresión regular.
+:::
+
+::: {.column width="50%"}
+- `num_range()`: coincide con un rango numérico como x01, x02, x03.
+
+- `all_of()`: coincide con nombres de variables en un vector de caracteres. Todos los nombres deben estar presentes; de lo contrario, se generará un error de fuera de límites.
+
+- `any_of()`: igual que `all_of()`, excepto que no se genera ningún error para los nombres que no existen.
+
+- `where()`: aplica una función a todas las variables y selecciona aquellas para las cuales la función regresa TRUE.
+:::
+
+::::
+
+
+
+## Aplicar múltiples funciones
+
+
+
+## Agregar argumentos a las funciones
+
+
+
+## Cambiar nombres de resultados
+
+
+## Transformación de tipos de datos
+
+
+## Filtros
+
+
+
+## Práctica
+
+La idea de esta práctica es repasar algunos procedimientos del tidyverse vistos en encuentros anteriores y sumar las actualizaciones mostradas hoy.
+
+1.  Descargue la siguiente carpeta comprimida - [Practica1](https://drive.google.com/uc?id=10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo&export=download)
+2.  Descomprima la carpeta
+3.  Inicie el proyecto **Encuentro1.Rproj**
+4.  Abra el script ***practica_encuentro1.R*** y responda las consignas
