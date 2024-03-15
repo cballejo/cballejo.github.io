@@ -385,7 +385,36 @@ datos_na |>
 
 ## Filtros
 
+<br>
 
+En el caso de iteraciones similares para incluir dentro de la función `filter()` el paquete dplyr propone dos funciones específicas:  `if_any()` e `if_all()`.
+
+<br>
+
+En el primer caso, la función enmascara una repetición de OR lógicos y en la segunda una secuencia de AND lógicos.
+
+
+## Filtros
+
+<br>
+
+```{r}
+#| echo: true
+
+datos_na |> filter(if_any(a:d, is.na))
+```
+
+Es lo mismo que `filter(is.na(a) | is.na(b) | is.na(c) | is.na(d))`
+
+<br>
+
+```{r}
+#| echo: true
+
+datos_na |> filter(if_all(a:d, is.na))
+```
+
+Es lo mismo que `filter(is.na(a) & is.na(b) & is.na(c) & is.na(d))`
 
 ## Práctica
 
