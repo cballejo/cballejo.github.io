@@ -21,7 +21,7 @@ La filosofía de trabajo de **tidyverse** se plantea *nunca copiar y pegar más 
 
 <br>
 
-La solución, ofrecida dentro de **dplyr**, es un andamiaje que permite aplicar  funciones y expresiones a varias columnas simultáneamente.
+La solución, ofrecida dentro de **dplyr**, es un andamiaje que permite aplicar funciones y expresiones a varias columnas simultáneamente.
 
 <br>
 
@@ -45,18 +45,20 @@ Resumiendo múltiples columnas con **summarise()**
 
 <br>
 
+<div class=medium-font>
+
 La función `across()` es la encargada de dar soporte a estas operaciones múltiples (*dplyr \>= 1.0.0*).
 
-<br>
+</div>
 
+<br>
 
 Sintaxis:
 
+<div class=big-font>
 `across(.cols,  .fns,  ...,  .names)`
 
-
-
-<br>
+</div>
 
 `.cols` = columnas a transformar
 
@@ -85,7 +87,6 @@ datos <- tibble(
 )
 
 ```
-
 
 ```{r}
 #| echo: true
@@ -158,39 +159,35 @@ datos |>
   summarize(across(everything(), mean))
 ```
 
-
-
 ## Ayudantes de selección {.smaller}
 
 <br>
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="50%"}
-- `everything()`: coincide con todas las variables.
+-   `everything()`: coincide con todas las variables.
 
-- `group_cols()`: seleccione todas las columnas de agrupación.
+-   `group_cols()`: seleccione todas las columnas de agrupación.
 
-- `starts_with()`: comienza con un prefijo.
+-   `starts_with()`: comienza con un prefijo.
 
-- `ends_with()`: termina con un sufijo.
+-   `ends_with()`: termina con un sufijo.
 
-- `contains()`: contiene una cadena literal.
+-   `contains()`: contiene una cadena literal.
 
-- `matches()`: coincide con una expresión regular.
+-   `matches()`: coincide con una expresión regular.
 :::
 
 ::: {.column width="50%"}
-- `num_range()`: coincide con un rango numérico como x01, x02, x03.
+-   `num_range()`: coincide con un rango numérico como x01, x02, x03.
 
-- `all_of()`: coincide con nombres de variables en un vector de caracteres. Todos los nombres deben estar presentes; de lo contrario, se generará un error de fuera de límites.
+-   `all_of()`: coincide con nombres de variables en un vector de caracteres. Todos los nombres deben estar presentes; de lo contrario, se generará un error de fuera de límites.
 
-- `any_of()`: igual que `all_of()`, excepto que no se genera ningún error para los nombres que no existen.
+-   `any_of()`: igual que `all_of()`, excepto que no se genera ningún error para los nombres que no existen.
 
-- `where()`: aplica una función a todas las variables y selecciona aquellas para las cuales la función regresa TRUE.
+-   `where()`: aplica una función a todas las variables y selecciona aquellas para las cuales la función regresa TRUE.
 :::
-
-::::
+:::
 
 ## Expresiones de selección
 
@@ -211,7 +208,6 @@ Por ejemplo:
 
 Selecciona todas las columnas no numéricas, cuyo nombre comienza con "a".
 
-
 ## Agregar argumentos a las funciones
 
 <br>
@@ -223,7 +219,6 @@ Que sucede si entre los datos de esas variables hay valores **NA**?
 Vamos a necesitar incorporar el argumento `na.rm = TRUE` a la función.
 
 Donde lo hacemos dentro de un `across()`?
-
 
 ## Agregar argumentos a las funciones
 
@@ -281,9 +276,9 @@ Sería bueno que le pasaramos `na.rm = TRUE` a la función `mean()`.
 
 Existen dos formas sintácticas de hacerlo.
 
-- Una función estilo-purrr (tidyverse): `mean(.x, na.rm = TRUE)`
+-   Una función estilo-purrr (tidyverse): `mean(.x, na.rm = TRUE)`
 
-- Una función anónima (base): `function(x) mean(x, na.rm = TRUE)` ; o su forma de atajo:  `\(x) mean(x, na.rm = TRUE)`
+-   Una función anónima (base): `function(x) mean(x, na.rm = TRUE)` ; o su forma de atajo: `\(x) mean(x, na.rm = TRUE)`
 
 ```{r}
 #| echo: true
@@ -294,12 +289,11 @@ datos_na |>
   )
 ```
 
-
 ## Múltiples funciones
 
 <br>
 
-Para incorporar más de una función dentro de `across()` debemos incluirlas dentro de una lista [`list()`]
+Para incorporar más de una función dentro de `across()` debemos incluirlas dentro de una lista \[`list()`\]
 
 ```{r}
 #| echo: true
@@ -387,16 +381,14 @@ datos_na |>
 
 <br>
 
-En el caso de iteraciones similares para incluir dentro de la función `filter()` el paquete dplyr propone dos funciones específicas:  `if_any()` e `if_all()`.
+En el caso de iteraciones similares para incluir dentro de la función `filter()` el paquete dplyr propone dos funciones específicas: `if_any()` e `if_all()`.
 
 <br>
 
 En el primer caso, la función enmascara una repetición de OR lógicos y en la segunda una secuencia de AND lógicos.
 
-
 ## Filtros
 
-<br>
 
 ```{r}
 #| echo: true

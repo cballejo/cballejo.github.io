@@ -96,3 +96,11 @@ body {
   margin: 0!important;
   height: 30px;
 }
+
+.big-font{
+  font-size: 200%  
+}
+
+.medium-font{
+  font-size: 140%  
+}
