@@ -64,7 +64,7 @@ Sintaxis:
 
 `...` = argumentos adicionales de las funciones especificadas anteriormente (*ejemplo*: na.rm = T)
 
-`.names` = nombres de las columnas de salida. Aquí, `{col}` es un marcador especial al que se le puede agregar el sufijo deseado.
+`.names` = nombres de las columnas de salida. Aquí, `{.col}` es un marcador especial al que se le puede agregar el sufijo deseado.
 
 ## Resúmenes múltiples
 
@@ -128,7 +128,7 @@ datos |> summarise(
 )
 ```
 
-Nótese que el primer argumento es el rango de nombres de variables y el segundo la función que aplicamos a todas ellas.
+Nótese que el primer argumento es el rango de nombres de variables y el segundo la función que aplicamos a todas ellas (*nombres de funciones sin paréntesis*).
 
 ## Seleccionar variables (.cols)
 
@@ -192,21 +192,196 @@ datos |>
 
 ::::
 
+## Expresiones de selección
 
+<br>
 
-## Aplicar múltiples funciones
+El argumento `.cols` también puede recibir construcciones *booleanas* utilizando los operadores conocidos como `!` (negación) y conectores lógicos como `&` (AND) y `|` (OR) entre las funciones ayudantes de selección.
 
+<br>
+
+Por ejemplo:
+
+```{r}
+#| echo: true
+#| eval: false
+
+.cols = !where(is.numeric) & starts_with("a")
+```
+
+Selecciona todas las columnas no numéricas, cuyo nombre comienza con "a".
 
 
 ## Agregar argumentos a las funciones
 
+<br>
 
+Hasta ahora vimos el ejemplo de aplicar una función simple como `mean()` a un grupo de variables.
+
+Que sucede si entre los datos de esas variables hay valores **NA**?
+
+Vamos a necesitar incorporar el argumento `na.rm = TRUE` a la función.
+
+Donde lo hacemos dentro de un `across()`?
+
+
+## Agregar argumentos a las funciones
+
+<br>
+
+```{r}
+#| echo: false
+
+rnorm_na <- function(n, n_na, mean = 0, sd = 1) {
+  sample(c(rnorm(n - n_na, mean = mean, sd = sd), rep(NA, n_na)))
+}
+
+datos_na <- tibble(
+  a = rnorm_na(5, 1),
+  b = rnorm_na(5, 1),
+  c = rnorm_na(5, 2),
+  d = rnorm(5)
+)
+```
+
+Supongamos que tenemos estos datos:
+
+```{r}
+#| echo: true
+
+datos_na
+```
+
+<br>
+
+Vemos algunos valores **NA** entre las observaciones.
+
+## Agregar argumentos a las funciones
+
+<br>
+
+Si aplicamos el mismo código de `across()` anterior tendríamos como resultado:
+
+```{r}
+#| echo: true
+
+datos_na |> 
+  summarise(
+    across(a:d, mean)
+  )
+```
+
+<br>
+
+Sería bueno que le pasaramos `na.rm = TRUE` a la función `mean()`.
+
+## Agregar argumentos a las funciones
+
+<br>
+
+Existen dos formas sintácticas de hacerlo.
+
+- Una función estilo-purrr (tidyverse): `mean(.x, na.rm = TRUE)`
+
+- Una función anónima (base): `function(x) mean(x, na.rm = TRUE)` ; o su forma de atajo:  `\(x) mean(x, na.rm = TRUE)`
+
+```{r}
+#| echo: true
+
+datos_na |> 
+  summarise(
+    across(a:d, \(x) mean(x, na.rm = TRUE))
+  )
+```
+
+
+## Múltiples funciones
+
+<br>
+
+Para incorporar más de una función dentro de `across()` debemos incluirlas dentro de una lista [`list()`]
+
+```{r}
+#| echo: true
+
+datos_na |> 
+  summarise(
+    across(a:d, list(
+      media = \(x) mean(x, na.rm = TRUE),
+      n_na = \(x) sum(is.na(x))))
+  )
+```
+
+La lista contiene cada función a aplicar, bajo nombres definidos.
 
 ## Cambiar nombres de resultados
 
+<br>
+
+Observemos que los nombres de las variables resultado se componen del nombre de la columna, un guión bajo y el nombre definido de la función aplicada, para distinguir entre las múltiples funciones del `across()`.
+
+La estructura de estos nombres se pueden modificar con el argumento `.names` de `across()`.
+
+Los marcadores especiales para el nombre de columna es `{.col}` y para el nombre de la función definida es `{.fn}`.
+
+## Cambiar nombres de resultados
+
+<br>
+
+Por ejemplo, podríamos invertir el orden predeterminado de los nombres del resumen.
+
+```{r}
+#| echo: true
+
+datos_na |> 
+  summarise(
+    across(a:d, list(
+      media = \(x) mean(x, na.rm = TRUE),
+      n_na = \(x) sum(is.na(x))),
+      .names = "{.fn}_{.col}")
+  )
+```
 
 ## Transformación de tipos de datos
 
+<br>
+
+Hasta ahora vimos como funciona la función `across()` dentro de un resumen (`summarise`) pero al comienzo también dijimos que se puede utilizar para transformaciones masivas de datos.
+
+<br>
+
+Para lograr esto la función se vincula con `mutate()` modificando las variables originales o bien creando nuevas variables si cambiamos su nombre con `.names`.
+
+## Transformación de tipos de datos
+
+<br>
+
+Aplicamos la función `coalesce()` para convertir los valores **NA** en ceros, transformando las variables originales.
+
+```{r}
+#| echo: true
+
+datos_na |> 
+  mutate(
+    across(a:d, \(x) coalesce(x, 0))
+  )
+```
+
+## Transformación de tipos de datos
+
+<br>
+
+Hacemos lo mismo pero cambiamos los nombres de las variables de salida del `mutate()` que van a coexistir con las originales.
+
+```{r}
+#| echo: true
+
+datos_na |> 
+  mutate(
+    across(a:d, \(x) coalesce(x, 0),
+      .names = "{.col}_na_cero")
+  )
+```
 
 ## Filtros
 

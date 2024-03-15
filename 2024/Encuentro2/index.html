@@ -441,7 +441,7 @@ Christian Ballejo
 <p><code>.cols</code> = columnas a transformar</p>
 <p><code>.fns</code> = función o funciones para aplicar a cada columna de <code>.cols</code></p>
 <p><code>...</code> = argumentos adicionales de las funciones especificadas anteriormente (<em>ejemplo</em>: na.rm = T)</p>
-<p><code>.names</code> = nombres de las columnas de salida. Aquí, <code>{col}</code> es un marcador especial al que se le puede agregar el sufijo deseado.</p>
+<p><code>.names</code> = nombres de las columnas de salida. Aquí, <code>{.col}</code> es un marcador especial al que se le puede agregar el sufijo deseado.</p>
 </section>
 <section id="resúmenes-múltiples" class="slide level2">
 <h2>Resúmenes múltiples</h2>
@@ -450,18 +450,18 @@ Christian Ballejo
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>datos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
-         a      b      c        d
-     &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
- 1  0.415  -0.964  0.893 -0.208  
- 2  2.67   -0.934 -1.02   1.24   
- 3 -0.270  -0.671  0.249 -0.00496
- 4  0.0378  0.286  0.417  0.0670 
- 5  3.04    0.712  0.750  0.231  
- 6  1.53    1.45  -0.635  0.0309 
- 7 -0.267  -0.219  0.630  1.04   
- 8  1.30   -1.22   0.400  0.411  
- 9  0.0770  0.971  1.08  -0.349  
-10  0.171   1.55   0.518 -1.15   </code></pre>
+         a       b       c       d
+     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1  1.20    2.47   -1.27    0.0990
+ 2  1.13    0.343  -0.779  -2.59  
+ 3 -0.982   1.33   -0.252   0.605 
+ 4 -1.40   -0.925   0.0253 -0.848 
+ 5 -0.228   0.871   0.825  -0.521 
+ 6 -0.123  -1.03    1.47   -2.14  
+ 7 -0.0855 -0.813   0.356   0.318 
+ 8  1.29   -0.871  -0.589   0.534 
+ 9 -0.807   0.169  -0.326  -0.0506
+10 -0.536  -0.0258  1.85   -0.174 </code></pre>
 </div>
 </div>
 <p>Supongamos que queremos calcular la media de cada variable…</p>
@@ -478,9 +478,9 @@ Christian Ballejo
 <span id="cb3-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
-      a      b     c     d
-  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 0.870 0.0957 0.328 0.131</code></pre>
+        a     b     c      d
+    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 -0.0543 0.151 0.131 -0.476</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -496,12 +496,12 @@ Christian Ballejo
 <span id="cb5-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
-      a      b     c     d
-  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1 0.870 0.0957 0.328 0.131</code></pre>
+        a     b     c      d
+    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1 -0.0543 0.151 0.131 -0.476</code></pre>
 </div>
 </div>
-<p>Nótese que el primer argumento es el rango de nombres de variables y el segundo la función que aplicamos a todas ellas.</p>
+<p>Nótese que el primer argumento es el rango de nombres de variables y el segundo la función que aplicamos a todas ellas (<em>nombres de funciones sin paréntesis</em>).</p>
 </section>
 <section id="seleccionar-variables-.cols" class="slide level2">
 <h2>Seleccionar variables (.cols)</h2>
@@ -517,10 +517,10 @@ Christian Ballejo
 <span id="cb9-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
-  grupo      a      b      c        d
-  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
-1     1 -1.09  -0.438  0.902 -0.00470
-2     2  0.189  0.460 -0.968  0.578  </code></pre>
+  grupo      a      b      c      d
+  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1     1 -0.406 -0.321 -0.699 -0.640
+2     2 -0.680 -0.297  0.683  0.766</code></pre>
 </div>
 </div>
 </section>
@@ -547,17 +547,181 @@ Christian Ballejo
 </div>
 </div>
 </section>
-<section id="aplicar-múltiples-funciones" class="slide level2">
-<h2>Aplicar múltiples funciones</h2>
+<section id="expresiones-de-selección" class="slide level2">
+<h2>Expresiones de selección</h2>
+<p><br></p>
+<p>El argumento <code>.cols</code> también puede recibir construcciones <em>booleanas</em> utilizando los operadores conocidos como <code>!</code> (negación) y conectores lógicos como <code>&amp;</code> (AND) y <code>|</code> (OR) entre las funciones ayudantes de selección.</p>
+<p><br></p>
+<p>Por ejemplo:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>.cols <span class="ot">=</span> <span class="sc">!</span><span class="fu">where</span>(is.numeric) <span class="sc">&amp;</span> <span class="fu">starts_with</span>(<span class="st">"a"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Selecciona todas las columnas no numéricas, cuyo nombre comienza con “a”.</p>
 </section>
 <section id="agregar-argumentos-a-las-funciones" class="slide level2">
 <h2>Agregar argumentos a las funciones</h2>
+<p><br></p>
+<p>Hasta ahora vimos el ejemplo de aplicar una función simple como <code>mean()</code> a un grupo de variables.</p>
+<p>Que sucede si entre los datos de esas variables hay valores <strong>NA</strong>?</p>
+<p>Vamos a necesitar incorporar el argumento <code>na.rm = TRUE</code> a la función.</p>
+<p>Donde lo hacemos dentro de un <code>across()</code>?</p>
+</section>
+<section id="agregar-argumentos-a-las-funciones-1" class="slide level2">
+<h2>Agregar argumentos a las funciones</h2>
+<p><br></p>
+<p>Supongamos que tenemos estos datos:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>datos_na</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+       a      b      c      d
+   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1  1.50  -1.33   0.705  0.864
+2 NA     -0.254 NA      0.683
+3 -1.12   1.76  NA     -2.22 
+4 -0.191 NA     -0.826  0.357
+5  1.63  -0.933 -0.491  0.826</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Vemos algunos valores <strong>NA</strong> entre las observaciones.</p>
+</section>
+<section id="agregar-argumentos-a-las-funciones-2" class="slide level2">
+<h2>Agregar argumentos a las funciones</h2>
+<p><br></p>
+<p>Si aplicamos el mismo código de <code>across()</code> anterior tendríamos como resultado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb14-3"><a href=""></a>    <span class="fu">across</span>(a<span class="sc">:</span>d, mean)</span>
+<span id="cb14-4"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+      a     b     c     d
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1    NA    NA    NA 0.102</code></pre>
+</div>
+</div>
+<p><br></p>
+<p>Sería bueno que le pasaramos <code>na.rm = TRUE</code> a la función <code>mean()</code>.</p>
+</section>
+<section id="agregar-argumentos-a-las-funciones-3" class="slide level2">
+<h2>Agregar argumentos a las funciones</h2>
+<p><br></p>
+<p>Existen dos formas sintácticas de hacerlo.</p>
+<ul>
+<li><p>Una función estilo-purrr (tidyverse): <code>mean(.x, na.rm = TRUE)</code></p></li>
+<li><p>Una función anónima (base): <code>function(x) mean(x, na.rm = TRUE)</code> ; o su forma de atajo: <code>\(x) mean(x, na.rm = TRUE)</code></p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb16-3"><a href=""></a>    <span class="fu">across</span>(a<span class="sc">:</span>d, \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb16-4"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+      a      b      c     d
+  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
+1 0.455 -0.189 -0.204 0.102</code></pre>
+</div>
+</div>
+</section>
+<section id="múltiples-funciones" class="slide level2">
+<h2>Múltiples funciones</h2>
+<p><br></p>
+<p>Para incorporar más de una función dentro de <code>across()</code> debemos incluirlas dentro de una lista [<code>list()</code>]</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-3"><a href=""></a>    <span class="fu">across</span>(a<span class="sc">:</span>d, <span class="fu">list</span>(</span>
+<span id="cb18-4"><a href=""></a>      <span class="at">media =</span> \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb18-5"><a href=""></a>      <span class="at">n_na =</span> \(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x))))</span>
+<span id="cb18-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  a_media a_n_na b_media b_n_na c_media c_n_na d_media d_n_na
+    &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;
+1   0.455      1  -0.189      1  -0.204      2   0.102      0</code></pre>
+</div>
+</div>
+<p>La lista contiene cada función a aplicar, bajo nombres definidos.</p>
 </section>
 <section id="cambiar-nombres-de-resultados" class="slide level2">
 <h2>Cambiar nombres de resultados</h2>
+<p><br></p>
+<p>Observemos que los nombres de las variables resultado se componen del nombre de la columna, un guión bajo y el nombre definido de la función aplicada, para distinguir entre las múltiples funciones del <code>across()</code>.</p>
+<p>La estructura de estos nombres se pueden modificar con el argumento <code>.names</code> de <code>across()</code>.</p>
+<p>Los marcadores especiales para el nombre de columna es <code>{.col}</code> y para el nombre de la función definida es <code>{.fn}</code>.</p>
+</section>
+<section id="cambiar-nombres-de-resultados-1" class="slide level2">
+<h2>Cambiar nombres de resultados</h2>
+<p><br></p>
+<p>Por ejemplo, podríamos invertir el orden predeterminado de los nombres del resumen.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb20-3"><a href=""></a>    <span class="fu">across</span>(a<span class="sc">:</span>d, <span class="fu">list</span>(</span>
+<span id="cb20-4"><a href=""></a>      <span class="at">media =</span> \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb20-5"><a href=""></a>      <span class="at">n_na =</span> \(x) <span class="fu">sum</span>(<span class="fu">is.na</span>(x))),</span>
+<span id="cb20-6"><a href=""></a>      <span class="at">.names =</span> <span class="st">"{.fn}_{.col}"</span>)</span>
+<span id="cb20-7"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+  media_a n_na_a media_b n_na_b media_c n_na_c media_d n_na_d
+    &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;
+1   0.455      1  -0.189      1  -0.204      2   0.102      0</code></pre>
+</div>
+</div>
 </section>
 <section id="transformación-de-tipos-de-datos" class="slide level2">
 <h2>Transformación de tipos de datos</h2>
+<p><br></p>
+<p>Hasta ahora vimos como funciona la función <code>across()</code> dentro de un resumen (<code>summarise</code>) pero al comienzo también dijimos que se puede utilizar para transformaciones masivas de datos.</p>
+<p><br></p>
+<p>Para lograr esto la función se vincula con <code>mutate()</code> modificando las variables originales o bien creando nuevas variables si cambiamos su nombre con <code>.names</code>.</p>
+</section>
+<section id="transformación-de-tipos-de-datos-1" class="slide level2">
+<h2>Transformación de tipos de datos</h2>
+<p><br></p>
+<p>Aplicamos la función <code>coalesce()</code> para convertir los valores <strong>NA</strong> en ceros, transformando las variables originales.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb22-3"><a href=""></a>    <span class="fu">across</span>(a<span class="sc">:</span>d, \(x) <span class="fu">coalesce</span>(x, <span class="dv">0</span>))</span>
+<span id="cb22-4"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 4
+       a      b      c      d
+   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1  1.50  -1.33   0.705  0.864
+2  0     -0.254  0      0.683
+3 -1.12   1.76   0     -2.22 
+4 -0.191  0     -0.826  0.357
+5  1.63  -0.933 -0.491  0.826</code></pre>
+</div>
+</div>
+</section>
+<section id="transformación-de-tipos-de-datos-2" class="slide level2">
+<h2>Transformación de tipos de datos</h2>
+<p><br></p>
+<p>Hacemos lo mismo pero cambiamos los nombres de las variables de salida del <code>mutate()</code> que van a coexistir con las originales.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb24-3"><a href=""></a>    <span class="fu">across</span>(a<span class="sc">:</span>d, \(x) <span class="fu">coalesce</span>(x, <span class="dv">0</span>),</span>
+<span id="cb24-4"><a href=""></a>      <span class="at">.names =</span> <span class="st">"{.col}_na_cero"</span>)</span>
+<span id="cb24-5"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 8
+       a      b      c      d a_na_cero b_na_cero c_na_cero d_na_cero
+   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1  1.50  -1.33   0.705  0.864     1.50     -1.33      0.705     0.864
+2 NA     -0.254 NA      0.683     0        -0.254     0         0.683
+3 -1.12   1.76  NA     -2.22     -1.12      1.76      0        -2.22 
+4 -0.191 NA     -0.826  0.357    -0.191     0        -0.826     0.357
+5  1.63  -0.933 -0.491  0.826     1.63     -0.933    -0.491     0.826</code></pre>
+</div>
+</div>
 </section>
 <section id="filtros" class="slide level2">
 <h2>Filtros</h2>
