@@ -408,11 +408,26 @@ datos_na |> filter(if_all(a:d, is.na))
 
 Es lo mismo que `filter(is.na(a) & is.na(b) & is.na(c) & is.na(d))`
 
+## Filtros
+
+<br>
+
+Las dos funciones de filtro trabajan con el mismo esquema que `across()`, por lo tanto se le puede aplicar una función o expresión de condición (debe devolver `TRUE` o `FALSE`) 
+
+<br>
+
+```{r}
+#| echo: true
+
+datos_na |> filter(if_any(a:d, \(x) x > 0 & x < 0.5))
+```
+
+
 ## Práctica
 
-La idea de esta práctica es repasar algunos procedimientos del tidyverse vistos en encuentros anteriores y sumar las actualizaciones mostradas hoy.
+Siga los siguientes pasos para descargar y trabajar en la practica de este encuentro.
 
-1.  Descargue la siguiente carpeta comprimida - [Practica1](https://drive.google.com/uc?id=10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo&export=download)
+1.  Descargue la siguiente carpeta comprimida - [Practica2](https://drive.google.com/uc?id=10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo&export=download)
 2.  Descomprima la carpeta
-3.  Inicie el proyecto **Encuentro1.Rproj**
-4.  Abra el script ***practica_encuentro1.R*** y responda las consignas
+3.  Inicie el proyecto **Encuentro2.Rproj**
+4.  Abra el script ***practica_encuentro2.R*** y responda las consignas
