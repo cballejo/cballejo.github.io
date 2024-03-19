@@ -425,9 +425,11 @@ datos_na |> filter(if_any(a:d, \(x) x > 0 & x < 0.5))
 
 ## Práctica
 
+<br>
+
 Siga los siguientes pasos para descargar y trabajar en la practica de este encuentro.
 
-1.  Descargue la siguiente carpeta comprimida - [Practica2](https://drive.google.com/uc?id=10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo&export=download)
+1.  Descargue la  carpeta comprimida - [Practica2](https://drive.google.com/uc?id=1OcTY2khFVBsRk3NTOok5LxjPqdfkaqSQ&export=download)
 2.  Descomprima la carpeta
 3.  Inicie el proyecto **Encuentro2.Rproj**
 4.  Abra el script ***practica_encuentro2.R*** y responda las consignas
