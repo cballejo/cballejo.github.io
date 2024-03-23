@@ -25,7 +25,7 @@ La solución, ofrecida dentro de **dplyr**, es un andamiaje que permite aplicar 
 
 <br>
 
-Es una forma de **iteración**, donde se repite la misma acción en diferentes objetos. En este caso los objetos serán columnas (variables) de la tabla de datos.
+Es una forma de **iteración**, donde se repite la misma acción en diferentes objetos. En este caso los objetos serán columnas (*variables*) de la tabla de datos.
 
 <br>
 
