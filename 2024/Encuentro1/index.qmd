@@ -56,7 +56,7 @@ Si ejecutamos código propio de la estructura tidyverse sin haber activado el pa
 #| echo: true
 #| error: true
 datos::pinguinos |>
-  filter(especie == "Adelia") |> slice(1:2)
+  filter(especie == "Adelia") 
 ```
 
 <br>
@@ -120,7 +120,7 @@ datos::pinguinos |>
   filter(especie == "Adelia") |> slice(1:2)
 ```
 
-## Ciclo de vida 
+## Ciclo de vida
 
 El código que conforma o sigue la filosofía del tidyverse se enmarcan en estas etapas del ciclo de vida:
 
@@ -130,7 +130,7 @@ Las etapas del ciclo de vida pueden aplicarse a paquetes, funciones, argumentos 
 
 Lo **experimental** puede volverse **estable** y lo estable puede quedar **obsoleto** o ser **reemplazado**.
 
-## Ciclo de vida 
+## Ciclo de vida
 
 La etapa de desarrollo predeterminada es ![](images/Captura4.PNG){.center}. Cuando existe una mejor alternativa disponible la etiqueta dirá ![](images/Captura5.PNG){.center} (obsoleto).
 
@@ -149,7 +149,7 @@ df <- tibble::data_frame(x = 1)
 
 En la mayoría de los casos, una función obsoleta acabará por eliminarse luego de un tiempo prudencial en el que los desarrolladores tendrán que dejar de usarla.
 
-## Ciclo de vida 
+## Ciclo de vida
 
 <br>
 
@@ -161,32 +161,29 @@ Algunas funciones se lanzan con una etiqueta ![](images/Captura3.PNG){.center} p
 
 <br>
 
-La *versión 4.1.0* de **R** introdujo una tubería nativa (**`|>`**) similar a `%>%`, que permite canalizaciones directas. 
+La *versión 4.1.0* de **R** introdujo una tubería nativa (**`|>`**) similar a `%>%`, que permite canalizaciones directas.
 
 La forma simple de la tubería inserta el lado izquierdo como primer argumento en la llamada del lado derecho.
 
-En la mayoría de las ocasiones se puede utilizar cualquiera de las dos tuberías indistintamente y RStudio puede configurar cual se asocia al atajo de teclado *Ctrl+Shift+M* (Tools > Global Options... > Code > Use native pipe operator)
+En la mayoría de las ocasiones se puede utilizar cualquiera de las dos tuberías indistintamente y RStudio puede configurar cual se asocia al atajo de teclado *Ctrl+Shift+M* (Tools \> Global Options... \> Code \> Use native pipe operator)
 
-Para ver las características comparativas entre las dos versiones puede leer este  [documento](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
+Para ver las características comparativas entre las dos versiones puede leer este [documento](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
 
 ## Encoding
 
 Cuando trabajamos con archivos de datos de texto plano (csv, txt, etc), a veces es necesario reconocer el **Enconding** de los caracteres utilizados en la creación del archivo de datos para hacer una lectura adecuada.
 
-- La codificación de caracteres en los archivos especifican cómo se representan los caracteres durante el procesamiento de texto.
+-   La codificación de caracteres en los archivos especifican cómo se representan los caracteres durante el procesamiento de texto.
 
-- Existen diferentes estándares de "encoding" que se adaptan a conjuntos de caracteres específicos (generalmente según el idioma). Estas codificaciones de caracteres se conocen bajo estándares ISO u otros como Unicode.  
-
-
+-   Existen diferentes estándares de "encoding" que se adaptan a conjuntos de caracteres específicos (generalmente según el idioma). Estas codificaciones de caracteres se conocen bajo estándares ISO u otros como Unicode.
 
 ## Encoding
 
-- El estándar de trabajo del **RStudio** es `UTF-8` y cuando el **encoding** de un archivo es otro puede que los caracteres especiales no se vean correctamente. (acentos o eñes que se muestran con otros caracteres equivocados).
+-   El estándar de trabajo del **RStudio** es `UTF-8` y cuando el **encoding** de un archivo es otro puede que los caracteres especiales no se vean correctamente. (acentos o eñes que se muestran con otros caracteres equivocados).
 
-- El paquete **readr** tiene la función `guess_enconding()` que sirve para detectar el estándar de un archivo de texto plano.
+-   El paquete **readr** tiene la función `guess_enconding()` que sirve para detectar el estándar de un archivo de texto plano.
 
-- Las funciones de lectura del paquete permiten modificar estos estándares dentro de sus argumentos (`locale = locale()`)
-
+-   Las funciones de lectura del paquete permiten modificar estos estándares dentro de sus argumentos (`locale = locale()`)
 
 ## Encoding
 
@@ -215,9 +212,7 @@ La función `guess_enconding()` nos muestra con que estandares se aproximan a lo
 guess_encoding("data/prueba.csv")
 ```
 
-A la derecha de cada estandar aparece el grado de confianza del hallazgo. Se aconseja utilizar el código con el mayor grado de confianza. En este ejemplo, es 
-ISO-8859-1 (también conocida como Latin1 - [ver](https://es.wikipedia.org/wiki/ISO/IEC_8859-1))
-
+A la derecha de cada estandar aparece el grado de confianza del hallazgo. Se aconseja utilizar el código con el mayor grado de confianza. En este ejemplo, es ISO-8859-1 (también conocida como Latin1 - [ver](https://es.wikipedia.org/wiki/ISO/IEC_8859-1))
 
 ## Encoding
 
@@ -235,8 +230,7 @@ read_csv2("data/prueba.csv",
   select(centrosalud_informe, region_sanitaria_informe)
 ```
 
-
-## Funcionalidad mejorada de *_join()
+## Funcionalidad mejorada de \*\_join()
 
 Cambios opcionales en la familia `*_join()`
 
@@ -265,7 +259,6 @@ Cambios opcionales en la familia `*_join()`
   by = join_by( == )
 )
 ```
-
 
 ## Agrupamientos temporales
 
@@ -316,12 +309,11 @@ datos::pinguinos |>
   ) 
 ```
 
+## Cambios en case_when()
 
-## Cambios en case_when() 
+Se adecuaron argumentos de la función `case_when()`.
 
-Se adecuaron argumentos de la función `case_when()`. 
-
-Anteriormente había que utilizar `TRUE` para indicar *"todo lo demás"* y además los NA debían estar definidos por el tipo de dato de salida (por ejemplo: **NA_character_**) 
+Anteriormente había que utilizar `TRUE` para indicar *"todo lo demás"* y además los NA debían estar definidos por el tipo de dato de salida (por ejemplo: **NA_character\_**)
 
 ```{r}
 #| echo: true
@@ -338,7 +330,7 @@ datos |>
   )
 ```
 
-##  Cambios en case_when() 
+## Cambios en case_when()
 
 <br>
 
@@ -358,7 +350,6 @@ datos |>
     )
   )
 ```
-
 
 ## Nueva sintaxis para separar columnas
 
@@ -434,7 +425,6 @@ ejemplo_pinguinos |>
   )
 ```
 
-
 ## Nueva versión de r4ds
 
 <br>
@@ -449,9 +439,9 @@ El enlace a la versión web del libro es [R for Data Science (2e)](https://r4ds.
 
 ## Práctica
 
-La idea de esta práctica es repasar algunos procedimientos del tidyverse vistos en encuentros anteriores y sumar las actualizaciones mostradas hoy. 
+La idea de esta práctica es repasar algunos procedimientos del tidyverse vistos en encuentros anteriores y sumar las actualizaciones mostradas hoy.
 
-1. Descargue la siguiente carpeta comprimida - [Practica1](https://drive.google.com/uc?id=10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo&export=download)
-2. Descomprima la carpeta 
-3. Inicie el proyecto **Encuentro1.Rproj**
-4. Abra el script _**practica_encuentro1.R**_ y responda las consignas
+1.  Descargue la siguiente carpeta comprimida - [Practica1](https://drive.google.com/uc?id=10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo&export=download)
+2.  Descomprima la carpeta
+3.  Inicie el proyecto **Encuentro1.Rproj**
+4.  Abra el script ***practica_encuentro1.R*** y responda las consignas
