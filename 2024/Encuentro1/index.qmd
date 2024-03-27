@@ -441,7 +441,7 @@ El enlace a la versión web del libro es [R for Data Science (2e)](https://r4ds.
 
 La idea de esta práctica es repasar algunos procedimientos del tidyverse vistos en encuentros anteriores y sumar las actualizaciones mostradas hoy.
 
-1.  Descargue la siguiente carpeta comprimida - [Practica1](https://drive.google.com/uc?id=10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo&export=download)
+1.  Descargue la siguiente carpeta comprimida - [Practica1](https://drive.google.com/file/d/10n_L-oSxd6ZbLQWIyCUvnwTyuPhlZDyo/view?usp=sharing)
 2.  Descomprima la carpeta
 3.  Inicie el proyecto **Encuentro1.Rproj**
 4.  Abra el script ***practica_encuentro1.R*** y responda las consignas
