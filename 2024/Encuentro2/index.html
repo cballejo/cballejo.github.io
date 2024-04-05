@@ -453,18 +453,18 @@ Christian Ballejo
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>datos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
-         a      b        c      d
-     &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;
- 1 -0.0542  0.561  0.00299 -0.250
- 2 -1.43   -0.217 -0.0498  -0.984
- 3  0.712  -0.522 -0.332   -0.721
- 4 -0.805   0.236  0.265   -0.569
- 5  1.71    0.762 -0.262   -2.30 
- 6 -0.0532 -0.167 -0.347    0.100
- 7 -0.327  -0.374  0.652   -0.107
- 8 -2.55   -0.710  1.01    -0.201
- 9 -0.961   0.333  1.27    -0.359
-10  0.352   0.402 -0.535    0.136</code></pre>
+         a       b       c       d
+     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+ 1  0.956   0.550  -0.0235  1.52  
+ 2  0.633  -1.17   -0.699  -0.688 
+ 3  1.18   -0.149  -0.0609 -1.70  
+ 4 -0.675  -1.26    1.03   -0.335 
+ 5  1.75    0.0407 -1.34    0.532 
+ 6 -0.404   0.301  -0.261   0.0657
+ 7  0.308   0.112   2.70   -1.08  
+ 8  0.510   0.406  -0.389  -1.50  
+ 9  2.18   -1.60   -0.968   0.615 
+10 -0.0721  1.66   -0.202  -0.363 </code></pre>
 </div>
 </div>
 <p>Supongamos que queremos calcular la media de cada variable…</p>
@@ -481,9 +481,9 @@ Christian Ballejo
 <span id="cb3-6"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
-       a      b     c      d
-   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1 -0.341 0.0305 0.168 -0.525</code></pre>
+      a      b       c      d
+  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+1 0.636 -0.111 -0.0224 -0.293</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -499,9 +499,9 @@ Christian Ballejo
 <span id="cb5-3"><a href=""></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
-       a      b     c      d
-   &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1 -0.341 0.0305 0.168 -0.525</code></pre>
+      a      b       c      d
+  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+1 0.636 -0.111 -0.0224 -0.293</code></pre>
 </div>
 </div>
 <p>Nótese que el primer argumento es el rango de nombres de variables y el segundo la función que aplicamos a todas ellas (<em>nombres de funciones sin paréntesis</em>).</p>
@@ -520,10 +520,10 @@ Christian Ballejo
 <span id="cb9-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 5
-  grupo      a      b      c       d
-  &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;
-1     1  1.22   0.505 -0.699 -0.0573
-2     2 -0.476 -0.748 -0.108 -0.177 </code></pre>
+  grupo        a       b     c      d
+  &lt;int&gt;    &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+1     1 -0.00349  0.0601 0.282 0.580 
+2     2  0.405   -0.303  0.334 0.0580</code></pre>
 </div>
 </div>
 </section>
@@ -577,13 +577,13 @@ Christian Ballejo
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>datos_na</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 4
-       a      b      c      d
-   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1 NA      0.173 NA      0.974
-2  0.704 -0.965 -0.371  0.310
-3 -0.900 -2.13  NA     -0.827
-4 -0.543 -1.48  -0.745  0.128
-5  0.722 NA     -0.159 -3.36 </code></pre>
+       a       b      c        d
+   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1 -0.460  1.59   NA     -0.00622
+2 NA     NA       0.694  2.05   
+3 -0.346 -0.0557 NA      0.777  
+4  0.785  0.934  -1.72  -0.635  
+5 -0.230 -1.60    0.168 -1.76   </code></pre>
 </div>
 </div>
 <p><br></p>
@@ -602,7 +602,7 @@ Christian Ballejo
 <pre><code># A tibble: 1 × 4
       a     b     c      d
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1    NA    NA    NA -0.554</code></pre>
+1    NA    NA    NA 0.0862</code></pre>
 </div>
 </div>
 <p><br></p>
@@ -613,8 +613,8 @@ Christian Ballejo
 <p><br></p>
 <p>Existen dos formas sintácticas de hacerlo.</p>
 <ul>
-<li><p>Una función estilo-purrr (tidyverse): <code>mean(.x, na.rm = TRUE)</code></p></li>
-<li><p>Una función anónima (base): <code>function(x) mean(x, na.rm = TRUE)</code> ; o su forma de atajo: <code>\(x) mean(x, na.rm = TRUE)</code></p></li>
+<li><p>Una función estilo-purrr (tidyverse): <code>~ mean(.x, na.rm = TRUE)</code></p></li>
+<li><p>Una función anónima (base): <code>function(x) mean(x, na.rm = TRUE)</code> ; o mejor en su forma de atajo: <code>\(x) mean(x, na.rm = TRUE)</code></p></li>
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> </span>
@@ -623,9 +623,9 @@ Christian Ballejo
 <span id="cb16-4"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 4
-         a     b      c      d
-     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1 -0.00422 -1.10 -0.425 -0.554</code></pre>
+        a     b      c      d
+    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+1 -0.0628 0.217 -0.287 0.0862</code></pre>
 </div>
 </div>
 </section>
@@ -642,9 +642,9 @@ Christian Ballejo
 <span id="cb18-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
-   a_media a_n_na b_media b_n_na c_media c_n_na d_media d_n_na
-     &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;
-1 -0.00422      1   -1.10      1  -0.425      2  -0.554      0</code></pre>
+  a_media a_n_na b_media b_n_na c_media c_n_na d_media d_n_na
+    &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;
+1 -0.0628      1   0.217      1  -0.287      2  0.0862      0</code></pre>
 </div>
 </div>
 <p>La lista contiene cada función a aplicar, bajo nombres definidos.</p>
@@ -670,9 +670,9 @@ Christian Ballejo
 <span id="cb20-7"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 8
-   media_a n_na_a media_b n_na_b media_c n_na_c media_d n_na_d
-     &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;
-1 -0.00422      1   -1.10      1  -0.425      2  -0.554      0</code></pre>
+  media_a n_na_a media_b n_na_b media_c n_na_c media_d n_na_d
+    &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;   &lt;dbl&gt;  &lt;int&gt;
+1 -0.0628      1   0.217      1  -0.287      2  0.0862      0</code></pre>
 </div>
 </div>
 </section>
@@ -694,13 +694,13 @@ Christian Ballejo
 <span id="cb22-4"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 4
-       a      b      c      d
-   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1  0      0.173  0      0.974
-2  0.704 -0.965 -0.371  0.310
-3 -0.900 -2.13   0     -0.827
-4 -0.543 -1.48  -0.745  0.128
-5  0.722  0     -0.159 -3.36 </code></pre>
+       a       b      c        d
+   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1 -0.460  1.59    0     -0.00622
+2  0      0       0.694  2.05   
+3 -0.346 -0.0557  0      0.777  
+4  0.785  0.934  -1.72  -0.635  
+5 -0.230 -1.60    0.168 -1.76   </code></pre>
 </div>
 </div>
 </section>
@@ -716,13 +716,13 @@ Christian Ballejo
 <span id="cb24-5"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5 × 8
-       a      b      c      d a_na_cero b_na_cero c_na_cero d_na_cero
-   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 NA      0.173 NA      0.974     0         0.173     0         0.974
-2  0.704 -0.965 -0.371  0.310     0.704    -0.965    -0.371     0.310
-3 -0.900 -2.13  NA     -0.827    -0.900    -2.13      0        -0.827
-4 -0.543 -1.48  -0.745  0.128    -0.543    -1.48     -0.745     0.128
-5  0.722 NA     -0.159 -3.36      0.722     0        -0.159    -3.36 </code></pre>
+       a       b      c        d a_na_cero b_na_cero c_na_cero d_na_cero
+   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 -0.460  1.59   NA     -0.00622    -0.460    1.59       0      -0.00622
+2 NA     NA       0.694  2.05        0        0          0.694   2.05   
+3 -0.346 -0.0557 NA      0.777      -0.346   -0.0557     0       0.777  
+4  0.785  0.934  -1.72  -0.635       0.785    0.934     -1.72   -0.635  
+5 -0.230 -1.60    0.168 -1.76       -0.230   -1.60       0.168  -1.76   </code></pre>
 </div>
 </div>
 </section>
@@ -739,11 +739,11 @@ Christian Ballejo
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">if_any</span>(a<span class="sc">:</span>d, is.na))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 4
-       a      b      c      d
-   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
-1 NA      0.173 NA      0.974
-2 -0.900 -2.13  NA     -0.827
-3  0.722 NA     -0.159 -3.36 </code></pre>
+       a       b      c        d
+   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+1 -0.460  1.59   NA     -0.00622
+2 NA     NA       0.694  2.05   
+3 -0.346 -0.0557 NA      0.777  </code></pre>
 </div>
 </div>
 <p>Es lo mismo que <code>filter(is.na(a) | is.na(b) | is.na(c) | is.na(d))</code></p>
@@ -765,12 +765,10 @@ Christian Ballejo
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>datos_na <span class="sc">|&gt;</span> <span class="fu">filter</span>(<span class="fu">if_any</span>(a<span class="sc">:</span>d, \(x) x <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> x <span class="sc">&lt;</span> <span class="fl">0.5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 3 × 4
-       a      b      c     d
-   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;
-1 NA      0.173 NA     0.974
-2  0.704 -0.965 -0.371 0.310
-3 -0.543 -1.48  -0.745 0.128</code></pre>
+<pre><code># A tibble: 1 × 4
+       a     b     c     d
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1 -0.230 -1.60 0.168 -1.76</code></pre>
 </div>
 </div>
 </section>

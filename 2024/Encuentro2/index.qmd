@@ -276,9 +276,9 @@ Sería bueno que le pasaramos `na.rm = TRUE` a la función `mean()`.
 
 Existen dos formas sintácticas de hacerlo.
 
--   Una función estilo-purrr (tidyverse): `mean(.x, na.rm = TRUE)`
+-   Una función estilo-purrr (tidyverse): `~ mean(.x, na.rm = TRUE)`
 
--   Una función anónima (base): `function(x) mean(x, na.rm = TRUE)` ; o su forma de atajo: `\(x) mean(x, na.rm = TRUE)`
+-   Una función anónima (base): `function(x) mean(x, na.rm = TRUE)` ; o mejor en su forma de atajo: `\(x) mean(x, na.rm = TRUE)`
 
 ```{r}
 #| echo: true
