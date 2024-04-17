@@ -159,6 +159,8 @@ cballejo$ quarto --help
 
 ## Otras características
 
+<br>
+
 - Tiene múltiples formatos modernos de salidas unificado la funcionalidad de muchos paquetes del ecosistema R Markdown (rmarkdown, bookdown, distill, xaringan, etc.)
 
 - Se pueden renderizar los documentos viejos `.rmd` (RMarkdown) o `.ipynb` (cuadernos jupyter de python) con Quarto.
@@ -297,31 +299,66 @@ Esto es texto en **negrita**, esto en *itálica* y esta otra una
 
 ## Metadatos: YAML
 
+. . . 
+
 <br>
 
 - Los metadatos que se definen en el encabezado YAML que todos los archivos `.qmd` tienen son procesados en muchas etapas del renderizado y puede influir en el documento final de varias formas. 
 
+. . . 
+
 - Siempre se colocan al principio del documento y lo lee **Pandoc**, **Quarto** y **knitr**. 
 
+. . . 
+
 - En su recorrido, la información que contiene suele afectar el código, el contenido y el proceso de renderizado.
+
+. . . 
 
 - Muchas de las opciones de código YAML para Quarto se pueden encontrar en su [documentación](https://quarto.org/docs/reference/)  
 
 ## Texto y otros elementos 
 
-- `Quarto` se basa en **Pandoc** y utiliza su variación de Markdown como sintaxis para documentos. 
+. . . 
 
-- El **Markdown** de Pandoc es una versión ampliada y ligeramente revisada de la sintaxis Markdown de *John Gruber*.
+<br>
+
+- `Quarto` se basa en **Pandoc** y utiliza su variación de [Markdown](https://es.wikipedia.org/wiki/Markdown) como sintaxis para documentos. 
+
+. . . 
+
+- El **Markdown** de Pandoc es una versión ampliada y ligeramente revisada de la sintaxis Markdown de [John Gruber](https://en.wikipedia.org/wiki/John_Gruber).
+
+. . . 
 
 - Markdown es un lenguaje de marcas sencillo diseñado para ser fácil de escribir y, lo que es más importante, fácil de leer.
 
+. . . 
+
+- Es el mismo que se utiliza en el formato anterior de RMarkdown (archivos .Rmd)
+
 ## Código
+
+. . . 
 
 - El código se puede insertar a través de chunks (fragmentos) en distintos lenguajes
 
+````code
+```{{r}}
+#| Aquí van los metadatos con las opciones de ejecución
+
+Aquí va el código
+```
+````
+. . . 
+
 - Las opciones de ejecución del código incluido dentro de estos fragmentos se realiza mediante metadatos con el formato #|
 
+. . . 
+
 - Se pueden definir opciones de salida, figura, procesado, etc. Ver [guía](https://quarto.org/docs/computations/execution-options.html).
+
+. . . 
 
 - También se puede incluir [código en línea](https://quarto.org/docs/computations/inline-code.html) en el texto. 
 
@@ -330,7 +367,18 @@ Esto es texto en **negrita**, esto en *itálica* y esta otra una
 radio <- 5
 ```
 ````
-El radio del circulo es `\{r\} radio`
+El radio del circulo es \`\{r\} radio\`
 
+## Algunos ejemplos
 
+- [HTML paginado -estilo Tufte-](https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html)
 
+- [Presentación revealjs](https://apreshill.github.io/palmerpenguins-useR-2022/)
+
+- [Libro web](https://r4csr.org/)
+
+- [Sitio web](https://sta210-s22.github.io/website/)
+
+- [Documentos interactivos -shiny-](https://jjallaire.shinyapps.io/diamonds-explorer/)
+
+- [Tableros](https://mine-cetinkaya-rundel.github.io/ld-dashboard/)

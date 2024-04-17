@@ -532,6 +532,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </section>
 <section id="otras-características" class="slide level2">
 <h2>Otras características</h2>
+<p><br></p>
 <ul>
 <li><p>Tiene múltiples formatos modernos de salidas unificado la funcionalidad de muchos paquetes del ecosistema R Markdown (rmarkdown, bookdown, distill, xaringan, etc.)</p></li>
 <li><p>Se pueden renderizar los documentos viejos <code>.rmd</code> (RMarkdown) o <code>.ipynb</code> (cuadernos jupyter de python) con Quarto.</p></li>
@@ -643,34 +644,94 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </section>
 <section id="metadatos-yaml" class="slide level2">
 <h2>Metadatos: YAML</h2>
+<div class="fragment">
 <p><br></p>
 <ul>
-<li><p>Los metadatos que se definen en el encabezado YAML que todos los archivos <code>.qmd</code> tienen son procesados en muchas etapas del renderizado y puede influir en el documento final de varias formas.</p></li>
-<li><p>Siempre se colocan al principio del documento y lo lee <strong>Pandoc</strong>, <strong>Quarto</strong> y <strong>knitr</strong>.</p></li>
-<li><p>En su recorrido, la información que contiene suele afectar el código, el contenido y el proceso de renderizado.</p></li>
-<li><p>Muchas de las opciones de código YAML para Quarto se pueden encontrar en su <a href="https://quarto.org/docs/reference/">documentación</a></p></li>
+<li>Los metadatos que se definen en el encabezado YAML que todos los archivos <code>.qmd</code> tienen son procesados en muchas etapas del renderizado y puede influir en el documento final de varias formas.</li>
 </ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Siempre se colocan al principio del documento y lo lee <strong>Pandoc</strong>, <strong>Quarto</strong> y <strong>knitr</strong>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>En su recorrido, la información que contiene suele afectar el código, el contenido y el proceso de renderizado.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Muchas de las opciones de código YAML para Quarto se pueden encontrar en su <a href="https://quarto.org/docs/reference/">documentación</a></li>
+</ul>
+</div>
 </section>
 <section id="texto-y-otros-elementos" class="slide level2">
 <h2>Texto y otros elementos</h2>
+<div class="fragment">
+<p><br></p>
 <ul>
-<li><p><code>Quarto</code> se basa en <strong>Pandoc</strong> y utiliza su variación de Markdown como sintaxis para documentos.</p></li>
-<li><p>El <strong>Markdown</strong> de Pandoc es una versión ampliada y ligeramente revisada de la sintaxis Markdown de <em>John Gruber</em>.</p></li>
-<li><p>Markdown es un lenguaje de marcas sencillo diseñado para ser fácil de escribir y, lo que es más importante, fácil de leer.</p></li>
+<li><code>Quarto</code> se basa en <strong>Pandoc</strong> y utiliza su variación de <a href="https://es.wikipedia.org/wiki/Markdown">Markdown</a> como sintaxis para documentos.</li>
 </ul>
+</div>
+<div class="fragment">
+<ul>
+<li>El <strong>Markdown</strong> de Pandoc es una versión ampliada y ligeramente revisada de la sintaxis Markdown de <a href="https://en.wikipedia.org/wiki/John_Gruber">John Gruber</a>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Markdown es un lenguaje de marcas sencillo diseñado para ser fácil de escribir y, lo que es más importante, fácil de leer.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Es el mismo que se utiliza en el formato anterior de RMarkdown (archivos .Rmd)</li>
+</ul>
+</div>
 </section>
 <section id="código" class="slide level2">
 <h2>Código</h2>
+<div class="fragment">
 <ul>
-<li><p>El código se puede insertar a través de chunks (fragmentos) en distintos lenguajes</p></li>
-<li><p>Las opciones de ejecución del código incluido dentro de estos fragmentos se realiza mediante metadatos con el formato #|</p></li>
-<li><p>Se pueden definir opciones de salida, figura, procesado, etc. Ver <a href="https://quarto.org/docs/computations/execution-options.html">guía</a>.</p></li>
-<li><p>También se puede incluir <a href="https://quarto.org/docs/computations/inline-code.html">código en línea</a> en el texto.</p></li>
+<li>El código se puede insertar a través de chunks (fragmentos) en distintos lenguajes</li>
 </ul>
 <div class="sourceCode" id="cb9"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href=""></a><span class="in">```{r}</span></span>
-<span id="cb9-2"><a href=""></a><span class="in">radio &lt;- 5</span></span>
-<span id="cb9-3"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>El radio del circulo es <code>\{r\} radio</code></p>
+<span id="cb9-2"><a href=""></a><span class="in">#| Aquí van los metadatos con las opciones de ejecución</span></span>
+<span id="cb9-3"><a href=""></a></span>
+<span id="cb9-4"><a href=""></a><span class="in">Aquí va el código</span></span>
+<span id="cb9-5"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li>Las opciones de ejecución del código incluido dentro de estos fragmentos se realiza mediante metadatos con el formato #|</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Se pueden definir opciones de salida, figura, procesado, etc. Ver <a href="https://quarto.org/docs/computations/execution-options.html">guía</a>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>También se puede incluir <a href="https://quarto.org/docs/computations/inline-code.html">código en línea</a> en el texto.</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href=""></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href=""></a><span class="in">radio &lt;- 5</span></span>
+<span id="cb10-3"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>El radio del circulo es `{r} radio`</p>
+</div>
+</section>
+<section id="algunos-ejemplos" class="slide level2">
+<h2>Algunos ejemplos</h2>
+<ul>
+<li><p><a href="https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html">HTML paginado -estilo Tufte-</a></p></li>
+<li><p><a href="https://apreshill.github.io/palmerpenguins-useR-2022/">Presentación revealjs</a></p></li>
+<li><p><a href="https://r4csr.org/">Libro web</a></p></li>
+<li><p><a href="https://sta210-s22.github.io/website/">Sitio web</a></p></li>
+<li><p><a href="https://jjallaire.shinyapps.io/diamonds-explorer/">Documentos interactivos -shiny-</a></p></li>
+<li><p><a href="https://mine-cetinkaya-rundel.github.io/ld-dashboard/">Tableros</a></p></li>
+</ul>
 <div class="quarto-auto-generated-content">
 <p><img src="logo_INE.PNG" class="slide-logo"></p>
 <div class="footer footer-default">
