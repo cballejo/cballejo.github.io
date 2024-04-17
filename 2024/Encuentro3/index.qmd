@@ -44,14 +44,14 @@ library(tidyverse)
 
 ## RMarkdown de Rstudio
 
--   Desarrollo del paquete **knitr** en 2011
--   Desarrollo de **RMarkdown** en 2014
+-   Desarrollo del paquete **knitr** desde 2011
+-   Desarrollo de **RMarkdown** desde 2014 (rmarkdown + pandoc)
 
 ![](images/Captura2.PNG){.absolute top="300" left="150" width="1100"}
 
 ## `knitr` + `rmarkdown` = `Quarto`
 
-10 años de experiencia en `knitr` + `rmarkdown` se volcaron al desarrollo de Quarto.
+10 años de experiencia en `knitr` + `rmarkdown` se volcaron al desarrollo de Quarto, convirtiendolo en la próxima generación de **RMarkdown**
 
 ![](images/Captura3.PNG){.absolute top="250" left="100" width="1200"}
 
@@ -215,7 +215,7 @@ cballejo$ quarto --help
 - Cambie al modo **Source** y visualice el documento
 - Renderice y vea los resultados
 
-## Archivo `.qmd` {.smaller}
+## Anatomia de un `.qmd` {.smaller}
 
 . . .
 
