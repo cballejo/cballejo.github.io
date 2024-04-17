@@ -722,8 +722,30 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <p>El radio del circulo es `{r} radio`</p>
 </div>
 </section>
+<section id="actividad-3" class="slide level2" data-background-color="#447099" data-transition="slide-in">
+<h2><svg aria-hidden="true" role="img" viewbox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"></path></svg>️ Actividad 3</h2>
+<p><br></p>
+<ul>
+<li>Regrese al documento Quarto recién creado y agregue al final el siguiente fragmento de R:</li>
+</ul>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href=""></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href=""></a><span class="in">library(tidyverse)</span></span>
+<span id="cb11-3"><a href=""></a></span>
+<span id="cb11-4"><a href=""></a><span class="in">iris |&gt; </span></span>
+<span id="cb11-5"><a href=""></a><span class="in">  ggplot(aes(x = Sepal.Length, fill = Species)) +</span></span>
+<span id="cb11-6"><a href=""></a><span class="in">  geom_boxplot()</span></span>
+<span id="cb11-7"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>Incorpore y prueba renderizando con los siguientes cambios:
+<ul>
+<li>Opciones de ejecución: message: false, echo: false, fig-align: center y fig-asp: 0.4</li>
+<li>Metadatos YAML: toc: true, toc-title: Contenidos y theme: solar</li>
+</ul></li>
+</ul>
+</section>
 <section id="algunos-ejemplos" class="slide level2">
 <h2>Algunos ejemplos</h2>
+<p><br></p>
 <ul>
 <li><p><a href="https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html">HTML paginado -estilo Tufte-</a></p></li>
 <li><p><a href="https://apreshill.github.io/palmerpenguins-useR-2022/">Presentación revealjs</a></p></li>

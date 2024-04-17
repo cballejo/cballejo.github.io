@@ -369,7 +369,28 @@ radio <- 5
 ````
 El radio del circulo es \`\{r\} radio\`
 
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3  {background-color="#447099" transition="slide-in"}
+
+<br>
+
+- Regrese al documento Quarto recién creado y agregue al final el siguiente fragmento de R:
+
+````code
+```{{r}}
+library(tidyverse)
+
+iris |> 
+  ggplot(aes(x = Sepal.Length, fill = Species)) +
+  geom_boxplot()
+```
+````
+- Incorpore y prueba renderizando con los siguientes cambios:
+  - Opciones de ejecución: message: false, echo: false, fig-align: center y fig-asp: 0.4
+  - Metadatos YAML: toc: true, toc-title: Contenidos y theme: solar
+  
 ## Algunos ejemplos
+
+<br>
 
 - [HTML paginado -estilo Tufte-](https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html)
 
