@@ -1,0 +1,386 @@
+---
+title: "Documentos estáticos de Quarto®"
+subtitle: "Encuentro 4"
+author: "Christian Ballejo"
+format: 
+  revealjs:
+    self-contained: true
+    width: 1920
+    height: 1080
+    slide-number: true
+    theme: [simple, custom.scss]
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: source
+---
+
+```{r setup, include=F}
+library(quarto)
+library(fontawesome)
+library(tidyverse)
+```
+
+```{r}
+#| include: false
+library(countdown)
+countdown_timer <- function(
+    minutes = 1, 
+    play_sound = TRUE, 
+    font_size = "2em", 
+    ...
+) {
+  countdown(
+    minutes = minutes,
+    # Fanfare when it's over
+    play_sound = play_sound,
+    # Set timer theme to match solarized colors
+    color_border              = "#404041",
+    color_text                = "white",
+    color_background = "#447099",
+    color_running_background  = "#72994E",
+    color_running_text        = "white",
+    color_finished_background = "#EE6331",
+    color_finished_text       = "white",
+    font_size = font_size,
+    ...
+  )
+}
+```
+
+## Opciones de salida YAML
+
+<br>
+
+``` yaml
+---
+format: html
+---
+```
+
+. . .
+
+``` yaml
+---
+format: pdf
+---
+```
+
+. . .
+
+``` yaml
+---
+format: typst
+---
+```
+
+`typst` es un [nuevo sistema de composición tipográfica](https://typst.app/docs/) basado en marcas para ciencia.
+
+. . .
+
+Se le pueden agregar opciones. Las opciones deben estar debajo del formato principal (los espacios son importante y hay que respetarlos)
+
+``` yaml
+---
+format: 
+  html:
+    toc: true
+    code-fold: true
+---
+```
+
+## YAML es sensible
+
+<br>
+
+``` yaml
+---
+format:html # invalido, falta espacio luego de :
+---
+
+---
+format: # invalido, se lee como formato ausente
+html
+---
+
+---
+format: 
+  html: # valido pero necesita de opciones posteriores
+---
+```
+
+. . .
+
+<br>
+
+El formato válido puede ser diferente según lo que se necesite.
+
+``` yaml
+format: html # valido - hay espacio
+
+# valido - formato con opciones
+format: 
+  html:
+    toc: true
+```
+
+## Ventajas de RStudio
+
+<br>
+
+RStudio (también algunos otros editores como VSCode) integran entre sus herramientas la finalización enriquecida: podemos comenzar con una palabra y tabular (TAB) para completar, o presionar `Ctrl + espacio` para ver todas las opciones disponibles.
+
+![](images/Captura1.PNG){.absolute top="370" left="550" width="800"}
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 1 {background-color="#447099" transition="slide-in"}
+
+<br>
+
+-   Genere un nuevo proyecto y dentro un documento de Quarto desde RStudio (formato HTML)
+
+<br>
+
+-   Pruebe <kbd>`Ctrl + space`</kbd> para visualizar las opciones de YAML
+
+<br>
+
+-   Pruebe con la tabulación para completar otras opciones que recuerde
+
+```{R}
+#| echo: false
+countdown_timer(2)
+```
+
+## Texto y Markdown
+
+<br>
+
+Inicialmente y para el uso general conviene aprovechar el `modo Visual` de RStudio para incorporar marcas de lenguaje Markdown.
+
+![](images/Captura2.PNG){.absolute top="280" left="400" width="1200"}
+
+## Bloques
+
+<br>
+
+Pandoc y, por tanto, Quarto aceptan bloques *Divs* y *Spans* propios del HTML con sintaxis delimitada por \:\:\:
+
+<br>
+
+. . .
+
+  ::: {style="border-left:10px solid purple"} 
+  
+  Este contenido tiene un diseño de borde
+  
+  :::
+
+. . .   
+  
+::: {style="border-left:10px solid purple"}
+Este contenido tiene un diseño de borde
+:::
+
+. . . 
+
+<br>
+
+Este es un texto con formato \[especial\]\{style="color:orange;"\}.
+    
+. . .    
+    
+Este es un texto con formato [especial]{style="color:orange;"}.    
+
+. . .
+
+<br>
+
+No está limitado a las posibilidades de HTML/CSS sino que el propio Quarto agrega atributos para modificar por esta vía.
+
+## Bloques
+
+<br>
+
+- Se puede pensar en una división \:\:\: como un `<div>` **HTML** pero que también sirve cuando la salida es en PDF.
+
+<br>
+
+- De forma similar, los spans entre corchetes [texto]{.class} se pueden considerar como un `<span .class>Texto</span>` de **HTML** pero nuevamente estos son compatibles para aplicar atributos nativos de Pandoc/Quarto.
+
+<br>
+
+- Tanto los Divs como los Spans se pueden agregar desde el modo Visual: *Format -> Div...* y *Format -> Span...*
+
+## Bloques de llamadas 
+
+::: {style="font-size: 32px;"}
+
+\:\:\:\{.callout-note\}
+
+Existen cinco tipos de leyendas, que incluyen: 
+`note` (nota), `tip` (consejo), `warning` (advertencia), `caution` (precaución), e `important` (importante).
+    
+\:\:\:
+
+:::
+
+::: callout-note
+## Nota
+
+Existen cinco tipos de leyendas, que incluyen: `note` (nota), `tip` (consejo), `warning` (advertencia), `caution` (precaución), e `important` (importante)
+:::
+
+::: callout-warning
+## Advertencia
+
+Estos bloques facilitan una forma sencilla de llamar la atención, por ejemplo, sobre esta advertencia.
+:::
+
+::: callout-important
+## Importante
+
+Se pueden editar los titulos con doble \#. Por ejemplo: \#\# Importante
+:::
+
+::: callout-tip
+## Consejo
+:::
+
+::: callout-caution
+## Precaución
+
+Esto se encuentra bajo construcción
+:::
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2 {background-color="#447099" transition="slide-in"}
+
+<br>
+
+-   Regrese al documento HTML Quarto que generó recién
+
+<br>
+
+-   Inserte algún bloque Div sobre alguna palabra y cambie su color
+
+<br>
+
+-   Inserte algún bloque Span sobre un párrafo y modifique el tamaño de la letra con **font-size: 36px;**
+
+<br>
+
+- Inserte el bloque de llamada que desee y configúrelo.
+
+<br>
+
+- En cada situación visualice los cambios en el modo `Source` y renderice
+
+## Figuras {.nostretch}
+
+- Sintaxis básica de markdown
+
+\!\[Mar del Plata\]\(images/mdp.jpg\)
+
+![Mar del Plata](images/mdp.jpg)
+
+## Figuras {.nostretch}
+
+- Sintaxis markdown con opciones
+
+\!\[Mar del Plata\]\(images/mdp.jpg\)\{width=120%\}
+
+![Mar del Plata](images/mdp.jpg){width=120%}
+
+## Figuras {.nostretch}
+
+- Desde código R
+
+```{r}
+#| echo: fenced
+#| out-width: 50%
+#| fig-align: right
+
+
+knitr::include_graphics("images/mdp.jpg")
+```
+
+## Fragmentos / columnas
+
+::: columns
+::: {.column width="50%"}
+
+\!\[Mar del Plata\]\(images/mdp.jpg\)\{fig-align="left"\}
+
+![Mar del Plata](images/mdp.jpg){fig-align="left"}
+
+Las columnas se construyen con bloques Spans \:\:\: columns y luego \:\:\: {.column width="50%"} para cada una de ellas (en este ejemplo que son 2). Cada bloque se cierra con \:\:\:
+
+:::
+
+::: {.column width="50%"}
+
+\!\[\]\(images/mdp2.png\)\{fig-align="right" .lightbox\}
+
+![](images/mdp2.PNG){fig-align="right"  .lightbox}
+
+La opción `.lightbox` utiliza la librería de javascript [GLightbox](https://biati-digital.github.io/glightbox/) para mostrar un efecto sobre la imagen cuando pulsamos sobre ella. 
+
+:::
+:::
+
+## TabSet (Pestañas)
+
+::: {.panel-tabset}
+
+## Codigo
+
+```{r}
+#| echo: fenced
+#| eval: false
+head(datasets::iris)
+```
+
+Las pestañas son un bloque Spans especial \:\:\: {.panel-tabset} \:\:\:
+
+El nombre de cada pestaña se establece con **\#\# Nombre**
+
+## Salida
+
+```{r}
+#| eval: true
+#| echo: false
+head(datasets::iris)
+```
+
+:::
+
+## Diagramas
+
+`Quarto` tiene soporte nativo para incrustar diagramas [Mermaid](https://mermaid-js.github.io/mermaid/#/) y [Graphviz](https://graphviz.org/) . Esto permite crear diagramas de flujo, diagramas de secuencia, diagramas de estado, diagramas de Gantt y otros utilizando una sintaxis de texto plano inspirada en Markdown.
+
+````
+```{{mermaid}}
+flowchart LR
+  A[Inicio] --> B(Pre-proceso)
+  B --> C{Decisión}
+  C --> D[Resultado 1]
+  C --> E[Resultado 2]
+```
+````
+
+![](images/diagrama.PNG){width=60%}
+
+- Para ver más sobre la [documentación de Mermaid.js](https://mermaid-js.github.io/mermaid/#/flowchart)
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3 {background-color="#447099" transition="slide-in"}
+
+<br>
+
+-   En el documento HTML Quarto que estamos editando, inserte un bloque TabSet con dos pestañas. En cada una de ellas incluya una imagen (puede capturarla con la herramienta `Recortes` de **Windows**) y almacenarla dentro de la carpeta de trabajo del proyecto.
+
+<br>
+
+-   Incorpore un diagrama Mermaid. Puede copiar el ejemplo de la diapositiva o modificarlo a gusto. 
+
+
+<br>
+
+- En cada situación visualice los cambios en el modo `Source` y renderice
