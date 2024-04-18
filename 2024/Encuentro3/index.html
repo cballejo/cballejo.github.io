@@ -438,7 +438,7 @@ Christian Ballejo
 </section>
 <section id="knitr-rmarkdown-quarto" class="slide level2">
 <h2><code>knitr</code> + <code>rmarkdown</code> = <code>Quarto</code></h2>
-<p>10 años de experiencia en <code>knitr</code> + <code>rmarkdown</code> se volcaron al desarrollo de Quarto, convirtiendolo en la próxima generación de <strong>RMarkdown</strong></p>
+<p>10 años de experiencia en <code>knitr</code> + <code>rmarkdown</code> se volcaron al desarrollo de Quarto.</p>
 <p><img data-src="images/Captura3.PNG" class="absolute" style="top: 250px; left: 100px; width: 1200px; "></p>
 </section>
 <section id="como-funciona-quarto" class="slide level2">
@@ -545,7 +545,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <p><br></p>
 <div class="fragment">
 <ul>
-<li>Quarto no es muy diferente a <strong>RMarkdown</strong> pero vendría a ser su versión 2.0</li>
+<li>Quarto no es muy diferente a <strong>RMarkdown</strong>, más bien es un RMarkdown de nueva generación (<em>next-generation</em>)</li>
 </ul>
 </div>
 <div class="fragment">
@@ -642,6 +642,44 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </div>
 </div>
 </section>
+<section id="ejemplo-de-un-.qmd" class="slide level2">
+<h2>Ejemplo de un .qmd</h2>
+<p>Los archivos <code>.qmd</code> responden estructuralmente al modelo de programación literaria (<a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria">Literate programming</a>)</p>
+<p><br></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href=""></a><span class="co">---</span></span>
+<span id="cb9-2"><a href=""></a><span class="an">title:</span><span class="co"> "ggplot2"</span></span>
+<span id="cb9-3"><a href=""></a><span class="an">date:</span><span class="co"> "18/04/2024"</span></span>
+<span id="cb9-4"><a href=""></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb9-5"><a href=""></a><span class="co">---</span></span>
+<span id="cb9-6"><a href=""></a></span>
+<span id="cb9-7"><a href=""></a><span class="fu">## Calidad del aire</span></span>
+<span id="cb9-8"><a href=""></a></span>
+<span id="cb9-9"><a href=""></a>Esta es la relación entre la temperatura y el nivel de ozono.</span>
+<span id="cb9-10"><a href=""></a></span>
+<span id="cb9-11"><a href=""></a><span class="in">```{r}</span></span>
+<span id="cb9-12"><a href=""></a><span class="in">#| label: fig-calidad_aire</span></span>
+<span id="cb9-13"><a href=""></a><span class="in">library(ggplot2)</span></span>
+<span id="cb9-14"><a href=""></a><span class="in">ggplot(airquality, aes(Temp, Ozone)) + </span></span>
+<span id="cb9-15"><a href=""></a><span class="in">  geom_point() + </span></span>
+<span id="cb9-16"><a href=""></a><span class="in">  geom_smooth(method = "loess"</span></span>
+<span id="cb9-17"><a href=""></a><span class="in">)</span></span>
+<span id="cb9-18"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="fragment">
+<div style="background: #a13c6530; width: 400px; height: 145px; margin: 5px; position: absolute; top: 275px; left: 0px;">
+
+</div>
+</div>
+<div class="fragment">
+<div style="background: #fa551c30; width: 900px; height: 110px; margin: 5px; position: absolute; top: 425px; left: 0px;">
+
+</div>
+</div>
+<div class="fragment">
+<div style="background: #6a9c4230; width: 550px; height: 210px; margin: 5px; position: absolute; top: 550px; left: 0px;">
+
+</div>
+</div>
+</section>
 <section id="metadatos-yaml" class="slide level2">
 <h2>Metadatos: YAML</h2>
 <div class="fragment">
@@ -696,11 +734,11 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <ul>
 <li>El código se puede insertar a través de chunks (fragmentos) en distintos lenguajes</li>
 </ul>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href=""></a><span class="in">```{r}</span></span>
-<span id="cb9-2"><a href=""></a><span class="in">#| Aquí van los metadatos con las opciones de ejecución</span></span>
-<span id="cb9-3"><a href=""></a></span>
-<span id="cb9-4"><a href=""></a><span class="in">Aquí va el código</span></span>
-<span id="cb9-5"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href=""></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href=""></a><span class="in">#| Aquí van los metadatos con las opciones de ejecución</span></span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a><span class="in">Aquí va el código</span></span>
+<span id="cb10-5"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <ul>
@@ -716,9 +754,9 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <ul>
 <li>También se puede incluir <a href="https://quarto.org/docs/computations/inline-code.html">código en línea</a> en el texto.</li>
 </ul>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href=""></a><span class="in">```{r}</span></span>
-<span id="cb10-2"><a href=""></a><span class="in">radio &lt;- 5</span></span>
-<span id="cb10-3"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href=""></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href=""></a><span class="in">radio &lt;- 5</span></span>
+<span id="cb11-3"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>El radio del circulo es `{r} radio`</p>
 </div>
 </section>
@@ -728,13 +766,13 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <ul>
 <li>Regrese al documento Quarto recién creado y agregue al final el siguiente fragmento de R:</li>
 </ul>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href=""></a><span class="in">```{r}</span></span>
-<span id="cb11-2"><a href=""></a><span class="in">library(tidyverse)</span></span>
-<span id="cb11-3"><a href=""></a></span>
-<span id="cb11-4"><a href=""></a><span class="in">iris |&gt; </span></span>
-<span id="cb11-5"><a href=""></a><span class="in">  ggplot(aes(x = Sepal.Length, fill = Species)) +</span></span>
-<span id="cb11-6"><a href=""></a><span class="in">  geom_boxplot()</span></span>
-<span id="cb11-7"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource markdown code number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href=""></a><span class="in">```{r}</span></span>
+<span id="cb12-2"><a href=""></a><span class="in">library(tidyverse)</span></span>
+<span id="cb12-3"><a href=""></a></span>
+<span id="cb12-4"><a href=""></a><span class="in">iris |&gt; </span></span>
+<span id="cb12-5"><a href=""></a><span class="in">  ggplot(aes(x = Sepal.Length, fill = Species)) +</span></span>
+<span id="cb12-6"><a href=""></a><span class="in">  geom_boxplot()</span></span>
+<span id="cb12-7"><a href=""></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ul>
 <li>Incorpore y prueba renderizando con los siguientes cambios:
 <ul>
@@ -743,8 +781,8 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </ul></li>
 </ul>
 </section>
-<section id="algunos-ejemplos" class="slide level2">
-<h2>Algunos ejemplos</h2>
+<section id="algunos-ejemplos-para-visualizar" class="slide level2">
+<h2>Algunos ejemplos para visualizar</h2>
 <p><br></p>
 <ul>
 <li><p><a href="https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html">HTML paginado -estilo Tufte-</a></p></li>

@@ -51,7 +51,7 @@ library(tidyverse)
 
 ## `knitr` + `rmarkdown` = `Quarto`
 
-10 años de experiencia en `knitr` + `rmarkdown` se volcaron al desarrollo de Quarto, convirtiendolo en la próxima generación de **RMarkdown**
+10 años de experiencia en `knitr` + `rmarkdown` se volcaron al desarrollo de Quarto.
 
 ![](images/Captura3.PNG){.absolute top="250" left="100" width="1200"}
 
@@ -175,7 +175,7 @@ cballejo$ quarto --help
 
 . . . 
 
-- Quarto no es muy diferente a **RMarkdown** pero vendría a ser su versión 2.0
+- Quarto no es muy diferente a **RMarkdown**, más bien es un RMarkdown de nueva generación (*next-generation*)
 
 . . .
 
@@ -297,6 +297,49 @@ Esto es texto en **negrita**, esto en *itálica* y esta otra una
 
 :::
 
+## Ejemplo de un .qmd
+
+Los archivos `.qmd` responden estructuralmente al modelo de programación literaria ([Literate programming](https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria))
+
+<br>
+
+    ---
+    title: "ggplot2"
+    date: "18/04/2024"
+    format: html
+    ---
+
+    ## Calidad del aire
+
+    Esta es la relación entre la temperatura y el nivel de ozono.
+
+    ```{{r}}
+    #| label: fig-calidad_aire
+    library(ggplot2)
+    ggplot(airquality, aes(Temp, Ozone)) + 
+      geom_point() + 
+      geom_smooth(method = "loess"
+    )
+    ```
+
+. . .
+
+::: {style="background: #a13c6530; width: 400px; height: 145px; margin: 5px; position: absolute; top: 275px; left: 0px;"}
+:::
+
+. . .
+
+::: {style="background: #fa551c30; width: 900px; height: 110px; margin: 5px; position: absolute; top: 425px; left: 0px;"}
+:::
+
+. . .
+
+::: {style="background: #6a9c4230; width: 550px; height: 210px; margin: 5px; position: absolute; top: 550px; left: 0px;"}
+:::
+
+
+
+
 ## Metadatos: YAML
 
 . . . 
@@ -388,7 +431,7 @@ iris |>
   - Opciones de ejecución: message: false, echo: false, fig-align: center y fig-asp: 0.4
   - Metadatos YAML: toc: true, toc-title: Contenidos y theme: solar
   
-## Algunos ejemplos
+## Algunos ejemplos para visualizar
 
 <br>
 
