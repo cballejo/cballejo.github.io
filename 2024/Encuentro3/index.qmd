@@ -1,11 +1,10 @@
 ---
-title: "Introducción a Quarto®"
-subtitle: "Encuentro 3"
-author: "Christian Ballejo"
+pagetitle: "Bienvenidxs a Quarto"
 format: 
   revealjs:
     width: 1600
     height: 900
+    transition: fade
     slide-number: true
     theme: [simple, custom.scss]
     logo: logo_INE.PNG
@@ -19,11 +18,21 @@ library(fontawesome)
 library(tidyverse)
 ```
 
-## Qué es Quarto®?
+
+##  {#hola-quarto-title data-menu-title="Bienvenidxs a Quarto" background-image="images/bienvenidxs.png" aria-label="Un cometa de Quarto"}
+
+[encuentro 3 - 2024]{.custom-subtitle}
+
+[Christian Ballejo]{.custom-author}
+
+[artwork by allison horst]{.custom-artwork}
+
+
+## Qué es Quarto®? {.title-top}
 
 <br>
 
-> **Quarto® es un sistema de publicación científica y técnica de código abierto construido sobre [Pandoc](https://pandoc.org/)** [^1]
+> **Quarto® es un nuevo sistema de publicación científica y técnica de código abierto construido sobre [Pandoc](https://pandoc.org/)** [^1]
 
 [^1]: conversor de documentos libre y de código abierto, mayormente usado como una herramienta de escritura (especialmente por académicos) ver en [Wikipedia](https://es.wikipedia.org/wiki/Pandoc)
 
@@ -35,40 +44,69 @@ library(tidyverse)
 
 > Es independiente del lenguaje R (incluso trabaja con otros lenguajes como Python y Julia).
 
-## Comunicar como parte de programar
+## Comunicar como parte de programar {.title-top}
 
 <br>
 
 ![](images/Captura1.PNG){fig-align="center"}
 
-## RMarkdown de Rstudio
-
--   Desarrollo del paquete **knitr** desde 2011
--   Desarrollo de **RMarkdown** desde 2014 (rmarkdown + pandoc)
-
-![](images/Captura2.PNG){.absolute top="300" left="150" width="1100"}
-
-## `knitr` + `rmarkdown` = `Quarto`
-
-10 años de experiencia en `knitr` + `rmarkdown` se volcaron al desarrollo de Quarto.
-
-![](images/Captura3.PNG){.absolute top="250" left="100" width="1200"}
-
-## Como funciona Quarto?
+## Ecosistema de RMarkdown {.title-top .nostretch}
 
 <br>
 
-Quarto usa `knitr` como motor para ejecutar código y generar una salida temporal.
+
+::: {.fragment .fade-up}
+![](images/Captura5.PNG){fig-align="center" fig-width=100%}
+:::
+
+
+## RMarkdown en Rstudio {.title-top}
+
+-   Desarrollo del paquete **knitr** desde 2011
+-   Desarrollo de **RMarkdown** desde 2014 (rmarkdown + pandoc)
+- 10 años de experiencia en `knitr` + `rmarkdown` se volcaron al desarrollo de Quarto.
+
+![](images/Captura2.PNG){.absolute top="350" left="150" width="1100"}
+
+## Como funciona Quarto? {.title-top .centrado}
+
+![](images/Captura6.PNG){.absolute top="200" left="150" width="1400"}
+
+## Como funciona Quarto? {.title-top .centrado}
+
+<br>
+
+::: {.fragment .fade-in-then-semi-out}
+
+Quarto usa `knitr` o `jupyter` como motor para ejecutar código y generar una salida temporal (**.md**).
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
 
 El archivo temporal se procesa mediante los filtros **Lua** de `Pandoc` y `Quarto` + `Bootstrap CSS` para **HTML** o `LaTeX` para **PDF** y se convierte a un formato de salida final.
+:::
+
+::: {.fragment .fade-in-then-semi-out}
 
 Los filtros Lua escritos por desarrolladores de `R`/`Python`/`Julia` son intercambiables entre formatos.
 
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
 Quarto además incluye soporte nativo para `Observable JS`, un conjunto de mejoras a JavaScript básico creado por *Mike Bostock* (también autor de `D3`).
 
-Observable JS se distingue por su tiempo de ejecución reactivo, que es especialmente adecuado para la exploración y el análisis de datos interactivos.
+:::
 
-## Ejemplo interactivo con Observable JS
+::: {.fragment .fade-in-then-semi-out}
+
+Observable JS se distingue por su tiempo de ejecución reactivo, que es 
+especialmente adecuado para la exploración y el análisis de datos interactivos.
+
+:::
+
+## Ejemplo interactivo con Observable JS {.title-top}
 
 <br>
 
@@ -95,7 +133,7 @@ Celsius = \${d3.format(".0f")(temp)}℃ y Fahrenheit = \${d3.format(".1f")(temp 
 ````
 
 
-## Entonces, ¿qué es Quarto?
+## Entonces, ¿qué es Quarto? {.title-top}
 
 > Quarto es una interfaz de *línea de comandos* (**CLI**) que representa formatos de texto sin formato (**.qmd**, .rmd, .md) o formatos mixtos (**.ipynb**/Jupyter notebook) en informes estáticos *PDF*/*Word*/*HTML*, *libros*, *sitios web*, *presentaciones* y más.
 
@@ -129,7 +167,7 @@ cballejo$ quarto --help
     help            [command]           - Show this help or the help of a sub-command.    
 ```
 
-## Software Quarto
+## Software Quarto {.title-top .centrado}
 
 <br>
 
@@ -140,6 +178,8 @@ cballejo$ quarto --help
 -   La **guía oficial** se puede encontrar en <https://quarto.org/docs/guide/>
 
 -   **RStudio Desktop** incluye una versión de Quarto en su instalación desde la versión 2022.07.01 pero conviene actualizarlo de forma independiente
+
+![](images/Captura7.PNG){.absolute top="500" left="500" width="550"}
 
 ## `r fontawesome::fa("laptop-code", "white")`️ Actividad 1 {background-color="#447099" transition="slide-in"}
 
@@ -156,11 +196,13 @@ cballejo$ quarto --help
 - Verifique la instalación ejecutando `quarto --version` en la Terminal (algo más completo es chequear con `quarto check`)
 
 
-## Otras características
+## Otras características {.title-top}
 
 <br>
 
 - Tiene múltiples formatos modernos de salidas unificado la funcionalidad de muchos paquetes del ecosistema R Markdown (rmarkdown, bookdown, distill, xaringan, etc.)
+
+- Implementa funciones más atractivas y útiles en todos los productos: pestañas, resaltado de sintaxis, diagramas, etc.
 
 - Se pueden renderizar los documentos viejos `.rmd` (RMarkdown) o `.ipynb` (cuadernos jupyter de python) con Quarto.
 
@@ -168,7 +210,7 @@ cballejo$ quarto --help
 
 - Soporta `htmlwidgets` en R y Jupyter widgets para Python/Julia ademmas de Observable JS
 
-## Por qué usar Quarto en lugar de RMarkdown?
+## Por qué usar Quarto en lugar de RMarkdown? {.title-top}
 
 <br>
 
@@ -197,7 +239,7 @@ cballejo$ quarto --help
 - Podes elegir otros editores y `Quarto` seguirá funcionando
 
 
-## El universo de Quarto es enorme
+## El universo de Quarto es enorme {.title-top transition="zoom"}
 
 ![](images/Captura4.PNG){.absolute top="200" left="120" width="1500"}
 
@@ -214,7 +256,7 @@ cballejo$ quarto --help
 - Cambie al modo **Source** y visualice el documento
 - Renderice y vea los resultados
 
-## Anatomia de un `.qmd` {.smaller}
+## Anatomia de un `.qmd` {.title-top .smaller}
 
 . . .
 
@@ -296,7 +338,7 @@ Esto es texto en **negrita**, esto en *itálica* y esta otra una
 
 :::
 
-## Ejemplo de un .qmd
+## Ejemplo de un .qmd {.title-top}
 
 Los archivos `.qmd` responden estructuralmente al modelo de programación literaria ([Literate programming](https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria))
 
@@ -328,18 +370,18 @@ Los archivos `.qmd` responden estructuralmente al modelo de programación litera
 
 . . .
 
-::: {style="background: #fa551c30; width: 900px; height: 110px; margin: 5px; position: absolute; top: 425px; left: 0px;"}
+::: {style="background: #fa551c30; width: 900px; height: 110px; margin: 5px; position: absolute; top: 435px; left: 0px;"}
 :::
 
 . . .
 
-::: {style="background: #6a9c4230; width: 550px; height: 210px; margin: 5px; position: absolute; top: 550px; left: 0px;"}
+::: {style="background: #6a9c4230; width: 580px; height: 210px; margin: 5px; position: absolute; top: 575px; left: 0px;"}
 :::
 
 
 
 
-## Metadatos: YAML
+## Metadatos: YAML {.title-top}
 
 . . . 
 
@@ -359,7 +401,7 @@ Los archivos `.qmd` responden estructuralmente al modelo de programación litera
 
 - Muchas de las opciones de código YAML para Quarto se pueden encontrar en su [documentación](https://quarto.org/docs/reference/)  
 
-## Texto y otros elementos 
+## Texto y otros elementos {.title-top}
 
 . . . 
 
@@ -379,7 +421,7 @@ Los archivos `.qmd` responden estructuralmente al modelo de programación litera
 
 - Es el mismo que se utiliza en el formato anterior de RMarkdown (archivos .Rmd)
 
-## Código
+## Código {.title-top}
 
 . . . 
 
@@ -430,7 +472,7 @@ iris |>
   - Opciones de ejecución: message: false, echo: false, fig-align: center y fig-asp: 0.4
   - Metadatos YAML: toc: true, toc-title: Contenidos y theme: solar
   
-## Algunos ejemplos para visualizar
+## Algunos ejemplos para visualizar {.title-top}
 
 <br>
 
@@ -445,3 +487,5 @@ iris |>
 - [Documentos interactivos -shiny-](https://jjallaire.shinyapps.io/diamonds-explorer/)
 
 - [Tableros](https://mine-cetinkaya-rundel.github.io/ld-dashboard/)
+
+## {#chau-quarto-title data-menu-title="Hasta la proxima" background-image="images/Captura8.png" aria-label="Dos pinguinos mirando la luna de Quarto"}

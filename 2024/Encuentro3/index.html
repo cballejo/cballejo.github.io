@@ -10,8 +10,7 @@
 <link href="index_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.553">
 
-  <meta name="author" content="Christian Ballejo">
-  <title>Introducción a Quarto®</title>
+  <title>Bienvenidxs a Quarto</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -392,24 +391,18 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Introducción a Quarto®</h1>
-  <p class="subtitle">Encuentro 3</p>
 
-<div class="quarto-title-authors">
-<div class="quarto-title-author">
-<div class="quarto-title-author-name">
-Christian Ballejo 
-</div>
-</div>
-</div>
-
+<section id="hola-quarto-title" class="slide level2" data-menu-title="Bienvenidxs a Quarto" data-background-image="images/bienvenidxs.png" aria-label="Un cometa de Quarto">
+<h2></h2>
+<p><span class="custom-subtitle">encuentro 3 - 2024</span></p>
+<p><span class="custom-author">Christian Ballejo</span></p>
+<p><span class="custom-artwork">artwork by allison horst</span></p>
 </section>
-<section id="qué-es-quarto" class="slide level2">
+<section id="qué-es-quarto" class="slide level2 title-top">
 <h2>Qué es Quarto®?</h2>
 <p><br></p>
 <blockquote>
-<p><strong>Quarto® es un sistema de publicación científica y técnica de código abierto construido sobre <a href="https://pandoc.org/">Pandoc</a></strong> <sup>1</sup></p>
+<p><strong>Quarto® es un nuevo sistema de publicación científica y técnica de código abierto construido sobre <a href="https://pandoc.org/">Pandoc</a></strong> <sup>1</sup></p>
 </blockquote>
 <div class="fragment">
 <blockquote>
@@ -422,40 +415,61 @@ Christian Ballejo
 </blockquote>
 </div>
 <aside><ol class="aside-footnotes"><li id="fn1"><p>conversor de documentos libre y de código abierto, mayormente usado como una herramienta de escritura (especialmente por académicos) ver en <a href="https://es.wikipedia.org/wiki/Pandoc">Wikipedia</a></p></li></ol></aside></section>
-<section id="comunicar-como-parte-de-programar" class="slide level2">
+<section id="comunicar-como-parte-de-programar" class="slide level2 title-top">
 <h2>Comunicar como parte de programar</h2>
 <p><br></p>
 
 <img data-src="images/Captura1.PNG" class="quarto-figure quarto-figure-center r-stretch"></section>
-<section id="rmarkdown-de-rstudio" class="slide level2">
-<h2>RMarkdown de Rstudio</h2>
+<section id="ecosistema-de-rmarkdown" class="slide level2 title-top nostretch">
+<h2>Ecosistema de RMarkdown</h2>
+<p><br></p>
+<div class="fragment fade-up">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/Captura5.PNG" class="quarto-figure quarto-figure-center" data-fig-width="100%"></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="rmarkdown-en-rstudio" class="slide level2 title-top">
+<h2>RMarkdown en Rstudio</h2>
 <ul>
 <li>Desarrollo del paquete <strong>knitr</strong> desde 2011</li>
 <li>Desarrollo de <strong>RMarkdown</strong> desde 2014 (rmarkdown + pandoc)</li>
+<li>10 años de experiencia en <code>knitr</code> + <code>rmarkdown</code> se volcaron al desarrollo de Quarto.</li>
 </ul>
-<p><img data-src="images/Captura2.PNG" class="absolute" style="top: 300px; left: 150px; width: 1100px; "></p>
+<p><img data-src="images/Captura2.PNG" class="absolute" style="top: 350px; left: 150px; width: 1100px; "></p>
 </section>
-<section id="knitr-rmarkdown-quarto" class="slide level2">
-<h2><code>knitr</code> + <code>rmarkdown</code> = <code>Quarto</code></h2>
-<p>10 años de experiencia en <code>knitr</code> + <code>rmarkdown</code> se volcaron al desarrollo de Quarto.</p>
-<p><img data-src="images/Captura3.PNG" class="absolute" style="top: 250px; left: 100px; width: 1200px; "></p>
+<section id="como-funciona-quarto" class="slide level2 title-top centrado">
+<h2>Como funciona Quarto?</h2>
+<p><img data-src="images/Captura6.PNG" class="absolute" style="top: 200px; left: 150px; width: 1400px; "></p>
 </section>
-<section id="como-funciona-quarto" class="slide level2">
+<section id="como-funciona-quarto-1" class="slide level2 title-top centrado">
 <h2>Como funciona Quarto?</h2>
 <p><br></p>
-<p>Quarto usa <code>knitr</code> como motor para ejecutar código y generar una salida temporal.</p>
+<div class="fragment fade-in-then-semi-out">
+<p>Quarto usa <code>knitr</code> o <code>jupyter</code> como motor para ejecutar código y generar una salida temporal (<strong>.md</strong>).</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
 <p>El archivo temporal se procesa mediante los filtros <strong>Lua</strong> de <code>Pandoc</code> y <code>Quarto</code> + <code>Bootstrap CSS</code> para <strong>HTML</strong> o <code>LaTeX</code> para <strong>PDF</strong> y se convierte a un formato de salida final.</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
 <p>Los filtros Lua escritos por desarrolladores de <code>R</code>/<code>Python</code>/<code>Julia</code> son intercambiables entre formatos.</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
 <p>Quarto además incluye soporte nativo para <code>Observable JS</code>, un conjunto de mejoras a JavaScript básico creado por <em>Mike Bostock</em> (también autor de <code>D3</code>).</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
 <p>Observable JS se distingue por su tiempo de ejecución reactivo, que es especialmente adecuado para la exploración y el análisis de datos interactivos.</p>
+</div>
 </section>
-<section id="ejemplo-interactivo-con-observable-js" class="slide level2">
+<section id="ejemplo-interactivo-con-observable-js" class="slide level2 title-top">
 <h2>Ejemplo interactivo con Observable JS</h2>
 <p><br></p>
 <p>Conversor de temperatura de ℃ a ℉</p>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="79" data-source-offset="0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 78;"><span id="cb1-79"><a href=""></a>viewof temp <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">99</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`Temp. &amp;#x2103;`</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="117" data-source-offset="0"><pre class="sourceCode numberSource js number-lines code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 116;"><span id="cb1-117"><a href=""></a>viewof temp <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">99</span>]<span class="op">,</span> {<span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`Temp. &amp;#x2103;`</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
@@ -472,7 +486,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <span id="cb2-4"><a href=""></a>Celsius = \${d3.format(".0f")(temp)}℃ y Fahrenheit = \${d3.format(".1f")(temp <span class="sc">\*</span> 9/5 + 32)}℉.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="entonces-qué-es-quarto" class="slide level2">
+<section id="entonces-qué-es-quarto" class="slide level2 title-top">
 <h2>Entonces, ¿qué es Quarto?</h2>
 <blockquote>
 <p>Quarto es una interfaz de <em>línea de comandos</em> (<strong>CLI</strong>) que representa formatos de texto sin formato (<strong>.qmd</strong>, .rmd, .md) o formatos mixtos (<strong>.ipynb</strong>/Jupyter notebook) en informes estáticos <em>PDF</em>/<em>Word</em>/<em>HTML</em>, <em>libros</em>, <em>sitios web</em>, <em>presentaciones</em> y más.</p>
@@ -504,7 +518,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <span id="cb3-24"><a href=""></a>    <span class="bu">help</span>            [command]           <span class="op">-</span> Show this <span class="bu">help</span> <span class="kw">or</span> the <span class="bu">help</span> of a sub<span class="op">-</span>command.    </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="software-quarto" class="slide level2">
+<section id="software-quarto" class="slide level2 title-top centrado">
 <h2>Software Quarto</h2>
 <p><br></p>
 <ul>
@@ -513,6 +527,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <li><p>La <strong>guía oficial</strong> se puede encontrar en <a href="https://quarto.org/docs/guide/" class="uri">https://quarto.org/docs/guide/</a></p></li>
 <li><p><strong>RStudio Desktop</strong> incluye una versión de Quarto en su instalación desde la versión 2022.07.01 pero conviene actualizarlo de forma independiente</p></li>
 </ul>
+<p><img data-src="images/Captura7.PNG" class="absolute" style="top: 500px; left: 500px; width: 550px; "></p>
 </section>
 <section id="actividad-1" class="slide level2" data-background-color="#447099" data-transition="slide-in">
 <h2><svg aria-hidden="true" role="img" viewbox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"></path></svg>️ Actividad 1</h2>
@@ -529,17 +544,18 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <li>Verifique la instalación ejecutando <code>quarto --version</code> en la Terminal (algo más completo es chequear con <code>quarto check</code>)</li>
 </ul>
 </section>
-<section id="otras-características" class="slide level2">
+<section id="otras-características" class="slide level2 title-top">
 <h2>Otras características</h2>
 <p><br></p>
 <ul>
 <li><p>Tiene múltiples formatos modernos de salidas unificado la funcionalidad de muchos paquetes del ecosistema R Markdown (rmarkdown, bookdown, distill, xaringan, etc.)</p></li>
+<li><p>Implementa funciones más atractivas y útiles en todos los productos: pestañas, resaltado de sintaxis, diagramas, etc.</p></li>
 <li><p>Se pueden renderizar los documentos viejos <code>.rmd</code> (RMarkdown) o <code>.ipynb</code> (cuadernos jupyter de python) con Quarto.</p></li>
 <li><p>Viene incluido en otros editores como VS Code</p></li>
 <li><p>Soporta <code>htmlwidgets</code> en R y Jupyter widgets para Python/Julia ademmas de Observable JS</p></li>
 </ul>
 </section>
-<section id="por-qué-usar-quarto-en-lugar-de-rmarkdown" class="slide level2">
+<section id="por-qué-usar-quarto-en-lugar-de-rmarkdown" class="slide level2 title-top">
 <h2>Por qué usar Quarto en lugar de RMarkdown?</h2>
 <p><br></p>
 <div class="fragment">
@@ -573,7 +589,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </ul>
 </div>
 </section>
-<section id="el-universo-de-quarto-es-enorme" class="slide level2">
+<section id="el-universo-de-quarto-es-enorme" class="slide level2 title-top" data-transition="zoom">
 <h2>El universo de Quarto es enorme</h2>
 <p><img data-src="images/Captura4.PNG" class="absolute" style="top: 200px; left: 120px; width: 1500px; "></p>
 </section>
@@ -595,7 +611,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <li>Renderice y vea los resultados</li>
 </ul>
 </section>
-<section id="anatomia-de-un-.qmd" class="slide level2 smaller">
+<section id="anatomia-de-un-.qmd" class="slide level2 title-top smaller">
 <h2>Anatomia de un <code>.qmd</code></h2>
 <div class="fragment">
 <p>Al igual que los <strong>.Rmd</strong> de <strong>RMarkdown</strong> el archivo fuente de <code>Quarto</code> es de texto plano</p>
@@ -641,7 +657,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </div>
 </div>
 </section>
-<section id="ejemplo-de-un-.qmd" class="slide level2">
+<section id="ejemplo-de-un-.qmd" class="slide level2 title-top">
 <h2>Ejemplo de un .qmd</h2>
 <p>Los archivos <code>.qmd</code> responden estructuralmente al modelo de programación literaria (<a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_literaria">Literate programming</a>)</p>
 <p><br></p>
@@ -669,17 +685,17 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </div>
 </div>
 <div class="fragment">
-<div style="background: #fa551c30; width: 900px; height: 110px; margin: 5px; position: absolute; top: 425px; left: 0px;">
+<div style="background: #fa551c30; width: 900px; height: 110px; margin: 5px; position: absolute; top: 435px; left: 0px;">
 
 </div>
 </div>
 <div class="fragment">
-<div style="background: #6a9c4230; width: 550px; height: 210px; margin: 5px; position: absolute; top: 550px; left: 0px;">
+<div style="background: #6a9c4230; width: 580px; height: 210px; margin: 5px; position: absolute; top: 575px; left: 0px;">
 
 </div>
 </div>
 </section>
-<section id="metadatos-yaml" class="slide level2">
+<section id="metadatos-yaml" class="slide level2 title-top">
 <h2>Metadatos: YAML</h2>
 <div class="fragment">
 <p><br></p>
@@ -703,7 +719,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </ul>
 </div>
 </section>
-<section id="texto-y-otros-elementos" class="slide level2">
+<section id="texto-y-otros-elementos" class="slide level2 title-top">
 <h2>Texto y otros elementos</h2>
 <div class="fragment">
 <p><br></p>
@@ -727,7 +743,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </ul>
 </div>
 </section>
-<section id="código" class="slide level2">
+<section id="código" class="slide level2 title-top">
 <h2>Código</h2>
 <div class="fragment">
 <ul>
@@ -780,7 +796,7 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 </ul></li>
 </ul>
 </section>
-<section id="algunos-ejemplos-para-visualizar" class="slide level2">
+<section id="algunos-ejemplos-para-visualizar" class="slide level2 title-top">
 <h2>Algunos ejemplos para visualizar</h2>
 <p><br></p>
 <ul>
@@ -791,6 +807,9 @@ Celsius = <span><span id="ojs-element-id-1"></span>℃</span> y Fahrenheit = <sp
 <li><p><a href="https://jjallaire.shinyapps.io/diamonds-explorer/">Documentos interactivos -shiny-</a></p></li>
 <li><p><a href="https://mine-cetinkaya-rundel.github.io/ld-dashboard/">Tableros</a></p></li>
 </ul>
+</section>
+<section id="chau-quarto-title" class="slide level2" data-menu-title="Hasta la proxima" data-background-image="images/Captura8.png" aria-label="Dos pinguinos mirando la luna de Quarto">
+<h2></h2>
 <div class="quarto-auto-generated-content">
 <p><img src="logo_INE.PNG" class="slide-logo"></p>
 <div class="footer footer-default">
@@ -960,7 +979,7 @@ eyJjb250ZW50cyI6WyAgeyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiaW5saW5lIjoidHJ1ZSIsInNv
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+        transition: 'fade',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
