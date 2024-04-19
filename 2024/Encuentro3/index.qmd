@@ -499,4 +499,4 @@ iris |>
 
 - [Tableros](https://mine-cetinkaya-rundel.github.io/ld-dashboard/)
 
-## {#chau-quarto-title data-menu-title="Hasta la proxima" background-image="images/Captura8.png" aria-label="Dos pinguinos mirando la luna de Quarto"}
+## {#chau-quarto-title data-menu-title="Hasta la proxima"  background-image="images/Captura8.png" aria-label="Dos pinguinos mirando la luna de Quarto"}

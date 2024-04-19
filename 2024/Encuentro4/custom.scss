@@ -1,3 +1,55 @@
 /*-- scss:defaults --*/
 
+// fonts
+@import 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap';
+@import url('https://fonts.googleapis.com/css2?family=Delius+Unicase&display=swap');
+
+$font-family-sans-serif: "Atkinson Hyperlegible", sans-serif;
+$code-block-font-size: 0.6em;
+
+
 $link-color: #066;
+
+/*-- scss:rules --*/
+
+.reveal .custom-subtitle {
+  font-family: 'Delius Unicase', cursive;
+  color: #066;
+  font-size: 1.2em;
+  position: absolute; 
+  left: 340px; 
+  bottom: 160px
+}
+
+.reveal .custom-author {
+  color: #3a12c9;
+  position: absolute; 
+  text-align: right;
+  font-size: 1.1em;
+  left: 430px;
+  bottom: 80px;
+  line-height: 1.5em;
+}
+
+.reveal .custom-artwork {
+  font-family: 'Delius Unicase', cursive;
+  color: #123dc9;
+  font-size: 0.8em;
+  text-align: right;
+  position: absolute; 
+  right: 0px; 
+  bottom: 30px;
+}
+
+.reveal .title-top h2 {
+  color: #3a12c9;
+}
+
+.reveal .centrado {
+  background-color: #e1ecf7;
+  text-align: center;
+}
+
+.reveal .actividades {
+  font-size: 1.1em;
+  }
