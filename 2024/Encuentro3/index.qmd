@@ -183,6 +183,8 @@ cballejo$ quarto --help
 
 ## `r fontawesome::fa("laptop-code", "white")`️ Actividad 1 {background-color="#447099" transition="slide-in"}
 
+::: {.fragment .actividades}
+
 <br> 
 
 - Descargue la última versión de [Quarto](https://quarto.org/docs/get-started/)
@@ -195,6 +197,7 @@ cballejo$ quarto --help
 
 - Verifique la instalación ejecutando `quarto --version` en la Terminal (algo más completo es chequear con `quarto check`)
 
+:::
 
 ## Otras características {.title-top}
 
@@ -245,6 +248,8 @@ cballejo$ quarto --help
 
 ## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2  {background-color="#447099" transition="slide-in"}
 
+::: {.fragment .actividades}
+
 <br> 
 
 - Desde RStudio cree un documento HTML nuevo de Quarto 
@@ -255,6 +260,8 @@ cballejo$ quarto --help
   - Incorpore un bloque de cita (*blockquote*)
 - Cambie al modo **Source** y visualice el documento
 - Renderice y vea los resultados
+
+:::
 
 ## Anatomia de un `.qmd` {.title-top .smaller}
 
@@ -455,6 +462,8 @@ El radio del circulo es \`\{r\} radio\`
 
 ## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3  {background-color="#447099" transition="slide-in"}
 
+::: {.fragment .actividades}
+
 <br>
 
 - Regrese al documento Quarto recién creado y agregue al final el siguiente fragmento de R:
@@ -471,6 +480,8 @@ iris |>
 - Incorpore y prueba renderizando con los siguientes cambios:
   - Opciones de ejecución: message: false, echo: false, fig-align: center y fig-asp: 0.4
   - Metadatos YAML: toc: true, toc-title: Contenidos y theme: solar
+  
+:::  
   
 ## Algunos ejemplos para visualizar {.title-top}
 
