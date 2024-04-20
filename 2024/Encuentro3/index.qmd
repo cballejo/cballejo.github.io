@@ -203,15 +203,36 @@ cballejo$ quarto --help
 
 <br>
 
+::: {.fragment .fade-in-then-semi-out}
+
 - Tiene múltiples formatos modernos de salidas unificado la funcionalidad de muchos paquetes del ecosistema R Markdown (rmarkdown, bookdown, distill, xaringan, etc.)
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
 
 - Implementa funciones más atractivas y útiles en todos los productos: pestañas, resaltado de sintaxis, diagramas, etc.
 
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
 - Se pueden renderizar los documentos viejos `.rmd` (RMarkdown) o `.ipynb` (cuadernos jupyter de python) con Quarto.
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
 
 - Viene incluido en otros editores como VS Code
 
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
 - Soporta `htmlwidgets` en R y Jupyter widgets para Python/Julia ademmas de Observable JS
+
+:::
 
 ## Por qué usar Quarto en lugar de RMarkdown? {.title-top}
 
