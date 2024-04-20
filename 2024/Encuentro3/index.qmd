@@ -19,13 +19,13 @@ library(tidyverse)
 ```
 
 
-##  {#hola-quarto-title data-menu-title="Bienvenidxs a Quarto" background-image="images/bienvenidxs.png" aria-label="Un cometa de Quarto"}
+##  {#hola-quarto-title data-menu-title="Bienvenidxs a Quarto" background-image="images/bienvenidxs2.png" aria-label="Un cometa de Quarto"}
 
 [encuentro 3 - 2024]{.custom-subtitle}
 
 [Christian Ballejo]{.custom-author}
 
-[artwork by allison horst]{.custom-artwork}
+[basado en tom mock, mine centikaya<br>y elaboración propia. artwork por allison horst]{.custom-artwork}
 
 
 ## Qué es Quarto®? {.title-top}
