@@ -6,6 +6,7 @@ format:
     width: 1920
     height: 1080
     slide-number: true
+    transition: fade
     theme: [simple, custom.scss]
     logo: logo_INE.PNG
     footer: "Instituto Nacional de Epidemiología"
@@ -34,7 +35,7 @@ countdown_timer <- function(
     # Set timer theme to match solarized colors
     color_border              = "#404041",
     color_text                = "white",
-    color_background = "#447099",
+    color_background = "#d78e1c",
     color_running_background  = "#72994E",
     color_running_text        = "white",
     color_finished_background = "#EE6331",
@@ -45,13 +46,57 @@ countdown_timer <- function(
 }
 ```
 
-##  {#docu-estaticos-title data-menu-title="Documentos estáticos de Quarto®" background-image="images/document.jpg" aria-label="Mujer escribiendo un documento"}
+##  {#docu-estaticos-title data-menu-title="Documentos estáticos de Quarto®" background-image="images/notepad.jpg" aria-label="Mujer escribiendo un documento"}
 
-[encuentro 4 - 2024]{.custom-subtitle}
+[Documentos estáticos de<br>Quarto®]{.custom-title}
 
-[Christian Ballejo]{.custom-author}
+[Encuentro 4<br>2024]{.custom-subtitle}
 
-## Opciones de salida YAML
+[Christian<br>Ballejo]{.custom-author}
+
+## Esqueleto de un .qmd {.title-top}
+
+Los archivos `.qmd` suelen tener tres partes. Una sola cabecera YAML (obligatoria), texto y código (mezclado).
+
+<br>
+
+````         
+---
+title: "ggplot2"
+date: "18/04/2024"
+format: html
+---
+
+## Calidad del aire
+
+Esta es la relación entre la temperatura y el nivel de ozono.
+
+```{{r}}
+#| label: fig-calidad_aire
+library(ggplot2)
+ggplot(airquality, aes(Temp, Ozone)) + 
+  geom_point() + 
+  geom_smooth(method = "loess"
+)
+```
+````
+
+. . .
+
+::: {style="background: #a13c6530; width: 430px; height: 210px; margin: 5px; position: absolute; top: 220px; left: 0px;"}
+:::
+
+. . .
+
+::: {style="background: #fa551c30; width: 1280px; height: 190px; margin: 5px; position: absolute; top: 460px; left: 0px;"}
+:::
+
+. . .
+
+::: {style="background: #6a9c4230; width: 1100px; height: 350px; margin: 5px; position: absolute; top: 670px; left: 0px;"}
+:::
+
+## Opciones de salida YAML {.title-top}
 
 <br>
 
@@ -81,7 +126,7 @@ format: typst
 
 . . .
 
-Se le pueden agregar opciones. Las opciones deben estar debajo del formato principal (los espacios son importante y hay que respetarlos)
+Se le pueden agregar opciones. Las opciones deben estar debajo del formato principal (los espacios son importante y hay que respetarlos -identación-)
 
 ``` yaml
 ---
@@ -92,10 +137,10 @@ format:
 ---
 ```
 
-## YAML es sensible
+## YAML es sensible a la identación {.title-top}
 
-<br>
-
+::: columns
+::: {.column width="70%"}
 ``` yaml
 ---
 format:html # invalido, falta espacio luego de :
@@ -112,10 +157,6 @@ format:
 ---
 ```
 
-. . .
-
-<br>
-
 El formato válido puede ser diferente según lo que se necesite.
 
 ``` yaml
@@ -126,8 +167,14 @@ format:
   html:
     toc: true
 ```
+:::
 
-## Ventajas de RStudio
+::: {.column width="30%"}
+![](images/trabajando.jpg){.r-stretch}
+:::
+:::
+
+## Ventajas de RStudio {.title-top}
 
 <br>
 
@@ -135,10 +182,11 @@ RStudio (también algunos otros editores como VSCode) integran entre sus herrami
 
 ![](images/Captura1.PNG){.absolute top="370" left="550" width="800"}
 
-## `r fontawesome::fa("laptop-code", "white")`️ Actividad 1 {background-color="#447099" transition="slide-in"}
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 1 {background-color="#704b10" transition="slide-in"}
 
 <br>
 
+::: {.fragment .actividades}
 -   Genere un nuevo proyecto y dentro un documento de Quarto desde RStudio (formato HTML)
 
 <br>
@@ -148,13 +196,14 @@ RStudio (también algunos otros editores como VSCode) integran entre sus herrami
 <br>
 
 -   Pruebe con la tabulación para completar otras opciones que recuerde
+:::
 
 ```{R}
 #| echo: false
 countdown_timer(2)
 ```
 
-## Texto y Markdown
+## Texto y Markdown {.title-top transition="zoom"}
 
 <br>
 
@@ -162,37 +211,37 @@ Inicialmente y para el uso general conviene aprovechar el `modo Visual` de RStud
 
 ![](images/Captura2.PNG){.absolute top="280" left="400" width="1200"}
 
-## Bloques
+## Bloques {.title-top}
 
 <br>
 
-Pandoc y, por tanto, Quarto aceptan bloques *Divs* y *Spans* propios del HTML con sintaxis delimitada por \:\:\:
+Pandoc y, por tanto, Quarto aceptan bloques *Divs* y *Spans* propios del HTML con sintaxis delimitada por :::
 
 <br>
 
 . . .
 
-  ::: {style="border-left:10px solid purple"} 
-  
-  Este contenido tiene un diseño de borde
-  
-  :::
+\:\:\: \{style="border-left:10px solid purple"\}
 
-. . .   
-  
+Este contenido tiene un diseño de borde
+
+\:\:\:
+
+. . .
+
 ::: {style="border-left:10px solid purple"}
 Este contenido tiene un diseño de borde
 :::
 
-. . . 
+. . .
 
 <br>
 
-Este es un texto con formato \[especial\]\{style="color:orange;"\}.
-    
-. . .    
-    
-Este es un texto con formato [especial]{style="color:orange;"}.    
+Este es un texto con formato \[especial\]{style="color:orange;"}.
+
+. . .
+
+Este es un texto con formato [especial]{style="color:orange;"}.
 
 . . .
 
@@ -200,38 +249,39 @@ Este es un texto con formato [especial]{style="color:orange;"}.
 
 No está limitado a las posibilidades de HTML/CSS sino que el propio Quarto agrega atributos para modificar por esta vía.
 
-## Bloques
+## Bloques {.title-top}
 
 <br>
 
-- Se puede pensar en una división \:\:\: como un `<div>` **HTML** pero que también sirve cuando la salida es en PDF.
+-   Se puede pensar en una división ::: como un `<div>` **HTML** pero que también sirve cuando la salida es en PDF.
 
 <br>
 
-- De forma similar, los spans entre corchetes [texto]{.class} se pueden considerar como un `<span .class>Texto</span>` de **HTML** pero nuevamente estos son compatibles para aplicar atributos nativos de Pandoc/Quarto.
+-   De forma similar, los spans entre corchetes [texto]{.class} se pueden considerar como un `<span .class>Texto</span>` de **HTML** pero nuevamente estos son compatibles para aplicar atributos nativos de Pandoc/Quarto.
 
 <br>
 
-- Tanto los Divs como los Spans se pueden agregar desde el modo Visual: *Format -> Div...* y *Format -> Span...*
+-   Tanto los Divs como los Spans se pueden agregar desde el modo Visual: *Format -\> Div...* y *Format -\> Span...*
 
-## Bloques de llamadas 
+## Bloques de llamadas {.title-top}
 
 ::: {style="font-size: 32px;"}
+:::{.callout-note appearance="simple"}
 
-\:\:\:\{.callout-note\}
-
-Existen cinco tipos de leyendas, que incluyen: 
-`note` (nota), `tip` (consejo), `warning` (advertencia), `caution` (precaución), e `important` (importante).
-    
-\:\:\:
+Existen cinco tipos de leyendas, que incluyen: `note` (nota), `tip` (consejo), `warning` (advertencia), `caution` (precaución), e `important` (importante).
 
 :::
+:::
+
+. . .
 
 ::: callout-note
-## Nota
+## Nota {.title-top}
 
 Existen cinco tipos de leyendas, que incluyen: `note` (nota), `tip` (consejo), `warning` (advertencia), `caution` (precaución), e `important` (importante)
 :::
+
+. . .
 
 ::: callout-warning
 ## Advertencia
@@ -239,15 +289,21 @@ Existen cinco tipos de leyendas, que incluyen: `note` (nota), `tip` (consejo), `
 Estos bloques facilitan una forma sencilla de llamar la atención, por ejemplo, sobre esta advertencia.
 :::
 
+. . .
+
 ::: callout-important
 ## Importante
 
-Se pueden editar los titulos con doble \#. Por ejemplo: \#\# Importante
+Se pueden editar los titulos con doble #. Por ejemplo: \## Importante
 :::
+
+. . .
 
 ::: callout-tip
 ## Consejo
 :::
+
+. . .
 
 ::: callout-caution
 ## Precaución
@@ -255,47 +311,41 @@ Se pueden editar los titulos con doble \#. Por ejemplo: \#\# Importante
 Esto se encuentra bajo construcción
 :::
 
-## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2 {background-color="#447099" transition="slide-in"}
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2 {background-color="#704b10" transition="slide-in"}
 
+::: {.fragment .actividades}
 <br>
 
 -   Regrese al documento HTML Quarto que generó recién
 
-<br>
+-   Inserte algún bloque `Div` sobre alguna palabra y cambie su color
 
--   Inserte algún bloque Div sobre alguna palabra y cambie su color
+-   Inserte algún bloque `Span` sobre un párrafo y modifique el tamaño de la letra con **font-size: 36px;**
 
-<br>
+-   Inserte el bloque de llamada (`callout`) que desee y configúrelo.
 
--   Inserte algún bloque Span sobre un párrafo y modifique el tamaño de la letra con **font-size: 36px;**
+-   En cada situación visualice los cambios en el modo `Source` y renderice
+:::
 
-<br>
+## Figuras {.nostretch .title-top}
 
-- Inserte el bloque de llamada que desee y configúrelo.
+-   Sintaxis básica de markdown
 
-<br>
-
-- En cada situación visualice los cambios en el modo `Source` y renderice
-
-## Figuras {.nostretch}
-
-- Sintaxis básica de markdown
-
-\!\[Mar del Plata\]\(images/mdp.jpg\)
+\![Mar del Plata\](images/mdp.jpg)
 
 ![Mar del Plata](images/mdp.jpg)
 
-## Figuras {.nostretch}
+## Figuras {.nostretch .title-top}
 
-- Sintaxis markdown con opciones
+-   Sintaxis markdown con opciones
 
-\!\[Mar del Plata\]\(images/mdp.jpg\)\{width=120%\}
+\![Mar del Plata\](images/mdp.jpg){width=120%}
 
-![Mar del Plata](images/mdp.jpg){width=120%}
+![Mar del Plata](images/mdp.jpg){width="120%"}
 
-## Figuras {.nostretch}
+## Figuras {.nostretch .title-top}
 
-- Desde código R
+-   Desde código R
 
 ```{r}
 #| echo: fenced
@@ -310,30 +360,25 @@ knitr::include_graphics("images/mdp.jpg")
 
 ::: columns
 ::: {.column width="50%"}
-
-\!\[Mar del Plata\]\(images/mdp.jpg\)\{fig-align="left"\}
+\![Mar del Plata\](images/mdp.jpg){fig-align="left"}
 
 ![Mar del Plata](images/mdp.jpg){fig-align="left"}
 
-Las columnas se construyen con bloques Spans \:\:\: columns y luego \:\:\: {.column width="50%"} para cada una de ellas (en este ejemplo que son 2). Cada bloque se cierra con \:\:\:
-
+Las columnas se construyen con bloques Spans ::: columns y luego ::: {.column width="50%"} para cada una de ellas (en este ejemplo que son 2). Cada bloque se cierra con :::
 :::
 
 ::: {.column width="50%"}
+\![\](images/mdp2.png){fig-align="right" .lightbox}
 
-\!\[\]\(images/mdp2.png\)\{fig-align="right" .lightbox\}
+![](images/mdp2.PNG){.lightbox fig-align="right"}
 
-![](images/mdp2.PNG){fig-align="right"  .lightbox}
-
-La opción `.lightbox` utiliza la librería de javascript [GLightbox](https://biati-digital.github.io/glightbox/) para mostrar un efecto sobre la imagen cuando pulsamos sobre ella. 
-
+La opción `.lightbox` utiliza la librería de javascript [GLightbox](https://biati-digital.github.io/glightbox/) para mostrar un efecto sobre la imagen cuando pulsamos sobre ella.
 :::
 :::
 
-## TabSet (Pestañas)
+## TabSet (Pestañas) {.title-top}
 
-::: {.panel-tabset}
-
+::: panel-tabset
 ## Codigo
 
 ```{r}
@@ -342,9 +387,9 @@ La opción `.lightbox` utiliza la librería de javascript [GLightbox](https://bi
 head(datasets::iris)
 ```
 
-Las pestañas son un bloque Spans especial \:\:\: {.panel-tabset} \:\:\:
+Las pestañas son un bloque Spans especial ::: {.panel-tabset} :::
 
-El nombre de cada pestaña se establece con **\#\# Nombre**
+El nombre de cada pestaña se establece con **\## Nombre**
 
 ## Salida
 
@@ -353,38 +398,47 @@ El nombre de cada pestaña se establece con **\#\# Nombre**
 #| echo: false
 head(datasets::iris)
 ```
-
 :::
 
-## Diagramas
+## Diagramas {.title-top}
 
 `Quarto` tiene soporte nativo para incrustar diagramas [Mermaid](https://mermaid-js.github.io/mermaid/#/) y [Graphviz](https://graphviz.org/) . Esto permite crear diagramas de flujo, diagramas de secuencia, diagramas de estado, diagramas de Gantt y otros utilizando una sintaxis de texto plano inspirada en Markdown.
 
-````
-```{{mermaid}}
+```{{{mermaid}}}
 flowchart LR
   A[Inicio] --> B(Pre-proceso)
   B --> C{Decisión}
   C --> D[Resultado 1]
   C --> E[Resultado 2]
 ```
-````
 
-![](images/diagrama.PNG){width=60%}
+![](images/diagrama.PNG){width="60%"}
 
-- Para ver más sobre la [documentación de Mermaid.js](https://mermaid-js.github.io/mermaid/#/flowchart)
+-   Para ver más sobre la [documentación de Mermaid.js](https://mermaid-js.github.io/mermaid/#/flowchart)
 
-## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3 {background-color="#447099" transition="slide-in"}
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3 {background-color="#704b10" transition="slide-in"}
 
 <br>
 
+::: {.fragment .actividades}
 -   En el documento HTML Quarto que estamos editando, inserte un bloque TabSet con dos pestañas. En cada una de ellas incluya una imagen (puede capturarla con la herramienta `Recortes` de **Windows**) y almacenarla dentro de la carpeta de trabajo del proyecto.
 
 <br>
 
--   Incorpore un diagrama Mermaid. Puede copiar el ejemplo de la diapositiva o modificarlo a gusto. 
-
+-   Incorpore un diagrama Mermaid. Puede copiar el ejemplo de la diapositiva o modificarlo a gusto.
 
 <br>
 
-- En cada situación visualice los cambios en el modo `Source` y renderice
+-   En cada situación visualice los cambios en el modo `Source` y renderice
+:::
+
+## {#docu-estaticos-end data-menu-title="Continuará..." background-image="images/papel.jpg" aria-label="Unos papeles escritos"}
+
+
+::: {.r-fit-text}
+
+
+[Continuará...]{style="color:#5e3f0f;font-family: 'Sedan', italic;"}
+
+:::
+

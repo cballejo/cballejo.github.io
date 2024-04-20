@@ -19,7 +19,7 @@ library(tidyverse)
 ```
 
 
-##  {#hola-quarto-title data-menu-title="Bienvenidxs a Quarto" background-image="images/bienvenidxs2.png" aria-label="Un cometa de Quarto"}
+##  {#hola-quarto-title data-menu-title="Bienvenidxs a Quarto" background-image="images/bienvenidxs2.png" aria-label="Un cometa de Quarto" visibility="uncounted"}
 
 [encuentro 3 - 2024]{.custom-subtitle}
 
