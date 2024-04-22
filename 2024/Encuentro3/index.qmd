@@ -529,7 +529,7 @@ iris |>
 
 <br>
 
-![](images/captura9.PNG){width="80%"}
+![](images/Captura9.PNG){width="80%"}
 
 :::
 
