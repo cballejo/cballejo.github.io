@@ -506,6 +506,9 @@ iris |>
   
 ## Algunos ejemplos para visualizar {.title-top}
 
+::: columns
+::: {.column width="50%"}
+
 <br>
 
 - [HTML paginado -estilo Tufte-](https://quarto-dev.github.io/quarto-gallery/page-layout/tufte.html)
@@ -519,5 +522,17 @@ iris |>
 - [Documentos interactivos -shiny-](https://jjallaire.shinyapps.io/diamonds-explorer/)
 
 - [Tableros](https://mine-cetinkaya-rundel.github.io/ld-dashboard/)
+
+:::
+
+::: {.column width="50%"}
+
+<br>
+
+![](images/captura9.PNG){width="80%"}
+
+:::
+
+:::
 
 ## {#chau-quarto-title data-menu-title="Hasta la proxima"  background-image="images/Captura8.png" aria-label="Dos pinguinos mirando la luna de Quarto"}
