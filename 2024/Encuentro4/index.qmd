@@ -213,63 +213,42 @@ Inicialmente y para el uso general conviene aprovechar el `modo Visual` de RStud
 
 ## Bloques {.title-top}
 
-<br>
-
 Pandoc y, por tanto, Quarto aceptan bloques *Divs* y *Spans* propios del HTML con sintaxis delimitada por :::
 
-<br>
+Estructura general:
 
-. . .
+-   Comienza y termina con igual número de : - mínimo de 3 :::
+-   Agregar llaves para indicar el inicio de la clase `{.class}` o `{varias-clase}`
 
-\:\:\: \{style="border-left:10px solid purple"\}
+::: {.class}
 
-Este contenido tiene un diseño de borde
+Este contenido es el modificado
 
-\:\:\:
-
-. . .
-
-::: {style="border-left:10px solid purple"}
-Este contenido tiene un diseño de borde
 :::
 
 . . .
 
-<br>
+::: {style="border-left:10px solid purple"}
 
-Este es un texto con formato \[especial\]{style="color:orange;"}.
+Este contenido tiene un diseño de borde izquierdo violeta
 
-. . .
-
-Este es un texto con formato [especial]{style="color:orange;"}.
+:::
 
 . . .
 
-<br>
+::: {style="border-left:10px solid purple"}
+*Este contenido tiene un diseño de borde izquierdo violeta*
+:::
 
-No está limitado a las posibilidades de HTML/CSS sino que el propio Quarto agrega atributos para modificar por esta vía.
-
-## Bloques {.title-top}
-
-<br>
+. . .
 
 -   Se puede pensar en una división ::: como un `<div>` **HTML** pero que también sirve cuando la salida es en PDF.
-
-<br>
-
--   De forma similar, los spans entre corchetes [texto]{.class} se pueden considerar como un `<span .class>Texto</span>` de **HTML** pero nuevamente estos son compatibles para aplicar atributos nativos de Pandoc/Quarto.
-
-<br>
-
--   Tanto los Divs como los Spans se pueden agregar desde el modo Visual: *Format -\> Div...* y *Format -\> Span...*
 
 ## Bloques de llamadas {.title-top}
 
 ::: {style="font-size: 32px;"}
-:::{.callout-note appearance="simple"}
-
+::: {.callout-note appearance="simple"}
 Existen cinco tipos de leyendas, que incluyen: `note` (nota), `tip` (consejo), `warning` (advertencia), `caution` (precaución), e `important` (importante).
-
 :::
 :::
 
@@ -311,6 +290,29 @@ Se pueden editar los titulos con doble #. Por ejemplo: \## Importante
 Esto se encuentra bajo construcción
 :::
 
+## Bloques de línea (Spans) {.title-top}
+
+Estructura general:
+
+-   Encerrar el texto con corchetes \[\].
+-   Agregar llaves para indicar el inicio de la clase `{.class}` o `{varias-clases}`
+
+\[texto\]{.class}
+
+. . .
+
+-   Estos spans entre corchetes [texto]{.class} se pueden considerar como un `<span .class>Texto</span>` de **HTML** pero nuevamente estos son compatibles para aplicar atributos nativos de Pandoc/Quarto.
+
+<br>
+
+Este es un texto con formato \[especial\]{style="color:orange;"}.
+
+. . .
+
+Este es un texto con formato [especial]{style="color:orange;"}.
+
+-   Tanto los Divs como los Spans se pueden agregar desde el modo Visual: *Format -\> Div...* y *Format -\> Span...*
+
 ## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2 {background-color="#704b10" transition="slide-in"}
 
 ::: {.fragment .actividades}
@@ -318,9 +320,9 @@ Esto se encuentra bajo construcción
 
 -   Regrese al documento HTML Quarto que generó recién
 
--   Inserte algún bloque `Div` sobre alguna palabra y cambie su color
+-   Inserte algún bloque `Span` sobre alguna palabra y cambie su color
 
--   Inserte algún bloque `Span` sobre un párrafo y modifique el tamaño de la letra con **font-size: 36px;**
+-   Inserte algún bloque `Div` sobre un párrafo y modifique el tamaño de la letra con **font-size: 36px;**
 
 -   Inserte el bloque de llamada (`callout`) que desee y configúrelo.
 
@@ -364,7 +366,7 @@ knitr::include_graphics("images/mdp.jpg")
 
 ![Mar del Plata](images/mdp.jpg){fig-align="left"}
 
-Las columnas se construyen con bloques Spans ::: columns y luego ::: {.column width="50%"} para cada una de ellas (en este ejemplo que son 2). Cada bloque se cierra con :::
+Las columnas se construyen con bloques Divs ::: columns y luego ::: {.column width="50%"} para cada una de ellas (en este ejemplo que son 2). Cada bloque se cierra con :::
 :::
 
 ::: {.column width="50%"}
@@ -387,7 +389,7 @@ La opción `.lightbox` utiliza la librería de javascript [GLightbox](https://bi
 head(datasets::iris)
 ```
 
-Las pestañas son un bloque Spans especial ::: {.panel-tabset} :::
+Las pestañas son un bloque Divs especiales ::: {.panel-tabset} :::
 
 El nombre de cada pestaña se establece con **\## Nombre**
 
@@ -432,13 +434,8 @@ flowchart LR
 -   En cada situación visualice los cambios en el modo `Source` y renderice
 :::
 
-## {#docu-estaticos-end data-menu-title="Continuará..." background-image="images/papel.jpg" aria-label="Unos papeles escritos"}
+##  {#docu-estaticos-end data-menu-title="Continuará..." background-image="images/papel.jpg" aria-label="Unos papeles escritos"}
 
-
-::: {.r-fit-text}
-
-
+::: r-fit-text
 [Continuará...]{style="color:#5e3f0f;font-family: 'Sedan', italic;"}
-
 :::
-
