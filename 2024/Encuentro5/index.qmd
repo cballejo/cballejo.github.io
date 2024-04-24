@@ -1,0 +1,69 @@
+---
+pagetitle: "Documentos estáticos de Quarto®"
+format: 
+  revealjs:
+    self-contained: true
+    width: 1920
+    height: 1080
+    slide-number: true
+    transition: fade
+    theme: [simple, custom.scss]
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: source
+---
+
+```{r setup, include=F}
+library(quarto)
+library(fontawesome)
+library(tidyverse)
+```
+
+```{r}
+#| include: false
+library(countdown)
+countdown_timer <- function(
+    minutes = 1, 
+    play_sound = TRUE, 
+    font_size = "2em", 
+    ...
+) {
+  countdown(
+    minutes = minutes,
+    # Fanfare when it's over
+    play_sound = play_sound,
+    # Set timer theme to match solarized colors
+    color_border              = "#404041",
+    color_text                = "white",
+    color_background = "#d78e1c",
+    color_running_background  = "#72994E",
+    color_running_text        = "white",
+    color_finished_background = "#EE6331",
+    color_finished_text       = "white",
+    font_size = font_size,
+    ...
+  )
+}
+```
+
+##  {#docu-estaticos-title data-menu-title="Documentos estáticos de Quarto®" background-image="images/maquina.webp" aria-label="Maquina de escribir"}
+
+[Documentos estáticos de<br>Quarto®]{.custom-title .centrar}
+
+[Encuentro 5<br>2024]{.custom-subtitle}
+
+[Christian Ballejo]{.custom-author}
+
+## Enlaces web {.title-top}
+
+## Listas {.title-top}
+
+## Tablas {.title-top}
+
+## Fórmulas  {.title-top}
+
+## Caracteres especiales {.title-top}
+
+## Opciones de código {.title-top}
+
+Código destacado / temas / ejecución

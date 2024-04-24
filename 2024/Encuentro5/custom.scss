@@ -1,0 +1,74 @@
+/*-- scss:defaults --*/
+
+// fonts
+@import 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap';
+@import url('https://fonts.googleapis.com/css2?family=Sedan&display=swap');
+
+$font-family-sans-serif: "Atkinson Hyperlegible", sans-serif;
+$code-block-font-size: 0.9em;
+
+
+$link-color: #db9d3b;
+
+/*-- scss:rules --*/
+
+.reveal .custom-title {
+  font-family: 'Sedan', italic;
+  color: #ffffff;
+  font-size: 2.6em;
+  position: absolute; 
+  left: 20px; 
+  top: 40px
+}
+
+.reveal .custom-subtitle {
+  font-family: 'Sedan', cursive;
+  color: #ffffff;
+  font-size: 2.0em;
+  position: absolute; 
+  left: 40px; 
+  bottom: 400px
+}
+
+.reveal .custom-author {
+  font-family: 'Sedan', cursive;
+  color: #ffffff;
+  position: absolute; 
+  text-align: right;
+  font-size: 1.4em;
+  left: 800px;
+  bottom: 70px;
+  line-height: 1.5em;
+}
+
+
+
+.reveal .title-top h2 {
+  font-family: 'Sedan', cursive;
+  color: #4f3307;
+  font-size: 1.8em;
+}
+
+.reveal .centrado {
+  background-color: #e1ecf7;
+  text-align: center;
+}
+
+.reveal .centrar {
+  text-align: center;
+}
+
+.reveal .actividades {
+  font-size: 1.4em;
+  }
+  
+  
+.reveal pre.sourceCode code { 
+   @if variable-exists(code-block-color) { 
+     color: $code-block-color; 
+   } 
+   background-color: $code-block-bg; 
+   padding: 6px 9px; 
+   max-height: 1000px; 
+   white-space: pre; 
+ }   
