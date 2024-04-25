@@ -56,11 +56,143 @@ countdown_timer <- function(
 
 ## Enlaces web {.title-top}
 
+<br>
+
+::: columns
+::: {.column width="75%"}
+<br>
+
+**Sintaxis markdown**
+
+<br>
+
+```{py}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+
+<https://www.ine.gob.ar>   
+
+```
+
+<br>
+
+<br>
+
+```{py}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+
+[Instituto Nacional de Epidemiología](https://www.ine.gob.ar)
+
+```
+:::
+
+::: {.column width="25%"}
+<br> <br> <br> <br>
+
+<https://www.ine.gob.ar>
+
+<br> <br>
+
+[Instituto Nacional de Epidemiología](https://www.ine.gob.ar)
+:::
+:::
+
 ## Listas {.title-top}
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+**Sintaxis markdown**
+
+<br>
+
+```{py}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+
+- Nivel 1
+  - Nivel 2
+    - Nivel 3
+  - Nivel 2
+- Nivel 1
+
+
+
+
+1. Primero
+2. Segundo
+3. Tercero
+4. Cuarto
+
+```
+:::
+
+::: {.column width="50%"}
+<br> <br>
+
+-   Nivel 1
+    -   Nivel 2
+        -   Nivel 3
+    -   Nivel 2
+-   Nivel 1
+
+<br>
+
+1.  Primero
+2.  Segundo
+3.  Tercero
+4.  Cuarto
+:::
+:::
 
 ## Tablas {.title-top}
 
-## Fórmulas  {.title-top}
+<br>
+
+::: columns
+::: {.column width="50%"}
+**Sintaxis markdown**
+
+<br>
+
+```{py}
+#| eval: false
+#| echo: true
+#| code-line-numbers: false
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+|   A  |   B  |   C  |
+|   E  |   F  |   G  |
+|   H  |   I  |   J  |
+|   K  |   L  |   M  |
+
+: Tabla 1
+
+```
+:::
+
+::: {.column width="50%"}
+<br> 
+
+| Col1 | Col2 | Col3 |
+|------|------|------|
+|   A  |   B  |   C  |
+|   E  |   F  |   G  |
+|   H  |   I  |   J  |
+|   K  |   L  |   M  |
+
+: Tabla 1
+
+:::
+:::
+
+## Fórmulas {.title-top}
 
 ## Caracteres especiales {.title-top}
 
