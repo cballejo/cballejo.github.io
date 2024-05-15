@@ -11,6 +11,7 @@ format:
     logo: logo_INE.PNG
     footer: "Instituto Nacional de Epidemiología"
 editor: source
+bibliography: references.bib
 ---
 
 ```{r setup, include=F}
@@ -58,144 +59,546 @@ countdown_timer <- function(
 
 <br>
 
+Existen varios tipos de "enlaces" o hipervínculos.
+
 ::: columns
-::: {.column width="75%"}
-<br>
+::: {.column width="65%"}
+**Markdown**
 
-**Sintaxis markdown**
-
-<br>
-
-```{py}
-#| eval: false
-#| echo: true
-#| code-line-numbers: false
-
-<https://www.ine.gob.ar>   
-
-```
-
-<br>
-
-<br>
-
-```{py}
-#| eval: false
-#| echo: true
-#| code-line-numbers: false
-
-[Instituto Nacional de Epidemiología](https://www.ine.gob.ar)
-
+``` markdown
+Se puede insertar [Quarto](https://quarto.org/), 
+URL directas como <https://www.ine.gob.ar/> y 
+enlaces a [otros lugares](#docu-estaticos-title) 
+en el mismo documento. La sintaxis es similar a 
+incrustar un imagen en línea: 
+![Nombre](imagen.png). 
 ```
 :::
 
-::: {.column width="25%"}
-<br> <br> <br> <br>
+::: {.column .fragment width="35%"}
+**Salida**
 
-<https://www.ine.gob.ar>
-
-<br> <br>
-
-[Instituto Nacional de Epidemiología](https://www.ine.gob.ar)
+Puede insertar [Quarto](https://quarto.org/), URL directas como <https://www.ine.gob.ar/> y enlaces a [otros lugares](#docu-estaticos-title) en el mismo documento. La sintaxis es similar a incrustar un imagen en línea: ![Logo INE](logo_INE.PNG){style="width:50px;"}.
 :::
 :::
 
 ## Listas {.title-top}
 
-<br>
+Listas sin orden:
 
 ::: columns
 ::: {.column width="50%"}
-**Sintaxis markdown**
+**Markdown:**
 
-<br>
-
-```{py}
-#| eval: false
-#| echo: true
-#| code-line-numbers: false
-
-- Nivel 1
-  - Nivel 2
-    - Nivel 3
-  - Nivel 2
-- Nivel 1
-
-
-
-
-1. Primero
-2. Segundo
-3. Tercero
-4. Cuarto
-
+``` markdown
+-   Lista sin orden       
+    -   sub-item 1         
+    -   sub-item 1         
+        -   sub-sub-item 1 
 ```
 :::
 
-::: {.column width="50%"}
-<br> <br>
+::: {.column .fragment width="50%" fragment-index="1"}
+**Salida**
 
--   Nivel 1
-    -   Nivel 2
-        -   Nivel 3
-    -   Nivel 2
--   Nivel 1
+-   Lista sin orden
+    -   sub-item 1\
+    -   sub-item 1
+        -   sub-sub-item 1
+:::
+:::
+
+Listas ordenadas:
+
+::: columns
+::: {.column width="50%"}
+**Markdown:**
+
+``` markdown
+1. Lista ordenada            
+2. item 2                  
+   i. sub-item 1          
+      a.  sub-sub-item 1
+```
+:::
+
+::: {.column .fragment width="50%" fragment-index="2"}
+**Salida**
+
+1.  Lista ordenada\
+2.  item 2
+    i.  sub-item 1
+        a.  sub-sub-item 1
+:::
+:::
+
+## Citas
 
 <br>
 
-1.  Primero
-2.  Segundo
-3.  Tercero
-4.  Cuarto
-:::
+**Markdown:**
+
+``` markdown
+> Cambiemos nuestra actitud tradicional hacia la construcción 
+> de programas: en lugar de imaginar que nuestra tarea principal
+> es indicarle a una computadora qué hacer, concentrémonos más
+> bien en explicar a los seres humanos lo que queremos que haga
+> una computadora. - Donald Knuth
+```
+
+. . .
+
+<br>
+
+**Salida:**
+
+> Cambiemos nuestra actitud tradicional hacia la construcción de programas: en lugar de imaginar que nuestra tarea principal es indicarle a una computadora qué hacer, concentrémonos más bien en explicar a los seres humanos lo que queremos que haga una computadora. - Donald Knuth
+
+::: aside
+"Literate Programming", The Computer Journal 27 (1984), p. 97. (Reprinted in Literate Programming, 1992, p. 99.) Literate Programming (1984) <br> <br>
 :::
 
 ## Tablas {.title-top}
 
-<br>
+Tablas Markdown
 
-::: columns
-::: {.column width="50%"}
-**Sintaxis markdown**
+**Markdown:**
 
-<br>
-
-```{py}
-#| eval: false
-#| echo: true
-#| code-line-numbers: false
-
-| Col1 | Col2 | Col3 |
-|------|------|------|
-|   A  |   B  |   C  |
-|   E  |   F  |   G  |
-|   H  |   I  |   J  |
-|   K  |   L  |   M  |
-
-: Tabla 1
-
+``` markdown
+| Derecha | Izquierda | Predeterminado | Centrado |
+|--------:|:----------|----------------|:--------:|
+|    12   |    12     |       12       |    12    |
+|   123   |   123     |      123       |   123    |
+|     1   |     1     |        1       |     1    |
 ```
+
+. . .
+
+<br>
+
+**Salida:**
+
+| Derecha | Izquierda | Predeterminado | Centrado |
+|--------:|:----------|----------------|:--------:|
+|      12 | 12        | 12             |    12    |
+|     123 | 123       | 123            |   123    |
+|       1 | 1         | 1              |    1     |
+
+## Tablas Grid (cuadrícula) {.title-top}
+
+Las tablas cuadrícula son un tipo más avanzado de tablas de Markdown que permiten otros elementos (múltiples párrafos, bloques de código, listas, etc.)
+
+**Markdown:**
+
+``` markdown
++---------------+---------------+--------------------+
+| Formato       | Extensión     | Ventajas           |
++===============+===============+====================+
+| Documento     | pdf           | - Seguro           |
+| portable      |               | - Universal        |
++---------------+---------------+--------------------+
+| Word          | docx          | - Editable         |
+|               |               | - Universal        |
++---------------+---------------+--------------------+
+
+: Ejemplo tabla cuadrícula 
+```
+
+## Tablas Grid (cuadrícula) {.title-top}
+
+<br>
+
+**Salida:**
+
+<br>
+
++--------------------+----------------+----------------+
+| Formato            | Extensión      | Ventajas       |
++====================+================+================+
+| Documento portable | pdf            | -   Seguro     |
+|                    |                | -   Universal  |
++--------------------+----------------+----------------+
+| Word               | docx           | -   Editable   |
+|                    |                | -   Universal  |
++--------------------+----------------+----------------+
+
+: Ejemplo tabla cuadrícula
+
+## Tablas cuadrícula: Alineación {.title-top}
+
+<br>
+
+-   Las alineaciones se pueden especificar como con las tablas anteriores, colocando dos puntos en los límites de la línea de separación después del encabezado:
+
+```         
++--------------------+---------------+--------------------+
+| Derecha            | Izquierda     | Centrado           |
++===================:+:==============+:==================:+
+| Documento portable | pdf           | -  Seguro          |
++--------------------+---------------+--------------------+
+```
+
+. . .
+
+<br>
+
+-   Para tablas sin encabezado, los dos puntos van en la línea superior:
+
+```         
++--------------:+:--------------+:------------------:+
+| Derecha       | Izquierda     | Centrado           |
++---------------+---------------+--------------------+
+```
+
+## Tablas cuadrícula: Creación {.title-top}
+
+<br>
+
+::: incremental
+-   Tengamos en cuenta que las tablas cuadrícula son bastante complicadas de escribir con un editor de texto plano porque, a diferencia de las tablas comunes, los indicadores de columna deben alinearse.
+
+<br>
+
+-   ¡El Editor Visual puede ayudar a crear estas tablas! para profundizar ver [Guía Quarto](https://quarto.org/docs/visual-editor/content.html#editing-tables)
+
+<br>
+
+-   También podemos utilizar herramientas online como [TablesGenerator](https://www.tablesgenerator.com/markdown_tables)
 :::
 
-::: {.column width="50%"}
-<br> 
+## Tablas desde código {.title-top}
 
-| Col1 | Col2 | Col3 |
-|------|------|------|
-|   A  |   B  |   C  |
-|   E  |   F  |   G  |
-|   H  |   I  |   J  |
-|   K  |   L  |   M  |
+<br>
 
-: Tabla 1
+El paquete **knitr** puede convertir las salidas de dataframes en tablas visuales con `knitr::kable()`:
 
-:::
+<br>
+
+```{r}
+library(knitr)
+library(datos)
+
+head(pinguinos) |> 
+  kable()
+```
+
+## Tablas desde código {.title-top}
+
+<br>
+
+Existen numerosos paquetes para darle formato a las tablas producidas mediante código. Un ejemplo de ello es el paquete **flextable**. La documentación se encuentra en este [enlace](https://ardata-fr.github.io/flextable-book/)
+
+<br>
+
+```{r}
+library(flextable)
+
+head(pinguinos) |> 
+flextable() |> 
+fontsize(size = 26, part = "all") |> 
+height_all(height = 1, part = "all", unit = "in") |> 
+colformat_num(big.mark = "", decimal.mark = ",", digits = 2, na_str = "N/A") |>  
+theme_zebra()
+```
+
+## Tablas desde código {.title-top}
+
+<br>
+
+Otro paquete para tablas elaboradas es **gt**. Aquí podemos ver [todo lo que ofrece](https://gt.rstudio.com/).
+
+<br>
+
+```{r}
+#| output-location: column-fragment
+
+library(gt)
+
+head(pinguinos) |> 
+  gt() |>
+ tab_options(table.font.size = 40) |> 
+  tab_style(
+    style = list(
+      cell_fill(color = "pink"),
+      cell_text(style = "italic")
+      ),
+    locations = cells_body(
+      columns = largo_pico_mm,
+      rows = largo_pico_mm > 40
+    )
+  )
+```
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 1 {background-color="#704b10" transition="slide-in"}
+
+<br>
+
+::: {.fragment .actividades}
+-   dhtdhdh
 :::
 
 ## Fórmulas {.title-top}
 
-## Caracteres especiales {.title-top}
+<br>
 
-## Opciones de código {.title-top}
+Al igual que en RMarkdown se puede insertar fórmulas matemáticas Latex en linea o en imagen completa, utilizando \$ o \$\$ según corresponda.
 
-Código destacado / temas / ejecución
+-   Este es un ejemplo de formula en linea $\sqrt{\frac{\alpha}{2}}$
+
+``` markdown
+\sqrt{\frac{\alpha}{2}}
+```
+
+<br>
+
+-   La siguiente es una formula completa:
+
+$$
+R(t)= A \left(\frac{E_0}{\rho_0}\right)^{1/5}t^{2/5}
+$$
+
+## Caracteres especiales, emojis y listas de definiciones {.title-top}
+
+![](images/tipos_0.webp){.absolute top="230" left="1050" width="600"}
+
+<br>
+
+En el modo Visual se pueden insertar facilmente caracteres especiales de distinto tipo, emojis y listas de términos. Por ejemplo:
+
+<br>
+
+Caracteres especiales:
+
+② ≋ 𝄞 ⍾ ◴ ⭆
+
+<br>
+
+Emojis:
+
+😀 🥶 👍 🤡
+
+<br>
+
+Listas de definición
+
+**Clase** en programación orientada a objetos
+
+:   Es una plantilla que define las características y comportamientos de una entidad
+
+## Artículos científicos {.title-top}
+
+<br>
+
+Quarto soporta la construcción de artículos científicos a través de plantillas preformateadas o personalizadas donde encontraremos:
+
+::: incremental
+-   un esquema estandarizado para autores que se puede expresar una vez en el documento fuente,
+
+-   el uso de **Citation Style Language** (CSL) para automatizar el formato de citas y bibliografías,
+
+-   herramientas de **RStudio** *modo Visual* para trabajar con **Zotero**, DOI's, CrossRef, DataCite, PubMed y archivos .bib,
+
+
+-   salida a `pdf`, `html` y `docx` con formato personalizado,
+:::
+
+## Citas bibliográficas {.title-top}
+
+![](images/DOI.jpg){.absolute top="600" left="720" width="450"}
+
+<br>
+
+Quarto utiliza la representación de Mardown estándar de Pandoc para las citas (por ejemplo [\@cita]): las citas van entre corchetes y están separadas por punto y coma. Cada cita debe tener una clave, compuesta por "\@" + el identificador de la cita de la base de datos.
+
+
+<br>
+
+Pandoc le brinda el formato a las citas bibliograficas. De forma predeterminada, usa el formato autor-fecha del estilo Chicago, pero puede especificarse un formato personalizado utilizando **CSL** (Citation Style Language) en la cabecera YAML del documento.
+
+## Citas bibliográficas {.title-top}
+
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2 {background-color="#704b10" transition="slide-in"}
+
+<br>
+
+::: {.fragment .actividades}
+-   dhtdhdh
+:::
+
+## Opciones de código de ejecución {.title-top}
+
+<br>
+
+Algunas de las opciones de control de ejecución de los chunck de código.
+
+::: {style="font-size: 1em"}
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Opción    | Descripción                                                                                                                                                                                       |
++===========+===================================================================================================================================================================================================+
+| `eval`    | Evalua el codigo del chunk (si es `false`, saltea el código y no lo ejecuta).                                                                                                                     |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `echo`    | Incluye el código fuente en la salida                                                                                                                                                             |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `output`  | Incluye el resultado de la ejecución del código en la salida (`true`, `false`, or `asis` para indicar que muestre los resultados en forma cruda).                                                 |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `warning` | Gestiona las advertencias en la salida.                                                                                                                                                           |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `error`   | Gestiona los errores en la salida.                                                                                                                                                                |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `include` | Evita que se incluya cualquier salida (código o resultados) (por ejemplo `include: false` suprime toda la salida del bloque de código).                                                           |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `message` | Gestiona los mensajes en la salida                                                                                                                                                                |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| `fig-*`   | Familia de opciones para las figuras (alto, ancho, alineación, nombre, resolución, etc)                                                                                                           |
++-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+:::
+
+## Código destacado {.title-top}
+
+
+## 
+
+
+
+## Ejemplo: Gráficos desde código {.title-top auto-animate="true"}
+
+<br>
+
+:::: columns
+
+::: {.column width="50%"}
+
+```` markdown
+```{{r}}
+library(datos)
+library(ggplot2)
+
+pinguinos |> 
+  ggplot(aes(x = largo_pico_mm,
+                     y = alto_pico_mm,
+                     col = isla)) +
+  geom_point()
+```
+````
+:::
+
+::: {.column .fragment width="50%"}
+
+```{r}
+#| echo: false
+library(datos)
+library(ggplot2)
+
+pinguinos |> 
+  ggplot(aes(x = largo_pico_mm,
+                     y = alto_pico_mm,
+                     col = isla)) +
+  geom_point() +
+  theme_grey(base_size = 18)
+```
+
+:::
+
+::::
+
+## Ejemplo: Gráficos desde código {.title-top auto-animate="true"}
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+```` markdown
+```{{r}}
+#| fig-width: 5
+#| fig-height: 3
+
+library(datos)
+library(ggplot2)
+
+pinguinos |> 
+  ggplot(aes(x = largo_pico_mm,
+                     y = alto_pico_mm,
+                     col = isla)) +
+  geom_point()
+```
+````
+:::
+
+::: {.column .fragment width="50%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 3
+
+library(datos)
+library(ggplot2)
+
+pinguinos |> 
+  ggplot(aes(x = largo_pico_mm,
+                     y = alto_pico_mm,
+                     col = isla)) +
+  geom_point() +
+  theme_grey(base_size = 18)
+```
+:::
+:::
+
+## Ejemplo: Gráficos desde código {.title-top auto-animate="true"}
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+```` markdown
+```{{r}}
+#| fig-width: 5
+#| fig-height: 3
+#| fig-cap: "Tamaño de los pingüinos en 
+tres islas del Archipelago Palmer."
+#| fig-alt: "Diagrama de dispersión que 
+muestra el tamaño de los picos de los 
+pingüinos en tres islas"
+
+library(datos)
+library(ggplot2)
+
+pinguinos |> 
+  ggplot(aes(x = largo_pico_mm,
+                     y = alto_pico_mm,
+                     col = isla)) +
+  geom_point()
+```
+````
+:::
+
+::: {.column .fragment width="50%"}
+```{r}
+#| echo: false
+#| fig-width: 5
+#| fig-height: 3
+#| fig-cap: "Tamaño de los pingüinos en tres islas del Archipelago Palmer."
+#| fig-alt: "Diagrama de dispersión que muestra el tamaño de los picos de los pingüinos en tres islas"
+
+
+library(datos)
+library(ggplot2)
+
+pinguinos |> 
+  ggplot(aes(x = largo_pico_mm,
+                     y = alto_pico_mm,
+                     col = isla)) +
+  geom_point()+
+  theme_grey(base_size = 18)
+```
+:::
+::::
+
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3 {background-color="#704b10" transition="slide-in"}
+
+<br>
+
+::: {.fragment .actividades}
+-   dhtdhdh
+:::
