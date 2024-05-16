@@ -8,7 +8,7 @@ format:
     slide-number: true
     transition: fade
     theme: [simple, custom.scss]
-    logo: logo_INE.PNG
+    logo: INE.gif
     footer: "Instituto Nacional de Epidemiología"
 editor: source
 ---

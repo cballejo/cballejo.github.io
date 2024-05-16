@@ -8,7 +8,7 @@ format:
     slide-number: true
     transition: fade
     theme: [simple, custom.scss]
-    logo: logo_INE.PNG
+    logo: INE.gif
     footer: "Instituto Nacional de Epidemiología"
 editor: source
 bibliography: references.bib
@@ -61,16 +61,19 @@ countdown_timer <- function(
 
 Existen varios tipos de "enlaces" o hipervínculos.
 
+<br>
+
 ::: columns
 ::: {.column width="65%"}
 **Markdown**
 
 ``` markdown
-Se puede insertar [Quarto](https://quarto.org/), 
+Se pueden insertar links en formato Markdown vinculados 
+a un texto como este de [Quarto](https://quarto.org/), 
 URL directas como <https://www.ine.gob.ar/> y 
 enlaces a [otros lugares](#docu-estaticos-title) 
-en el mismo documento. La sintaxis es similar a 
-incrustar un imagen en línea: 
+en el mismo documento. 
+La sintaxis es similar a incrustar un imagen en línea: 
 ![Nombre](imagen.png). 
 ```
 :::
@@ -78,11 +81,17 @@ incrustar un imagen en línea:
 ::: {.column .fragment width="35%"}
 **Salida**
 
-Puede insertar [Quarto](https://quarto.org/), URL directas como <https://www.ine.gob.ar/> y enlaces a [otros lugares](#docu-estaticos-title) en el mismo documento. La sintaxis es similar a incrustar un imagen en línea: ![Logo INE](logo_INE.PNG){style="width:50px;"}.
+Se pueden insertar links en formato Markdown vinculados a un texto como este de [Quarto](https://quarto.org/), URL directas como <https://www.ine.gob.ar/> y 
+enlaces a [otros lugares](#docu-estaticos-title) en el mismo documento. 
+La sintaxis es similar a incrustar un imagen en línea: ![Logo INE](logo_INE.PNG){style="width:50px;"}.
 :::
 :::
 
+
+
 ## Listas {.title-top}
+
+<br>
 
 Listas sin orden:
 
@@ -160,6 +169,8 @@ Listas ordenadas:
 
 ## Tablas {.title-top}
 
+<br>
+
 Tablas Markdown
 
 **Markdown:**
@@ -186,7 +197,11 @@ Tablas Markdown
 
 ## Tablas Grid (cuadrícula) {.title-top}
 
+<br>
+
 Las tablas cuadrícula son un tipo más avanzado de tablas de Markdown que permiten otros elementos (múltiples párrafos, bloques de código, listas, etc.)
+
+<br>
 
 **Markdown:**
 
@@ -228,7 +243,7 @@ Las tablas cuadrícula son un tipo más avanzado de tablas de Markdown que permi
 
 <br>
 
--   Las alineaciones se pueden especificar como con las tablas anteriores, colocando dos puntos en los límites de la línea de separación después del encabezado:
+-   Las alineaciones se pueden especificar como en las tablas anteriores, colocando dos puntos en los límites de la línea de separación después del encabezado:
 
 ```         
 +--------------------+---------------+--------------------+
@@ -254,6 +269,10 @@ Las tablas cuadrícula son un tipo más avanzado de tablas de Markdown que permi
 
 <br>
 
+:::: columns
+
+::: {.column width="50%"}
+
 ::: incremental
 -   Tengamos en cuenta que las tablas cuadrícula son bastante complicadas de escribir con un editor de texto plano porque, a diferencia de las tablas comunes, los indicadores de columna deben alinearse.
 
@@ -266,19 +285,43 @@ Las tablas cuadrícula son un tipo más avanzado de tablas de Markdown que permi
 -   También podemos utilizar herramientas online como [TablesGenerator](https://www.tablesgenerator.com/markdown_tables)
 :::
 
+:::
+
+::: {.column width="50%"}
+
+![](images/letras.jpg){.absolute top="200" left="1250" width="500"}
+
+:::
+
+::::
+
 ## Tablas desde código {.title-top}
 
 <br>
 
-El paquete **knitr** puede convertir las salidas de dataframes en tablas visuales con `knitr::kable()`:
+Directas, igual que la salida en consola y estéticamentente feas.
+
+```{r}
+#| echo: fenced
+library(datos)
+
+pinguinos |> 
+  slice(1:6)
+```
+
+## Tablas desde código {.title-top}
+
+<br>
+
+El paquete **knitr**, incuído en RStudio, puede convertir las salidas estos dataframes en tablas visuales con `knitr::kable()`:
 
 <br>
 
 ```{r}
 library(knitr)
-library(datos)
 
-head(pinguinos) |> 
+pinguinos |> 
+  slice(1:8) |> 
   kable()
 ```
 
@@ -286,7 +329,11 @@ head(pinguinos) |>
 
 <br>
 
-Existen numerosos paquetes para darle formato a las tablas producidas mediante código. Un ejemplo de ello es el paquete **flextable**. La documentación se encuentra en este [enlace](https://ardata-fr.github.io/flextable-book/)
+Existen numerosos paquetes para darle formato a las tablas producidas mediante código. 
+
+Un ejemplo muy completo es el paquete **flextable**, que además es compatible con salidas en pdf y Word (docx). 
+
+La documentación se encuentra en este [enlace](https://ardata-fr.github.io/flextable-book/)
 
 <br>
 
@@ -305,7 +352,9 @@ theme_zebra()
 
 <br>
 
-Otro paquete para tablas elaboradas es **gt**. Aquí podemos ver [todo lo que ofrece](https://gt.rstudio.com/).
+Otro paquete para tablas elaboradas es **gt**. 
+
+Aquí podemos encontrar [todo lo que ofrece](https://gt.rstudio.com/).
 
 <br>
 
@@ -334,7 +383,13 @@ head(pinguinos) |>
 <br>
 
 ::: {.fragment .actividades}
--   dhtdhdh
+- Inserte un enlace al sitio web de ANLIS (https://www.argentina.gob.ar/salud/anlis)
+
+- Inserte una tabla **Markdown de 3 x 3** con el contenido que quiera. Apele a su creatividad
+
+- Edite la tabla desde el *modo visual* y pruebe algunos de los cambios ofrecidos. Renderice y observe.
+
+- Incorpore un chunk de R. Tome una porción del dataset **encuesta** incluído en el *paquete datos* y muestre el dataframe como una tabla utilizando la función `kable()` de **knitr**.
 :::
 
 ## Fórmulas {.title-top}
@@ -391,7 +446,14 @@ Listas de definición
 
 Quarto soporta la construcción de artículos científicos a través de plantillas preformateadas o personalizadas donde encontraremos:
 
+:::: columns
+
+::: {.column width="50%"}
+
 ::: incremental
+
+<br>
+
 -   un esquema estandarizado para autores que se puede expresar una vez en el documento fuente,
 
 -   el uso de **Citation Style Language** (CSL) para automatizar el formato de citas y bibliografías,
@@ -402,6 +464,15 @@ Quarto soporta la construcción de artículos científicos a través de plantill
 -   salida a `pdf`, `html` y `docx` con formato personalizado,
 :::
 
+:::
+
+::: {.column width="50%"}
+
+![](images/Q.png){.absolute top="350" left="1250" width="400"}
+
+:::
+
+::::
 ## Citas bibliográficas {.title-top}
 
 ![](images/DOI.jpg){.absolute top="600" left="720" width="450"}
@@ -423,8 +494,70 @@ Pandoc le brinda el formato a las citas bibliograficas. De forma predeterminada,
 <br>
 
 ::: {.fragment .actividades}
--   dhtdhdh
+-   Inserte, desde las herramientas del modo visual, una referencia a partir de este DOI https://doi.org/10.31053/1853.0605.v81.n1.42138 (copielo y peguelo en el menú que le va a constuir un archivo .bib)
+
+- Renderice y observe la escritura en el modo source
+
+- Abra y observe el contenido del archivo references.bib
+
+- Revise la cabecera YAML del documento y busque la línea bibliography: references.bib
 :::
+
+## Anotaciones en el código {.title-top}
+
+Se pueden agregar anotaciones en el código.
+
+```{r}
+#| eval: false
+#| echo: true
+pinguinos |>                             # <1>
+  ggplot(aes(x = largo_pico_mm,          # <2>
+             y = alto_pico_mm,           # <2>
+             color = isla)) +            # <2>
+  geom_point()
+```
+
+1. Tome el dataset `pingüinos`, y luego,
+2. agregue variables para definir en cada parte del gráfico.
+
+<br>
+
+Las líneas resaltadas finalizan con la siguiente notación:
+
+``` markdown
+pinguinos |>                             # <1>
+  ggplot(aes(x = largo_pico_mm,          # <2>
+             y = alto_pico_mm,           # <2>
+             color = isla)) +            # <2>
+```
+1. Tome el dataset `pingüinos`, y luego,
+2. agregue variables para definir en cada parte del gráfico.
+
+## Código destacado {.title-top}
+
+<br>
+
+Solo funciona en presentaciones revealjs. El código destacado provoca que el resto aparezca "grisado".
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "8"
+library(datos)
+library(ggplot2)
+
+pinguinos |>                             
+  ggplot(aes(x = largo_pico_mm,          
+             y = alto_pico_mm,           
+             color = isla)) +            
+  geom_point()
+```
+
+<br>
+
+Para resaltar la línea o lineas deseadas solo hace falta declarar la opción en los metadatos del fragmento. En este ejemplo se ejecutó la siguiente línea:
+
+\#\| code-line-numbers: "8"
 
 ## Opciones de código de ejecución {.title-top}
 
@@ -453,13 +586,6 @@ Algunas de las opciones de control de ejecución de los chunck de código.
 | `fig-*`   | Familia de opciones para las figuras (alto, ancho, alineación, nombre, resolución, etc)                                                                                                           |
 +-----------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 :::
-
-## Código destacado {.title-top}
-
-
-## 
-
-
 
 ## Ejemplo: Gráficos desde código {.title-top auto-animate="true"}
 
@@ -600,5 +726,9 @@ pinguinos |>
 <br>
 
 ::: {.fragment .actividades}
--   dhtdhdh
+-   Construya un fragmento de código de R (chunk) a partir del dataset diamantes del paquete datos, donde se muestre un gráfico de puntos entre las variables precio y quilate.
+
+- Modifique mediante codigo de ejecución su tamaño, que se muestre y se oculte el código y que se evalue y no se evalue el mismo código.
+
+- En cada situación renderice y observe los cambios.
 :::
