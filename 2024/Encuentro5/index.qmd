@@ -401,7 +401,7 @@ Al igual que en RMarkdown se puede insertar fórmulas matemáticas Latex en line
 -   Este es un ejemplo de formula en linea $\sqrt{\frac{\alpha}{2}}$
 
 ``` markdown
-\sqrt{\frac{\alpha}{2}}
+$\sqrt{\frac{\alpha}{2}}$
 ```
 
 <br>
@@ -411,6 +411,11 @@ Al igual que en RMarkdown se puede insertar fórmulas matemáticas Latex en line
 $$
 R(t)= A \left(\frac{E_0}{\rho_0}\right)^{1/5}t^{2/5}
 $$
+``` markdown
+$$
+R(t)= A \left(\frac{E_0}{\rho_0}\right)^{1/5}t^{2/5}
+$$
+``` 
 
 ## Caracteres especiales, emojis y listas de definiciones {.title-top}
 
@@ -454,7 +459,7 @@ Quarto soporta la construcción de artículos científicos a través de plantill
 
 <br>
 
--   un esquema estandarizado para autores que se puede expresar una vez en el documento fuente,
+-   un esquema estandarizado para autores que se puede expresar una vez en el documento fuente (aunque se apliquen multiples plantillas de salida),
 
 -   el uso de **Citation Style Language** (CSL) para automatizar el formato de citas y bibliografías,
 
@@ -473,6 +478,65 @@ Quarto soporta la construcción de artículos científicos a través de plantill
 :::
 
 ::::
+
+## Formatos de revistas {.title-top}
+
+<br>
+
+Existen plantillas preformateadas que cumplen con requisitos dispuestos por varias revistas científicas internacionales que se pueden aplicar en Quarto.
+
+- [American Psychological Association, Septima Edición (APA7)](https://github.com/wjschne/apaquarto) 
+
+- [Elsevier](https://github.com/quarto-journals/elsevier)
+
+- [Public Library of Science (PLOS)](https://github.com/quarto-journals/plos)
+
+- [Plantilla para preprints arxiv](https://github.com/mikemahoney218/quarto-arxiv)
+
+- [Springer Nature](https://github.com/christopherkenny/nature)
+
+<br>
+
+También existen formas de estructurar una plantilla propia o con especificaciones particulares.
+
+<br>
+
+Para ver las extensiones disponibles de [Quarto - Journal Articles](https://quarto.org/docs/extensions/listing-journals.html) 
+
+## Autores {.title-top}
+
+Metadatos de YAML para codificar datos de autores y sus afiliaciones. Ver capítulo [Authors & Affiliations](https://quarto.org/docs/journals/authors.html)
+
+``` markdown
+author:
+  - id: string
+    number: number
+    name:
+      given: string
+      family: string
+      literal: string
+      dropping-particle: string
+      non-dropping-particle: string
+    url: string
+    email: string
+    phone: string
+    fax: string
+    degrees: 
+      # ver equema
+    orcid: string
+    note: string
+    acknowledgements: string
+    attributes:
+      corresponding: boolean
+      equal-contributor: boolean
+      deceased: boolean
+    roles: 
+      # ver equema
+    metadata: object
+    affiliations: 
+      # ver equema
+``` 
+
 ## Citas bibliográficas {.title-top}
 
 ![](images/DOI.jpg){.absolute top="600" left="720" width="450"}
@@ -488,13 +552,26 @@ Pandoc le brinda el formato a las citas bibliograficas. De forma predeterminada,
 
 ## Citas bibliográficas {.title-top}
 
+<br>
+
+En la cabecera YAML se define:
+
+- el nombre del archivo **.bib** o **.bibtex** donde están las citas a usar - metadato bibliography:
+
+- el archivo **.csl** que determina el formato de cita - metadato csl: - acceder a [Repositorio archivos CSL](https://github.com/citation-style-language/styles) y [Repositorio CSL Zotero](https://www.zotero.org/styles)
+
+- en formato PDF se puede seleccionar si se maneja el sistema de citas con `citeproc` de Pandoc o alternativamente `natlib` o `BibLatex` - metadato cite-method:
+
+<br>
+
+Muchas de estas configuraciones ya vienen predeterminadas en las plantillas de revistas.
 
 ## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2 {background-color="#704b10" transition="slide-in"}
 
 <br>
 
 ::: {.fragment .actividades}
--   Inserte, desde las herramientas del modo visual, una referencia a partir de este DOI https://doi.org/10.31053/1853.0605.v81.n1.42138 (copielo y peguelo en el menú que le va a constuir un archivo .bib)
+-   Inserte, desde las herramientas del modo visual, una referencia a partir de este DOI https://doi.org/10.31053/1853.0605.v81.n1.42138 (copielo y peguelo en el menú que le va a constuir un archivo .bib). 
 
 - Renderice y observe la escritura en el modo source
 
@@ -726,9 +803,12 @@ pinguinos |>
 <br>
 
 ::: {.fragment .actividades}
--   Construya un fragmento de código de R (chunk) a partir del dataset diamantes del paquete datos, donde se muestre un gráfico de puntos entre las variables precio y quilate.
+-   Construya un fragmento de código de R (chunk) a partir del dataset **diamantes** del *paquete datos*, donde se muestre un gráfico de puntos entre las variables `precio` y `quilate`.
 
-- Modifique mediante codigo de ejecución su tamaño, que se muestre y se oculte el código y que se evalue y no se evalue el mismo código.
+- Modifique mediante código de ejecución: 
+  - su tamaño, 
+  - que se muestre y se oculte el código y, 
+  - que se evalue y no se evalue el mismo código.
 
 - En cada situación renderice y observe los cambios.
 :::
