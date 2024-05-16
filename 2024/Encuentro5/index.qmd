@@ -70,7 +70,7 @@ Existen varios tipos de "enlaces" o hipervínculos.
 ``` markdown
 Se pueden insertar links en formato Markdown vinculados 
 a un texto como este de [Quarto](https://quarto.org/), 
-URL directas como <https://www.ine.gob.ar/> y 
+URL directas como <https://www.ine.gov.ar/> y 
 enlaces a [otros lugares](#docu-estaticos-title) 
 en el mismo documento. 
 La sintaxis es similar a incrustar un imagen en línea: 
@@ -81,7 +81,7 @@ La sintaxis es similar a incrustar un imagen en línea:
 ::: {.column .fragment width="35%"}
 **Salida**
 
-Se pueden insertar links en formato Markdown vinculados a un texto como este de [Quarto](https://quarto.org/), URL directas como <https://www.ine.gob.ar/> y 
+Se pueden insertar links en formato Markdown vinculados a un texto como este de [Quarto](https://quarto.org/), URL directas como <https://www.ine.gov.ar/> y 
 enlaces a [otros lugares](#docu-estaticos-title) en el mismo documento. 
 La sintaxis es similar a incrustar un imagen en línea: ![Logo INE](logo_INE.PNG){style="width:50px;"}.
 :::
