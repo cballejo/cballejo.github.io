@@ -1,0 +1,478 @@
+---
+title: "**Cheatsheet Quarto**"
+author: ""
+date: ""
+format:
+  html:
+    page-layout: full
+    toc: true
+    toc-title: Contenidos
+    toc-location: left
+    toc_float: true
+    toc_collapsed: false
+    toc_depth: 4
+    include-in-header: 
+      - text: |
+          <link rel="icon" type="image/x-icon" href="favicon.ico">
+number_sections: true
+anchor_sections: true
+theme: 
+  light: [united, custom.scss]
+  dark: darkly
+execute:
+  eval: true
+  output: false
+  warning: false
+reference-location: block 
+editor: source
+---
+
+```{r, message=FALSE, echo=F}
+knitr::opts_chunk$set(comment=NA, dpi = 300)
+```
+
+![](images/quarto-illustration.png){fig-align="center" width="50%"}
+
+[^1]
+
+[^1]: Artwork de “Hello, Quarto” por Julia Lowndes y Mine Çetinkaya-Rundel, presentado en Conferencia RStudio 2022. Ilustración por [Allison Horst](https://allisonhorst.com/allison-horst)
+
+**Produzca**: Escriba y codifique en texto plano. Cree documentos como archivos .qmd o cuadernos Jupyter. Escriba con una rica sintaxis de Markdown.
+
+**Renderice**: Genere documentos, presentaciones y más. Produzca HTML, PDF, MS Word, reveals.js, MS Powerpoint, Beamer, sitios web, blogs, libros…
+
+**Comparta**: comparta su trabajo con el mundo. Implemente rápidamente en GitHub Pages, Netlify, Quarto Pub, Posit Cloud o Posit Connect.
+
+## Cabecera YAML
+
+### Estructura de cabecera
+
+``` markdown
+---
+title:
+format: 
+---
+```
+
+-   La sintaxis de YAML es sensible a la identación.
+-   En RStudio la combinación {{< kbd Ctrl+Espacio >}} muestra opciones
+
+### Formatos de salida
+
+Formatos de salida para documentos, presentaciones, etc. Haciendo click sobre la opción se accede a la hoja de referencia de la documentación oficial de Quarto.
+
+| Opción   | Salida |
+|----------|--------|
+| [html](https://quarto.org/docs/reference/formats/html.html) | HTML       |
+| [pdf](https://quarto.org/docs/reference/formats/pdf.html)   | PDF        |
+| [docx](https://quarto.org/docs/reference/formats/docx.html) | MS Word    |
+| [odt](https://quarto.org/docs/reference/formats/odt.html)   | OpenOffice |
+| [rtf](https://quarto.org/docs/reference/formats/rtf.html) | Rich Text Format |
+| [typst](https://quarto.org/docs/output-formats/typst.html) | Typst - salida PDF |
+| [epub](https://quarto.org/docs/reference/formats/epub.html) | ebook       |
+| [revealjs](https://quarto.org/docs/reference/formats/presentations/revealjs.html) | Presentación javascript       |
+| [pptx](https://quarto.org/docs/reference/formats/presentations/pptx.html) | MS PowerPoint       |
+|      |        |
+| [beamer](https://quarto.org/docs/reference/formats/presentations/beamer.html) | Presentación PDF |
+
+### Opciones YAML
+
+```{r}
+#| echo: false
+#| output: true
+#| tbl-cap: Opciones importantes. La primera columna es el nombre de la opción, una "X" en las siguientes tres columnas indica si la opción se aplica al formato, la cuarta columna describe las opciones y los valores posibles, la última columna indica si las opciones también se pueden configurar en una celda de código.
+library(readr)
+library(dplyr)
+library(gt)
+format_options <- read_csv("format-options.csv")
+format_options |> 
+  group_by(Categoria) |> 
+  select(Categoria, Opcion, `html/revealjs`, `pdf/beamer`, `docx/pptx`, Descripcion, `nivel celda?`) |> 
+  gt() |>
+  sub_missing(missing_text = "") |> 
+  fmt_markdown(columns = Descripcion) |> 
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_body(
+      columns = Opcion
+    )) |> 
+  tab_style(
+    style = cell_fill(color = "gray95"),
+    locations = cells_body(
+      rows = Categoria %in% c("Navigacion", "Render", "Codigo")
+    )
+  ) |> 
+  opt_stylize(style=5, add_row_striping = FALSE)
+```
+
+## Markdown
+
+### Formateo de texto
+
++-----------------------------------------------+----------------------------------------------+
+| Sintaxis Markdown                             | Salida                                       |
++===============================================+==============================================+
+| ``` markdown                                  | *italica*, **negrita**, ***italicanegrita*** |
+| *italica*, **negrita**, ***italica negrita*** |                                              |
+| ```                                           |                                              |
++-----------------------------------------------+----------------------------------------------+
+| ``` markdown                                  | superíndice^2^ / subíndice~2~                |
+| superíndice^2^ / subíndice~2~                 |                                              |
+| ```                                           |                                              |
++-----------------------------------------------+----------------------------------------------+
+| ``` markdown                                  | ~~tachado~~                                  |
+| ~~tachado~~                                   |                                              |
+| ```                                           |                                              |
++-----------------------------------------------+----------------------------------------------+
+| ``` markdown                                  | `formato código`                             |
+| `formato código`                              |                                              |
+| ```                                           |                                              |
++-----------------------------------------------+----------------------------------------------+
+
+### Cabeceras
+
++------------------+-----------------------------------+
+| Sintaxis Markdown| Salida                            |
++==================+===================================+
+| ``` markdown     | # Título 1 {.heading-options}     |
+| # Titulo 1       |                                   |
+| ```              |                                   |
++------------------+-----------------------------------+
+| ``` markdown     | ## Título 2 {.heading-output}     |
+| ## Título 2      |                                   |
+| ```              |                                   |
++------------------+-----------------------------------+
+| ``` markdown     | ### Título 3 {.heading-output}    |
+| ### Título 3     |                                   |
+| ```              |                                   |
++------------------+-----------------------------------+
+| ``` markdown     | #### Título 4 {.heading-output}   |
+| #### Título 4    |                                   |
+| ```              |                                   |
++------------------+-----------------------------------+
+| ``` markdown     | ##### Título 5 {.heading-output}  |
+| ##### Título 5   |                                   |
+| ```              |                                   |
++------------------+-----------------------------------+
+| ``` markdown     | ###### Título 6 {.heading-output} |
+| ###### Título 6  |                                   |
+| ```              |                                   |
++------------------+-----------------------------------+
+
+### Enlaces e imagenes
+
++------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| Sintaxis Markdown                                                      | Salida                                                                                                 |
++========================================================================+========================================================================================================+
+| ``` markdown                                                           | <https://www.ine.gov.ar>                                                                               |
+| <https://www.ine.gov.ar>                                               |                                                                                                        |
+| ```                                                                    |                                                                                                        |
++------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| ``` markdown                                                           | [INE](https://https://www.ine.gov.ar)                                                                  |
+| [INE](https://https://www.ine.gov.ar)                                  |                                                                                                        |
+| ```                                                                    |                                                                                                        |
++------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| ``` markdown                                                           | ![INE](instituto.png){fig-alt="Ingreso al INE"}                                                        |
+| ![INE](instituto.png)                                                  |                                                                                                        |
+| ```                                                                    |                                                                                                        |
++------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| ``` markdown                                                           | [![Caption](instituto.png)](https://www.ine.gov.ar)                                                    |
+| [![Caption](instituto.png)](https://www.ine.gov.ar)                    |                                                                                                        |
+| ```                                                                    |                                                                                                        |
++------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| ``` markdown                                                           | [![Caption](instituto.png "Ingreso al INE"){fig-alt="Ingreso al INE"}](https://www.ine.gov.ar)         |
+| [![Caption](instituto.png "Ingreso al INE")](https://www.ine.gov.ar)   |                                                                                                        |
+| ```                                                                    |                                                                                                        |
++------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
+| ``` markdown                                                           | [![](instituto.png){fig-alt="Ingreso al INE"}](https://www.ine.gov.ar)                                 |
+| [![](instituto.png){fig-alt="Ingreso al INE"}](https://www.ine.gov.ar) |                                                                                                        |
+| ```                                                                    |                                                                                                        |
++------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------------+
+
+### Listas
+
++-----------------------------------+---------------------------------+
+| Sintaxis Markdown                 | Salida                          |
++===================================+=================================+
+| ``` markdown                      |                                 |
+| * lista desordenada               | * lista desordenada             |
+|     + sub-item 1                  |     + sub-item 1                |
+|     + sub-item 2                  |     + sub-item 2                |
+|         - sub-sub-item 1          |         - sub-sub-item 1        |
+| ```                               |                                 |
++-----------------------------------+---------------------------------+
+| ``` markdown                      |                                 |
+| *   item 2                        | -   item 2                      |
+|                                   |                                 |
+|     Continúa (indentar 4 espacios)| Continúa (indentar 4 espacios)  |
+| ```                               |                                 |
++-----------------------------------+---------------------------------+
+| ``` markdown                      |                                 |
+| 1. lista ordenada                 |  1. lista ordenada              |
+| 2. item 2                         |  2. item 2                      |
+|     i) sub-item 1                 |      i) sub-item 1              |
+|          A.  sub-sub-item 1       |           A.  sub-sub-item 1    |
+| ```                               |                                 |
+|                                   |                                 |
++-----------------------------------+---------------------------------+
+| ``` markdown                      |                                 |
+| (@)  Una lista cuya numeración    |  (1) Una lista cuya numeración  |
+|                                   |                                 |
+| continúa después de               |  continúa después de            |
+|                                   |                                 |
+| (@)  una interrupción             |  (2) una interrupción           |
+| ```                               |                                 |
++-----------------------------------+---------------------------------+
+| ``` markdown                      |                                 |
+| ::: {}                            | ::: {}                          |
+| 1. Una lista                      | 1. Una lista                    |
+| :::                               | :::                             |
+|                                   |                                 |
+| ::: {}                            | ::: {}                          |
+| 1. Seguida de otra lista          | 1. Seguida de otra lista        |
+| :::                               | :::                             |
+| ```                               |                                 |
++-----------------------------------+---------------------------------+
+| ``` markdown                      |                                 |
+| término                           | término                         |
+| : definición                      | : definición                    |
+| ```                               |                                 |
++-----------------------------------+---------------------------------+
+
+### Tablas
+
+#### Sintaxis Markdown
+
+``` markdown
+| Derecha | Izquierda | Predeterminado | Centrado |
+|--------:|:----------|----------------|:--------:|
+|    12   |    12     |        12      |     12   |
+|   123   |   123     |       123      |    123   |
+|     1   |     1     |         1      |      1   |
+```
+
+#### Salida
+
+| Derecha | Izquierda | Predeterminado | Centrado |
+|--------:|:----------|----------------|:--------:|
+|    12   |    12     |        12      |     12   |
+|   123   |   123     |       123      |    123   |
+|     1   |     1     |         1      |      1   |
+
+### Contenido de otros lenguajes
+
+El contenido sin procesar de otros lenguajes como HTML o Latex, se puede incluir directamente sin que Quarto lo analice usando el attributo raw de Pandoc. Un bloque sin formato que comienza con ` ```{=` seguido de un formato y cierra `}`, p. ej. aquí hay un bloque HTML sin formato:
+
+```` markdown
+```{=html}
+<iframe src="https://quarto.org/" width="500" height="400"></iframe>
+```
+````
+
+Para una salida PDF use un bloque raw LaTeX:
+
+```` markdown
+```{=latex}
+\renewcommand*{\labelitemi}{\textgreater}
+```
+````
+
+Como otro ejemplo, si está utilizando el formato Typst puede usar un bloque sin formato para incluir la sintaxis de Typst:
+
+```` markdown
+```{=typst} 
+#set text(fill: red)
+Este texto es rojo.
+```
+````
+
+También puedes incluir contenido sin procesar en línea:
+```markdown
+ Aquí hay algo de HTML en línea sin procesar: `<a>html</a>`{=html}
+```
+
+### Formulas
+
+Utilice delimitadores `$` para matemáticas en línea y delimitadores `$$` para matemáticas en pantalla. Por ejemplo:
+
++--------------------------------+------------------------------+
+| Sintaxis Markdown              | Salida                       |
++================================+==============================+
+| ``` markdown                   |                              |
+| formula en línea: $E = mc^{2}$ | formula en línea: $E=mc^{2}$ |
+| ```                            |                              |
++--------------------------------+------------------------------+
+| ``` markdown                   |                              |
+| formula sola:                  | formula sola:                |
+|                                |                              |
+| $$E = mc^{2}$$                 | $$E = mc^{2}$$               |
+| ```                            |                              |
++--------------------------------+------------------------------+
+
+### Videos
+
+Puede incluir videos en documentos usando el código corto `{{{< video >}}}`. Por ejemplo, aquí insertamos un video de YouTube:
+
+``` {.markdown shortcodes="false"}
+{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
+```
+
+Los videos pueden hacer referencia a archivos de vídeo (por ejemplo, MPEG) o pueden ser enlaces a videos publicados en YouTube, Vimeo o Brightcove. 
+
+### Saltos de página 
+
+El código `pagebreak` le permite insertar un salto de página nativo en un documento (por ejemplo, en LaTeX esto sería un `\newpage`, en MS Word un salto de página nativo docx, en HTML una directiva CSS `page-break-after: always`, etc.):
+
+```{.markdown shortcodes="false"}
+pagina 1
+
+{{< pagebreak >}}
+
+pagina 2
+```
+
+Los saltos de página nativos son compatibles con HTML, LaTeX, Context, MS Word, Open Document y ePub (para otros formatos se inserta un carácter de avance de página `\f`).
+
+### Divs and Spans 
+
+Puede agregar clases, atributos y otros identificadores a regiones de contenido usando Divs y Spans. 
+
+Por ejemplo, aquí agregamos la clase "border" a una región de contenido usando un div (`:::`):
+
+``` markdown
+::: {.border}
+Este contenido se puede diseñar con un borde.
+:::
+```
+
+Una vez renderizado a HTML, Quarto traducirá el markdown a:
+
+``` html
+<div class="border">
+  <p>Este contenido se puede diseñar con un borde.</p>
+</div>
+```
+
+Los divs comienzan con un operador que contiene al menos tres dos puntos consecutivos más algunos atributos. Opcionalmente, los atributos pueden ir seguidos de otra cadena de dos puntos consecutivos. El Div termina con otra línea que contiene una cadena de al menos tres dos puntos consecutivos. El Div debe estar separado por líneas en blanco de los bloques anteriores y siguientes. Los divs también pueden estar anidados. Por ejemplo
+
+``` markdown
+::::: {#special .sidebar}
+
+::: {.warning}
+Aquí hay una advertencia.
+:::
+
+Más contenido
+:::::
+```
+
+Una vez renderizado a HTML, Quarto traducirá la rebaja a:
+
+``` html
+<div id="special" class="sidebar">
+  <div class="warning">
+    <p>Aquí hay una advertencia.</p>
+  </div>
+  <p>Más contenido</p>
+</div>
+```
+
+Los operadores sin atributos siempre son de cierre. A diferencia de los bloques de código delimitados, el número de dos puntos del delimitador de cierre no tiene por qué coincidir con el número del delimitador de apertura. Sin embargo, puede resultar útil para la claridad visual utilizar operadores de diferentes longitudes para distinguir los divs anidados de sus padres. Una secuencia de líneas entre corchetes, como la que se usaría para comenzar un enlace, se tratará como un **Span** con atributos si va seguida inmediatamente de atributos:
+
+``` markdown
+[Este es *algún texto*]{.class key="val"}
+```
+
+Una vez renderizado a HTML, Quarto traducirá:
+
+``` html
+<span class="class" data-key="val">
+  Este es <em>algún texto</em>
+</span>
+
+```
+
+### Bloques de llamada
+
+#### Sintaxis Markdown
+
+``` markdown
+
+:::{.callout-note}
+Existen cinco tipos de leyendas, que incluyen: 
+`note`, `tip`, `warning`, `caution`, e `important`.
+:::
+```
+
+#### Salida
+
+::: callout-note
+Existen cinco tipos de leyendas, que incluyen: 
+`note`, `tip`, `warning`, `caution`, e `important`.
+:::
+
+
+
+### Otros bloques
+
++--------------------------+--------------------------+
+| Sintaxis Markdown        | Salida                   |
++==========================+==========================+
+| ``` markdown             | > Cita                   |
+| > Cita                   |                          |
+| ```                      |                          |
++--------------------------+--------------------------+
+| ``` markdown             | ::: classname            |
+| ::: {.classname}         | Div                      |
+| Div                      | :::                      |
+| :::                      |                          |
+| ```                      |                          |
++--------------------------+--------------------------+
+| ``` markdown             | | Line Block             |
+| | Bloque de línea        | |    Espacios y líneas   |
+| |   Espacios y líneas    | |    se preservan        |
+| |   se preservan         |                          |
+| ```                      |                          |
++--------------------------+--------------------------+
+
+
+## Código
+
+
+Los fragmentos de código llamados **chunks**, comienzan con `  ```{lenguaje}`, y finalizan con ` ``` `. 
+
+Los fragmentos aceptan opciones de ejecución como metadatos con la forma:
+
+```{{r}}
+#| label: chunk-id
+```
+
+Algunas de la opciones de ejecución que se pueden activar o desactivar son:
+
+### Opciones de ejecución 
+
++----------------------+----------------+--------------------------------------------------------+
+| Opción               | Predeterminado | Efecto                                                 |
++======================+================+========================================================+
+| `echo`               | `true`         | `false`: oculta el codigo\                             |
+|                      |                | `fenced`: incluye codigo completo (con metadatos)      |
++----------------------+----------------+--------------------------------------------------------+
+| `eval`               | `true`         | `false`: no ejecuta el código                          |
++----------------------+----------------+--------------------------------------------------------+
+| `include`            | `true`         | `false`: no incluye ni codigo ni resultados            |
++----------------------+----------------+--------------------------------------------------------+
+| `output`             | `true`         | `false`: no incluye resultados\                        |
+|                      |                | `asis`: trata a los resultados como markdown crudo     |
++----------------------+----------------+--------------------------------------------------------+
+| `warning`            | `true`         | `false`: no incluye advertencias en la salida          |
++----------------------+----------------+--------------------------------------------------------+
+| `message`            | `true`         | `false`: no incluye mensajes en la salida              |
++----------------------+----------------+--------------------------------------------------------+
+| `error`              | `false`        | `true`: incluye errores en la salida y renderiza igual |
++----------------------+----------------+--------------------------------------------------------+
+| `code-line-numbers:` | `true`         | `false`: oculta numeros en lineas de código            |
++----------------------+----------------+--------------------------------------------------------+
+
+Existen otras opciones que permiten controlar las salidas de código de figuras, tablas, etc, comienzan por ejemplo con la familia de opciones de `fig-*` (fig-align, fig-width, fig-heigth, fig-pos, etc)
+
+

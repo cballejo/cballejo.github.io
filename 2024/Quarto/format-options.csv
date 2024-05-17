@@ -1,0 +1,20 @@
+Categoria,Opcion,Descripcion,html/revealjs,pdf/beamer,docx/pptx,nivel celda?
+Navegacion,toc,Agrega tabla de contenidos (true or false),X,X,X,
+Navegacion,toc-depth,"Nivel más bajo de títulos para agregar a la tabla de contenido (p. ej., 2, 3)",X,X,X,
+Navegacion,anchor-sections,Mostrar anclajes de sección al pasar el mouse (true or false),X,,,
+Estilo,highlight-style,"Tema de resaltado de sintaxis (p. ej. arrow, pygments, kate, zenburn)",X,X,X,
+Estilo,"mainfont, monofont",Nombre de la fuente. HTML: setea CSS `font-family`; LaTeX: via fontspec package,X,X,,
+Estilo,theme,"Nombre de tema Bootswatch (p. ej. cosmo, darkly, solar, etc.)",X,,,
+Estilo,css,"Archivo CSS o SCSS para usar como documento de estilo (p. ej. ""style.css"")",X,,,
+Estilo,reference-doc,"Plantilla de estilo docx/pptx (p. ej. file.docx, file.pptx)",,,X,
+Render,include-in-header,"Archivos de contenido para incluir en el encabezado del documento de salida, también **include-before-body**, **include-after-body**",X,X,,
+Render,keep-md,"Mantiene archivos intermedios (true or false), también **keep-tex**, **keep-ipynb**",X,X,X,
+LaTeX,documentclass,"Clase de documento LaTeX, establezca opciones de documento con **classoption**",,X,,
+LaTeX,pdf-engine,"Motor LaTeX para producir resultados PDF (xelatex, pdflatex, lualatex)",,X,,
+LaTeX,cite-method,"Método utilizado para formatear citas (citeproc, natbib, biblatex)",,X,,
+Código,code-fold,"Permitir a los lectores alternar la visualización del código R (false, true, or show)",X,,,X
+Código,code-tools,"Agregar menú para ocultar, mostrar y descargar código (true or false)",X,,,
+Código,code-overflow,"Visualización de código a lo ancho (scroll, or wrap)",X,,,X
+Figuras,fig-align,"Alineación de figuras (default, left, right, center)",X,X,Solo docx,X
+Figuras,"fig-width, fig-height",Ancho y alto predeterminados para figuras en pulgadas,X,X,X,Solo Knitr
+Figuras,fig-format,"Formato para figuras Matplotlib o R (retina, png, jpeg, svg, or pdf)",X,X,X,

@@ -1,0 +1,21 @@
+/*-- scss:defaults --*/
+
+// fonts
+@import 'https://fonts.googleapis.com/css2?family=Roboto&display=swap';
+
+
+$font-family-sans-serif: "Roboto", sans-serif;
+$code-block-font-size: 0.9em;
+
+$link-color: #693ab8;
+
+$font-size-root: 1.1em;
+$toc-font-size: 0.8em;
+
+$toc-color: #5c17d1;
+
+/*-- scss:rules --*/
+
+h1, h2, h3, h4, h5, h6 {
+  color: #5c17d1;
+}
