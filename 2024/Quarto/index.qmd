@@ -109,25 +109,25 @@ format_options |>
 
 ### Formateo de texto
 
-+-----------------------------------------------+----------------------------------------------+
-| Sintaxis Markdown                             | Salida                                       |
-+===============================================+==============================================+
-| ``` markdown                                  | *italica*, **negrita**, ***italicanegrita*** |
-| *italica*, **negrita**, ***italica negrita*** |                                              |
-| ```                                           |                                              |
-+-----------------------------------------------+----------------------------------------------+
-| ``` markdown                                  | superíndice^2^ / subíndice~2~                |
-| superíndice^2^ / subíndice~2~                 |                                              |
-| ```                                           |                                              |
-+-----------------------------------------------+----------------------------------------------+
-| ``` markdown                                  | ~~tachado~~                                  |
-| ~~tachado~~                                   |                                              |
-| ```                                           |                                              |
-+-----------------------------------------------+----------------------------------------------+
-| ``` markdown                                  | `formato código`                             |
-| `formato código`                              |                                              |
-| ```                                           |                                              |
-+-----------------------------------------------+----------------------------------------------+
++-----------------------------------------------+-----------------------------------------------+
+| Sintaxis Markdown                             | Salida                                        |
++===============================================+===============================================+
+| ``` markdown                                  | *italica*, **negrita**, ***italica negrita*** |
+| *italica*, **negrita**, ***italica negrita*** |                                               |
+| ```                                           |                                               |
++-----------------------------------------------+-----------------------------------------------+
+| ``` markdown                                  | superíndice^2^ / subíndice~2~                 |
+| superíndice^2^ / subíndice~2~                 |                                               |
+| ```                                           |                                               |
++-----------------------------------------------+-----------------------------------------------+
+| ``` markdown                                  | ~~tachado~~                                   |
+| ~~tachado~~                                   |                                               |
+| ```                                           |                                               |
++-----------------------------------------------+-----------------------------------------------+
+| ``` markdown                                  | `formato código`                              |
+| `formato código`                              |                                               |
+| ```                                           |                                               |
++-----------------------------------------------+-----------------------------------------------+
 
 ### Cabeceras
 
@@ -411,7 +411,11 @@ Existen cinco tipos de leyendas, que incluyen:
 `note`, `tip`, `warning`, `caution`, e `important`.
 :::
 
+Las etiquetas tiene la forma `callout-`, seguida de `note` para notas, `tip` para consejos, `warning` para advertencias, `caution` para precaución y `important` para importante.
 
+Se puede definir como una llamada simple `appearance="simple"` y/o sin ícono `icon=false`. 
+
+Otros atributos pueden ser que se colapse `collapse="true"` o cambiar el tículo `title="Texto del título"` (que también se define dentro de la llamada con ##)
 
 ### Otros bloques
 
@@ -435,6 +439,40 @@ Existen cinco tipos de leyendas, que incluyen:
 | ```                      |                          |
 +--------------------------+--------------------------+
 
+### Referencias cruzadas
+
+1.  **Agregue etiquetas:**
+
+    -   **chunk:** agregue opción `label: prefijo-ETIQUETA`
+    -   **Markdown:** agregue atributo `#prefijo-ETIQUETA`
+
+2.  **Agregue referencias:** `@prefijo-ETIQUETA`, p. ej.
+
+    ``` markdown
+    Puedes ver en @fig-dispersion, que...
+    ```
+
+| `prefijo` | Renderiza    |
+|-----------|--------------|
+| `fig-`    | Figure 1     |
+| `tbl-`    | Table 1      |
+| `eq-`     | Equation 1   |
+| `sec-`    | Section 1    |
+
+### Citatión bibliográfica
+
+1.  Agregue **archivo** de bibliografía en la cabecera YAML:
+
+    ``` yaml
+    ---
+    bibliography: references.bib
+    ---
+    ```
+
+2.  Agregue citas: `[@citacion]`, o `@citacion`
+
+**RStudio**: Use el menú **Insert Citations** en Editor Visual.
+Cree su archivo de bibliografía desde su biblioteca Zotero, DOI, Crossref, DataCite, o PubMed.
 
 ## Código
 
