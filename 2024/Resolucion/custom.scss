@@ -1,0 +1,54 @@
+/*-- scss:defaults --*/
+
+// fonts
+@import 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Roboto&display=swap';
+
+$font-family-sans-serif: "Roboto", sans-serif;
+$code-block-font-size: 0.8em;
+$presentation-font-size-root: 50px;
+
+$link-color: #066;
+
+/*-- scss:rules --*/
+
+.reveal .title-top h2 {
+  font-family: 'Roboto', cursive;
+  color: #0f78bc;
+  font-size: 1.8em;
+}
+
+.reveal .centrado {
+  background-color: #e1ecf7;
+  text-align: center;
+}
+
+.reveal .centrar {
+  text-align: center;
+}
+
+.reveal .actividades {
+  font-size: 1.4em;
+  }
+  
+  
+.reveal pre.sourceCode code { 
+   @if variable-exists(code-block-color) { 
+     color: $code-block-color; 
+   } 
+   background-color: $code-block-bg; 
+   padding: 6px 9px; 
+   max-height: 1000px; 
+   white-space: pre; 
+ }   
+
+.reveal .titulo-columna {
+  font-family: 'Roboto', cursive;
+  color: #0f78bc;
+  font-size: 1.5em;
+}
+
+.reveal .especial {
+  font-family: 'Roboto', cursive;
+  font-size: 1.6em;
+}
