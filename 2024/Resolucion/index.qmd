@@ -102,7 +102,7 @@ Hagamos un pequeño experimento con un gráfico sencillo basado en los pinguinos
 library(tidyverse)
 library(datos)
 
-pinguinos %>%
+pinguinos |>
     ggplot(aes(largo_pico_mm, 
                alto_pico_mm, 
                color = especie)) +
@@ -120,7 +120,7 @@ pinguinos %>%
 library(tidyverse)
 library(datos)
 
-pinguinos %>%
+pinguinos |>
     ggplot(aes(largo_pico_mm, alto_pico_mm, color = especie)) +
     geom_point()
 ```
@@ -200,7 +200,7 @@ Importa porque algunos elementos del gráfico se ajustan al espacio disponible, 
 ```{r}
 #| echo: false
 
-pinguinos %>%
+pinguinos |>
     ggplot(aes(x = largo_pico_mm, 
                y = alto_pico_mm, 
                color = especie)) +
@@ -216,7 +216,7 @@ pinguinos %>%
 #| fig-height: 2.5
 
 
-pinguinos %>%
+pinguinos |>
     ggplot(aes(x = largo_pico_mm, 
                y = alto_pico_mm, 
                color = especie)) +
@@ -232,7 +232,7 @@ pinguinos %>%
 #| fig-width: 12
 #| fig-height: 6.67
 
-pinguinos %>%
+pinguinos |>
     ggplot(aes(x = largo_pico_mm, 
                y = alto_pico_mm, 
                color = especie)) +
@@ -347,7 +347,7 @@ de mm a pt : **pt** = `mm * .pt` -\> 5,27 \* 2,845276 = 15 pts
 #| eval: false
 #| echo: true
 
-pinguinos %>%
+pinguinos |>
     ggplot(aes(x = largo_pico_mm, 
                y = alto_pico_mm, 
                color = especie)) +
@@ -370,7 +370,7 @@ pinguinos %>%
 #| fig-width: 7
 #| fig-height: 5
 
-pinguinos %>%
+pinguinos |>
     ggplot(aes(largo_pico_mm, alto_pico_mm, color = especie)) +
   geom_point()+
   geom_text(x = 45, y = 20, label = "Ejemplo font 15", size = 15, inherit.aes = FALSE) +
@@ -388,7 +388,7 @@ pinguinos %>%
 #| eval: false
 #| echo: true
 #| code-line-numbers: "9"
-pinguinos %>%
+pinguinos |>
     ggplot(aes(x = largo_pico_mm, 
                y = alto_pico_mm, 
                color = especie)) +
@@ -412,7 +412,7 @@ pinguinos %>%
 #| fig-height: 5
 
 
-pinguinos %>%
+pinguinos |>
     ggplot(aes(largo_pico_mm, alto_pico_mm, color = especie)) +
   geom_point()+
   geom_text(x = 45, y = 20, label = "Ejemplo font 15", size = 15/.pt, inherit.aes = FALSE) +
