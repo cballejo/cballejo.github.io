@@ -48,7 +48,7 @@ Repasemos algunos conceptos de la imagen en pantalla:
 
 . . .
 
--   El número de píxeles por pulgada es de 96 (**dpi**).
+-   El número de píxeles por pulgada es de 96 (**ppi**).
 
 ## Pantalla {.title-top}
 
@@ -87,6 +87,14 @@ Si creamos un gráfico de 12 x 10 pulgadas a 300 dpi, el archivo será una matri
 ::: {.fragment .fade-in-then-semi-out}
 Cuando abrimos el archivo en nuestra computadora, cada punto representa un pixel, lo que da una imagen de 3600 x 3000 px de resolución.
 :::
+
+## Archivos de imagen {.title-top}
+
+<br>
+
+Imaginemos que tenemos una imagen de 500x500px. Así se vería cada una, con un zoom del 100%, en un monitor de 1080p (1920x1080px) y en otro 4K (3840×2160), ambos del mismo tamaño.
+
+![](images/dif_imagen.PNG){.absolute top="450" left="370" width="1200"}
 
 ## Experimento práctico {.title-top}
 
