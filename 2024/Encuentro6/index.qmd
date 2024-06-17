@@ -1,0 +1,198 @@
+---
+pagetitle: "Documentos impresos de Quarto®"
+format: 
+  revealjs:
+    self-contained: true
+    slide-number: true
+    width: 1920
+    height: 1080
+    transition: fade
+    theme:  [simple, custom.scss]
+    logo: INE.gif
+    footer: "Instituto Nacional de Epidemiología"
+editor: source
+---
+
+```{r setup, include=F}
+library(quarto)
+library(fontawesome)
+library(tidyverse)
+```
+
+```{r}
+#| include: false
+library(countdown)
+countdown_timer <- function(
+    minutes = 1, 
+    play_sound = TRUE, 
+    font_size = "2em", 
+    ...
+) {
+  countdown(
+    minutes = minutes,
+    # Fanfare when it's over
+    play_sound = play_sound,
+    # Set timer theme to match solarized colors
+    color_border              = "#404041",
+    color_text                = "white",
+    color_background = "#d78e1c",
+    color_running_background  = "#72994E",
+    color_running_text        = "white",
+    color_finished_background = "#EE6331",
+    color_finished_text       = "white",
+    font_size = font_size,
+    ...
+  )
+}
+```
+
+##  {#docu-estaticos-title data-menu-title="Documentos impresos de Quarto®" background-image="images/fondo.jpg" aria-label="Imprenta"}
+
+[Documentos impresos de<br>Quarto®]{.custom-title .centrar}
+
+[Encuentro 6<br>2024]{.custom-subtitle}
+
+[Christian Ballejo]{.custom-author}
+
+
+## Titulo {.title-top}
+
+<br>
+
+
+
+
+Temas a incluir en el encuentro
+
+Formatos posibles:
+
+pdf - docx - tyspt
+
+Cambios en la cabecera YAML asociados
+
+Clase de documento
+Tamaño de papel
+Tabla de tablas
+Tabla de figuras
+Geometrías
+Fuente principal
+Tamaño de fuente
+
+
+tinytex
+
+Inclusión de latex crudo
+
+Librerías de latex - include
+ 
+Caracteristicas de typst
+
+Sintaxis typst
+
+Formulas tyspt
+
+
+
+Plantillas de estilos en docx
+
+
+## Formatos posibles {.title-top}
+
+<br>
+
+En la cabecera YAML se puede definir formatos de documentos distintos a HTML. 
+
+Entre las opciones de documentos con fines de impresión se encuentran:
+
+<br>
+
+- **PDF** (en base a **LaTeX**)
+
+- **PDF** (en base a **typst**)
+
+- **docx** (archivo **Word**)
+
+## PDF (LaTeX) {.title-top}
+
+<br>
+
+. . .
+
+Para procesar documentos PDF de Quarto (documentos tradicionales pdf de RMarkdown) nuestra compitadora debe cumplir con el requerimiento de tener instalado una distribución actualizada de **Tex**.
+
+. . .
+
+Existen varios motores PDF pero se recomienda utilizar [TinyTeX](https://yihui.org/tinytex/)(que está basado en TexLive) que podemos instalar facilmente desde RStudio.
+
+. . .
+
+Otras distribuciones posibles para Windows son: **MikTex** o **Tex Live**, pero deben decargase e instalarse independientemente de RStudio.  
+
+## TinyTex {.title-top}
+
+<br>
+
+**TinyTeX** es una distribución **LaTeX** personalizada basada en *TeX Live* que es pequeña en tamaño , pero funciona bien en la mayoría de los casos, especialmente para usuarios de R. 
+
+Se instala ejecutando la siguiente linea en la **Terminal** de **RStudio**
+
+``` markdown 
+quarto install tinytex --update-path
+
+```
+Luego activamos la opción:
+
+**Use tinytex when compiling .tex files**
+
+en Global options de RStudio y reiniciamos la sesión de R.
+
+## Cabecera PDF {.title-top}
+
+<br>
+
+Las cabecera básica de documentos PDF basados en LaTex es:
+
+``` rmardown
+
+---
+title: "Mi Documento"
+format:
+  pdf:
+    toc: true
+---
+
+```
+
+En este ejemplo, además activamos tabla de contenidos.
+
+La mayoría de las opciones de ejecución vistas para HTML sirven para este tipo de documentos.
+
+Quarto utiliza clases de documentos [KOMA Script](https://ctan.org/pkg/koma-script) de forma predeterminada para libros y documentos PDF.
+
+## Clases de documentos {.title-top}
+
+<br>
+
+La opción de ejecución `documentclass:` posibilita cambiar de clase utilizando la configuración KOMA Script.
+
+| Opción | Descripción |
+|---|---|
+| scrartcl | Es la clase estándar. Diseñada para artículos (más o menos cortos)  |
+| scrreprt | Clase reportes, similar a los libros. Se diferencian principalmente en los valores predeterminados. |
+| scrbook | Diseñada para libros desde aproximadamente una docena hasta miles de páginas |
+
+## Clases de documentos {.title-top}
+
+<br>
+
+Seleccionar que clase de documento pdf queremos tendrá que ver con lo que estemos produciendo. 
+
+Por ejemplo, los artículos estan configurados predeterminandamente con una sola cara, lo mismo que los reportes. En cambio, los libros son de doble cara.
+
+Las opciones se pueden cambiar con `classoption:` (oneside, twoside)
+
+::: {.callout-note .especial appearance="simple" icon="false"}
+
+Configurar su documento de clase `scrbook` automatizará muchas de las necesidades comunes para imprimir y encuadernar archivos PDF en un libro físico (es decir, los capítulos comienzan en páginas impares, tamaños de márgenes alternos, etc.)
+
+:::
