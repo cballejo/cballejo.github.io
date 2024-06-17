@@ -70,21 +70,7 @@ pdf - docx - tyspt
 
 Cambios en la cabecera YAML asociados
 
-Clase de documento
-Tamaño de papel
-Tabla de tablas
-Tabla de figuras
-Geometrías
-Fuente principal
-Tamaño de fuente
 
-
-tinytex
-
-Inclusión de latex crudo
-
-Librerías de latex - include
- 
 Caracteristicas de typst
 
 Sintaxis typst
@@ -106,14 +92,31 @@ Entre las opciones de documentos con fines de impresión se encuentran:
 
 <br>
 
+:::: columns
+
+::: {.column width="40%"}
+
 - **PDF** (en base a **LaTeX**)
 
 - **PDF** (en base a **typst**)
 
 - **docx** (archivo **Word**)
 
+:::
+
+::: {.column width="60%"}
+
+![](images/tipos.webp){.absolute top="350" left="850" width="1000"}
+
+:::
+
+:::
+
 ## PDF (LaTeX) {.title-top}
 
+![](images/adobe_pdf.PNG){.absolute top="0" left="1500" width="280"}
+
+<br>
 <br>
 
 . . .
@@ -122,9 +125,11 @@ Para procesar documentos PDF de Quarto (documentos tradicionales pdf de RMarkdow
 
 . . .
 
-Existen varios motores PDF pero se recomienda utilizar [TinyTeX](https://yihui.org/tinytex/)(que está basado en TexLive) que podemos instalar facilmente desde RStudio.
+Existen varios motores PDF pero se recomienda utilizar [TinyTeX](https://yihui.org/tinytex/) (que está basado en TexLive) que podemos instalar facilmente desde RStudio.
 
 . . .
+
+<br>
 
 Otras distribuciones posibles para Windows son: **MikTex** o **Tex Live**, pero deben decargase e instalarse independientemente de RStudio.  
 
@@ -191,8 +196,165 @@ Por ejemplo, los artículos estan configurados predeterminandamente con una sola
 
 Las opciones se pueden cambiar con `classoption:` (oneside, twoside)
 
+<br>
+
 ::: {.callout-note .especial appearance="simple" icon="false"}
 
-Configurar su documento de clase `scrbook` automatizará muchas de las necesidades comunes para imprimir y encuadernar archivos PDF en un libro físico (es decir, los capítulos comienzan en páginas impares, tamaños de márgenes alternos, etc.)
+Configurar el documento de clase `scrbook` automatizará muchas de las necesidades comunes para imprimir y encuadernar archivos PDF en un libro físico (es decir, los capítulos comienzan en páginas impares, tamaños de márgenes alternos, etc.)
 
+:::
+
+## Otras opciones de ejecución {.title-top}
+
+<br>
+
+| Opción   | Descripción |
+|----------|-------------|
+| `papersize` | Configura tamaño de papel  |
+| `lot` | Activa tabla de tablas |
+| `lof`  | Activa tabla de figuras |
+| `fontsize`  | Tamaño de fuente |
+| `mainfont`  | Fuente principal |
+| `geometry`  | Llama a paquete latex geometrías - define margenes, etc. |
+
+## Librerías latex {.title-top}
+
+<br>
+
+Algunas librerías Latex como `geometry` vienen implementadas dentro de TinyTex y asociadas a la cabecera YAML de Quarto. Otras librerías pueden llamarse desde la opción `include-in-header` para inyectar comandos Latex.
+
+Por ejemplo, incluyendo una fuente específica para el texto. 
+
+``` markdown
+format:
+  pdf:
+    include-in-header:
+      - text: |
+          \usepackage{sourcesanspro}
+```
+
+<br>
+
+::: {.callout-note .especial appearance="simple" icon="false"}
+
+Quarto instalará todos los paquetes especificados mediante inclusiones que aún no haya instalado localmente durante la renderización del documento.
+
+:::
+
+## Latex puro {.title-top}
+
+<br>
+
+Al crear un documento PDF, Pandoc permite el uso de código Latex puro entre el markdown.
+
+:::: columns
+
+::: {.column width="40%"}
+
+``` markdown
+\begin{tabular}{ll}
+A & B \\
+A & B \\
+\end{tabular}
+```
+:::
+
+::: {.column width="60%"}
+
+![](images/latex.png){.absolute top="300" left="950" width="600"}
+
+:::
+
+:::
+
+Si bien es muy conveniente para este formato, el código se ignora cuando se procesa en otros como HTML y Word.
+
+<br>
+
+> Tengamos en cuenta que en algunos casos, el LaTeX puro  requerirá paquetes de LaTeX adicionales (que deberemos incluir en la cabecera).
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 1 {background-color="#9f2e16" transition="slide-in"}
+
+<br>
+
+::: {.fragment .actividades}
+- Instale y configure TinyText desde la terminal
+
+- Produzca un documento pdf. Incorpore en la cabecera la definición de `documentclass: scrartcl`, `papersize: A4` y `toc: true`.
+
+- Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc)
+:::
+
+## PDF (typst) {.title-top}
+
+![](images/typst.png){fig-align="center" width="80%"}
+
+**Typst** es un nuevo sistema de composición tipográfica de código abierto basado en un lenguaje de marcas que está diseñado para ser tan potente como LaTeX y al mismo tiempo mucho más fácil de aprender y usar. Genera buenos resultados en PDF con tiempos de renderizado muy rápidos.
+
+> Dado que Typst está en desarrollo activo y fue incorporado en la última versión de Quarto, todavía existen algunas limitaciones en el soporte. Es decir, que algunas caracterísiticas nativas como el diseño de página avanzado no están del todo implementadas.
+
+## Cabecera typst {.title-top}
+
+<br>
+
+``` rmardown
+
+---
+title: "Mi Documento"
+format:
+  typst:
+    columns: 2
+---
+
+```
+
+En este ejemplo, además definimos 2 columnas para el documento.
+
+La gran mayoría de opciones de cabecera generales de Quarto funcionan en **typst**.
+
+## Diseño de página {.title-top}
+
+
+
+
+## typst puro {.title-top}
+
+
+## Fórmulas typst {.title-top}
+
+
+
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2  {background-color="#9f2e16" transition="slide-in"}
+
+<br>
+
+::: {.fragment .actividades}
+- Produzca un documento typst. Incorpore en la cabecera la definición de .
+
+- Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
+
+- Pruebe 
+:::
+
+
+## Word (docx) {.title-top}
+
+![](images/Word.PNG){.absolute top="0" left="1500" width="250"}
+
+
+## Word (docx) {.title-top}
+
+## Plantillas Word {.title-top}
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3  {background-color="#9f2e16" transition="slide-in"}
+
+<br>
+
+::: {.fragment .actividades}
+- Produzca un documento Word (docx). Incorpore en la cabecera la definición de .
+
+- Renderice en docx probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
+
+- Aplique una plantilla con un estilo personalizado.
 :::
