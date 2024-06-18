@@ -8,12 +8,14 @@ editor: visual
 
 #### [Operaciones simultáneas](https://cballejo.github.io/2024/Encuentro2)
 
-#### [Bienvenidxs a Quarto](https://cballejo.github.io/2024/Encuentro3)
+#### [Bienvenidxs a Quarto®](https://cballejo.github.io/2024/Encuentro3)
 
-#### [Documentos estáticos de Quarto 1/2](https://cballejo.github.io/2024/Encuentro4)
+#### [Documentos estáticos de Quarto® 1/2](https://cballejo.github.io/2024/Encuentro4)
 
-#### [Documentos estáticos de Quarto 2/2](https://cballejo.github.io/2024/Encuentro5)
+#### [Documentos estáticos de Quarto® 2/2](https://cballejo.github.io/2024/Encuentro5)
 
-#### [Cheatsheet Quarto](https://cballejo.github.io/2024/Quarto)
+#### [Cheatsheet Quarto®](https://cballejo.github.io/2024/Quarto)
 
 #### [Tamaño y resolución en gráficos](https://cballejo.github.io/2024/Resolucion)
+
+#### [Documentos impresos de Quarto®](https://cballejo.github.io/2024/Encuentro 6)

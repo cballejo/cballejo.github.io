@@ -54,108 +54,77 @@ countdown_timer <- function(
 
 [Christian Ballejo]{.custom-author}
 
-
-## Titulo {.title-top}
-
-<br>
-
-
-
-
-Temas a incluir en el encuentro
-
-Formatos posibles:
-
-pdf - docx - tyspt
-
-Cambios en la cabecera YAML asociados
-
-
-Caracteristicas de typst
-
-Sintaxis typst
-
-Formulas tyspt
-
-
-
-Plantillas de estilos en docx
-
-
 ## Formatos posibles {.title-top}
 
 <br>
 
-En la cabecera YAML se puede definir formatos de documentos distintos a HTML. 
+En la cabecera YAML se puede definir formatos de documentos distintos a HTML.
 
 Entre las opciones de documentos con fines de impresión se encuentran:
 
 <br>
 
-:::: columns
-
+::: columns
 ::: {.column width="40%"}
+-   **PDF** (en base a **LaTeX**)
 
-- **PDF** (en base a **LaTeX**)
+-   **PDF** (en base a **typst**)
 
-- **PDF** (en base a **typst**)
-
-- **docx** (archivo **Word**)
-
+-   **docx** (archivo **Word**)
 :::
 
 ::: {.column width="60%"}
-
 ![](images/tipos.webp){.absolute top="350" left="850" width="1000"}
-
 :::
-
 :::
 
 ## PDF (LaTeX) {.title-top}
 
 ![](images/adobe_pdf.PNG){.absolute top="0" left="1500" width="280"}
 
-<br>
-<br>
+<br> <br>
 
 . . .
 
-Para procesar documentos PDF de Quarto (documentos tradicionales pdf de RMarkdown) nuestra compitadora debe cumplir con el requerimiento de tener instalado una distribución actualizada de **Tex**.
+Para procesar documentos PDF de Quarto (documentos tradicionales pdf de RMarkdown) nuestra computadora debe cumplir con el requerimiento de tener instalado una distribución actualizada de **Tex**.
 
 . . .
 
-Existen varios motores PDF pero se recomienda utilizar [TinyTeX](https://yihui.org/tinytex/) (que está basado en TexLive) que podemos instalar facilmente desde RStudio.
+Existen varios motores PDF pero se recomienda utilizar [TinyTeX](https://yihui.org/tinytex/) (que está basado en TexLive) que podemos instalar fácilmente desde RStudio.
 
 . . .
 
 <br>
 
-Otras distribuciones posibles para Windows son: **MikTex** o **Tex Live**, pero deben decargase e instalarse independientemente de RStudio.  
+Otras distribuciones posibles para Windows son: **MikTex** o **Tex Live**, pero deben descargase e instalarse independientemente de RStudio.
 
 ## TinyTex {.title-top}
 
 <br>
 
-**TinyTeX** es una distribución **LaTeX** personalizada basada en *TeX Live* que es pequeña en tamaño , pero funciona bien en la mayoría de los casos, especialmente para usuarios de R. 
+**TinyTeX** es una distribución **LaTeX** personalizada basada en *TeX Live* que es pequeña en tamaño , pero funciona bien en la mayoría de los casos, especialmente para usuarios de R.
 
 Se instala ejecutando la siguiente linea en la **Terminal** de **RStudio**
 
-``` markdown 
-quarto install tinytex --update-path
+<br>
 
+``` markdown
+quarto install tinytex --update-path
 ```
+
+<br>
+
 Luego activamos la opción:
 
 **Use tinytex when compiling .tex files**
 
-en Global options de RStudio y reiniciamos la sesión de R.
+en **Global options** de RStudio y reiniciamos.
 
 ## Cabecera PDF {.title-top}
 
 <br>
 
-Las cabecera básica de documentos PDF basados en LaTex es:
+Las cabecera básica de documentos PDF basados en **LaTeX** es:
 
 ``` rmardown
 
@@ -165,7 +134,6 @@ format:
   pdf:
     toc: true
 ---
-
 ```
 
 En este ejemplo, además activamos tabla de contenidos.
@@ -180,17 +148,17 @@ Quarto utiliza clases de documentos [KOMA Script](https://ctan.org/pkg/koma-scri
 
 La opción de ejecución `documentclass:` posibilita cambiar de clase utilizando la configuración KOMA Script.
 
-| Opción | Descripción |
-|---|---|
-| scrartcl | Es la clase estándar. Diseñada para artículos (más o menos cortos)  |
+| Opción   | Descripción                                                                                         |
+|------------------------------------|------------------------------------|
+| scrartcl | Es la clase estándar. Diseñada para artículos (más o menos cortos)                                  |
 | scrreprt | Clase reportes, similar a los libros. Se diferencian principalmente en los valores predeterminados. |
-| scrbook | Diseñada para libros desde aproximadamente una docena hasta miles de páginas |
+| scrbook  | Diseñada para libros desde aproximadamente una docena hasta miles de páginas                        |
 
 ## Clases de documentos {.title-top}
 
 <br>
 
-Seleccionar que clase de documento pdf queremos tendrá que ver con lo que estemos produciendo. 
+Seleccionar que clase de documento pdf queremos tendrá que ver con lo que estemos produciendo.
 
 Por ejemplo, los artículos estan configurados predeterminandamente con una sola cara, lo mismo que los reportes. En cambio, los libros son de doble cara.
 
@@ -199,22 +167,20 @@ Las opciones se pueden cambiar con `classoption:` (oneside, twoside)
 <br>
 
 ::: {.callout-note .especial appearance="simple" icon="false"}
-
 Configurar el documento de clase `scrbook` automatizará muchas de las necesidades comunes para imprimir y encuadernar archivos PDF en un libro físico (es decir, los capítulos comienzan en páginas impares, tamaños de márgenes alternos, etc.)
-
 :::
 
 ## Otras opciones de ejecución {.title-top}
 
 <br>
 
-| Opción   | Descripción |
-|----------|-------------|
-| `papersize` | Configura tamaño de papel  |
-| `lot` | Activa tabla de tablas |
-| `lof`  | Activa tabla de figuras |
-| `fontsize`  | Tamaño de fuente |
-| `mainfont`  | Fuente principal |
+| Opción      | Descripción                                              |
+|-------------|----------------------------------------------------------|
+| `papersize` | Configura tamaño de papel                                |
+| `lot`       | Activa tabla de tablas                                   |
+| `lof`       | Activa tabla de figuras                                  |
+| `fontsize`  | Tamaño de fuente                                         |
+| `mainfont`  | Fuente principal                                         |
 | `geometry`  | Llama a paquete latex geometrías - define margenes, etc. |
 
 ## Librerías latex {.title-top}
@@ -223,7 +189,7 @@ Configurar el documento de clase `scrbook` automatizará muchas de las necesidad
 
 Algunas librerías Latex como `geometry` vienen implementadas dentro de TinyTex y asociadas a la cabecera YAML de Quarto. Otras librerías pueden llamarse desde la opción `include-in-header` para inyectar comandos Latex.
 
-Por ejemplo, incluyendo una fuente específica para el texto. 
+Por ejemplo, incluyendo una fuente específica para el texto.
 
 ``` markdown
 format:
@@ -236,9 +202,7 @@ format:
 <br>
 
 ::: {.callout-note .especial appearance="simple" icon="false"}
-
 Quarto instalará todos los paquetes especificados mediante inclusiones que aún no haya instalado localmente durante la renderización del documento.
-
 :::
 
 ## Latex puro {.title-top}
@@ -247,10 +211,8 @@ Quarto instalará todos los paquetes especificados mediante inclusiones que aún
 
 Al crear un documento PDF, Pandoc permite el uso de código Latex puro entre el markdown.
 
-:::: columns
-
+::: columns
 ::: {.column width="40%"}
-
 ``` markdown
 \begin{tabular}{ll}
 A & B \\
@@ -260,29 +222,26 @@ A & B \\
 :::
 
 ::: {.column width="60%"}
-
 ![](images/latex.png){.absolute top="300" left="950" width="600"}
-
 :::
-
 :::
 
 Si bien es muy conveniente para este formato, el código se ignora cuando se procesa en otros como HTML y Word.
 
 <br>
 
-> Tengamos en cuenta que en algunos casos, el LaTeX puro  requerirá paquetes de LaTeX adicionales (que deberemos incluir en la cabecera).
+> Tengamos en cuenta que en algunos casos, el LaTeX puro requerirá paquetes de LaTeX adicionales (que deberemos incluir en la cabecera).
 
 ## `r fontawesome::fa("laptop-code", "white")`️ Actividad 1 {background-color="#9f2e16" transition="slide-in"}
 
 <br>
 
 ::: {.fragment .actividades}
-- Instale y configure TinyText desde la terminal
+-   Instale y configure TinyText desde la terminal
 
-- Produzca un documento pdf. Incorpore en la cabecera la definición de `documentclass: scrartcl`, `papersize: A4` y `toc: true`.
+-   Produzca un documento pdf. Incorpore en la cabecera la definición de `documentclass: scrartcl`, `papersize: A4` y `toc: true`.
 
-- Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc)
+-   Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc)
 :::
 
 ## PDF (typst) {.title-top}
@@ -305,7 +264,6 @@ format:
   typst:
     columns: 2
 ---
-
 ```
 
 En este ejemplo, además definimos 2 columnas para el documento.
@@ -314,47 +272,143 @@ La gran mayoría de opciones de cabecera generales de Quarto funcionan en **typs
 
 ## Diseño de página {.title-top}
 
+<br>
 
+Se puede controlar el diseño de la página mediante opciones en la cabecera YAML:
 
+-   `papersize`: tamaño de la página ("a4", "us-letter", "us-legal", etc)
+-   `margin`: márgenes de la página (top, right, bottom, left - medido en pulgadas `in` o centímetros `cm`)
+-   `columns`: cuantas columnas tendrá el diseño (por defecto 1 columna)
+-   `mainfont`: fuente principal (busca fuentes instaladas en el sistema pero se puede indicar rutas adicionales con `font-paths`)
+-   `fontsize`: tamaño de fuente base (medida en puntos `pt`)
 
 ## typst puro {.title-top}
 
+<br>
+
+Al igual que el **LaTeX** se puede insertar bloques de código **typst** sin formato dentro del documento
+
+``` markdown
+
+```{=typst} 
+#set par(justify: true)
+
+== Título
+Este es un ejemplo de texto en typst.
+
+
+```
+
+Para obtener más información sobre **typst** el marcado, consulte el tutorial aquí: <https://typst.app/docs/tutorial/>
+
+## Bloques nativos typst {.title-top}
+
+<br>
+
+Se puede cambiar la apariencia de bloques mediante llamadas nativas de Typst, utilizando la clase `.block` en un **Div** con los argumentos apropiados.
+
+``` markdown
+
+::: {.block fill="luma(230)" inset="8pt" radius="4pt"}
+
+Este es un bloque con fondo gris y las aristas redondeadas. 
+
+:::
+```
 
 ## Fórmulas typst {.title-top}
 
+<br>
+
+Typst tiene composición tipográfica matemática incorporada y utiliza su propia notación.
+
+La notación va encerrada entre signos \$, de forma similar al LaTeX.
+
+``` markdown
+{=typst} 
+$ 7.32 beta +
+  sum_(i=0)^nabla
+    (Q_i (a_i - epsilon)) / 2 $
+```
 
 
 
-## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2  {background-color="#9f2e16" transition="slide-in"}
+![](images/ecuacion.PNG){.absolute bottom="200" left="15" width="500"}
+
+## Pantillas personalizadas {.title-top}
+
+
+Existen plantillas typst preconfeccionadas que se pueden utilizar o bien personalizar una propia.
+
+| Formato   | Uso                                                      |
+|-----------|----------------------------------------------------------|
+| Poster    | quarto use template quarto-ext/typst-templates/poster    |
+| IEEE      | quarto use template quarto-ext/typst-templates/ieee      |
+| AMS       | quarto use template quarto-ext/typst-templates/ams       |
+| Letter    | quarto use template quarto-ext/typst-templates/letter    |
+| Fiction   | quarto use template quarto-ext/typst-templates/fiction   |
+| Dept News | quarto use template quarto-ext/typst-templates/dept-news |
+
+En el siguiente [tutorial](https://typst.app/docs/tutorial/making-a-template/) de typst guian en la creación de una plantilla.
+
+También en el sitio [Awesome Quarto](https://github.com/qjcg/awesome-typst#templates--libraries) hay páginas de plantillas de terceros disponibles para utilizar.
+
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 2 {background-color="#9f2e16" transition="slide-in"}
 
 <br>
 
 ::: {.fragment .actividades}
-- Produzca un documento typst. Incorpore en la cabecera la definición de .
+-   Produzca un documento typst. Incorpore en la cabecera la definición de .
 
-- Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
+-   Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
 
-- Pruebe 
+-   Pruebe
 :::
-
 
 ## Word (docx) {.title-top}
 
 ![](images/Word.PNG){.absolute top="0" left="1500" width="250"}
 
+<br>
 
-## Word (docx) {.title-top}
+Las cabecera básica de documentos Word es:
+
+``` rmardown
+
+---
+title: "Mi Documento"
+format:
+  docx:
+    toc: true
+    toc-depth: 2
+    toc-title: Contenidos
+---
+```
+
+En este ejemplo, además activamos tabla de contenidos, con una profundidad de 2 y cabereca de tabla "Contenidos" (en español).
+
+La mayoría de las opciones de ejecución vistas para HTML sirven para este tipo de documentos.
+
 
 ## Plantillas Word {.title-top}
 
-## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3  {background-color="#9f2e16" transition="slide-in"}
+Para personalizar la apariencia de los documentos resultantes en Word se puede añadir en la cabecera una plantilla con diseño modificado. Para esto se sigue el siguiente paso a paso:
+
+1. Desde Word se crea un nuevo documento y se modifica el estilo del documento (tipo de hoja, orientación, márgenes, fuentes, colores, etc)
+2. Se almacena el archivo .docx resultante en la carpeta del proyecto RStudio donde estamos construyendo el documento Quarto.
+3. En la cabecera YAML del documento Quarto se incluye la línea `reference-doc:` con el nombre del documento anterior (ejemplo: plantilla.docx)
+4. Al renderizar Quarto toma las características de apariencia definidas y las reproduce en la salida del documento generado.
+
+
+## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3 {background-color="#9f2e16" transition="slide-in"}
 
 <br>
 
 ::: {.fragment .actividades}
-- Produzca un documento Word (docx). Incorpore en la cabecera la definición de .
+-   Produzca un documento Word (docx). Incorpore en la cabecera la definición de .
 
-- Renderice en docx probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
+-   Renderice en docx probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
 
-- Aplique una plantilla con un estilo personalizado.
+-   Aplique una plantilla con un estilo personalizado.
 :::
