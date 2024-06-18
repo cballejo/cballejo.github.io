@@ -513,4 +513,23 @@ Algunas de la opciones de ejecución que se pueden activar o desactivar son:
 
 Existen otras opciones que permiten controlar las salidas de código de figuras, tablas, etc, comienzan por ejemplo con la familia de opciones de `fig-*` (fig-align, fig-width, fig-heigth, fig-pos, etc)
 
+## Salida PDF (LaTeX)
 
+tinytex
+
+cabecera YAML
+
+formulas
+
+
+## Salida PDF (typst)
+
+cabecera YAML
+
+formulas
+
+## Salida Word
+
+cabecera YAML
+
+Plantillas

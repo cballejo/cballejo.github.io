@@ -359,11 +359,14 @@ También en el sitio [Awesome Quarto](https://github.com/qjcg/awesome-typst#temp
 <br>
 
 ::: {.fragment .actividades}
--   Produzca un documento typst. Incorpore en la cabecera la definición de .
+-   Produzca un documento typst. Incorpore en la cabecera la definición de  `papersize: A4`, `columns: 2` y `fontsize: 12pt` .
 
 -   Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
 
--   Pruebe
+-   Pruebe el bloque nativo: \:\:\: \{.block fill="luma(230)" inset="8pt" radius="4pt"} 
+Este es un bloque con fondo gris y las aristas redondeadas. 
+\:\:\:
+
 :::
 
 ## Word (docx) {.title-top}
