@@ -58,7 +58,7 @@ countdown_timer <- function(
 
 <br>
 
-En la cabecera YAML se puede definir formatos de documentos distintos a HTML.
+Editando la cabecera YAML se puede definir formatos de documentos distintos a HTML.
 
 Entre las opciones de documentos con fines de impresión se encuentran:
 
@@ -66,6 +66,9 @@ Entre las opciones de documentos con fines de impresión se encuentran:
 
 ::: columns
 ::: {.column width="40%"}
+
+<br>
+
 -   **PDF** (en base a **LaTeX**)
 
 -   **PDF** (en base a **typst**)
@@ -74,7 +77,7 @@ Entre las opciones de documentos con fines de impresión se encuentran:
 :::
 
 ::: {.column width="60%"}
-![](images/tipos.webp){.absolute top="350" left="850" width="1000"}
+![](images/tipos.webp){.absolute top="450" left="900" width="850"}
 :::
 :::
 
@@ -90,7 +93,7 @@ Para procesar documentos PDF de Quarto (documentos tradicionales pdf de RMarkdow
 
 . . .
 
-Existen varios motores PDF pero se recomienda utilizar [TinyTeX](https://yihui.org/tinytex/) (que está basado en TexLive) que podemos instalar fácilmente desde RStudio.
+Existen varios motores PDF pero se recomienda utilizar [TinyTeX](https://yihui.org/tinytex/) (basado en TexLive) que podemos instalar fácilmente desde RStudio.
 
 . . .
 
@@ -102,7 +105,7 @@ Otras distribuciones posibles para Windows son: **MikTex** o **Tex Live**, pero 
 
 <br>
 
-**TinyTeX** es una distribución **LaTeX** personalizada basada en *TeX Live* que es pequeña en tamaño , pero funciona bien en la mayoría de los casos, especialmente para usuarios de R.
+**TinyTeX** es una distribución **LaTeX** personalizada, basada en *TeX Live*, que es pequeña en tamaño pero funciona bien en la mayoría de los casos, especialmente para usuarios de R.
 
 Se instala ejecutando la siguiente linea en la **Terminal** de **RStudio**
 
@@ -127,7 +130,6 @@ en **Global options** de RStudio y reiniciamos.
 Las cabecera básica de documentos PDF basados en **LaTeX** es:
 
 ``` rmardown
-
 ---
 title: "Mi Documento"
 format:
@@ -136,9 +138,9 @@ format:
 ---
 ```
 
-En este ejemplo, además activamos tabla de contenidos.
+\* en este ejemplo, además activamos tabla de contenidos.
 
-La mayoría de las opciones de ejecución vistas para HTML sirven para este tipo de documentos.
+La mayoría de las *opciones de ejecución* vistas para HTML sirven para este tipo de documentos.
 
 Quarto utiliza clases de documentos [KOMA Script](https://ctan.org/pkg/koma-script) de forma predeterminada para libros y documentos PDF.
 
@@ -162,11 +164,13 @@ Seleccionar que clase de documento pdf queremos tendrá que ver con lo que estem
 
 Por ejemplo, los artículos estan configurados predeterminandamente con una sola cara, lo mismo que los reportes. En cambio, los libros son de doble cara.
 
-Las opciones se pueden cambiar con `classoption:` (oneside, twoside)
+De todas maneras, las opciones se pueden cambiar con `classoption:` (oneside, twoside)
 
 <br>
 
 ::: {.callout-note .especial appearance="simple" icon="false"}
+## Ejemplo
+
 Configurar el documento de clase `scrbook` automatizará muchas de las necesidades comunes para imprimir y encuadernar archivos PDF en un libro físico (es decir, los capítulos comienzan en páginas impares, tamaños de márgenes alternos, etc.)
 :::
 
@@ -187,7 +191,7 @@ Configurar el documento de clase `scrbook` automatizará muchas de las necesidad
 
 <br>
 
-Algunas librerías Latex como `geometry` vienen implementadas dentro de TinyTex y asociadas a la cabecera YAML de Quarto. Otras librerías pueden llamarse desde la opción `include-in-header` para inyectar comandos Latex.
+Algunas librerías Latex como `geometry` vienen implementadas dentro de **TinyTex** y asociadas a la cabecera YAML de Quarto. Otras librerías pueden llamarse desde la opción `include-in-header` para inyectar comandos **Latex**.
 
 Por ejemplo, incluyendo una fuente específica para el texto.
 
@@ -202,14 +206,14 @@ format:
 <br>
 
 ::: {.callout-note .especial appearance="simple" icon="false"}
-Quarto instalará todos los paquetes especificados mediante inclusiones que aún no haya instalado localmente durante la renderización del documento.
+Quarto instalará todos los paquetes especificados mediante inclusiones que aún no haya instalado localmente durante la renderización del documento usando TinyTex.
 :::
 
 ## Latex puro {.title-top}
 
 <br>
 
-Al crear un documento PDF, Pandoc permite el uso de código Latex puro entre el markdown.
+Al crear un documento PDF, Pandoc permite el uso de código **LaTex** puro entre el markdown.
 
 ::: columns
 ::: {.column width="40%"}
@@ -241,7 +245,7 @@ Si bien es muy conveniente para este formato, el código se ignora cuando se pro
 
 -   Produzca un documento pdf. Incorpore en la cabecera la definición de `documentclass: scrartcl`, `papersize: A4` y `toc: true`.
 
--   Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc)
+-   Renderice en PDF probando distintas opciones de markdown/Quarto conocidas (tablas, imagenes, etc)
 :::
 
 ## PDF (typst) {.title-top}
@@ -266,15 +270,15 @@ format:
 ---
 ```
 
-En este ejemplo, además definimos 2 columnas para el documento.
+\* en esta cabecera, además definimos 2 columnas para el documento.
 
-La gran mayoría de opciones de cabecera generales de Quarto funcionan en **typst**.
+La gran mayoría de opciones de cabecera generales de YAML para Quarto funcionan en **typst**.
 
 ## Diseño de página {.title-top}
 
 <br>
 
-Se puede controlar el diseño de la página mediante opciones en la cabecera YAML:
+Se puede controlar el diseño de la página mediante opciones de cabecera:
 
 -   `papersize`: tamaño de la página ("a4", "us-letter", "us-legal", etc)
 -   `margin`: márgenes de la página (top, right, bottom, left - medido en pulgadas `in` o centímetros `cm`)
@@ -299,13 +303,13 @@ Este es un ejemplo de texto en typst.
 
 ```
 
-Para obtener más información sobre **typst** el marcado, consulte el tutorial aquí: <https://typst.app/docs/tutorial/>
+Para obtener más información sobre marcado **typst**, consulte el tutorial aquí: <https://typst.app/docs/tutorial/>
 
 ## Bloques nativos typst {.title-top}
 
 <br>
 
-Se puede cambiar la apariencia de bloques mediante llamadas nativas de Typst, utilizando la clase `.block` en un **Div** con los argumentos apropiados.
+Se puede cambiar la apariencia de bloques mediante llamadas nativas de **Typst**, utilizando la clase `.block` en un **Div** con los argumentos apropiados.
 
 ``` markdown
 
@@ -359,7 +363,7 @@ También en el sitio [Awesome Quarto](https://github.com/qjcg/awesome-typst#temp
 <br>
 
 ::: {.fragment .actividades}
--   Produzca un documento typst. Incorpore en la cabecera la definición de  `papersize: A4`, `columns: 2` y `fontsize: 12pt` .
+-   Produzca un documento **typst**. Incorpore en la cabecera la definición de  `papersize: A4`, `columns: 2` y `fontsize: 12pt` .
 
 -   Renderice en PDF probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
 
@@ -378,7 +382,6 @@ Este es un bloque con fondo gris y las aristas redondeadas.
 Las cabecera básica de documentos Word es:
 
 ``` rmardown
-
 ---
 title: "Mi Documento"
 format:
@@ -389,7 +392,7 @@ format:
 ---
 ```
 
-En este ejemplo, además activamos tabla de contenidos, con una profundidad de 2 y cabereca de tabla "Contenidos" (en español).
+\* en el ejemplo, además activamos tabla de contenidos, con una profundidad de 2 y título de tabla "Contenidos" (en español).
 
 La mayoría de las opciones de ejecución vistas para HTML sirven para este tipo de documentos.
 
@@ -398,10 +401,28 @@ La mayoría de las opciones de ejecución vistas para HTML sirven para este tipo
 
 Para personalizar la apariencia de los documentos resultantes en Word se puede añadir en la cabecera una plantilla con diseño modificado. Para esto se sigue el siguiente paso a paso:
 
+::: {.fragment .fade-in-then-semi-out}
+
 1. Desde Word se crea un nuevo documento y se modifica el estilo del documento (tipo de hoja, orientación, márgenes, fuentes, colores, etc)
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
 2. Se almacena el archivo .docx resultante en la carpeta del proyecto RStudio donde estamos construyendo el documento Quarto.
-3. En la cabecera YAML del documento Quarto se incluye la línea `reference-doc:` con el nombre del documento anterior (ejemplo: plantilla.docx)
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+3. En la cabecera YAML del documento Quarto se incluye la línea `reference-doc:` con el nombre del documento anterior (ejemplo: *plantilla.docx*)
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
 4. Al renderizar Quarto toma las características de apariencia definidas y las reproduce en la salida del documento generado.
+
+:::
 
 
 ## `r fontawesome::fa("laptop-code", "white")`️ Actividad 3 {background-color="#9f2e16" transition="slide-in"}
@@ -409,9 +430,9 @@ Para personalizar la apariencia de los documentos resultantes en Word se puede a
 <br>
 
 ::: {.fragment .actividades}
--   Produzca un documento Word (docx). Incorpore en la cabecera la definición de .
+-   Produzca un documento Word (docx). Incorpore en la cabecera la definición de `date:` y `author:`.
 
 -   Renderice en docx probando distintas opciones de markdown/Quarto (tablas, imagenes, etc).
 
--   Aplique una plantilla con un estilo personalizado.
+-   Aplique una plantilla con un estilo personalizado (que deberá construir), mediante `reference-doc:`.
 :::
