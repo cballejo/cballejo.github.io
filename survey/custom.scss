@@ -1,0 +1,42 @@
+/*-- scss:defaults --*/
+
+// fonts
+@import 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap';
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+$font-family-sans-serif: "Atkinson Hyperlegible", sans-serif;
+$code-block-font-size: 0.8em;
+$presentation-font-size-root: 40px;
+
+ 
+
+/*-- scss:rules --*/
+.reveal .centrado {
+  background-color: #e1ecf7;
+  text-align: center;
+}
+
+.reveal .centrar {
+  text-align: center;
+}
+
+.reveal .actividades {
+  font-size: 1.4em;
+  color: #ffffff;
+  }
+  
+  
+
+.reveal .titulo-columna {
+  font-family: 'Special Elite', cursive;
+  color: #9f2e16;
+  font-size: 1.5em;
+}
+
+.reveal .callout.callout-style-default {
+ 	  font-size: 50px;
+}
+
+.reveal .especial {
+  font-size: 1.5em;
+  }

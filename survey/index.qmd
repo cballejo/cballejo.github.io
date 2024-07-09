@@ -1,0 +1,156 @@
+---
+title: "Estimaciones en muestreos complejos"
+format: 
+  revealjs:
+    width: 1500
+    slide-number: true
+    theme: [simple, custom.scss]
+    logo: logo_INE.PNG
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+## Objeto de diseño muestral 
+
+<br>
+
+El paquete **srvyr** es una adaptación del tradicional paquete **survey** compatible con tidyverse. La función `as_survey_design()` posibilita constuir el objeto de diseño necesario para realizar las estimaciones.
+
+```{r}
+#| eval: false
+#| echo: true
+datos %>%                       
+  as_survey_design(ids = ..., 
+                   strata = ..., 
+                   variables = ...,
+                   fpc = ...,
+                   nest = F,
+                   weights = ...)
+```
+
+## Conglomerados
+
+<br>
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "2"
+datos %>%                       
+  as_survey_design(ids = ...,   
+                   strata = ..., 
+                   variables = ...,
+                   fpc = ...,
+                   nest = F,
+                   weights = ...)
+```
+
+<br>
+
+**ids** = variables que especifican los conglomerados 
+
+## Estratos
+
+<br>
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "3"
+datos %>%                       
+  as_survey_design(ids = ...,   
+                   strata = ..., 
+                   variables = ...,
+                   fpc = ...,
+                   nest = F,
+                   weights = ...)
+```
+
+<br>
+
+**strata** = variables que especifican los estratos 
+
+## Ponderaciones
+
+<br>
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "7"
+datos %>%                       
+  as_survey_design(ids = ...,   
+                   strata = ..., 
+                   variables = ...,
+                   fpc = ...,
+                   nest = F,
+                   weights = ...)
+```
+
+<br>
+
+**weights** = variable que especifica las ponderaciones (inversas de las probabilidades de selección) 
+
+## Importante
+
+<br>
+<br>
+
+::: {.callout-important .especial icon=false appearance="simple"}
+Todos los códigos para las estimaciones comenzaran a partir del objeto de diseño creado, evitando utilizar el nombre de la tabla de datos original que solo tiene los datos de la muestra.
+:::
+
+## Manipulacion de datos
+
+<br>
+
+Las bondades del paquete **srvyr** respecto de su compatibilidad con el ecosistema tidyverse permite que podamos gestionar a las variables y observaciones de la misma forma que lo hacemos con las tablas de datos (dataframe/tibbles).
+
+Aplican para este caso los `mutate()`, `filter()`, `select()`, etc.
+
+
+## Estimación de medias
+
+<br>
+
+Función `survey_mean()`
+
+```{r}
+#| eval: false
+#| echo: true
+objeto_diseño %>%
+  summarise(media_var = survey_mean(x = variable,
+              na.rm = T,
+              vartype = c("se", "ci", "var", "cv"),
+              level = 0.95))
+```
+
+
+
+## Estimación de proporciones
+
+<br>
+
+Función `survey_prop()`
+
+```{r}
+#| eval: false
+#| echo: true
+objeto_diseño %>%
+  group_by(variable) %>% # variable de estimación
+  summarise(prop_var = survey_prop(vartype = c("se", "ci", "var", "cv")))
+```
+
+La variable categórica que queremos estimar se ubica en el `group_by()` previo a `survey_prop()`.
+
+## Obtención CV como medida de calidad
+
+<br>
+
+Cada una de las funciones para la estimación de los estadísticos devuelven la estimación puntual y su intervalo de confianza (por defecto del 95%).
+
+También el argumento `vartype` permite obtener un reporte de la variabilidad mediante el error estandar "se" y el coeficiente de variación "cv". 
+
+Este último es una versión estandarizada y relativa de la precisión alrededor de la estimación puntual de facil lectura y comparación.
+
+
