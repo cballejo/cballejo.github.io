@@ -464,5 +464,16 @@ Cada uno de los 132 paquetes citados tienen su propia página con la referencia 
 
 Estos componentes se pueden incluir en dashboards con y sin servidor Shiny asociado y también en documentos HTML de Quarto.
 
+## Ejemplo para descargar {.invert}
 
+<br>
 
+- Descargue el siguiente archivo ([Tablero_Quarto.zip](https://drive.google.com/file/d/1YpVjNHii6Kw9OBDpiiAvsKxMpEXGCj7G/view?usp=drive_link)) 
+
+- Descomprima el archivo y guarde la carpeta del proyecto dentro de su PC, donde mas le guste.
+
+- Ejecute el archivo **Tablero_Quarto.Rproj**
+
+- Abra los archivos `.qmd` para visualizar el código de los dashboard.
+
+- Explore las salidas, modificando sus partes y renderizando
