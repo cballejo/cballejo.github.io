@@ -1,0 +1,510 @@
+---
+pagetitle:  "Tableros Quarto® - htmlwidgets"
+format: 
+  revealjs:
+    transition: fade
+    slide-number: true
+    theme: [simple, custom.scss]
+    logo: INE.gif
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+```{r setup, include=F}
+library(quarto)
+library(fontawesome)
+library(tidyverse)
+```
+
+##  {#tableros-title .invert data-menu-title="Tableros Quarto® - htmlwidgets"}
+
+[**Tableros Quarto® - htmlwidgets**]{.custom-title .centrar}
+
+[***Encuentro 8***]{.custom-subtitle}
+
+## htmlwidgets {.title-top}
+
+<br>
+
+Componentes dinámicos / interactivos basados en librerías nativas de JavaScript incluídos en paquetes de R ([sitio web](https://www.htmlwidgets.org/))
+
+
+## ggiraph {.title-top}
+
+<br>
+
+- Utiliza librería [d3.js](https://d3js.org/)
+
+- Conecta con objetos ggplot2 y los hace dinámicos
+
+- Agrega interactividad a geometrías, leyendas y elementos estéticos.
+
+- Incorpora posibilidad de descargar el gráfico como archivo png.
+
+
+
+## ggiraph {.title-top}
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+#| fig-height: 6
+
+library(ggiraph)
+library(palmerpenguins)
+library(patchwork)
+
+p1 <- ggplot(data = penguins, aes(x = flipper_length_mm, y = body_mass_g)) +
+  geom_point_interactive(aes(color = species, tooltip = species, data_id = species)) +
+  scale_color_manual(values = c("cyan4", "darkorange", "darkorchid4")) +
+  theme_minimal()
+
+p2 <- ggplot(data = penguins, aes(x = bill_depth_mm, y = bill_length_mm)) +
+  geom_point_interactive(aes(color = species, tooltip = species, data_id = species)) +
+  scale_color_manual(values = c("cyan4", "darkorange", "darkorchid4")) +
+  theme_minimal()
+
+girafe(ggobj = (p1 + p2), 
+       width_svg = 8, 
+       height_svg = 4,
+       options = list(
+         opts_hover(css = "fill: black;"),
+         opts_hover_inv(css = "opacity: 0.1;")
+       ))
+```
+
+
+## Plotly {.title-top}
+
+<br>
+
+- Utiliza librería [plotly.js](https://plot.ly/javascript/)
+
+- Conecta con objetos ggplot2
+
+- Incorpora barra con botones al gráfico (zoom, descarga, etc) que se pueden configurar.
+
+- Permite creación de gráficos desde cero con funciones propias.
+
+- Se puede agregar elementos de control / interacción gráfica, como sliders, selectores, botones, etc.
+
+
+## Plotly {.title-top}
+
+Gráfico ggplot convertido con `ggploty()`
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+#| fig-height: 6
+
+
+library(ggplot2)
+library(plotly)
+p <- ggplot(data = diamonds, aes(x = cut, fill = clarity)) +
+            geom_bar(position = "dodge")
+ggplotly(p) |> 
+  layout(width = 800, height = 500)
+```
+
+
+
+## Plotly {.title-top}
+
+Gráfico realizado con funciones de **Plotly** (con botones configurados)
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-height: 6
+
+x0 <- rnorm(400, mean=2, sd=0.4)
+y0 <- rnorm(400, mean=2, sd=0.4)
+x1 <- rnorm(400, mean=3, sd=0.6)
+y1 <- rnorm(400, mean=6, sd=0.4)
+x2 <- rnorm(400, mean=4, sd=0.2)
+y2 <- rnorm(400, mean=4, sd=0.4)
+
+# shapes components
+cluster0 = list(
+  type = 'circle',
+  xref ='x', yref='y',
+  x0=min(x0), y0=min(y0),
+  x1=max(x0), y1=max(y0),
+  opacity=0.25,
+  line = list(color="#835AF1"),
+  fillcolor="#835AF1")
+
+cluster1 = list(
+  type = 'circle',
+  xref ='x', yref='y',
+  x0=min(x1), y0=min(y1),
+  x1=max(x1), y1=max(y1),
+  opacity=0.25,
+  line = list(color="#7FA6EE"),
+  fillcolor="#7FA6EE")
+
+cluster2 = list(
+  type = 'circle',
+  xref ='x', yref='y',
+  x0=min(x2), y0=min(y2),
+  x1=max(x2), y1=max(y2),
+  opacity=0.25,
+  line = list(color="#B8F7D4"),
+  fillcolor="#B8F7D4")
+
+# updatemenus component
+updatemenus <- list(
+  list(
+    active = -1,
+    type = 'buttons',
+    buttons = list(
+
+      list(
+        label = "None",
+        method = "relayout",
+        args = list(list(shapes = c()))),
+
+      list(
+        label = "Cluster 0",
+        method = "relayout",
+        args = list(list(shapes = list(cluster0, c(), c())))),
+
+      list(
+        label = "Cluster 1",
+        method = "relayout",
+        args = list(list(shapes = list(c(), cluster1, c())))),
+
+      list(
+        label = "Cluster 2",
+        method = "relayout",
+        args = list(list(shapes = list(c(), c(), cluster2)))),
+
+      list(
+        label = "All",
+        method = "relayout",
+        args = list(list(shapes = list(cluster0,cluster1,cluster2))))
+    )
+  )
+)
+
+fig <- plot_ly(type = 'scatter', mode='markers') 
+fig <- fig %>% add_trace(x=x0, y=y0, mode='markers', marker=list(color='#835AF1')) 
+fig <- fig %>% add_trace(x=x1, y=y1, mode='markers', marker=list(color='#7FA6EE')) 
+fig <- fig %>% add_trace(x=x2, y=y2, mode='markers', marker=list(color='#B8F7D4')) 
+fig <- fig %>% layout(title = "Highlight Clusters", showlegend = FALSE,
+         updatemenus = updatemenus)
+
+fig |> 
+  layout(width = 800, height = 450)
+
+```
+
+
+## dygraphs {.title-top}
+
+<br>
+
+- Utiliza librería [dygraphs](https://dygraphs.com/)
+
+- Diseñada para graficar series temporales (gráficos longitudinales)
+
+- Incorpora interacción en zoom, desplazamientos y resaltado de puntos.
+
+- Se integra en documentos y tableros web y shiny
+
+
+## dygraphs {.title-top}
+
+
+Ejemplo con selector de rango de tiempo en eje x.
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-height: 4.5
+
+library(dygraphs)
+lungDeaths <- cbind(mdeaths, fdeaths)
+
+dygraph(lungDeaths, width = "auto") %>%
+  dySeries("mdeaths", label = "Male") %>%
+  dySeries("fdeaths", label = "Female") %>%
+  dyOptions(stackedGraph = TRUE) %>%
+  dyRangeSelector(height = 20)
+```
+
+
+## Highcharter {.title-top}
+
+
+<br>
+
+- Contenedor de la librería JS [Highcharts](https://www.highcharts.com/)
+
+- Crea gráficos a partir de dataframes, vectores, objetos de series temporales `ts`, `forecast` y supervivencia `survfit`
+
+- Colección muy completa de gráficos dinámicos en javascript
+
+- API que permite controlar todo el gráfico e incluir anotaciones, puntos arrastrables, movimiento, etc
+
+## Highcharter {.title-top}
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-height: 5.5
+
+library(highcharter)
+
+data(gapminder, package = "gapminder")
+
+gapminder <- gapminder %>% 
+  filter(year == max(year)) %>% 
+  select(country, pop, continent)
+
+hc <- hchart(gapminder, "packedbubble", hcaes(name = country, value = pop, group = continent))
+
+q95 <- as.numeric(quantile(gapminder$pop, .95))
+
+hc %>% 
+  hc_tooltip(
+    useHTML = TRUE,
+    pointFormat = "<b>{point.name}:</b> {point.value}"
+  ) %>% 
+  hc_plotOptions(
+    packedbubble = list(
+      maxSize = "150%",
+      zMin = 0,
+      layoutAlgorithm = list(
+        gravitationalConstant =  0.05,
+        splitSeries =  TRUE, # TRUE to group points
+        seriesInteraction = TRUE,
+        dragBetweenSeries = TRUE,
+        parentNodeLimit = TRUE
+      ),
+      dataLabels = list(
+        enabled = TRUE,
+        format = "{point.name}",
+        filter = list(
+          property = "y",
+          operator = ">",
+          value = q95
+        ),
+        style = list(
+          color = "black",
+          textOutline = "none",
+          fontWeight = "normal"
+        )
+      )
+    )
+  )
+```
+
+
+## reactable {.title-top}
+
+<br>
+
+- Tablas de datos interactivas con librería JS [reactable](https://github.com/tanstack/table/tree/v7)
+
+- Incorpora ordenamiento, filtrado y paginación de tablas.
+
+- Permite hacer que la filas sean expandibles y crear tablas anidadas.
+
+- Compatible con Quarto HTML, dashboard, ObservableJS y Shiny
+
+- Sumado al paquete [reactablefmtr](https://kcuilla.github.io/reactablefmtr/index.html), se puede optimizar y mejorar el formato y estilo estético de las tablas.  
+
+## reactable {.title-top}
+
+```{ojs}
+// Create an Observable value that automatically tracks the table's filtered data
+filteredData = Generators.observe(change => {
+  return Reactable.onStateChange('tbl-input', state => {
+    change(state.sortedData)
+  })
+})
+```
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+
+
+library(reactable)
+library(reactablefmtr)
+library(htmltools)
+library(palmerpenguins)
+
+data <- na.omit(penguins) |> 
+  rename(Especie = "species",
+         Isla = "island",
+         Largo_pico = "bill_length_mm",
+         Alto_pico = "bill_depth_mm",
+         Largo_aleta = "flipper_length_mm",
+         Masa_corporal = "body_mass_g",
+         Sexo = "sex",
+         Año = "year")
+
+# Select input filter with an "All" default option
+selectFilter <- function(tableId, style = "width: 100%; height: 100%;") {
+  function(values, name) {
+    tags$select(
+      # Set to undefined to clear the filter
+      onchange = sprintf("
+        const value = event.target.value
+        Reactable.setFilter('%s', '%s', value === '__Todas__' ? undefined : value)
+      ", tableId, name),
+      # "All" has a special value to clear the filter, and is the default option
+      tags$option(value = "__Todas__", "Todas"),
+      lapply(unique(values), tags$option),
+      "aria-label" = sprintf("Filter %s", name),
+      style = style
+    )
+  }
+}
+
+# Min range filter input that handles NaNs
+minRangeFilter <- function(tableId, style = "width: 100%;") {
+  function(values, name) {
+    values <- na.omit(values)
+    oninput <- sprintf("Reactable.setFilter('%s', '%s', this.value)", tableId, name)
+    tags$input(
+      type = "range",
+      min = floor(min(values)),
+      max = ceiling(max(values)),
+      value = floor(min(values)),
+      oninput = oninput,
+      style = style,
+      "aria-label" = sprintf("Filter by minimum %s", name)
+    )
+  }
+}
+
+# Min value filter method that handles NaNs
+filterMinValue <- JS("(rows, columnId, filterValue) => {
+  return rows.filter(row => {
+    const value = row.values[columnId]
+    return !isNaN(value) && value >= filterValue
+  })
+}")
+
+reactable(
+  data,
+  columns = list(
+    Especie = colDef(
+      filterInput = selectFilter("tbl-input")
+    ),
+    Isla = colDef(
+      filterInput = selectFilter("tbl-input")
+    ),
+    Largo_pico = colDef(
+      filterMethod = filterMinValue,
+      filterInput = minRangeFilter("tbl-input")
+    ),
+    Sexo = colDef(
+      filterInput = selectFilter("tbl-input"),
+      # Exact match filter method
+      filterMethod = JS("(rows, columnId, filterValue) => {
+        return rows.filter(row => row.values[columnId] === filterValue)
+      }")
+    )
+  ),
+  filterable = TRUE,
+  wrap = FALSE,
+  resizable = TRUE,
+  defaultPageSize = 8,
+  striped = T,
+  minRows = 5,
+  elementId = "tbl-input", 
+  theme = flatly(font_size = 20, header_font_size = 20),
+    language = reactableLang(
+    noData = "No hay datos",
+    pageInfo = "{rowStart}\u2013{rowEnd} de {rows} filas",
+    pagePrevious = "\u276e",
+    pageNext = "\u276f",
+
+    # Accessible labels for assistive technology, such as screen readers
+    pagePreviousLabel = "Previo",
+    pageNextLabel = "Siguiente"
+  )
+)
+```
+
+## DT (datatable) {.title-top}
+
+<br>
+
+- Tablas de datos interactivas con librería JS [DataTables](http://datatables.net/)
+
+- Incorpora ordenamiento, filtrado y paginación de filas.
+
+- Tiene extensiones que se pueden agregar como botones de exportación en formato csv, Excel, pdf, etc.
+
+- Compatible con Shiny y Crosstalk  
+
+
+## DT (datatable) {.title-top}
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+
+library(DT)
+library(datos)
+
+paises |> 
+  select(-pib_per_capita) |> 
+  filter(anio > 2000) |> 
+  mutate(esperanza_de_vida = round(esperanza_de_vida, 1)) |> 
+  datatable(filter = "top", 
+            rownames = FALSE,
+            options = list(pageLength = 3, 
+                           autoWidth = T,
+                           searchHighlight = TRUE,
+                           language = list(url = '//cdn.datatables.net/plug-ins/1.10.11/i18n/Spanish.json')))
+``` 
+
+
+
+## crosstalk {.title-top}
+
+
+
+
+## crosstalk {.title-top}
+
+
+
+
+## Ejemplo para descargar {.invert}
+
+<br>
+
+-   Descargue el siguiente archivo ([Tablero_Quarto.zip](https://drive.google.com/file/d/1YpVjNHii6Kw9OBDpiiAvsKxMpEXGCj7G/view?usp=drive_link))
+
+-   Descomprima el archivo y guarde la carpeta del proyecto dentro de su PC, donde mas le guste.
+
+-   Ejecute el archivo **Tablero_Quarto.Rproj**
+
+-   Abra los archivos `.qmd` para visualizar el código de los dashboard.
+
+-   Explore las salidas, modificando sus partes y renderizando
