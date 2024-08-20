@@ -26,8 +26,21 @@ library(tidyverse)
 
 <br>
 
+. . .
+
 Componentes dinámicos / interactivos basados en librerías nativas de JavaScript incluídos en paquetes de R ([sitio web](https://www.htmlwidgets.org/))
 
+. . .
+
+Utilizados para dotar de funciones interactivas a elementos propios de gráficos, tablas y mapas.
+
+. . .
+
+Incluye al paquete [Crosstalk](https://rstudio.github.io/crosstalk/index.html) que provee de dispositivos de entrada (inputs).
+
+. . .
+
+Se aplican solos, siempre en salidas HTML (documentos HTML de Quarto o tableros) y también en conjunto con Shiny.
 
 ## ggiraph {.title-top}
 
@@ -88,7 +101,7 @@ girafe(ggobj = (p1 + p2),
 
 - Permite creación de gráficos desde cero con funciones propias.
 
-- Se puede agregar elementos de control / interacción gráfica, como sliders, selectores, botones, etc.
+- Se puede agregar elementos de control / interacción gráfica, como sliders, selectores, botones, etc. - compatible con Crosstalk
 
 
 ## Plotly {.title-top}
@@ -168,7 +181,7 @@ updatemenus <- list(
     buttons = list(
 
       list(
-        label = "None",
+        label = "Ninguno",
         method = "relayout",
         args = list(list(shapes = c()))),
 
@@ -188,7 +201,7 @@ updatemenus <- list(
         args = list(list(shapes = list(c(), c(), cluster2)))),
 
       list(
-        label = "All",
+        label = "Todos",
         method = "relayout",
         args = list(list(shapes = list(cluster0,cluster1,cluster2))))
     )
@@ -199,7 +212,7 @@ fig <- plot_ly(type = 'scatter', mode='markers')
 fig <- fig %>% add_trace(x=x0, y=y0, mode='markers', marker=list(color='#835AF1')) 
 fig <- fig %>% add_trace(x=x1, y=y1, mode='markers', marker=list(color='#7FA6EE')) 
 fig <- fig %>% add_trace(x=x2, y=y2, mode='markers', marker=list(color='#B8F7D4')) 
-fig <- fig %>% layout(title = "Highlight Clusters", showlegend = FALSE,
+fig <- fig %>% layout(title = "Resaltar Clusters", showlegend = FALSE,
          updatemenus = updatemenus)
 
 fig |> 
@@ -235,7 +248,9 @@ Ejemplo con selector de rango de tiempo en eje x.
 #| fig-height: 4.5
 
 library(dygraphs)
+
 lungDeaths <- cbind(mdeaths, fdeaths)
+
 
 dygraph(lungDeaths, width = "auto") %>%
   dySeries("mdeaths", label = "Male") %>%
@@ -485,26 +500,77 @@ paises |>
 
 
 
-## crosstalk {.title-top}
-
-
-
-
-## crosstalk {.title-top}
-
-
-
-
-## Ejemplo para descargar {.invert}
+## Crosstalk {.title-top}
 
 <br>
 
--   Descargue el siguiente archivo ([Tablero_Quarto.zip](https://drive.google.com/file/d/1YpVjNHii6Kw9OBDpiiAvsKxMpEXGCj7G/view?usp=drive_link))
+- Complemento del paquete htmlwidgets que extiende su interactividad.
 
--   Descomprima el archivo y guarde la carpeta del proyecto dentro de su PC, donde mas le guste.
+- Incorpora inputs vinculados a filtros de datos que a su vez conectan con widgets de Plotly, DT, Leaflet, etc. 
 
--   Ejecute el archivo **Tablero_Quarto.Rproj**
+- No requiere Shiny ni depende de ningún otro paquete de R. 
 
--   Abra los archivos `.qmd` para visualizar el código de los dashboard.
+- Tiene algunas limitaciones: permite solo dataframes con observaciones individuales (no grupos) y que no sean de gran tamaño.
 
--   Explore las salidas, modificando sus partes y renderizando
+- Su sitio es [Crosstalk](https://rstudio.github.io/crosstalk/index.html)
+
+
+## Crosstalk {.title-top}
+
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+
+library(crosstalk)
+
+tx <- highlight_key(txhousing)
+
+gg <- ggplot(tx) + geom_line(aes(date, median, group = city))
+
+filter <- bscols(
+  filter_select("id", "Seleccione una ciudad", tx, ~city),
+  ggplotly(gg, dynamicTicks = TRUE),
+  widths = c(12, 12)
+)
+
+tx2 <- highlight_key(txhousing, ~city, "Seleccione una ciudad")
+
+gg <- ggplot(tx2) + geom_line(aes(date, median, group = city))
+
+select <- highlight(
+  ggplotly(gg, tooltip = "city"), 
+  selectize = TRUE, persistent = TRUE
+)
+
+bscols(filter, select)
+```
+
+
+## Crosstalk {.title-top}
+
+```{r}
+#| echo: true
+#| code-fold: true
+#| message: false
+#| warning: false
+
+
+tx <- highlight_key(txhousing)
+
+widgets <- bscols(
+  widths = c(12, 12, 12),
+  filter_select("city", "Ciudad", tx, ~city),
+  filter_slider("sales", "Ventas", tx, ~sales)
+)
+
+bscols(
+  widths = c(4, 8), widgets, 
+  plot_ly(tx, x = ~date, y = ~median, showlegend = FALSE) %>% 
+    add_lines(color = ~city, colors = "black")
+)
+```
+
+
