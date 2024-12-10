@@ -1,0 +1,471 @@
+---
+pagetitle: "Extensión de Quarto® - surveydown"
+format: 
+  revealjs:
+    self-contained: true
+    slide-number: true
+    width: 1920
+    height: 1080
+    transition: fade
+    theme:  [simple, custom.scss]
+    logo: INE.gif
+    footer: "Instituto Nacional de Epidemiología"
+editor: source
+---
+
+```{r setup, include=F}
+library(quarto)
+library(fontawesome)
+library(tidyverse)
+```
+
+```{r}
+#| include: false
+library(countdown)
+countdown_timer <- function(
+    minutes = 1, 
+    play_sound = TRUE, 
+    font_size = "2em", 
+    ...
+) {
+  countdown(
+    minutes = minutes,
+    # Fanfare when it's over
+    play_sound = play_sound,
+    # Set timer theme to match solarized colors
+    color_border              = "#404041",
+    color_text                = "white",
+    color_background = "#d78e1c",
+    color_running_background  = "#72994E",
+    color_running_text        = "white",
+    color_finished_background = "#EE6331",
+    color_finished_text       = "white",
+    font_size = font_size,
+    ...
+  )
+}
+```
+
+##  {#tablerosshiny-title .invert data-menu-title="Extensión de Quarto® - surveydown"}
+
+[**Extensión de Quarto® surveydown**]{.custom-title .centrar}
+
+[***Encuentro 10***]{.custom-subtitle}
+
+## Encuestas {.title-top}
+
+<br>
+
+La mayoría de las plataformas de encuestas (por ejemplo, Google Forms, etc.) utilizan interfaces que no son reproducibles y muchas requieren una licencia paga para su uso.
+
+<br>
+
+. . .
+
+El paquete  **{surveydown}** fue diseñado para abordar estos problemas. Basado en una integración entre Quarto/Markdown y Shiny, se puede alojar en línea haciendo que sea fácil reproducir, compartir y controlar la versión de la encuesta.
+
+<br>
+
+. . . 
+
+Los datos recopilados se pueden almacenar en una base de datos Postgres separada (recomendamos *Supabase* por ser gratuito y de código abierto).
+
+## Esquema {.title-top}
+
+![](images/esquema.PNG){fig-align="center"}
+
+## Instalación {.title-top}
+
+El paquete **{surveydown}** tiene su sitio oficial en <https://surveydown.org//> y se instala desde CRAN:
+
+
+-   Ejecutando en consola `install.packages("surveydown")` o desde el panel Packages de RStudio.
+
+-   La última versión de CRAN es la 0.5.1 y la alojada en su sitio de desarrollo 0.7.1
+
+- La versión de desarrollo se puede instalar ejecutando:
+
+```{r}
+#| echo: true
+#| eval: false
+
+# install.packages("pak")
+pak::pak('surveydown-dev/surveydown')
+```
+
+-   El paquete tiene una función que a partir de una plantilla nos ayuda a cear el proyecto de encuesta facilmente. - ver [Template](https://surveydown.org/template)
+
+-   En <https://surveydown.org/demos> hay algunos demos para visualizar.
+
+
+## Comenzamos {.title-top}
+
+Para comenzar debemos tener instalado R + RStudio + Quarto + paquete surveydown.
+
+Luego podemos usar la función `surveydown::sd_create_survey("path/to/folder")` para construir un proyecto inicial a partir de la plantilla.
+
+::: {.callout-note icon="false"}
+## Nota
+
+Cada encuesta creada con {surveydown} debe estar en su propia carpeta de proyecto separada.
+:::
+
+. . . 
+
+Por ejemplo, si ejecutamos `surveydown::sd_create_survey("Encuesta_prueba")` estaremos creando la carpeta **Encuesta_prueba**
+
+![](images/proyecto.PNG){fig-align="center" width="50%"}
+
+## Proyecto {.title-top}
+
+
+::: incremental
+
+Un proyecto básico de surveydown consiste en tres archivos:
+
+- El archivo `Rproj` propio de cualquier proyecto de RStudio
+
+<br>
+
+- `survey.qmd`: Un documento Quarto que contiene el contenido de la encuesta (páginas, preguntas, etc.), que se convierte en un archivo HTML.
+
+<br>
+
+- `app.R`: Un script R que define una aplicación Shiny que contiene la configuración global (bibliotecas, configuración de la base de datos, etc.) y las opciones de configuración del servidor (por ejemplo, omisión/visualización condicional, etc.).
+
+:::
+
+## survey.qmd  {.title-top}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+Como todo archivo Quarto tendrá su cabecera YAML y su cuerpo desarrollado en markdown/Quarto con inserciones de código R.
+
+<br>
+
+La cabecera tiene que definir su salida como HTML y opcionalmente se puede agregar configuraciones estéticas y otras opciones. 
+
+:::
+
+::: {.column width="40%"}
+
+``` yaml
+---
+format: html
+echo: false
+warning: false
+theme: [simple, custom.css]
+barcolor: "#DF7401"
+barposition: top 
+---
+```
+
+:::
+::::
+
+## survey.qmd  {.title-top}
+
+<br>
+
+En el cuerpo del archivo Quarto se declaran los componentes de la encuesta y se definen las páginas.
+
+Las páginas se añaden con:
+
+``` markdown
+::: {#pagina1 .sd-page}
+
+Pagina 1 escriba el contenido aquí
+
+:::
+
+```
+
+La función para agregar preguntas es `sd:question()` que tiene varios argumentos que cambian según el tipo de pregunta. 
+
+Existen 12 formas distintas (ver [Tipos de pregunta](https://surveydown.org/question-types) )
+
+## Shiny {.title-top}
+
+<br>
+
+El componente shiny es el encargado de configurar las opciones de servidor y la lógica de control condicional de la encuesta.
+
+Se agrega código dentro del apartado `server()` del archivo `app.R`.
+
+```{r}
+#| echo: true
+#| eval: false
+
+server <- function(input, output, session) {
+ 
+  # contenido del servidor shiny
+   
+}
+```
+
+
+Las funciones principales para el control condicional son:
+
+- `sd_skip_if()`: salto condicional
+
+- `sd_show_if()`: muestra/oculta según condición
+
+## Base de datos {.title-top}
+
+<br>
+
+El paquete **{surveydown}** está diseñado para funcionar con cualquier base de datos *PostgreSQL*. 
+
+Los desarrolladores del paquete recomiendan usar [Supabase](https://supabase.com/), que es un servicio de base de datos PostgreSQL gratuito y de código abierto.
+
+<br>
+
+. . .
+
+Antes de iniciar con la primera encuesta hay que realizar tres pasos con **Supabase**:
+
+
+::: incremental
+
+1. Crear una cuenta Supabase
+2. Crear un proyecto Supabase
+3. Copia tus credenciales
+
+:::
+
+## Supabase {.title-top}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+Ingresando al sitio de **Supabase** pulsamos sobre el botón `Start your project`.
+
+En la siguiente pagina hay que loguearse. Podemos hacerlo automáticamente con una cuenta de github o crear una nueva cuenta en el sitio (con email y password).
+
+Luego creamos nuestra organización, con el nombre, el tipo de uso (Personal, educacional, etc) y el plan (gratuito $ 0 por mes). Finalmente pulsamos sobre `Create organization`.
+
+:::
+
+::: {.column width="50%"}
+
+![](images/plan_supabase.PNG){fig-align="center"}
+
+
+:::
+::::
+
+## Proyecto en Supabase {.title-top}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="35%"}
+
+En la página siguiente se define el proyecto de base de datos. A partir de declarar su nombre, la contraseña y la región (para Sudamérica usamos el servidor de **San Pablo - Brasil**)
+
+:::
+
+::: {.column width="65%"}
+
+![](images/proyecto_supabase.PNG){fig-align="center"}
+
+:::
+::::
+
+## Credenciales de Supabase {.title-top}
+
+<br>
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+Junto con el password de la base de datos, necesitamos copiar las credenciales y parámetros de conexión para incluirlos en el proyecto de Quarto + Shiny.
+
+<br>
+
+Los parámetros de conexión los conseguimos pulsando sobre el botón `Project Settings` del menú lateral izquierdo y luego en **Configuration -> Database**.
+
+:::
+
+::: {.column width="50%"}
+
+![](images/conexion_supabase.PNG){fig-align="center"}
+
+:::
+::::
+
+## Credenciales de Supabase {.title-top}
+
+Las credenciales copiadas debemos declararlas en el archivo `app.R` donde se define sel sevidor shiny.
+
+``` markdown
+db <- sd_database(
+  host   = "",
+  dbname = "",
+  port   = "",
+  user   = "",
+  table  = "any_name"
+)
+```
+
+Pegamos los primeros 4 parámetros de tu página de Supabase en `sd_database()` (“host”, “dbname”, “port” y “user”). La contraseña debe definirse en `sd_set_password()` en la consola de R (No en en el archivo **app.R**)
+
+El parámetro `table` puede ser cualquier nombre que deseemos para denominar a la tabla creada. 
+
+## Credenciales de Supabase {.title-top}
+
+Definimos el ejemplo de **Encuesta_prueba**, al que conviene incorporar el argumento `ignore = TRUE`, mientras editamos la encuesta localmente y de esta forma evitar que se conecte. En su lugar, se creará un archivo local `preview_data.csv` en la carpeta de proyecto para poder obtener una vista previa de los datos de la encuesta.
+
+![](images/conexion_prueba.PNG){fig-align="center" width="40%"}
+
+::: {.callout-note icon="false"}
+## Nota
+
+Un proyecto de Supabase puede admitir varias encuestas de Surveydown, pero se recomienda tener solo una encuesta por proyecto para evitar posibles errores.
+
+:::
+
+## Vista previa {.title-top}
+
+<br>
+
+Para ejecutar y renderizar la encuesta debemos pulsar el botón `Run App` del shiny (no renderizar el archivo **.qmd** como hacemos habitualmente en Quarto) o ejecutamos en consola la función `runApp()`.
+
+![](images/preview.PNG){fig-align="center"}
+
+
+
+## Preguntas {.title-top}
+
+La función para crear preguntas es `sd_question()` y tiene tres argumentos:
+
+- `id`:  identificador único para la pregunta, que se utilizará como nombre de la variable en los datos de la encuesta resultante.
+
+- `label`:  etiqueta que se mostrará en la pregunta en la encuesta.
+
+- `type`: tipo de pregunta.
+
+```{r}
+#| echo: true
+#| eval: false
+
+sd_question(
+  type  = 'mc',
+  id    = 'sexo',
+  label = "Sexo",
+  option = c(
+    'Mujer'    = 'mujer',
+    'Varón' = 'varon',
+    'No binario'    = 'no_binario'
+  )
+)
+```
+
+
+## Tipo de preguntas {.title-top}
+
+<br>
+
+Existen 12 tipos diferentes de preguntas:
+
+::: {.fragment .fade-in-then-semi-out}
+
+- Numérica
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+- Texto (una sola línea o párrafo)
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+- Multiple choice (una sola respuesta o respuesta múltiple)
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+- Botones (verticales u horizontales - una sola respuesta o respuesta múltiple)
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+- Fecha y rango de fecha
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+- Deslizamiento
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+- Matriz
+
+:::
+
+## Otras configuraciones {.title-top}
+
+<br>
+
+El `server` acepta otras configaciones generales, como:
+
+- Definir página inicio
+
+- Auto scroll de la encuesta
+
+- Traducción del sistema a otros idiomas (botones predeterminados)
+
+- Activar la calificación de preguntas
+
+- Agregar página de administración
+
+## Otras características {.title-top}
+
+<br>
+
+Además se pueden incorporar otras funcionalidades a la encuesta:
+
+::: incremental
+
+- Preguntas obligatorias
+
+- Reactividad (interactividad aprovechando shiny)
+
+- Aleatorización de preguntas
+
+- Recursos externos (imágenes, etc)
+
+- Redireccionamiento externo (links web)
+
+:::
+
+## Implementación {.title-top}
+
+<br>
+
+Las encuestas se pueden implementar en servidores que soporten shiny, como por ejemplo [shinyapps.io](https://www.shinyapps.io/).  También se pueden utilizar `Posit Connect Cloud`, `Hugging Face` y `Heroku`.
+
+El sitio oficial donde se encuentra la documentación del paquete describe detalladamente los paso a paso para publicar en **shinyapps.io** y enlaces externos para los otros servidores mencionados.
+
+<br>
+
+El ejemplo mostrado en las diapositivas, se encuentra en: 
+
+<https://datos-ine.shinyapps.io/Encuesta_prueba/>
+
+
