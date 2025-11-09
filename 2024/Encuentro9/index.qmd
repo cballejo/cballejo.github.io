@@ -1,0 +1,784 @@
+---
+pagetitle: "Tableros de Quarto® - Shiny"
+format: 
+  revealjs:
+    self-contained: true
+    slide-number: true
+    width: 1920
+    height: 1080
+    transition: fade
+    theme:  [simple, custom.scss]
+    logo: INE.gif
+    footer: "Instituto Nacional de Epidemiología"
+editor: source
+---
+
+```{r setup, include=F}
+library(quarto)
+library(fontawesome)
+library(tidyverse)
+```
+
+```{r}
+#| include: false
+library(countdown)
+countdown_timer <- function(
+    minutes = 1, 
+    play_sound = TRUE, 
+    font_size = "2em", 
+    ...
+) {
+  countdown(
+    minutes = minutes,
+    # Fanfare when it's over
+    play_sound = play_sound,
+    # Set timer theme to match solarized colors
+    color_border              = "#404041",
+    color_text                = "white",
+    color_background = "#d78e1c",
+    color_running_background  = "#72994E",
+    color_running_text        = "white",
+    color_finished_background = "#EE6331",
+    color_finished_text       = "white",
+    font_size = font_size,
+    ...
+  )
+}
+```
+
+##  {#tablerosshiny-title .invert data-menu-title="Tableros de Quarto® - Shiny"}
+
+[**Tableros de Quarto® - Shiny**]{.custom-title .centrar}
+
+[***Encuentro 9***]{.custom-subtitle}
+
+
+## Cabecera YAML {.title-top}
+
+<br>
+
+Una cabecera YAML para tableros de Quarto interactivos Shiny se asemeja a un **dashboard** pero incorpora la opción `server`. 
+
+<br>
+
+````{.yaml}
+---
+title: "Mi tablero"
+format: dashboard
+server: shiny
+---
+````
+
+Las otras opciones conocidas para cabeceras de tableros funcionan igual (logos, botones, etc)
+
+## Estructura de un shiny {.title-top}
+
+<br>
+
+La estructura de este tipo de tablero consta de dos componentes principales:
+
+. . . 
+
+- la interfaz de usuario (**ui**) 
+
+  *Que es visible y la integran los dispositivos de entrada*
+  
+. . .  
+  
+- el servidor Shiny (**server**)
+
+  *Que no es visible y se encarga de traducir los cambios efectuados en la ***ui** *en reacciones del producto visualizado (gráfico, tabla, etc)* 
+
+Además, siempre habrá una área donde se visualizan los elementos interactivos.
+
+## Interfaz de usuario {.title-top}
+
+<br>
+
+La interfaz de usuario puede estar compuesta por una o varias entradas de datos (`inputs`).
+
+<br>
+
+Los `inputs` se pueden disponer de varias formas:
+
+- Barras laterales
+- Barras de herramientas
+- Cabecera de tarjetas
+
+## Barras laterales {.title-top}
+
+<br>
+
+Una barra lateral global se configura con:
+
+````{.yaml}
+---
+title: "Mi tablero"
+format: dashboard
+server: shiny
+---
+    
+## {.sidebar}
+
+```{{r}}
+# input 1
+
+# input 2
+```
+````
+
+Se le llama global porque esta presente siempre aunque tengamos múltiples páginas y pasemos de una a otra.
+
+## Barra lateral global {.title-top}
+
+<br>
+
+![](images/lateral_global.PNG){fig-align="center"}
+
+## Barra lateral en línea {.title-top}
+
+Las barras laterales también se puede ubicar dentro del diseño del tablero, por ejemplo en una misma fila de dos columnas (una barra lateral y otra donde se muestra un gráfico asociado)
+
+````{.yaml}
+---
+title: "Mi tablero"
+format: dashboard
+server: shiny
+---
+
+## Row
+
+### {.sidebar}
+
+```{{r}}
+```
+
+### Column
+
+```{{r}}
+```
+````
+
+## Barra lateral en línea {.title-top}
+
+<br>
+
+![](images/lateral_linea.PNG){fig-align="center"}
+
+
+## Barra lateral a derecha {.title-top}
+
+<br>
+
+Las barras laterales se pueden ubicar en el lado izquierdo o derecho. También puede modificar el tamaño de las barras laterales mediante el atributo `width`. 
+
+````{.yaml}
+---
+title: "Mi tablero"
+format: dashboard
+server: shiny
+---
+
+## Column
+
+```{{r}}
+```
+
+## {.sidebar width="300px"}
+
+```{{r}}
+```
+````
+
+## Barra lateral a derecha {.title-top}
+
+<br>
+
+![](images/lateral_derecha.PNG){fig-align="center"}
+
+
+## Barra de herramientas {.title-top}
+
+<br>
+
+Las barras de herramientas son similares a las barras laterales, pero ofrecen un diseño horizontal. Se crean agregando la clase  `.toolbar` a un encabezado de fila de nivel 2.
+
+````{.yaml}
+---
+title: "Mi tablero"
+format: dashboard
+server: shiny
+---
+
+## {.toolbar}
+    
+```{{r}}
+```
+
+## Row
+
+```{{r}}
+```
+````
+
+## Barra de herramientas {.title-top}
+
+<br>
+
+![](images/barra_herramientas.PNG){fig-align="center"}
+
+
+
+## Barra de herramientas {.title-top}
+
+Al igual que las barras laterales, las barras de herramientas pueden ser globales o en línea, es decir definidas dentro del diseño. Por ejemplo, a nivel columna.
+
+![](images/barra_linea.PNG){fig-align="center"}
+
+También se puede ubicar debajo del gráfico si invertimos el orden de las filas.
+
+
+## Cabecera de tarjetas {.title-top}
+
+<br>
+
+Para agregar una barra de herramientas a una tarjeta, se define inmediatamente encima o debajo de la celda que genera la salida. Se puede hacer agregando el metadato `content: card-toolbar` a un fragmento de código R o creando un *div* con la clase `.card-toolbar`
+
+
+````{.yaml}
+
+```{{r}}
+#| content: card-toolbar
+
+```
+
+::: {.card-toolbar}
+
+```{{r}}
+
+```
+
+:::
+
+````
+
+## Cabecera de tarjetas {.title-top}
+
+<br>
+
+![](images/barra_cabecera.PNG){fig-align="center"}
+
+
+## Barra lateral de tarjetas {.title-top}
+
+
+De la misma forma se puede agregar una barra lateral solo a una tarjeta, aplicando la clase `.card-sidebar`
+
+
+````{.yaml}
+```{{r}}
+#| content: card-sidebar
+
+```
+````
+
+![](images/card-sidebar.PNG){fig-align="center"}
+
+## Inputs {.title-top}
+
+Dentro de las barras, sean estas globales, laterales, de tarjeta, etc vamos a incluir las entradas (inputs) que vienen preseteados con Shiny a modo de funciones.
+
+Hay una variedad de posibilidades, entre las cuales se encuentra:
+
+![](images/basic-widgets.png){fig-align="center" width=50% .lightbox}
+
+
+## Inputs {.title-top}
+
+<br>
+
+Hay funciones de entradas directas como `numericInput()` para datos numéricos, `textInput()` para texto y `dateInput()` para fechas; rangos como `dateRangeInput()`, botones tipo `actionButton()` o `radioButtons()` y barras de desplazamiento como `sliderInput()`.
+
+Los sufijos de estas funciones pueden ser generalmente `Input` para entradas de valores o `Buttons` para pulsar botones.
+
+<br>
+
+Todas las funciones de entrada tienen un argumento donde se define la variable que va a tomar el o los valores que el usuario determine, llamada `inputID`.
+
+Esta variable será utilizada luego en la parte del servidor para reaccionar de forma interactiva a sus cambios.
+
+##  Inputs {.title-top}
+
+<br>
+
+Ejemplo de una función de **Input** numérica:
+
+````{.yaml}
+```{{r}}
+#| content: card-sidebar
+
+shiny::numericInput(inputID = numero,
+             label = "Número:", 
+             value = 10, 
+             min = 1, 
+             max = 100)
+
+```
+````
+
+<br>
+
+Construye un `input` numérico, bajo la etiqueta *"Número:"* con un valor predeterminado de 10, sobre una escala de 1 a 100 que se almacena en la variable `numero`.
+
+##  Inputs {.title-top}
+
+<br>
+
+Ejemplo de una función **Input** de botones de opción (RadioButtons):
+
+````{.yaml}
+```{{r}}
+#| content: card-sidebar
+
+shiny::radioButtons(inputId = "dist", 
+                    label = "Tipo de distribución:",
+                    choices = c("Normal" = "norm",
+                                "Uniforme" = "unif",
+                                "Log-normal" = "lnorm",
+                                "Exponencial" = "exp"),
+                    selected = "Normal")
+
+```
+````
+
+Construye un `input` de botones de opción, bajo la etiqueta *"Tipo de distribución:"* con una opción seleccionada en "Normal", sobre 4 opciones declaradas en **choices** que se almacena en la variable `dist`.
+
+##  Inputs {.title-top}
+
+<br>
+
+Ejemplo de una función **Input** de desplazamiento (slideInput):
+
+
+````{.yaml}
+```{{r}}
+sliderInput(inputID = "obs", 
+            label = "Número de observaciones:",
+            min = 0, 
+            max = 1000, 
+            value = 500,
+            step = 10
+  )
+```
+````
+
+<br>
+
+Construye un `input` de desplazamiento, bajo la etiqueta *"Número de observaciones:"* con un valor predeterminado en 500 de una escala entre 0 y 1000, con saltos de 10 en 10, que se almacena en la variable `obs`.
+
+## Servidor {.title-top}
+
+
+El bloque servidor se declara con el metadato `#| context: server`. Dentro se utilizan las funciones de Shiny para hacer reactivas a los inputs a determinadas partes de lo que se está construyendo (por ejemplo: un gráfico).
+
+También se utiliza la función `reactive()` en general, para construir expresiones reactivas.  
+
+````{.yaml}
+```{{r}}
+#| context: server
+
+datos <- reactive({
+  datos_leídos |> filter(var1 == input$numero)})
+```
+````
+La expresión va encerrada entre llaves y contiene un filtro asociado a un input numérico (input$numero). El dataframe `datos` va a cambiar cada vez que cambien el ingreso del número, filtrando las observaciones que tengan ese valor en `var1` en los datos proveniente de la lectura (`datos_leídos`).
+
+
+## Servidor {.title-top}
+
+Otra función que se incluye en el bloque servidor, relacionada con gráficos es `renderPlot()`.
+
+````{.yaml}
+```{{r}}
+#| context: server
+
+output$grafico <- renderPlot({
+    datos() |> 
+      ggplot(aes(input$x, input$y)) +
+      geom_point()
+```
+````
+
+La expresión dentro de `renderPlot()` va entre llaves y contiene un gráfico **ggplot**. Las variables declaradas en **x** e **y** provienen de `inputs`.
+
+La salida se almacena en la variable `output$grafico` que se va actualizar cada vez que el gráfico se desarrolle con variables x o y nuevas.
+
+## Salidas reactivas {.title-top}
+
+<br>
+
+Toda entrada de datos interactiva va a comunicarse con el código escrito en el área servidor, como vimos en las diapositivas anteriores, y la o las salidas finales se van a mostrar en bloques de código dentro de tarjetas o dispuestas directamente en filas o columnas.
+
+Shiny trae funciones de salidas que finalizan con la palabra `Output`, como `plotOutput()` para presentar gráficos provenientes de `renderPlot()`  o `textOutput()` para textos de `renderText()`.  
+
+<br>
+
+Por ejemplo, para visualizar el **renderPlot** anterior necesitaremos hacer:
+
+````{.yaml}
+```{{r}}
+plotOutput("grafico")
+```
+````
+
+## Ejemplo Tablero con lectura dinámica de datos {.title-top}
+
+<br>
+
+Más allá de los elementos dinámicos y/o interactivos en sus partes, lo que hace a veces interesante a un tablero es reflejar los cambios en los datos. 
+
+Ejemplos en nuestro campo de esta situación se relacionan con la vigilancia epidemiológica, donde los datos se van actualizando periódicamente (puede ser tiempo real, diario, semanal, etc).
+
+<br>
+
+Mostraremos un esquema de trabajo posible, (a modo de demostración) con recursos complementarios y gratuitos: la publicación de un tablero con actualización periódica programada.
+
+## Esquema de trabajo {.title-top}
+
+
+![](images/esquema.png){fig-align="center"}
+
+## Requisitos {.title-top}
+
+<br>
+
+Los requisitos básicos sobre los que vamos a trabajar son:
+
+- Configuración [Git](https://git-scm.com/) / [GitHub](https://github.com/) (con GitHub Pages activo)
+- Creación de Proyecto RStudio (tipo [Sitio Web](https://quarto.org/docs/websites/) con Git y [renv](https://rstudio.github.io/renv/articles/renv.html))
+- Edición de archivos necesarios para [GitHub Actions](https://docs.github.com/es/actions) (configuración de cron)
+- Diseño de tablero Quarto
+- Archivo de datos fuente en línea (puede ser sitio web directo, web scrapping, alojado en el mismo GitHub, etc) 
+
+## Git / GitHub {.title-top}
+
+<br>
+
+Es un sistema de **control de versiones** local vinculado con repositorios en línea. 
+
+. . . 
+
+- almacena ordenadamente un historial de cambios y quién los realizó.
+
+. . . 
+
+- se pueden guardar metadatos del código escrito
+
+. . . 
+
+- permite realizar un seguimiento de los cambios realizados y puede combinar automáticamente el trabajo de las personas
+
+. . . 
+
+- los servicios de hospedaje de control de versiones, como GitHub, brindan una forma de comunicarse y colaborar de una manera estructurada, con solicitudes de incorporación de cambios, revisiones de código y problemas.
+
+## Git / GitHub {.title-top}
+
+<br>
+
+- Git es un software de código abierto desarrollado originalmente por Linus Torvalds en 2005 (debemos descargalo e instalarlo)
+
+. . . 
+
+- Se integra con sitios como GitHub y en nuestra computadora con editores como RStudio.
+
+. . . 
+
+- En GitHub debemos crear una cuenta a partir de mail y password. También tendremos un nombre de usuario y habrá que crear un token de seguridad para que nuestro RStudio se comunique con el sitio.
+
+. . . 
+
+- Aquí estan los enlaces de diapos sobre el tema: [Git](https://cballejo.github.io/VersionControl/Git), [GitHub - parte 1](https://cballejo.github.io/VersionControl/GitHub) y [GitHub - parte 2](https://cballejo.github.io/VersionControl/GitHub2)
+
+## Creación de Proyecto Sitio Web de RStudio {.title-top}
+
+Hasta ahora mostramos la creación de documentos y tableros Quarto individuales. Existen también **proyectos Quarto** más complejos como libros, blogs y sitios Web, que se asocian a proyectos de **RStudio** y contienen un conjunto de documentos Quarto.
+
+Para que este tablero funcione dentro del servidor de alojamiento y se renderice automáticamente necesitamos configurarlo dentro de un proyecto RStudio tipo [WebSite](https://quarto.org/docs/websites/).
+
+![](images/Proyecto1.PNG){fig-align="center"}
+
+## Creación de Proyecto Sitio Web de RStudio {.title-top}
+
+<br>
+
+![](images/Proyecto2.PNG){fig-align="center"}
+
+## Creación de Proyecto Sitio Web de RStudio {.title-top}
+
+<br>
+
+![](images/Proyecto3.PNG){fig-align="center"}
+
+## Creación de Proyecto Sitio Web de RStudio {.title-top}
+
+<br>
+
+Esta es la estructura de carpetas y archivos que nos crea RStudio:
+
+![](images/Proyecto4.PNG){fig-align="center" width=100%}
+
+## Edición de archivos GitHub Actions {.title-top}
+
+Necesitamos crear, dentro del proyecto, el siguiente esquema de carpetas y archivo: `.github/workflows/publish.yml`
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](images/Carpeta1.PNG){fig-align="center" width=80%}
+
+![](images/Carpeta2.PNG){fig-align="center" width=80%}
+
+:::
+
+::: {.column width="50%"}
+
+![](images/Carpeta3.PNG){fig-align="center" width=100%}
+
+:::
+
+:::: 
+
+## Edición de archivos GitHub Actions {.title-top}
+
+Dentro del archivo `publish_yml` vamos a pegar el contenido del [Quarto Publishing GitHub Pages](https://quarto.org/docs/publishing/github-pages.html#example-knitr-with-renv) 
+
+````{.yaml}
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+name: Quarto Publish
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Quarto
+        uses: quarto-dev/quarto-actions/setup@v2
+
+... continua más
+
+````
+
+## Edición de archivos GitHub Actions {.title-top}
+
+<br>
+
+Editaremos este archivo para agregar la indicación a GitHub Actions renderice el tablero en función a un cronograma mediante `cron`.
+
+````{.yaml}
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+  schedule:
+    - cron: '0 11 * * 1'
+````
+
+<br>
+
+Esta configuración `cron` (obtenida de chatGPT) indica que se repetirá la operación de renderizado todos los lunes a las 8 hs de Argentina:  
+
+0 minutos - 11 horas UTC  (8 + 3 diferencia con UTC) - \* cualquier día del mes - \* cualquier mes - 1 primer día de la semana (lunes).
+
+## Diseño de tablero Quarto  {.title-top}
+
+<br>
+
+Creamos archivo `Quarto dashboard` en RStudio y diseñamos su estructura en función de las necesidades.
+
+Para que el archivo pueda renderizar en el sitio de alojamiento necesitamos incluir las fuentes de los paquetes que se utilicen. Esto lo hacemos directamente con el paquete `renv` que recrea un entorno de trabajo en proyectos como este.
+
+. . . 
+
+<br>
+
+Por lo tanto, vamos a tener que volver a instalar los paquetes que usemos (aún si ya los tenemos instalados en nuestra PC) para que `renv` los tome.
+
+. . . 
+
+Luego desde la consola ejecutaremos `renv::snapshot()` para registrar el estado actual de la biblioteca de paquetes del proyecto en el archivo de bloqueo (**lock file**).
+
+## Diseño de tablero Quarto  {.title-top}
+
+<br>
+
+El tablero debe contener código R que haga la lectura de datos a archivo o archivos en línea, es decir que se accedan desde la web.
+
+Por ejemplo, el siguiente código lee el archivo **ejemplo.csv** de un repositorio llamado **datos-dinamicos** de mi cuenta de GitHub.
+
+<br>
+
+```{r}
+#| echo: true
+#| eval: false
+urlfile <- "https://raw.githubusercontent.com/cballejo/datos-dinamicos/main/ejemplo.csv"
+datos <- read_csv2(url(urlfile))
+```
+
+<br>
+
+Además en el diseño del tablero Quarto se puede incluir todo lo conocido que funciona en Quarto basado en Markdown, HTML puro, htmlwidgets o código de Observable JS pero **no Shiny**. GitHub no tiene soporte nativo y se necesita de servidores especiales para que funcione.
+
+## Archivo de datos fuente en línea  {.title-top}
+
+<br>
+
+Las fuentes de datos para que un tablero se actualice automáticamente tienen que estar disponibles en la Web. 
+
+Algunas variantes de esta situación se dan:
+
+. . .
+
+- Cuando un archivo de datos (csv, xlsx, etc) se publica periódicamente para su descarga por parte de algún organismo en su sitio web.
+
+. . . 
+
+- Igual a la anterior, pero dentro de sus páginas como tabla de datos ([webscrapping](https://r4ds.hadley.nz/webscraping))
+
+. . .
+
+- Subiendo exprofeso el o los archivos de datos a un alojamiento web (github, google drive, dropbox, mega o en sitio propio), como vimos en la diapositiva anterior.
+
+
+## Diseño de tablero Quarto  {.title-top}
+
+La estructura básica de archivos del proyecto Website de Quarto es:
+
+|   Archivo   |                        Descripción                       |
+|:-----------:|--------------------------------------------------------  |
+| index.qmd   | Contenido de primera página del sitio                    |
+| about.qmd   | Contenido de "acerca de..." del sitio. Se puede eliminar |
+| _quarto.yml | Define formato y estructura del sitio                    |
+
+El tablero puede ser directo, reemplazando el contenido de **index.qmd** o puede crearse a parte con otro nombre.
+
+**about.qmd** puede existir con los datos de creación del tablero, equipo de trabajo o autoría, etc.
+
+Los cambios que se realicen tendrán sentido siempre y cuando editemos el archivo de configuración **\_quarto.yml**
+
+## Diseño de tablero Quarto  {.title-top}
+
+<br>
+
+````{.yaml}
+project:
+  type: website
+
+website:
+  title: "tablero-prueba"
+  sidebar:
+    contents: 
+      - href: index.qmd
+        text: Home
+      - href: about.qmd
+        text: Acerca
+      - href: tablero.qmd
+        text: Tablero
+````
+
+<br>
+
+Esta configuración de **\_quarto.yml**, por ejemplo, define como "tablero-prueba" al titulo del sitio, crea una barra lateral con tres accesos (Home, Acerca y Tablero)
+
+## Diseño de tablero Quarto  {.title-top}
+
+<br>
+
+Además, en el archivo **\_quarto.yml** va el formato y las opciones de ejecución generales (para todo el sitio). 
+
+````{.yaml}
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+````
+
+<br>
+
+En este caso, estéticas como el tema (cosmo) y el archivo **css** (*styles.css* por defecto). 
+
+También podríamos sumar un archivo **scss** de *Sass* (debemos crearlos dentro de la carpeta del proyecto y configurarlo)
+
+````{.yaml}
+    theme: [cosmo, custom.scss]
+````
+
+## Repositorio de GitHub  {.title-top}
+
+Supongamos que ya tenemos configurado Git en nuestra computadora y una cuenta en GitHub. Vamos a crear un nuevo repositorio para subir el proyecto que estamos construyendo.
+
+![](images/GitHub1.PNG){fig-align="center" }
+
+
+## Repositorio de GitHub  {.title-top}
+
+<br>
+
+A continuación debemos conectar nuestro proyecto de RStudio con el repositorio creado. Hay varios caminos para hacerlo pero el mismo GitHub nos ofrece uno sencillo, utilizando la línea de comandos bash de Git desde la carpeta del proyecto local.
+
+![](images/GitHub2.PNG){fig-align="center"}
+
+Es decir, que ejecutando esas órdenes le estamos diciendo que el proyecto local se conecte remotamente con el repositorio en GitHub y que suba las subcarpetas y archivos creados hasta ahora.
+
+## Repositorio de GitHub  {.title-top}
+
+
+
+Otra tarea que debemos hacer dentro de GitHub es una rama (branch) del repositorio con el nombre de **gh-pages**.
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+![](images/GitHub3.PNG){fig-align="center" width=100%}
+
+:::
+
+::: {.column width="70%"}
+
+![](images/GitHub4.PNG){fig-align="center" width=100%}
+
+:::
+
+::::
+
+Esta rama contendrá la salida del tablero renderizado automáticamente en el período elegido por nosotros y GitHub Pages vinculará la URL con el contenido.
+
+
+## Repositorio de GitHub  {.title-top}
+
+En **Settings** del repositorio podemos visualizar como en el apartado **Pages**, figura que va a *implementar desde una rama* (**Deploy from a branch**). 
+
+![](images/GitHub5.PNG){fig-align="center" width=100%}
+
+
+## Repositorio de GitHub  {.title-top}
+
+La pestaña **Actions** debería verse similar a esta.
+
+![](images/GitHub6.PNG){fig-align="center"}
+
+Los trabajos que figuran son 2: **pages-build-deployment** y **Quarto Publish** (este es el que configuramos con el `cron`).
+
+Observen que al lado de **Quarto Publish** figura la palabra `Scheduled` y en **pages-build-deployment** `bot`
+

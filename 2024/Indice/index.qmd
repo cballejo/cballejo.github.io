@@ -18,4 +18,8 @@ editor: visual
 
 #### [Tamaño y resolución en gráficos](https://cballejo.github.io/2024/Resolucion)
 
-#### [Documentos impresos de Quarto®](https://cballejo.github.io/2024/Encuentro 6)
+#### [Documentos impresos de Quarto®](https://cballejo.github.io/2024/Encuentro6)
+
+#### [Tableros Quarto®](https://cballejo.github.io/2024/Encuentro7)
+
+#### [Tableros Quarto® - htmlwidgets](https://cballejo.github.io/2024/Encuentro8)

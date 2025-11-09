@@ -1,0 +1,78 @@
+/*-- scss:defaults --*/
+
+// fonts
+@import 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap';
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+$font-family-sans-serif: "Atkinson Hyperlegible", sans-serif;
+$code-block-font-size: 0.7em;
+$presentation-font-size-root: 50px;
+
+$link-color: #006666;
+
+ 
+
+/*-- scss:rules --*/
+
+.reveal .custom-title {
+  color: #ffffff;
+  font-size: 2.6em;
+  position: absolute; 
+  left: 200px; 
+  top: 280px
+}
+
+.reveal .custom-subtitle {
+  color: #ffffff;
+  font-size: 1.8em;
+  position: absolute; 
+  left: 750px; 
+  top: 450px
+}
+
+
+.reveal .invert {
+  background-color: #004d4d !important;
+  color: #ffffff;
+}
+
+.reveal .title-top h2 {
+  font-family: 'Atkinson Hyperlegible', regular;
+  color: #004d4d;
+  font-size: 1.7em;
+}
+
+.reveal .centrado {
+  background-color: #e1ecf7;
+  text-align: center;
+}
+
+.reveal .centrar {
+  text-align: center;
+}
+
+.reveal .actividades {
+  font-size: 1.4em;
+  color: #ffffff;
+  }
+  
+  
+.reveal pre.sourceCode code { 
+   @if variable-exists(code-block-color) { 
+     color: $code-block-color; 
+   } 
+   background-color: $code-block-bg; 
+   padding: 6px 9px; 
+   max-height: 1000px; 
+   white-space: pre; 
+ }   
+
+.reveal .titulo-columna {
+  font-family: 'Special Elite', cursive;
+  color: #004d4d;
+  font-size: 1.5em;
+}
+
+.reveal .callout.callout-style-default {
+ 	  font-size: 50px;
+}

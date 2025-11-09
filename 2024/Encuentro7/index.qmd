@@ -1,0 +1,479 @@
+---
+pagetitle:  "Tableros Quarto®"
+format: 
+  revealjs:
+    width: 1920
+    height: 1080
+    transition: fade
+    slide-number: true
+    theme: [simple, custom.scss]
+    logo: INE.gif
+    footer: "Instituto Nacional de Epidemiología"
+editor: visual
+---
+
+```{r setup, include=F}
+library(quarto)
+library(fontawesome)
+library(tidyverse)
+```
+
+##  {#tableros-title .invert data-menu-title="Tableros Quarto®"}
+
+[**Tableros Quarto®**]{.custom-title .centrar}
+
+[***Encuentro 7***]{.custom-subtitle}
+
+## Dashboard {.title-top}
+
+<br>
+
+Los dashboards o tableros Quarto son archivos **HTML** que pueden ser:
+
+- **Estáticos** 
+Se representan una sola vez y los datos no cambian - pueden incluir elementos dinámicos (htmlwidgets).
+
+- **Programados** 
+Se representan a partir de un cronograma donde los datos se actualizan periódicamente.
+
+- **Parametrizados** 
+Se modifican y renderizan a partir de parámetros
+
+- **Interactivo**:
+  - Mediante Shiny - requieren de servidor especial 
+  - JavaScript (como Observable JS) - se lojan en la mayoría de servidores web
+
+
+## Cabecera YAML {.title-top}
+
+<br>
+
+El formato de la cabecera YAML de los tableros de Quarto es `dashboard`. 
+
+<br>
+
+````{.yaml}
+---
+title: "Mi tablero"
+format: dashboard
+---
+````
+
+<br>
+
+La salida generada es HTML y la estructura se asemeja al uso del paquete flexdashboard de RMarkdown.
+
+Se puede definir como será la orientación y si se habilita el `scrolling` de la página.
+
+Otras opciones específicas de la cabecera YAML para tableros son los logotipos y los botones de navegación.
+
+## Cabecera YAML {.title-top}
+
+Se reconocen alias para botones especiales predeterminados: `linkedin`, `facebook`, `reddit`, `twitter` y `github`. También se pueden crear botones personalizados a partir de [íconos bootstrap](https://icons.getbootstrap.com/).
+
+````{.yaml}
+    logo: images/INE.gif
+    nav-buttons: 
+      - linkedin
+      - twitter
+      - github
+      - facebook
+      - reddit
+      - icon: hospital
+        href: https://www.ine.gov.ar
+        target: _blank
+````
+
+![](images/botones_nav.PNG)
+
+## Componentes {.title-top}
+
+Los tableros constan de varios componentes:
+
+**Barra de navegación**: ícono, título y autor junto con enlaces a subpáginas (si se define más de una página).
+
+**Páginas, filas, columnas y conjuntos de pestañas**: las páginas, filas y columnas se definen mediante encabezados de Markdown (con atributos opcionales para controlar la altura, el ancho, etc.). Los conjuntos de pestañas se pueden utilizar para dividir aún más el contenido dentro de una fila o columna.
+
+**Tarjetas, barras laterales y barras de herramientas**: las tarjetas son contenedores para gráficos, visualización de datos y contenido de formato libre. El contenido de las tarjetas generalmente se asigna a celdas en el documento fuente. Las barras laterales y las barras de herramientas se utilizan para presentar entradas dentro de tableros interactivos.
+
+## Diseño {.title-top}
+
+<br>
+
+Los elementos de diseño básico son `paginas`, `filas`, `columnas` y `pestañas`.
+
+<br>
+
+Las `paginas` se definen con encabezados tamaño 1 (#)
+
+<br>
+
+Las filas y columnas se declaran con encabezados tamaño 2 (##)
+
+<br>
+
+Las pestañas utilizan la clase `{.tabset}` en filas tipo ## y cada pestaña se declara con un encabezado de tamaño 3 (###)
+
+
+## Páginas {.title-top}
+
+<br>
+
+````{.yaml}
+# Pagina 1 
+
+# Pagina 2 
+
+# Pagina 3 
+````
+
+<br>
+
+![](images/Paginas.PNG)
+
+## Filas {.title-top}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+````{.yaml}
+## Row {height=30%}
+
+::: {.card title="Fila 30%"}
+:::
+
+## Row {height=70%}
+
+::: {.card title="Fila 70%"}
+:::
+````
+
+:::
+
+::: {.column width="70%"}
+
+![](images/Filas.PNG)
+
+:::
+
+::::
+
+
+## Columnas {.title-top}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+````{.yaml}
+## Column {width=30%}
+
+::: {.card title="Columna 30%"}
+:::
+
+## Column {width=70%}
+
+::: {.card title="Columna 70%"}
+:::
+````
+
+:::
+
+::: {.column width="70%"}
+
+![](images/Columnas.PNG)
+
+:::
+
+::::
+
+
+
+## Pestañas {.title-top}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+````{.yaml}
+## Row {.tabset}
+
+### Pestaña 1
+
+::: {.card title=""}
+:::
+
+### Pestaña 2
+
+::: {.card title=""}
+:::
+````
+
+:::
+
+::: {.column width="70%"}
+
+![](images/Pestañas.PNG)
+
+:::
+
+::::
+
+## Barra lateral {.title-top}
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="30%"}
+
+````{.yaml}
+## {.sidebar}
+
+```{{r}}
+cat("Barra lateral")
+
+cat("Input 1")
+
+cat("Input 2")
+
+cat("Input 3")
+```
+````
+
+:::
+
+::: {.column width="70%"}
+
+![](images/Sidebar.PNG)
+
+:::
+
+::::
+
+## Tarjetas {.title-top}
+
+<br>
+
+Las tarjetas que se ubican en las celdas que generan las filas, las columnas y/o las pestañas tienen un botón de expansión automático que maximiza la visualización.
+
+![](images/Expand_1.PNG){fig-align="center"}
+
+![](images/Expand_2.PNG){fig-align="center"}
+
+## Tarjetas - contenido {.title-top}
+
+<br>
+
+La sintaxis de una tarjeta incluída en el diseño de página de un tablero tiene la forma:
+
+````{.yaml}
+::: {.card title="Título de la tarjeta"}
+
+Aquí va el texto o elemento markdown / HTML a publicar
+
+:::
+````
+
+<br>
+
+El contenido de las tarjetas puede ser cualquiera de los elementos vistos anteriormente en Quarto basados en markdown o código HTML puro. También es útil incorporar valores dinámicos mediante código en línea. 
+
+## Cajas de valor {.title-top}
+
+<br>
+
+Los cajas de valor son una excelente forma de mostrar valores simples de manera destacada dentro de un tablero.
+
+![](images/valor.PNG){fig-align="center"}
+
+## Cajas de valor {.title-top}
+
+La sintaxis dentro de un fragmento de código R tiene la siguiente estructura:
+
+````{.yaml}
+```{{r}}
+#| content: valuebox 
+#| title: "Texto de la caja de valor" 
+ 
+list(
+  icon = "nombre-icono",
+  color = "color de la caja",
+  value = valor a mostrar)
+)
+
+```
+````
+
+Los íconos pueden ser cualquiera de los 2000 disponibles en [íconos de bootstrap](https://icons.getbootstrap.com/)
+
+En color puede especificarse alguno de la paleta general hexadecimal o con palabras reservadas tipo `primary`, `success`, `danger`, etc. Estos colores variaran según el tema estético aplicado al tablero.
+
+## Cajas de valor {.title-top}
+
+<br>
+
+También se pueden crear cajas de valores usando Markdown simple, en cuyo caso normalmente se incluye el valor mediante una expresión en línea. Por ejemplo:
+
+<br>
+
+:::: {.columns}
+
+::: {.column width="70%"}
+
+````{.yaml}
+## Row
+
+::: {.valuebox icon="heart-pulse-fill" color="danger"}
+Cantidad de enfermos
+
+´{r} enfermos´
+:::
+````
+
+:::
+
+::: {.column width="30%"}
+
+![](images/enfermos.PNG)
+
+:::
+
+::::
+
+
+## Tablas desde código {.title-top}
+
+
+Se pueden incluir tablas dentro de estos tableros de dos formas:
+
+- Como una presentación tabular simple
+- Como un widget interactivo que incluya, por ejemplo ordenamiento y filtrado.
+
+Si lo que se quiere mostrar es una cantidad pequeña de observaciones se puede utilizar funciones de `knitr` o `flextable` sin problemas.
+
+````{.yaml}
+```{{r}}
+knitr::kable(datos)
+
+# o con flextable
+
+datos |> 
+  flextable()
+```
+```` 
+
+Estas tablas tendrán composición Markdown simples y llenan automáticamente al  contenedor (desplazándose horizontal y verticalmente según sea necesario).
+
+
+## Tablas desde código {.title-top}
+
+<br>
+
+Si la tabla que queremos mostrar tiene muchos registros o es conveniente que se pueda ordenar de formas ascendente o descendente por alguna/s variable/s o hacer alguna busqueda particular, tenemos que hacer uso de algún paquete que incluya cierta interactividad.
+
+<br>
+
+Por ejemplo, el paquete DT, esta basado en una interfaz de JavaScript DataTables y agrega filtrado, paginación y ordenamiento a sus salidas.
+
+<br>
+
+````{.yaml}
+```{{r}}
+library(DT)
+datatable(datos)
+```
+```` 
+
+## Tablas desde código {.title-top}
+
+
+```{r}
+#| echo: false
+
+library(DT)
+library(datos)
+
+encuesta |> 
+  select(estado_civil, edad, partido, ingreso) |> 
+datatable(class = 'cell-border stripe', 
+          rownames = F, 
+          options = list(
+            pageLength = 3, 
+            autoWidth = TRUE))
+```
+
+
+## Gráficos desde código {.title-top}
+
+<br>
+
+Los gráficos son los elementos más comunes mostrados en tableros. Al igual que las tablas pueden ser estáticos o dinámicos/interactivos.
+
+<br>
+
+- Los estáticos serán gráficos generalmente producidos con **ggplot2**
+- Los dinámicos estarán basados en alguna librería de JavaScript que incluyen los paquetes especiales `ggiraph`, `Plotly`, `highcharter`, `dygraphs`, etc.
+- También hay algunas librerías para mostrar mapas como `Leaflet` o `mapview`
+
+## Gráficos desde código {.title-top}
+
+Ejemplo con `ggiraph`
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| fig-align: center
+#| fig-height: 4
+
+library(ggplot2)
+library(ggiraph)
+data <- mtcars
+data$carname <- row.names(data)
+
+gg_point = ggplot(data = data) +
+    geom_point_interactive(aes(x = wt, y = qsec, color = disp,
+    tooltip = carname, data_id = carname), size = 2) + 
+  theme_minimal()
+
+girafe(ggobj = gg_point, options = list(
+    opts_toolbar(saveaspng = TRUE)
+  ))
+
+```
+
+## htmlwidgets {.title-top}
+
+<br>
+
+Estos componentes dinámicos / interactivos basados en JavaScript mostrados en los paquetes para tablas y gráficos anteriores pertenecen a `htmlwidgets`.
+
+<br>
+
+En el sitio <https://www.htmlwidgets.org/> perteneciente a RStudio / Posit se encuentran publicada la galería de librerías disponibles.
+
+Cada uno de los 132 paquetes citados tienen su propia página con la referencia de sus funciones, modo de uso, ejemplos, etc.
+
+Estos componentes se pueden incluir en dashboards con y sin servidor Shiny asociado y también en documentos HTML de Quarto.
+
+## Ejemplo para descargar {.invert}
+
+<br>
+
+- Descargue el siguiente archivo ([Tablero_Quarto.zip](https://drive.google.com/file/d/1YpVjNHii6Kw9OBDpiiAvsKxMpEXGCj7G/view?usp=drive_link)) 
+
+- Descomprima el archivo y guarde la carpeta del proyecto dentro de su PC, donde mas le guste.
+
+- Ejecute el archivo **Tablero_Quarto.Rproj**
+
+- Abra los archivos `.qmd` para visualizar el código de los dashboard.
+
+- Explore las salidas, modificando sus partes y renderizando
