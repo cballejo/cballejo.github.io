@@ -1,0 +1,296 @@
+---
+title: "Introducción al análisis de datos en R y RStudio"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    footer: "Residencia Medicina General"
+editor: visual
+---
+
+## Introducción
+
+
+- Objetivo: Alinear conceptos básicos sobre **datos** y **unidades de análisis** antes de comenzar con R.
+- Duración estimada: 20–30 min teoría, luego práctica en RStudio.
+
+
+
+## ¿Qué es un dato?
+
+
+- Unidad mínima de información que describe una característica observable.
+- **Ejemplo:** la edad registrada en la historia clínica.
+
+
+**Idea clave:** un dato sólo tiene significado en su contexto (quién, cuándo, cómo).
+
+
+---
+
+
+## Variable vs Valor
+
+
+- **Variable:** característica que puede variar entre observaciones.
+- Ej.: Edad, Sexo, Diagnóstico, Fecha de consulta.
+- **Valor:** manifestación concreta de la variable para una unidad.
+- Ej.: Edad = 45; Sexo = F; Diagnóstico = Dengue.
+
+
+---
+
+
+## Unidad de análisis
+
+
+- Definición: elemento básico sobre el que se registran los datos.
+- Ejemplos en salud:
+- **Paciente** → una fila por persona.
+- **Consulta** → una fila por contacto.
+- **Evento** (p. ej. notificación de enfermedad) → una fila por evento.
+
+
+**Por qué importa:** la elección condiciona el diseño, la agregación y la interpretación.
+
+
+---
+
+
+## Tipos de variables (visión general)
+
+
+- **Numéricas**
+- Continuas: p. ej. edad, peso.
+- Discretas: p. ej. número de consultas.
+- **Categóricas**
+- Nominales: p. ej. sexo, diagnóstico.
+- Ordinales: p. ej. gravedad (leve/moderado/severo).
+- **Fechas / Tiempos**
+- Ej.: fecha de inicio de síntomas, fecha de notificación.
+
+## Archivos planos
+
+
+- Formato simple: cada fila = observación, cada columna = variable.
+- Extensiones comunes: `.csv`, `.txt` (delimitado por comas, punto y coma o tabulador).
+
+
+**Ventajas:** interoperables y fáciles de leer en R (`read_csv()`).
+
+
+## Bases de datos relacionales
+
+
+- Estructura: varias tablas vinculadas por identificadores (claves).
+- Ejemplo: `pacientes` (id_paciente) ↔ `consultas` (id_consulta, id_paciente).
+
+
+**Ventaja:** evitar duplicación y mantener consistencia en datos complejos.
+
+## Metadatos
+
+
+- "Datos sobre los datos": describen origen, fecha, definiciones, responsable.
+- Ejemplos: fecha de actualización, fuente, variable derivada, formato.
+
+
+**Por qué son críticos:** permiten interpretar correctamente y mantener trazabilidad.
+
+## Diccionario de datos (ejemplo mínimo)
+
+
+| Variable | Tipo | Descripción | Valores posibles |
+|---|---:|---|---|
+| id_caso | numérico | Identificador único | 1,2,3... |
+| edad | numérico | Edad en años | 0–120 |
+| sexo | categórica | Sexo biológico | M, F, O |
+| fecha_notificacion | fecha | Fecha de notificación | AAAA-MM-DD |
+
+
+**Recomendación:** siempre entregar un diccionario junto con los datos.
+
+## Consejos cuando trabajamos con datos
+
+
+1. Definir claramente la **unidad de análisis** antes de analizar.
+2. Mantener un **diccionario de datos** actualizado.
+3. Saber el **tipo de variable** para elegir análisis y gráfica.
+4. Guardar metadatos y versión de los archivos.
+
+## Requisitos
+
+- **R:** lenguaje base (https://cran.r-project.org)
+- **RStudio:** entorno integrado de desarrollo (https://posit.co/download/rstudio)
+- **Rtools (Windows):** necesario para compilar paquetes (https://cran.r-project.org/bin/windows/Rtools/)
+
+**Orden recomendado de instalación:** R- Rtools - RStudio
+
+
+## Proyectos y scripts
+
+
+- **Proyecto (.Rproj):** carpeta de trabajo asociada; facilita organización y rutas relativas.
+- **Script (.R):** archivo de texto con comandos para ejecutar en secuencia.
+
+## Asignaciones y comentarios
+
+- Operador principal de asignación: `<-`
+
+
+```r
+x <- 5 # Asigna el valor 5 a x
+y <- x + 3 # Suma 3 al valor de x
+```
+
+**Comentarios:** `#` indica texto no ejecutable
+
+
+```r
+# Esto es un comentario
+```
+
+# Operaciones básicas y tuberías
+
+
+```r
+# Aritmética básica
+2 + 3
+4 * 5
+(10 - 2) / 4
+```
+
+
+- **Tuberías (`|>` o `%>%`):** permiten encadenar operaciones de forma legible.
+
+
+```r
+library(dplyr)
+datos |>
+filter(sexo == "F") |>
+summarise(media_edad = mean(edad, na.rm = TRUE))
+```
+## Operadores y funciones
+
+
+- **Operadores aritméticos:** `+`, `-`, `*`, `/`, `^`
+- **Operadores relacionales:** `==`, `!=`, `>`, `<`, `>=`, `<=`
+- **Operadores lógicos:** `&`, `|`, `!`
+
+
+## Funciones
+
+```r
+# Sintaxis general
+funcion(argumento1, argumento2)
+
+
+mean(c(1,2,3,4), na.rm = TRUE)
+```
+## Paquetes
+
+Las funciones encapsulan tareas repetitivas.
+
+- Extienden las funciones de R base.
+- Se instalan una vez, se cargan cada vez que se usan.
+
+
+```r
+# Instalar paquete\ ninstall.packages("tidyverse")
+
+
+# Activar paquete
+library(tidyverse)
+```
+
+
+💡 Tidyverse agrupa herramientas clave: `dplyr`, `ggplot2`, `readr`, `tidyr`, `forcats`.
+
+
+---
+
+
+# Estructuras de datos principales
+
+
+| Estructura | Descripción | Ejemplo |
+|-------------|--------------|----------|
+| **Vector** | Conjunto de valores del mismo tipo | `c(1,2,3)` |
+| **Data frame** | Tabla con columnas (variables) y filas (observaciones) | `data.frame(edad, sexo)` |
+| **Lista** | Conjunto heterogéneo de objetos | `list(paciente=1, edad=45, sexo="M")` |
+
+
+---
+
+
+# Vectores
+
+
+```r
+# Crear vector numérico
+edades <- c(34, 45, 29, 51)
+
+
+# Acceder a elementos
+edades[2] # segundo valor
+
+
+# Operaciones
+mean(edades)
+```
+
+
+## Data frames
+
+
+```r
+pacientes <- data.frame(
+id = 1:3,
+sexo = c("F", "M", "F"),
+edad = c(30, 45, 50)
+)
+
+
+## Ver estructura
+glimpse(pacientes)
+
+
+## Acceder a columnas
+pacientes$edad
+```
+
+
+---
+
+
+## Valores perdidos (NA)
+
+
+- Representan datos ausentes o desconocidos.
+
+
+```r
+x <- c(1, 2, NA, 4)
+mean(x) ## Devuelve NA
+mean(x, na.rm = TRUE) ## Ignora valores perdidos
+```
+
+
+💡 Siempre verificar la presencia de `NA` antes de cálculos o gráficos.
+
+
+---
+
+
+## Resumen — conceptos clave
+
+
+1. RStudio organiza el flujo de trabajo (proyectos, scripts, consola).
+2. Las **asignaciones** y **comentarios** son esenciales para claridad y reproducibilidad.
+3. **Tuberías y funciones** simplifican procesos.
+4. **Paquetes y estructuras de datos** son el núcleo del análisis.
+
+
+---
+
+
