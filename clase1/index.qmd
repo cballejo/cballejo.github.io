@@ -8,225 +8,434 @@ format:
 editor: visual
 ---
 
-## Introducción
+## Objetivos
 
+::: incremental
 
-- Objetivo: Alinear conceptos básicos sobre **datos** y **unidades de análisis** antes de comenzar con R.
-- Duración estimada: 20–30 min teoría, luego práctica en RStudio.
+- Comprender los conceptos fundamentales sobre estructura y organización de los datos en salud.
+- Instalar y configurar el entorno de trabajo con R, RStudio, Rtools y paquetes básicos.
+- Importar, explorar y describir conjuntos de datos en formato tabular.
 
-
+:::
 
 ## ¿Qué es un dato?
 
+-   Unidad mínima de información que describe una característica observable.
+-   **Ejemplo:** la edad registrada en una historia clínica.
 
-- Unidad mínima de información que describe una característica observable.
-- **Ejemplo:** la edad registrada en la historia clínica.
-
+![](images/dato.JPG){fig-align="center"}
 
 **Idea clave:** un dato sólo tiene significado en su contexto (quién, cuándo, cómo).
 
 
----
-
-
 ## Variable vs Valor
 
+:::: {.columns}
 
-- **Variable:** característica que puede variar entre observaciones.
-- Ej.: Edad, Sexo, Diagnóstico, Fecha de consulta.
-- **Valor:** manifestación concreta de la variable para una unidad.
-- Ej.: Edad = 45; Sexo = F; Diagnóstico = Dengue.
+::: {.column width="65%"}
+
+-   **Variable:** característica que puede variar entre observaciones. Se ubica en columnas y tiene un tipo de dato definido. 
+
+:::
+
+::: {.column width="35%"}
+
+![](images/variable.JPG){fig-align="center"}
+
+:::
+::::
+
+. . .
+
+::: {style="font-size: 80%;"}
+
+-   Ej.: edad, sexo, diagnóstico, fecha de consulta.
+
+:::
+
+. . .
+
+::: {style="font-size: 90%;"}
+
+-   **Valor:** manifestación concreta de la variable para una unidad.
+-   Ej.: edad = 45 (numérico); sexo = F (caracter); fecha de consulta = 2025-11-28 (fecha).
+
+:::
 
 
----
+## Variables
+
+![](images/operacionalizacion.jpg){fig-align="center"}
+
+![](images/medicion.jpg){fig-align="center"}
 
 
 ## Unidad de análisis
 
+:::: {.columns}
 
-- Definición: elemento básico sobre el que se registran los datos.
-- Ejemplos en salud:
-- **Paciente** → una fila por persona.
-- **Consulta** → una fila por contacto.
-- **Evento** (p. ej. notificación de enfermedad) → una fila por evento.
+::: {.column width="60%"}
+
+-   Entidad básica sobre el que se registran los datos. Se ubica en las filas y constan de un conjunto de variables.
+
+:::
+
+::: {.column width="40%"}
+
+![](images/observacion.JPG){fig-align="center"}
+
+:::
+::::
+
+-   Ejemplos en salud: **Paciente**, **Consulta**, **Evento** (p. ej. notificación de enfermedad), **Hospital**, etc.
+
+**Por qué importa:** la elección condiciona el diseño, la agregación, la dependencia y la interpretación.
+
+## Tipos de variables 
+
+::: {.fragment .fade-in-then-semi-out}
+
+-   **Cuantitativas o numéricas** (Continuas: p. ej. edad, peso o discretas: p. ej. número de consultas)
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+-   **Cualitativas o categóricas** (Nominales: p. ej. sexo, diagnóstico. u ordinales: p. ej. gravedad (leve/moderado/severo).
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+-   **Fechas / Tiempos** (Ej.: fecha de inicio de síntomas, fecha de notificación).
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+- **Lógicas** (dicotómicas Verdadero - Falso)
+
+:::
+
+## Tablas ordenadas (datos tabulares)
+
+Llamamos “datos ordenados” (tidy data) cuando:
+
+. . . 
+
+::: {style="font-size: 80%;"}
+
+- Cada variable está en una columna
+
+:::
+
+. . . 
+ 
+::: {style="font-size: 80%;"} 
+ 
+- Cada observación está en una fila y pertenece a una unidad de observación.
+
+:::
+
+. . . 
 
 
-**Por qué importa:** la elección condiciona el diseño, la agregación y la interpretación.
+::: {style="font-size: 80%;"}
 
+- Cada celda del cruce entre una columna y una fila es un valor
 
----
+:::
 
+. . . 
 
-## Tipos de variables (visión general)
-
-
-- **Numéricas**
-- Continuas: p. ej. edad, peso.
-- Discretas: p. ej. número de consultas.
-- **Categóricas**
-- Nominales: p. ej. sexo, diagnóstico.
-- Ordinales: p. ej. gravedad (leve/moderado/severo).
-- **Fechas / Tiempos**
-- Ej.: fecha de inicio de síntomas, fecha de notificación.
+![](images/tidy.PNG){fig-align="center"}
 
 ## Archivos planos
 
+::: incremental
 
-- Formato simple: cada fila = observación, cada columna = variable.
-- Extensiones comunes: `.csv`, `.txt` (delimitado por comas, punto y coma o tabulador).
+-   Archivos que contiene tablas de datos
+-   Están construidos con solo texto (se puede abrir desde un Block de Notas) 
+-   Formato simple: cada fila = observación, cada columna = variable.
+-   Extensiones comunes: `.csv`, `.txt` (delimitado por comas, punto y coma o tabulador).
 
+:::
 
-**Ventajas:** interoperables y fáciles de leer en R (`read_csv()`).
+. . . 
 
+**Ventajas:** interoperables y fáciles de leer en R (`readr::read_csv()`).
 
-## Bases de datos relacionales
+## Tablas relacionales (bases de datos)
 
-
-- Estructura: varias tablas vinculadas por identificadores (claves).
-- Ejemplo: `pacientes` (id_paciente) ↔ `consultas` (id_consulta, id_paciente).
-
+-   **Estructura:** varias tablas vinculadas por variables identificadoras (claves).
+-   **Clave primaria:** identifica únivocamente una observación en su propia tabla
+-   **Clave foránea:** identifica unívocamente una observación en otra tabla
+-   Ejemplo: `pacientes` (id_paciente) ↔ `consultas` (id_consulta, id_paciente).
 
 **Ventaja:** evitar duplicación y mantener consistencia en datos complejos.
 
 ## Metadatos
 
+::: incremental
 
-- "Datos sobre los datos": describen origen, fecha, definiciones, responsable.
-- Ejemplos: fecha de actualización, fuente, variable derivada, formato.
+-   *"Datos sobre los datos":* describen origen, fecha, definiciones, responsable.
+-   Incluyen a los diccionarios de datos (siempre deben acompañar a las tablas de datos)
+-   Ejemplos: fecha de actualización, fuente, variable derivada, formato.
 
+:::
 
-**Por qué son críticos:** permiten interpretar correctamente y mantener trazabilidad.
+. . . 
 
-## Diccionario de datos (ejemplo mínimo)
+**Por qué son críticos?:** permiten interpretar correctamente y mantener trazabilidad.
 
+## Diccionario de datos 
 
-| Variable | Tipo | Descripción | Valores posibles |
-|---|---:|---|---|
-| id_caso | numérico | Identificador único | 1,2,3... |
-| edad | numérico | Edad en años | 0–120 |
-| sexo | categórica | Sexo biológico | M, F, O |
-| fecha_notificacion | fecha | Fecha de notificación | AAAA-MM-DD |
+<br>
 
+::: {style="font-size: 80%;"} 
 
-**Recomendación:** siempre entregar un diccionario junto con los datos.
+| Variable           |       Tipo | Descripción           | Valores posibles |
+|--------------------|-----------:|-----------------------|------------------|
+| id_caso            |   numérico | Identificador único   | 1,2,3...         |
+| edad               |   numérico | Edad en años          | 0–120            |
+| sexo               | categórica | Sexo biológico        | M, F, O          |
+| fecha_notificacion |      fecha | Fecha de notificación | AAAA-MM-DD       |
+| diagnostico        | categórica | Código CIE10          | Formato CIE10    |
+
+:::
 
 ## Consejos cuando trabajamos con datos
 
+<br>
 
-1. Definir claramente la **unidad de análisis** antes de analizar.
-2. Mantener un **diccionario de datos** actualizado.
-3. Saber el **tipo de variable** para elegir análisis y gráfica.
-4. Guardar metadatos y versión de los archivos.
+1.  Definir claramente la **unidad de análisis** antes de recolectar/analizar.
+2.  Mantener un **diccionario de datos** actualizado (incluyendo variables construidas).
+3.  Saber el **tipo de variable** para elegir análisis y gráfico adecuado.
+4.  Guardar metadatos y versión de los archivos.
 
-## Requisitos
+## Lenguajes/softwares - interfaz GUI vs CLI
 
-- **R:** lenguaje base (https://cran.r-project.org)
-- **RStudio:** entorno integrado de desarrollo (https://posit.co/download/rstudio)
-- **Rtools (Windows):** necesario para compilar paquetes (https://cran.r-project.org/bin/windows/Rtools/)
+:::: {.columns}
+
+::: {.column width="55%"}
+
+::: {style="font-size: 80%;"} 
+
+**GUI (Graphical User Interface):** curva de aprendizaje inicial muy rápida. Luego pierde capacidad de realizar tareas nuevas.
+
+**CLI (Command Line Interface):** curva de aprendizaje lenta inicialmente, a largo plazo las posibilidades de combinar y automatizar procesos permite una versatilidad mucho mayor y por lo tanto un mayor potencial creativo.
+
+:::
+
+:::
+
+::: {.column width="45%"}
+
+<br>
+
+![](images/gui_vs_cli.jpg){fig-align="center"}
+
+:::
+::::
+
+
+
+## Lenguaje R
+
+![](images/R.png){.absolute top=0 left=900 width="110" height="80"}
+
+<br>
+
+El lenguaje R es es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos. 
+
+Se considera la *lingua franca* de la estadística.
+
+El objetivo es comenzar a *“decir cosas con los datos”* como un usuario del lenguaje.
+
+
+## RStudio
+
+![](images/RStudio.png){.absolute top=0 left=900 width="250" height="80"}
+<br>
+
+- **RStudio** es un *entorno de desarrollo integrado* (**IDE**) para el lenguaje estadístico R.
+
+- Incluye una consola, un editor de sintaxis que apoya la ejecución de código, así como herramientas para el manejo de paquetes (librerías), gráficos y la gestión del espacio de trabajo.
+
+- Pertenece a la empresa **Posit** pero se distribuye bajo licencia gratuita y libre.
+
+## Descarga e instalación
+
+<br>
+
+-   **R:** lenguaje base (<https://cran.r-project.org>)
+-   **RStudio:** entorno integrado de desarrollo (<https://posit.co/download/rstudio>)
+-   **Rtools (Windows):** necesario para compilar paquetes (<https://cran.r-project.org/bin/windows/Rtools/>)
 
 **Orden recomendado de instalación:** R- Rtools - RStudio
 
-
 ## Proyectos y scripts
 
+<br>
 
-- **Proyecto (.Rproj):** carpeta de trabajo asociada; facilita organización y rutas relativas.
-- **Script (.R):** archivo de texto con comandos para ejecutar en secuencia.
+-   **Proyecto (.Rproj):** carpeta de trabajo asociada; facilita organización y rutas relativas.
+
+-   **Script (.R):** archivo de texto con instrucciones para ejecutar en secuencia.
 
 ## Asignaciones y comentarios
 
-- Operador principal de asignación: `<-`
+<br>
 
+Operador principal de asignación: `<-`
 
-```r
+```{r, echo=TRUE}
 x <- 5 # Asigna el valor 5 a x
+
 y <- x + 3 # Suma 3 al valor de x
 ```
 
-**Comentarios:** `#` indica texto no ejecutable
+<br>
 
+**Comentarios:** `#` indica texto a la derecha no ejecutable. Se usa para documentar el script.
 
-```r
+```{r, echo=TRUE}
 # Esto es un comentario
 ```
 
-# Operaciones básicas y tuberías
 
+## Operaciones básicas y tuberías
 
-```r
-# Aritmética básica
+Operados aritméticos básicos
+
+```{r, echo=TRUE}
 2 + 3
 4 * 5
 (10 - 2) / 4
 ```
 
+**Tuberías (`|>` o `%>%`):** permiten encadenar operaciones de forma legible.
 
-- **Tuberías (`|>` o `%>%`):** permiten encadenar operaciones de forma legible.
+```{r, echo=TRUE, eval=FALSE}
 
-
-```r
 library(dplyr)
+
 datos |>
-filter(sexo == "F") |>
-summarise(media_edad = mean(edad, na.rm = TRUE))
+  filter(sexo == "F") |>
+  summarise(media_edad = mean(edad, na.rm = TRUE))
 ```
-## Operadores y funciones
 
+## Otros operadores 
 
-- **Operadores aritméticos:** `+`, `-`, `*`, `/`, `^`
-- **Operadores relacionales:** `==`, `!=`, `>`, `<`, `>=`, `<=`
-- **Operadores lógicos:** `&`, `|`, `!`
+::: {style="font-size: 80%;"} 
 
+-   **Operadores relacionales:**
+    - `==` igual
+    - `!=` no igual
+    - `>` mayor
+    - `<` menor 
+    - etc
+-   **Operadores lógicos:** 
+    - `&` AND
+    - `|` OR 
+    - `!` NOT
+    - etc
+
+:::
 
 ## Funciones
 
-```r
+- Las funciones encapsulan tareas repetitivas.
+
+- Todas las funciones devuelven algo. Datos, un resultado o una acción determinada.
+
+- La mayoría necesitan de ciertos datos que se declaran dentro de la función denominados argumentos. Algunos son obligatorios y otros opcionales.
+
+```{r, echo=TRUE, eval=FALSE}
 # Sintaxis general
 funcion(argumento1, argumento2)
 
 
-mean(c(1,2,3,4), na.rm = TRUE)
+mean(edad, na.rm = TRUE)
 ```
-## Paquetes
-
-Las funciones encapsulan tareas repetitivas.
-
-- Extienden las funciones de R base.
-- Se instalan una vez, se cargan cada vez que se usan.
 
 
-```r
-# Instalar paquete\ ninstall.packages("tidyverse")
+## Valores especiales: perdidos (NA)
 
+-   Representan datos ausentes o desconocidos. `N`ot `Available` (no disponible)
+
+```{r, echo=TRUE}
+x <- c(1, 2, NA, 4)
+mean(x) ## Devuelve NA
+mean(x, na.rm = TRUE) ## Ignora valores perdidos
+```
+
+
+💡 Siempre verificar la presencia de `NA` antes de cálculos o gráficos.
+
+
+## Paquetes (librerías)
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+-   Extienden las funciones de R base.
+-   Se instalan una vez, se cargan cada vez que se usan.
+
+```{r, echo=TRUE, eval=FALSE}
+# Instalar paquete
+install.packages("tidyverse")
 
 # Activar paquete
 library(tidyverse)
 ```
 
+:::
 
-💡 Tidyverse agrupa herramientas clave: `dplyr`, `ggplot2`, `readr`, `tidyr`, `forcats`.
+::: {.column width="45%"}
 
+![](images/paquetes.PNG){fig-align="center"}
 
----
+:::
+::::
+💡 tidyverse agrupa herramientas clave: `dplyr`, `ggplot2`, `readr`, `tidyr`, `forcats`.
 
+## tidyverse
 
-# Estructuras de datos principales
+![](images/hex-tidyverse.png){.absolute top=0 left=900 width="110" height="110"}
 
+<br>
+
+- Estructura ordenada de datos (tidy data)
+
+- Reutiliza las estructuras de datos mediante el uso de tuberías
+
+- Resuelve problemas complejos combinando varias piezas sencillas
+
+- Diseñada para humanos incorporando una gramática específica al lenguaje (que ya posee una sintaxis estricta y una semantica que le otorga significado)
+
+## Estructuras de datos principales
+
+<br>
+
+::: {style="font-size: 80%;"} 
 
 | Estructura | Descripción | Ejemplo |
-|-------------|--------------|----------|
+|-------------------------|---------------------------|--------------------|
 | **Vector** | Conjunto de valores del mismo tipo | `c(1,2,3)` |
 | **Data frame** | Tabla con columnas (variables) y filas (observaciones) | `data.frame(edad, sexo)` |
-| **Lista** | Conjunto heterogéneo de objetos | `list(paciente=1, edad=45, sexo="M")` |
 
+**Otras estructuras:** listas, arrays, matrices, etc.
 
----
+:::
 
+## Vectores
 
-# Vectores
+- Son secuencias de elementos del mismo tipo de dato.
 
+- Tienen dos atributos principales: longitud y tipo de dato.
 
-```r
+```{r, echo=TRUE}
 # Crear vector numérico
 edades <- c(34, 45, 29, 51)
 
@@ -242,55 +451,70 @@ mean(edades)
 
 ## Data frames
 
+Un dataframe (marco de datos), es similar a una tabla de datos construida por una colección de vectores ubicados verticalmente que mantienen la integridad de sus filas
 
-```r
+```{r, echo=TRUE, eval=FALSE}
 pacientes <- data.frame(
 id = 1:3,
 sexo = c("F", "M", "F"),
 edad = c(30, 45, 50)
 )
 
-
-## Ver estructura
-glimpse(pacientes)
-
-
-## Acceder a columnas
-pacientes$edad
 ```
 
+```{r}
+pacientes <- data.frame(
+id = 1:3,
+sexo = c("F", "M", "F"),
+edad = c(30, 45, 50)
+)
 
----
-
-
-## Valores perdidos (NA)
-
-
-- Representan datos ausentes o desconocidos.
-
-
-```r
-x <- c(1, 2, NA, 4)
-mean(x) ## Devuelve NA
-mean(x, na.rm = TRUE) ## Ignora valores perdidos
+pacientes
 ```
 
+## Ayuda
 
-💡 Siempre verificar la presencia de `NA` antes de cálculos o gráficos.
+- Todas las funciones del R base o de los paquetes vienen acompañadas con su respectiva documentación.
 
+- Esta documentación se puede visualizar en el panel Help de RStudio navegando como si fuese un navegador web.
 
----
+- La documentación tiene una estructura que se repite: descripción, uso, argumentos, detalles, valores, ejemplos.
 
-
-## Resumen — conceptos clave
-
-
-1. RStudio organiza el flujo de trabajo (proyectos, scripts, consola).
-2. Las **asignaciones** y **comentarios** son esenciales para claridad y reproducibilidad.
-3. **Tuberías y funciones** simplifican procesos.
-4. **Paquetes y estructuras de datos** son el núcleo del análisis.
+- También se pueden hacer búsquedas en Google, foros especializados, como por ejemplo Stack Overflow o Rpubs, canales de slack y más recientemente en IAs como chatGPT o Google Gemini.
 
 
----
+## Lectura y escritura de datos planos
+
+![](images/readr.png){.absolute top=0 left=900 width="110" height="110"}
 
 
+<br>
+
+El paquete readr se instala y activa cuando ejecutamos `library(tidyverse)`.
+
+Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)
+
+Sus funciones de lectura comienzan todas con `read_`
+
+Sus funciones de escritura comienzan con `write_`
+
+
+## Lectura o importación desde Excel
+
+
+![](images/readxl.png){.absolute top=0 left=900 width="110" height="110"}
+
+<br>
+
+El paquete `readxl` se instala con tidyverse pero hay que activarlo aparte mediante `library(readxl)`.
+
+Contiene funciones que permiten leer archivos de **Microsoft Excel**, tan extendidos en nuestro trabajo cotidiano.
+
+La función comodín para leer, tanto formatos `.xls` como `.xlsx`, es `read_excel()`
+
+## Exploración
+
+
+## Diagnóstico y depuración
+
+![](images/flujo.png){fig-align="center"}

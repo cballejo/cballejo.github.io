@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.21">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
 
   <title>Introducción al análisis de datos en R y RStudio</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -198,66 +198,158 @@
 </div>
 
 </section>
-<section id="introducción" class="slide level2">
-<h2>Introducción</h2>
+<section id="objetivos" class="slide level2">
+<h2>Objetivos</h2>
 <ul>
-<li>Objetivo: Alinear conceptos básicos sobre <strong>datos</strong> y <strong>unidades de análisis</strong> antes de comenzar con R.</li>
-<li>Duración estimada: 20–30 min teoría, luego práctica en RStudio.</li>
+<li class="fragment">Comprender los conceptos fundamentales sobre estructura y organización de los datos en salud.</li>
+<li class="fragment">Instalar y configurar el entorno de trabajo con R, RStudio, Rtools y paquetes básicos.</li>
+<li class="fragment">Importar, explorar y describir conjuntos de datos en formato tabular.</li>
 </ul>
 </section>
 <section id="qué-es-un-dato" class="slide level2">
 <h2>¿Qué es un dato?</h2>
 <ul>
 <li>Unidad mínima de información que describe una característica observable.</li>
-<li><strong>Ejemplo:</strong> la edad registrada en la historia clínica.</li>
+<li><strong>Ejemplo:</strong> la edad registrada en una historia clínica.</li>
 </ul>
-<p><strong>Idea clave:</strong> un dato sólo tiene significado en su contexto (quién, cuándo, cómo).</p>
+
+<img data-src="images/dato.JPG" class="quarto-figure quarto-figure-center r-stretch"><p><strong>Idea clave:</strong> un dato sólo tiene significado en su contexto (quién, cuándo, cómo).</p>
 </section>
 <section id="variable-vs-valor" class="slide level2">
 <h2>Variable vs Valor</h2>
+<div class="columns">
+<div class="column" style="width:65%;">
 <ul>
-<li><strong>Variable:</strong> característica que puede variar entre observaciones.</li>
-<li>Ej.: Edad, Sexo, Diagnóstico, Fecha de consulta.</li>
-<li><strong>Valor:</strong> manifestación concreta de la variable para una unidad.</li>
-<li>Ej.: Edad = 45; Sexo = F; Diagnóstico = Dengue.</li>
+<li><strong>Variable:</strong> característica que puede variar entre observaciones. Se ubica en columnas y tiene un tipo de dato definido.</li>
 </ul>
+</div><div class="column" style="width:35%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/variable.JPG" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div></div>
+<div class="fragment">
+<div style="font-size: 80%;">
+<ul>
+<li>Ej.: edad, sexo, diagnóstico, fecha de consulta.</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 90%;">
+<ul>
+<li><strong>Valor:</strong> manifestación concreta de la variable para una unidad.</li>
+<li>Ej.: edad = 45 (numérico); sexo = F (caracter); fecha de consulta = 2025-11-28 (fecha).</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="variables" class="slide level2">
+<h2>Variables</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/operacionalizacion.jpg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/medicion.jpg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
 </section>
 <section id="unidad-de-análisis" class="slide level2">
 <h2>Unidad de análisis</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
 <ul>
-<li>Definición: elemento básico sobre el que se registran los datos.</li>
-<li>Ejemplos en salud:</li>
-<li><strong>Paciente</strong> → una fila por persona.</li>
-<li><strong>Consulta</strong> → una fila por contacto.</li>
-<li><strong>Evento</strong> (p.&nbsp;ej. notificación de enfermedad) → una fila por evento.</li>
+<li>Entidad básica sobre el que se registran los datos. Se ubica en las filas y constan de un conjunto de variables.</li>
 </ul>
-<p><strong>Por qué importa:</strong> la elección condiciona el diseño, la agregación y la interpretación.</p>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/observacion.JPG" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div></div>
+<ul>
+<li>Ejemplos en salud: <strong>Paciente</strong>, <strong>Consulta</strong>, <strong>Evento</strong> (p.&nbsp;ej. notificación de enfermedad), <strong>Hospital</strong>, etc.</li>
+</ul>
+<p><strong>Por qué importa:</strong> la elección condiciona el diseño, la agregación, la dependencia y la interpretación.</p>
 </section>
-<section id="tipos-de-variables-visión-general" class="slide level2">
-<h2>Tipos de variables (visión general)</h2>
+<section id="tipos-de-variables" class="slide level2">
+<h2>Tipos de variables</h2>
+<div class="fragment fade-in-then-semi-out">
 <ul>
-<li><strong>Numéricas</strong></li>
-<li>Continuas: p.&nbsp;ej. edad, peso.</li>
-<li>Discretas: p.&nbsp;ej. número de consultas.</li>
-<li><strong>Categóricas</strong></li>
-<li>Nominales: p.&nbsp;ej. sexo, diagnóstico.</li>
-<li>Ordinales: p.&nbsp;ej. gravedad (leve/moderado/severo).</li>
-<li><strong>Fechas / Tiempos</strong></li>
-<li>Ej.: fecha de inicio de síntomas, fecha de notificación.</li>
+<li><strong>Cuantitativas o numéricas</strong> (Continuas: p.&nbsp;ej. edad, peso o discretas: p.&nbsp;ej. número de consultas)</li>
 </ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li><strong>Cualitativas o categóricas</strong> (Nominales: p.&nbsp;ej. sexo, diagnóstico. u ordinales: p.&nbsp;ej. gravedad (leve/moderado/severo).</li>
+</ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li><strong>Fechas / Tiempos</strong> (Ej.: fecha de inicio de síntomas, fecha de notificación).</li>
+</ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li><strong>Lógicas</strong> (dicotómicas Verdadero - Falso)</li>
+</ul>
+</div>
+</section>
+<section id="tablas-ordenadas-datos-tabulares" class="slide level2">
+<h2>Tablas ordenadas (datos tabulares)</h2>
+<p>Llamamos “datos ordenados” (tidy data) cuando:</p>
+<div class="fragment">
+<div style="font-size: 80%;">
+<ul>
+<li>Cada variable está en una columna</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 80%;">
+<ul>
+<li>Cada observación está en una fila y pertenece a una unidad de observación.</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div style="font-size: 80%;">
+<ul>
+<li>Cada celda del cruce entre una columna y una fila es un valor</li>
+</ul>
+</div>
+</div>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/tidy.PNG" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
 </section>
 <section id="archivos-planos" class="slide level2">
 <h2>Archivos planos</h2>
 <ul>
-<li>Formato simple: cada fila = observación, cada columna = variable.</li>
-<li>Extensiones comunes: <code>.csv</code>, <code>.txt</code> (delimitado por comas, punto y coma o tabulador).</li>
+<li class="fragment">Archivos que contiene tablas de datos</li>
+<li class="fragment">Están construidos con solo texto (se puede abrir desde un Block de Notas)</li>
+<li class="fragment">Formato simple: cada fila = observación, cada columna = variable.</li>
+<li class="fragment">Extensiones comunes: <code>.csv</code>, <code>.txt</code> (delimitado por comas, punto y coma o tabulador).</li>
 </ul>
-<p><strong>Ventajas:</strong> interoperables y fáciles de leer en R (<code>read_csv()</code>).</p>
+<div class="fragment">
+<p><strong>Ventajas:</strong> interoperables y fáciles de leer en R (<code>readr::read_csv()</code>).</p>
+</div>
 </section>
-<section id="bases-de-datos-relacionales" class="slide level2">
-<h2>Bases de datos relacionales</h2>
+<section id="tablas-relacionales-bases-de-datos" class="slide level2">
+<h2>Tablas relacionales (bases de datos)</h2>
 <ul>
-<li>Estructura: varias tablas vinculadas por identificadores (claves).</li>
+<li><strong>Estructura:</strong> varias tablas vinculadas por variables identificadoras (claves).</li>
+<li><strong>Clave primaria:</strong> identifica únivocamente una observación en su propia tabla</li>
+<li><strong>Clave foránea:</strong> identifica unívocamente una observación en otra tabla</li>
 <li>Ejemplo: <code>pacientes</code> (id_paciente) ↔︎ <code>consultas</code> (id_consulta, id_paciente).</li>
 </ul>
 <p><strong>Ventaja:</strong> evitar duplicación y mantener consistencia en datos complejos.</p>
@@ -265,14 +357,25 @@
 <section id="metadatos" class="slide level2">
 <h2>Metadatos</h2>
 <ul>
-<li>“Datos sobre los datos”: describen origen, fecha, definiciones, responsable.</li>
-<li>Ejemplos: fecha de actualización, fuente, variable derivada, formato.</li>
+<li class="fragment"><em>“Datos sobre los datos”:</em> describen origen, fecha, definiciones, responsable.</li>
+<li class="fragment">Incluyen a los diccionarios de datos (siempre deben acompañar a las tablas de datos)</li>
+<li class="fragment">Ejemplos: fecha de actualización, fuente, variable derivada, formato.</li>
 </ul>
-<p><strong>Por qué son críticos:</strong> permiten interpretar correctamente y mantener trazabilidad.</p>
+<div class="fragment">
+<p><strong>Por qué son críticos?:</strong> permiten interpretar correctamente y mantener trazabilidad.</p>
+</div>
 </section>
-<section id="diccionario-de-datos-ejemplo-mínimo" class="slide level2">
-<h2>Diccionario de datos (ejemplo mínimo)</h2>
-<table class="caption-top">
+<section id="diccionario-de-datos" class="slide level2">
+<h2>Diccionario de datos</h2>
+<p><br></p>
+<div style="font-size: 80%;">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 16%">
+<col style="width: 31%">
+<col style="width: 24%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Variable</th>
@@ -306,99 +409,216 @@
 <td>Fecha de notificación</td>
 <td>AAAA-MM-DD</td>
 </tr>
+<tr class="odd">
+<td>diagnostico</td>
+<td style="text-align: right;">categórica</td>
+<td>Código CIE10</td>
+<td>Formato CIE10</td>
+</tr>
 </tbody>
 </table>
-<p><strong>Recomendación:</strong> siempre entregar un diccionario junto con los datos.</p>
+</div>
 </section>
 <section id="consejos-cuando-trabajamos-con-datos" class="slide level2">
 <h2>Consejos cuando trabajamos con datos</h2>
+<p><br></p>
 <ol type="1">
-<li>Definir claramente la <strong>unidad de análisis</strong> antes de analizar.</li>
-<li>Mantener un <strong>diccionario de datos</strong> actualizado.</li>
-<li>Saber el <strong>tipo de variable</strong> para elegir análisis y gráfica.</li>
+<li>Definir claramente la <strong>unidad de análisis</strong> antes de recolectar/analizar.</li>
+<li>Mantener un <strong>diccionario de datos</strong> actualizado (incluyendo variables construidas).</li>
+<li>Saber el <strong>tipo de variable</strong> para elegir análisis y gráfico adecuado.</li>
 <li>Guardar metadatos y versión de los archivos.</li>
 </ol>
 </section>
-<section id="requisitos" class="slide level2">
-<h2>Requisitos</h2>
+<section id="lenguajessoftwares---interfaz-gui-vs-cli" class="slide level2">
+<h2>Lenguajes/softwares - interfaz GUI vs CLI</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
+<div style="font-size: 80%;">
+<p><strong>GUI (Graphical User Interface):</strong> curva de aprendizaje inicial muy rápida. Luego pierde capacidad de realizar tareas nuevas.</p>
+<p><strong>CLI (Command Line Interface):</strong> curva de aprendizaje lenta inicialmente, a largo plazo las posibilidades de combinar y automatizar procesos permite una versatilidad mucho mayor y por lo tanto un mayor potencial creativo.</p>
+</div>
+</div><div class="column" style="width:45%;">
+<p><br></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/gui_vs_cli.jpg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div></div>
+</section>
+<section id="lenguaje-r" class="slide level2">
+<h2>Lenguaje R</h2>
+<p><img data-src="images/R.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 80px; "></p>
+<p><br></p>
+<p>El lenguaje R es es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.</p>
+<p>Se considera la <em>lingua franca</em> de la estadística.</p>
+<p>El objetivo es comenzar a <em>“decir cosas con los datos”</em> como un usuario del lenguaje.</p>
+</section>
+<section id="rstudio" class="slide level2">
+<h2>RStudio</h2>
+<p><img data-src="images/RStudio.png" class="absolute" style="top: 0px; left: 900px; width: 250px; height: 80px; "> <br></p>
 <ul>
-<li><strong>R:</strong> lenguaje base (https://cran.r-project.org)</li>
-<li><strong>RStudio:</strong> entorno integrado de desarrollo (https://posit.co/download/rstudio)</li>
-<li><strong>Rtools (Windows):</strong> necesario para compilar paquetes (https://cran.r-project.org/bin/windows/Rtools/)</li>
+<li><p><strong>RStudio</strong> es un <em>entorno de desarrollo integrado</em> (<strong>IDE</strong>) para el lenguaje estadístico R.</p></li>
+<li><p>Incluye una consola, un editor de sintaxis que apoya la ejecución de código, así como herramientas para el manejo de paquetes (librerías), gráficos y la gestión del espacio de trabajo.</p></li>
+<li><p>Pertenece a la empresa <strong>Posit</strong> pero se distribuye bajo licencia gratuita y libre.</p></li>
+</ul>
+</section>
+<section id="descarga-e-instalación" class="slide level2">
+<h2>Descarga e instalación</h2>
+<p><br></p>
+<ul>
+<li><strong>R:</strong> lenguaje base (<a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a>)</li>
+<li><strong>RStudio:</strong> entorno integrado de desarrollo (<a href="https://posit.co/download/rstudio" class="uri">https://posit.co/download/rstudio</a>)</li>
+<li><strong>Rtools (Windows):</strong> necesario para compilar paquetes (<a href="https://cran.r-project.org/bin/windows/Rtools/" class="uri">https://cran.r-project.org/bin/windows/Rtools/</a>)</li>
 </ul>
 <p><strong>Orden recomendado de instalación:</strong> R- Rtools - RStudio</p>
 </section>
 <section id="proyectos-y-scripts" class="slide level2">
 <h2>Proyectos y scripts</h2>
+<p><br></p>
 <ul>
-<li><strong>Proyecto (.Rproj):</strong> carpeta de trabajo asociada; facilita organización y rutas relativas.</li>
-<li><strong>Script (.R):</strong> archivo de texto con comandos para ejecutar en secuencia.</li>
+<li><p><strong>Proyecto (.Rproj):</strong> carpeta de trabajo asociada; facilita organización y rutas relativas.</p></li>
+<li><p><strong>Script (.R):</strong> archivo de texto con instrucciones para ejecutar en secuencia.</p></li>
 </ul>
 </section>
 <section id="asignaciones-y-comentarios" class="slide level2">
 <h2>Asignaciones y comentarios</h2>
-<ul>
-<li>Operador principal de asignación: <code>&lt;-</code></li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># Asigna el valor 5 a x</span></span>
-<span id="cb1-2"><a href=""></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">3</span> <span class="co"># Suma 3 al valor de x</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>Comentarios:</strong> <code>#</code> indica texto no ejecutable</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Esto es un comentario</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><br></p>
+<p>Operador principal de asignación: <code>&lt;-</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="dv">5</span> <span class="co"># Asigna el valor 5 a x</span></span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a>y <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">3</span> <span class="co"># Suma 3 al valor de x</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+<p><strong>Comentarios:</strong> <code>#</code> indica texto a la derecha no ejecutable. Se usa para documentar el script.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># Esto es un comentario</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section>
-<section id="operaciones-básicas-y-tuberías" class="title-slide slide level1 center">
-<h1>Operaciones básicas y tuberías</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># Aritmética básica</span></span>
-<span id="cb3-2"><a href=""></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span></span>
-<span id="cb3-3"><a href=""></a><span class="dv">4</span> <span class="sc">*</span> <span class="dv">5</span></span>
-<span id="cb3-4"><a href=""></a>(<span class="dv">10</span> <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li><strong>Tuberías (<code>|&gt;</code> o <code>%&gt;%</code>):</strong> permiten encadenar operaciones de forma legible.</li>
-</ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb4-2"><a href=""></a>datos <span class="sc">|&gt;</span></span>
-<span id="cb4-3"><a href=""></a><span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb4-4"><a href=""></a><span class="fu">summarise</span>(<span class="at">media_edad =</span> <span class="fu">mean</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="operaciones-básicas-y-tuberías" class="slide level2">
+<h2>Operaciones básicas y tuberías</h2>
+<p>Operados aritméticos básicos</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="dv">4</span> <span class="sc">*</span> <span class="dv">5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 20</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>(<span class="dv">10</span> <span class="sc">-</span> <span class="dv">2</span>) <span class="sc">/</span> <span class="dv">4</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2</code></pre>
+</div>
+</div>
+<p><strong>Tuberías (<code>|&gt;</code> o <code>%&gt;%</code>):</strong> permiten encadenar operaciones de forma legible.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb9-2"><a href=""></a></span>
+<span id="cb9-3"><a href=""></a>datos <span class="sc">|&gt;</span></span>
+<span id="cb9-4"><a href=""></a>  <span class="fu">filter</span>(sexo <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">media_edad =</span> <span class="fu">mean</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="operadores-y-funciones" class="slide level2">
-<h2>Operadores y funciones</h2>
+<section id="otros-operadores" class="slide level2">
+<h2>Otros operadores</h2>
+<div style="font-size: 80%;">
 <ul>
-<li><strong>Operadores aritméticos:</strong> <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>^</code></li>
-<li><strong>Operadores relacionales:</strong> <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code></li>
-<li><strong>Operadores lógicos:</strong> <code>&amp;</code>, <code>|</code>, <code>!</code></li>
+<li><strong>Operadores relacionales:</strong>
+<ul>
+<li><code>==</code> igual</li>
+<li><code>!=</code> no igual</li>
+<li><code>&gt;</code> mayor</li>
+<li><code>&lt;</code> menor</li>
+<li>etc</li>
+</ul></li>
+<li><strong>Operadores lógicos:</strong>
+<ul>
+<li><code>&amp;</code> AND</li>
+<li><code>|</code> OR</li>
+<li><code>!</code> NOT</li>
+<li>etc</li>
+</ul></li>
 </ul>
+</div>
 </section>
 <section id="funciones" class="slide level2">
 <h2>Funciones</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="co"># Sintaxis general</span></span>
-<span id="cb5-2"><a href=""></a><span class="fu">funcion</span>(argumento1, argumento2)</span>
-<span id="cb5-3"><a href=""></a></span>
-<span id="cb5-4"><a href=""></a></span>
-<span id="cb5-5"><a href=""></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><p>Las funciones encapsulan tareas repetitivas.</p></li>
+<li><p>Todas las funciones devuelven algo. Datos, un resultado o una acción determinada.</p></li>
+<li><p>La mayoría necesitan de ciertos datos que se declaran dentro de la función denominados argumentos. Algunos son obligatorios y otros opcionales.</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># Sintaxis general</span></span>
+<span id="cb10-2"><a href=""></a><span class="fu">funcion</span>(argumento1, argumento2)</span>
+<span id="cb10-3"><a href=""></a></span>
+<span id="cb10-4"><a href=""></a></span>
+<span id="cb10-5"><a href=""></a><span class="fu">mean</span>(edad, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="paquetes" class="slide level2">
-<h2>Paquetes</h2>
-<p>Las funciones encapsulan tareas repetitivas.</p>
+<section id="valores-especiales-perdidos-na" class="slide level2">
+<h2>Valores especiales: perdidos (NA)</h2>
+<ul>
+<li>Representan datos ausentes o desconocidos. <code>N</code>ot <code>Available</code> (no disponible)</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
+<span id="cb11-2"><a href=""></a><span class="fu">mean</span>(x) <span class="do">## Devuelve NA</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] NA</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="do">## Ignora valores perdidos</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.333333</code></pre>
+</div>
+</div>
+<p>💡 Siempre verificar la presencia de <code>NA</code> antes de cálculos o gráficos.</p>
+</section>
+<section id="paquetes-librerías" class="slide level2">
+<h2>Paquetes (librerías)</h2>
+<div class="columns">
+<div class="column" style="width:55%;">
 <ul>
 <li>Extienden las funciones de R base.</li>
 <li>Se instalan una vez, se cargan cada vez que se usan.</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># Instalar paquete\ ninstall.packages("tidyverse")</span></span>
-<span id="cb6-2"><a href=""></a></span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a><span class="co"># Activar paquete</span></span>
-<span id="cb6-5"><a href=""></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>💡 Tidyverse agrupa herramientas clave: <code>dplyr</code>, <code>ggplot2</code>, <code>readr</code>, <code>tidyr</code>, <code>forcats</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="co"># Instalar paquete</span></span>
+<span id="cb15-2"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb15-3"><a href=""></a></span>
+<span id="cb15-4"><a href=""></a><span class="co"># Activar paquete</span></span>
+<span id="cb15-5"><a href=""></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div><div class="column" style="width:45%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/paquetes.PNG" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div></div>
+<p>💡 tidyverse agrupa herramientas clave: <code>dplyr</code>, <code>ggplot2</code>, <code>readr</code>, <code>tidyr</code>, <code>forcats</code>.</p>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="estructuras-de-datos-principales" class="title-slide slide level1 center">
-<h1>Estructuras de datos principales</h1>
+<section id="tidyverse" class="slide level2">
+<h2>tidyverse</h2>
+<p><img data-src="images/hex-tidyverse.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
+<p><br></p>
+<ul>
+<li><p>Estructura ordenada de datos (tidy data)</p></li>
+<li><p>Reutiliza las estructuras de datos mediante el uso de tuberías</p></li>
+<li><p>Resuelve problemas complejos combinando varias piezas sencillas</p></li>
+<li><p>Diseñada para humanos incorporando una gramática específica al lenguaje (que ya posee una sintaxis estricta y una semantica que le otorga significado)</p></li>
+</ul>
+</section>
+<section id="estructuras-de-datos-principales" class="slide level2">
+<h2>Estructuras de datos principales</h2>
+<p><br></p>
+<div style="font-size: 80%;">
 <table class="caption-top">
 <colgroup>
-<col style="width: 35%">
+<col style="width: 34%">
 <col style="width: 37%">
 <col style="width: 27%">
 </colgroup>
@@ -420,70 +640,87 @@
 <td>Tabla con columnas (variables) y filas (observaciones)</td>
 <td><code>data.frame(edad, sexo)</code></td>
 </tr>
-<tr class="odd">
-<td><strong>Lista</strong></td>
-<td>Conjunto heterogéneo de objetos</td>
-<td><code>list(paciente=1, edad=45, sexo="M")</code></td>
-</tr>
 </tbody>
 </table>
+<p><strong>Otras estructuras:</strong> listas, arrays, matrices, etc.</p>
+</div>
 </section>
-<section class="slide level2">
-
-</section></section>
-<section>
-<section id="vectores" class="title-slide slide level1 center">
-<h1>Vectores</h1>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># Crear vector numérico</span></span>
-<span id="cb7-2"><a href=""></a>edades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">45</span>, <span class="dv">29</span>, <span class="dv">51</span>)</span>
-<span id="cb7-3"><a href=""></a></span>
-<span id="cb7-4"><a href=""></a></span>
-<span id="cb7-5"><a href=""></a><span class="co"># Acceder a elementos</span></span>
-<span id="cb7-6"><a href=""></a>edades[<span class="dv">2</span>] <span class="co"># segundo valor</span></span>
-<span id="cb7-7"><a href=""></a></span>
-<span id="cb7-8"><a href=""></a></span>
-<span id="cb7-9"><a href=""></a><span class="co"># Operaciones</span></span>
-<span id="cb7-10"><a href=""></a><span class="fu">mean</span>(edades)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="vectores" class="slide level2">
+<h2>Vectores</h2>
+<ul>
+<li><p>Son secuencias de elementos del mismo tipo de dato.</p></li>
+<li><p>Tienen dos atributos principales: longitud y tipo de dato.</p></li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a><span class="co"># Crear vector numérico</span></span>
+<span id="cb16-2"><a href=""></a>edades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">45</span>, <span class="dv">29</span>, <span class="dv">51</span>)</span>
+<span id="cb16-3"><a href=""></a></span>
+<span id="cb16-4"><a href=""></a></span>
+<span id="cb16-5"><a href=""></a><span class="co"># Acceder a elementos</span></span>
+<span id="cb16-6"><a href=""></a>edades[<span class="dv">2</span>] <span class="co"># segundo valor</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 45</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a><span class="co"># Operaciones</span></span>
+<span id="cb18-2"><a href=""></a><span class="fu">mean</span>(edades)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 39.75</code></pre>
+</div>
+</div>
 </section>
 <section id="data-frames" class="slide level2">
 <h2>Data frames</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>pacientes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb8-2"><a href=""></a><span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb8-3"><a href=""></a><span class="at">sexo =</span> <span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>),</span>
-<span id="cb8-4"><a href=""></a><span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">45</span>, <span class="dv">50</span>)</span>
-<span id="cb8-5"><a href=""></a>)</span>
-<span id="cb8-6"><a href=""></a></span>
-<span id="cb8-7"><a href=""></a></span>
-<span id="cb8-8"><a href=""></a><span class="do">## Ver estructura</span></span>
-<span id="cb8-9"><a href=""></a><span class="fu">glimpse</span>(pacientes)</span>
-<span id="cb8-10"><a href=""></a></span>
-<span id="cb8-11"><a href=""></a></span>
-<span id="cb8-12"><a href=""></a><span class="do">## Acceder a columnas</span></span>
-<span id="cb8-13"><a href=""></a>pacientes<span class="sc">$</span>edad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Un dataframe (marco de datos), es similar a una tabla de datos construida por una colección de vectores ubicados verticalmente que mantienen la integridad de sus filas</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>pacientes <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb20-2"><a href=""></a><span class="at">id =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb20-3"><a href=""></a><span class="at">sexo =</span> <span class="fu">c</span>(<span class="st">"F"</span>, <span class="st">"M"</span>, <span class="st">"F"</span>),</span>
+<span id="cb20-4"><a href=""></a><span class="at">edad =</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">45</span>, <span class="dv">50</span>)</span>
+<span id="cb20-5"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>  id sexo edad
+1  1    F   30
+2  2    M   45
+3  3    F   50</code></pre>
+</div>
+</div>
 </section>
-<section id="valores-perdidos-na" class="slide level2">
-<h2>Valores perdidos (NA)</h2>
+<section id="ayuda" class="slide level2">
+<h2>Ayuda</h2>
 <ul>
-<li>Representan datos ausentes o desconocidos.</li>
+<li><p>Todas las funciones del R base o de los paquetes vienen acompañadas con su respectiva documentación.</p></li>
+<li><p>Esta documentación se puede visualizar en el panel Help de RStudio navegando como si fuese un navegador web.</p></li>
+<li><p>La documentación tiene una estructura que se repite: descripción, uso, argumentos, detalles, valores, ejemplos.</p></li>
+<li><p>También se pueden hacer búsquedas en Google, foros especializados, como por ejemplo Stack Overflow o Rpubs, canales de slack y más recientemente en IAs como chatGPT o Google Gemini.</p></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="cn">NA</span>, <span class="dv">4</span>)</span>
-<span id="cb9-2"><a href=""></a><span class="fu">mean</span>(x) <span class="do">## Devuelve NA</span></span>
-<span id="cb9-3"><a href=""></a><span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="do">## Ignora valores perdidos</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>💡 Siempre verificar la presencia de <code>NA</code> antes de cálculos o gráficos.</p>
 </section>
-<section id="resumen-conceptos-clave" class="slide level2">
-<h2>Resumen — conceptos clave</h2>
-<ol type="1">
-<li>RStudio organiza el flujo de trabajo (proyectos, scripts, consola).</li>
-<li>Las <strong>asignaciones</strong> y <strong>comentarios</strong> son esenciales para claridad y reproducibilidad.</li>
-<li><strong>Tuberías y funciones</strong> simplifican procesos.</li>
-<li><strong>Paquetes y estructuras de datos</strong> son el núcleo del análisis.</li>
-</ol>
+<section id="lectura-y-escritura-de-datos-planos" class="slide level2">
+<h2>Lectura y escritura de datos planos</h2>
+<p><img data-src="images/readr.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
+<p><br></p>
+<p>El paquete readr se instala y activa cuando ejecutamos <code>library(tidyverse)</code>.</p>
+<p>Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)</p>
+<p>Sus funciones de lectura comienzan todas con <code>read_</code></p>
+<p>Sus funciones de escritura comienzan con <code>write_</code></p>
 </section>
-<section class="slide level2">
+<section id="lectura-o-importación-desde-excel" class="slide level2">
+<h2>Lectura o importación desde Excel</h2>
+<p><img data-src="images/readxl.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
+<p><br></p>
+<p>El paquete <code>readxl</code> se instala con tidyverse pero hay que activarlo aparte mediante <code>library(readxl)</code>.</p>
+<p>Contiene funciones que permiten leer archivos de <strong>Microsoft Excel</strong>, tan extendidos en nuestro trabajo cotidiano.</p>
+<p>La función comodín para leer, tanto formatos <code>.xls</code> como <code>.xlsx</code>, es <code>read_excel()</code></p>
+</section>
+<section id="exploración" class="slide level2">
+<h2>Exploración</h2>
+</section>
+<section id="diagnóstico-y-depuración" class="slide level2">
+<h2>Diagnóstico y depuración</h2>
 
 
-</section></section>
+<img data-src="images/flujo.png" class="quarto-figure quarto-figure-center r-stretch"></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -699,6 +936,82 @@
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
@@ -747,13 +1060,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
