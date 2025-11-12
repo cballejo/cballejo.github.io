@@ -1,0 +1,179 @@
+---
+title: "Introducción al análisis de datos en R y RStudio"
+subtitle: "Encuentro 2"
+format: 
+  revealjs:
+    slide-number: true
+    theme: simple
+    footer: "Residencia Medicina General"
+editor: visual
+---
+
+## Objetivos
+
+::: incremental
+- Importar, explorar y describir conjuntos de datos en formato tabular.
+- Aplicar funciones básicas del lenguaje R y del paquete tidyverse para gestión y análisis descriptivo.
+- Calcular indicadores epidemiológicos simples (prevalencia, incidencia).
+:::
+
+
+## Lectura y escritura de datos planos
+
+![](images/readr.png){.absolute top="0" left="900" width="110" height="110"}
+
+<br>
+
+El paquete readr se instala y activa cuando ejecutamos `library(tidyverse)`.
+
+Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)
+
+Sus funciones de lectura comienzan todas con `read_`
+
+Sus funciones de escritura comienzan con `write_`
+
+## Lectura o importación desde Excel
+
+![](images/readxl.png){.absolute top="0" left="900" width="110" height="110"}
+
+<br>
+
+El paquete `readxl` se instala con tidyverse pero hay que activarlo aparte mediante `library(readxl)`.
+
+Contiene funciones que permiten leer archivos de **Microsoft Excel**, tan extendidos en nuestro trabajo cotidiano.
+
+La función comodín para leer, tanto formatos `.xls` como `.xlsx`, es `read_excel()`
+
+## Exploración
+
+Conocer la estructura de la tabla de datos y sus tipos de variables
+
+diccionario de datos
+
+
+## Diagnóstico y depuración
+
+La etapa de depuración o limpieza de datos comienza con la exploración inicial y el diagnóstico adecuado de cada variable de interés de la tabla de datos cruda. Interviene siempre, el objetivo del análisis, el protocolo de análisis pensado y el diccionario de datos asociado a la tabla.
+
+![](images/flujo.png){fig-align="center"}
+
+## Análisis exploratorio de datos (EDA)
+
+El análisis exploratorio de datos (EDA en inglés) persigue un primer grupo de objetivos:
+
+::: incremental
+
+- Conocer la estructura de la tabla de datos y sus tipos de variables
+- Detectar observaciones incompletas (valores faltantes)
+- Detectar datos con errores e inconsistencias
+
+:::
+
+. . . 
+
+Habitualmente hablamos de *calidad de los datos* en relación a los items anteriores.
+
+## Análisis exploratorio de datos (EDA)
+
+<br>
+
+Una segunda etapa nos va servir para conocer la distribución de las variables de interés a partir de:
+
+::: incremental
+
+- Resumir datos mediante estadísticos
+- Visualizar distribuciones y patrones mediante gráficos
+- Detectar valores atípicos (outlier)
+
+:::
+
+## Funciones resumen
+
+El lenguaje R posee variadas funciones para obtener medidas resumen:
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+::: {style="font-size: 70%;"}
+
+- tendencia central 
+    - media con **mean()** 
+    - mediana con **median()**
+
+- posición 
+    - mínimo con **min()** 
+    - máximo con **max()** 
+    - percentil o cuantil con **quantile()**
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {style="font-size: 70%;"}
+
+- dispersión 
+    - varianza con **var()** 
+    - desvío estandar con **sd()** 
+    - rango intercuatílico con **IQR()**
+
+:::    
+    
+:::
+::::
+
+::: {style="font-size: 70%;"}
+
+La mayoría de estas funciones aplican en tipos de datos enteros (int), numéricos (dbl), fecha (date) y fecha - hora (ddtm).
+
+:::
+
+## Funciones resumen
+
+Para variables cualitativas o categóricas hacemos tablas de frecuencia absolutas o relativas (porcentuales) con:
+
+<br>
+
+**count()** para frecuencias absolutas
+
+**mutate(porcentaje = n/sum(n))** para frecuencias porcentuales
+
+<br>
+
+La función **count()** y **mutate()** pertenecen al paquete **dplyr** del **tidyverse**.
+
+## 5 funciones-verbo
+
+El paquete **tidyverse** incluye a **dplyr** cuya finalidad es gestionar fácilmente tablas de datos. Lo hace a partir de 5 funciones-verbos básicas:
+
+::: {style="font-size: 80%;"}
+
+- **filter()** filtra un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición
+
+- **select()** selecciona un subconjunto de variables (columnas) de una tabla de datos
+
+- **mutate()** crea nuevas variables o modifica las existentes
+
+- **summarise()** genera resúmenes por variable
+
+- **arrange()** ordena la tabla de datos según orden de variables
+
+:::
+
+## Divide y vencerás
+
+<br>
+
+Uno de los pilares del tidyverse dice *"resolver problemas complejos combinando varias piezas sencillas"*.
+
+Lo logramos dividiendo el problema en subproblemas más sencillos que podemos resolver mediante diferentes funciones, que luego se conectan mediante operadores de tubería para dar respuesta al problema original.
+
+## Ejemplo 
+
+
+
+
+
+

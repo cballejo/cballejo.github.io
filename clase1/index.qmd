@@ -1,5 +1,6 @@
 ---
 title: "Introducción al análisis de datos en R y RStudio"
+subtitle: "Encuentro 1"
 format: 
   revealjs:
     slide-number: true
@@ -14,8 +15,7 @@ editor: visual
 
 - Comprender los conceptos fundamentales sobre estructura y organización de los datos en salud.
 - Instalar y configurar el entorno de trabajo con R, RStudio, Rtools y paquetes básicos.
-- Importar, explorar y describir conjuntos de datos en formato tabular.
-
+- Explorar características relevantes del lenguaje R y tidyverse
 :::
 
 ## ¿Qué es un dato?
@@ -483,38 +483,4 @@ pacientes
 - También se pueden hacer búsquedas en Google, foros especializados, como por ejemplo Stack Overflow o Rpubs, canales de slack y más recientemente en IAs como chatGPT o Google Gemini.
 
 
-## Lectura y escritura de datos planos
 
-![](images/readr.png){.absolute top=0 left=900 width="110" height="110"}
-
-
-<br>
-
-El paquete readr se instala y activa cuando ejecutamos `library(tidyverse)`.
-
-Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)
-
-Sus funciones de lectura comienzan todas con `read_`
-
-Sus funciones de escritura comienzan con `write_`
-
-
-## Lectura o importación desde Excel
-
-
-![](images/readxl.png){.absolute top=0 left=900 width="110" height="110"}
-
-<br>
-
-El paquete `readxl` se instala con tidyverse pero hay que activarlo aparte mediante `library(readxl)`.
-
-Contiene funciones que permiten leer archivos de **Microsoft Excel**, tan extendidos en nuestro trabajo cotidiano.
-
-La función comodín para leer, tanto formatos `.xls` como `.xlsx`, es `read_excel()`
-
-## Exploración
-
-
-## Diagnóstico y depuración
-
-![](images/flujo.png){fig-align="center"}
