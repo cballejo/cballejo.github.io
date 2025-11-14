@@ -27,6 +27,72 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -120,6 +186,10 @@
       margin-right: 0; 
     }
   </style>
+  <link href="index_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+  <script src="index_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -146,26 +216,53 @@
 <p><img data-src="images/readr.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
 <p><br></p>
 <p>El paquete readr se instala y activa cuando ejecutamos <code>library(tidyverse)</code>.</p>
+<div class="fragment">
 <p>Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)</p>
+</div>
+<div class="fragment">
 <p>Sus funciones de lectura comienzan todas con <code>read_</code></p>
+</div>
+<div class="fragment">
 <p>Sus funciones de escritura comienzan con <code>write_</code></p>
+</div>
 </section>
 <section id="lectura-o-importación-desde-excel" class="slide level2">
 <h2>Lectura o importación desde Excel</h2>
 <p><img data-src="images/readxl.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
 <p><br></p>
 <p>El paquete <code>readxl</code> se instala con tidyverse pero hay que activarlo aparte mediante <code>library(readxl)</code>.</p>
+<div class="fragment">
 <p>Contiene funciones que permiten leer archivos de <strong>Microsoft Excel</strong>, tan extendidos en nuestro trabajo cotidiano.</p>
+</div>
+<div class="fragment">
 <p>La función comodín para leer, tanto formatos <code>.xls</code> como <code>.xlsx</code>, es <code>read_excel()</code></p>
+</div>
 </section>
 <section id="exploración" class="slide level2">
 <h2>Exploración</h2>
+<p><br></p>
+<div class="fragment fade-in-then-semi-out">
+<p>El primer paso luego de leer o importar la tabla de datos es explorarla para conocer la estructura y sus tipos de variables</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<p>Es importante contar con los <em>metadatos</em> de la tabla al que llamaremos <strong>diccionario de datos</strong>.</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<p>La función <code>glimpse()</code> de dplyr-tidyverse posibilitan explorar rápidamente las variables, sus tipos y valores, así también como saber sus dimensiones.</p>
+</div>
 </section>
 <section id="diagnóstico-y-depuración" class="slide level2">
 <h2>Diagnóstico y depuración</h2>
-<p>La etapa de depuración o limpieza de datos comienza con la exploración inicial y el diagnóstico adecuado de cada variable de interés de la tabla de datos cruda. Interviene siempre, el objetivo del análisis, el protocolo de análisis pensado y el diccionario de datos asociado a la tabla.</p>
-
-<img data-src="images/flujo.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<p>La etapa de depuración o limpieza de datos comienza con la exploración inicial y el diagnóstico adecuado de cada variable de interés de la tabla de datos cruda.</p>
+<div class="fragment">
+<p>Interviene siempre, el objetivo del análisis, el protocolo de análisis pensado y el diccionario de datos asociado a la tabla.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/flujo.png" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div>
+</section>
 <section id="análisis-exploratorio-de-datos-eda" class="slide level2">
 <h2>Análisis exploratorio de datos (EDA)</h2>
 <p>El análisis exploratorio de datos (EDA en inglés) persigue un primer grupo de objetivos:</p>
@@ -197,14 +294,14 @@
 <ul>
 <li>tendencia central
 <ul>
-<li>media con <strong>mean()</strong></li>
-<li>mediana con <strong>median()</strong></li>
+<li>media con <code>mean()</code></li>
+<li>mediana con <code>median()</code></li>
 </ul></li>
 <li>posición
 <ul>
-<li>mínimo con <strong>min()</strong></li>
-<li>máximo con <strong>max()</strong></li>
-<li>percentil o cuantil con <strong>quantile()</strong></li>
+<li>mínimo con <code>min()</code></li>
+<li>máximo con <code>max()</code></li>
+<li>percentil o cuantil con <code>quantile()</code></li>
 </ul></li>
 </ul>
 </div>
@@ -213,9 +310,9 @@
 <ul>
 <li>dispersión
 <ul>
-<li>varianza con <strong>var()</strong></li>
-<li>desvío estandar con <strong>sd()</strong></li>
-<li>rango intercuatílico con <strong>IQR()</strong></li>
+<li>varianza con <code>var()</code></li>
+<li>desvío estandar con <code>sd()</code></li>
+<li>rango intercuatílico con <code>IQR()</code></li>
 </ul></li>
 </ul>
 </div>
@@ -228,21 +325,21 @@
 <h2>Funciones resumen</h2>
 <p>Para variables cualitativas o categóricas hacemos tablas de frecuencia absolutas o relativas (porcentuales) con:</p>
 <p><br></p>
-<p><strong>count()</strong> para frecuencias absolutas</p>
-<p><strong>mutate(porcentaje = n/sum(n))</strong> para frecuencias porcentuales</p>
+<p><code>count()</code> para frecuencias absolutas</p>
+<p><code>mutate(porcentaje = n/sum(n))</code> para frecuencias porcentuales</p>
 <p><br></p>
-<p>La función <strong>count()</strong> y <strong>mutate()</strong> pertenecen al paquete <strong>dplyr</strong> del <strong>tidyverse</strong>.</p>
+<p>La función <code>count()</code> y <code>mutate()</code> pertenecen al paquete <strong>dplyr</strong> del <strong>tidyverse</strong>.</p>
 </section>
 <section id="funciones-verbo" class="slide level2">
 <h2>5 funciones-verbo</h2>
 <p>El paquete <strong>tidyverse</strong> incluye a <strong>dplyr</strong> cuya finalidad es gestionar fácilmente tablas de datos. Lo hace a partir de 5 funciones-verbos básicas:</p>
 <div style="font-size: 80%;">
 <ul>
-<li><p><strong>filter()</strong> filtra un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición</p></li>
-<li><p><strong>select()</strong> selecciona un subconjunto de variables (columnas) de una tabla de datos</p></li>
-<li><p><strong>mutate()</strong> crea nuevas variables o modifica las existentes</p></li>
-<li><p><strong>summarise()</strong> genera resúmenes por variable</p></li>
-<li><p><strong>arrange()</strong> ordena la tabla de datos según orden de variables</p></li>
+<li><p><code>filter()</code> filtra un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición</p></li>
+<li><p><code>select()</code> selecciona un subconjunto de variables (columnas) de una tabla de datos</p></li>
+<li><p><code>mutate()</code> crea nuevas variables o modifica las existentes</p></li>
+<li><p><code>summarise()</code> genera resúmenes por variable</p></li>
+<li><p><code>arrange()</code> ordena la tabla de datos según orden de variables</p></li>
 </ul>
 </div>
 </section>
@@ -250,10 +347,38 @@
 <h2>Divide y vencerás</h2>
 <p><br></p>
 <p>Uno de los pilares del tidyverse dice <em>“resolver problemas complejos combinando varias piezas sencillas”</em>.</p>
+<div class="fragment">
+<p><br></p>
 <p>Lo logramos dividiendo el problema en subproblemas más sencillos que podemos resolver mediante diferentes funciones, que luego se conectan mediante operadores de tubería para dar respuesta al problema original.</p>
+</div>
 </section>
-<section id="ejemplo" class="slide level2">
-<h2>Ejemplo</h2>
+<section id="ejemplo-práctico" class="slide level2">
+<h2>Ejemplo práctico</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a>  <span class="fu">mutate</span>(<span class="at">grupo_etario =</span> <span class="fu">cut_width</span>(edad, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">closed =</span> <span class="st">"left"</span>)) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a>  <span class="fu">filter</span>(edad <span class="sc">&gt;=</span> <span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4"></a>  <span class="fu">group_by</span>(sexo, grupo_etario) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5"></a>  <span class="fu">summarise</span>(<span class="at">conteo =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div style="font-size: 80%;">
+<ol type="1">
+<li>Partimos desde la tabla de <code>datos</code></li>
+<li>Creamos la nueva variable <code>grupo_etario</code> con intervalos regulares de 10 años (cerrados a izquierda)</li>
+<li>Filtramos observaciones con <code>edad</code> mayor o igual a 20 años</li>
+<li>Agrupamos (estratificamos) por <code>sexo</code> y <code>grupo_etario</code></li>
+<li>Resumimos haciendo un conteo en cada combinación de <code>sexo</code> y <code>grupo_etario</code>.</li>
+</ol>
+</div>
+</section>
+<section id="ejemplo-práctico-1" class="slide level2">
+<h2>Ejemplo práctico</h2>
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-e89f40f2{}.cl-e895a3d0{font-family:'Arial';font-size:18pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e8993964{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e899396e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e8995926{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e8995927{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e8995930{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e8995931{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e8995932{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e899593a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-e89f40f2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-e8995926"><p class="cl-e8993964"><span class="cl-e895a3d0">grupo_etario</span></p></th><th class="cl-e8995927"><p class="cl-e899396e"><span class="cl-e895a3d0">Mujer</span></p></th><th class="cl-e8995927"><p class="cl-e899396e"><span class="cl-e895a3d0">Varón</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[20,30)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">23</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">23</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[30,40)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">23</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[40,50)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">17</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">19</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[50,60)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">19</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">16</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[60,70)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">13</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">15</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[70,80)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">14</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">16</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995932"><p class="cl-e8993964"><span class="cl-e895a3d0">[80,90]</span></p></td><td class="cl-e899593a"><p class="cl-e899396e"><span class="cl-e895a3d0">10</span></p></td><td class="cl-e899593a"><p class="cl-e899396e"><span class="cl-e895a3d0">11</span></p></td></tr></tbody></table></div>
+</div>
+</div>
 
 </section>
     </div>
@@ -417,7 +542,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
@@ -471,6 +596,82 @@
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

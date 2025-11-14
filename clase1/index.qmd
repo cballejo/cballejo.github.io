@@ -3,6 +3,7 @@ title: "Introducción al análisis de datos en R y RStudio"
 subtitle: "Encuentro 1"
 format: 
   revealjs:
+    transition: slide
     slide-number: true
     theme: simple
     footer: "Residencia Medicina General"
@@ -20,7 +21,7 @@ editor: visual
 
 ## ¿Qué es un dato?
 
--   Unidad mínima de información que describe una característica observable.
+-   Unidad mínima de información que describe una característica observable de una unidad de análisis en la muestra o población.
 -   **Ejemplo:** la edad registrada en una historia clínica.
 
 ![](images/dato.JPG){fig-align="center"}
@@ -57,7 +58,7 @@ editor: visual
 
 ::: {style="font-size: 90%;"}
 
--   **Valor:** manifestación concreta de la variable para una unidad.
+-   **Valor:** manifestación concreta de la variable para una unidad de análisis.
 -   Ej.: edad = 45 (numérico); sexo = F (caracter); fecha de consulta = 2025-11-28 (fecha).
 
 :::
@@ -168,9 +169,12 @@ Llamamos “datos ordenados” (tidy data) cuando:
 ## Tablas relacionales (bases de datos)
 
 -   **Estructura:** varias tablas vinculadas por variables identificadoras (claves).
--   **Clave primaria:** identifica únivocamente una observación en su propia tabla
--   **Clave foránea:** identifica unívocamente una observación en otra tabla
--   Ejemplo: `pacientes` (id_paciente) ↔ `consultas` (id_consulta, id_paciente).
+    -   **Clave primaria:** identifica únivocamente una observación en su propia tabla
+    -   **Clave foránea:** identifica unívocamente una observación en otra tabla
+    
+. . .     
+    
+Ejemplo: `pacientes` (id_paciente) ↔ `consultas` (id_consulta, id_paciente).
 
 **Ventaja:** evitar duplicación y mantener consistencia en datos complejos.
 
@@ -180,7 +184,7 @@ Llamamos “datos ordenados” (tidy data) cuando:
 
 -   *"Datos sobre los datos":* describen origen, fecha, definiciones, responsable.
 -   Incluyen a los diccionarios de datos (siempre deben acompañar a las tablas de datos)
--   Ejemplos: fecha de actualización, fuente, variable derivada, formato.
+-   Ejemplos: fecha de actualización, fuente, variables derivadas, formato.
 
 :::
 
@@ -190,9 +194,11 @@ Llamamos “datos ordenados” (tidy data) cuando:
 
 ## Diccionario de datos 
 
-<br>
-
 ::: {style="font-size: 80%;"} 
+
+Delimitador de variables:   ;
+
+Delimitador de decimales:   ,
 
 | Variable           |       Tipo | Descripción           | Valores posibles |
 |--------------------|-----------:|-----------------------|------------------|
@@ -215,6 +221,8 @@ Llamamos “datos ordenados” (tidy data) cuando:
 
 ## Lenguajes/softwares - interfaz GUI vs CLI
 
+<br>
+
 :::: {.columns}
 
 ::: {.column width="55%"}
@@ -222,6 +230,7 @@ Llamamos “datos ordenados” (tidy data) cuando:
 ::: {style="font-size: 80%;"} 
 
 **GUI (Graphical User Interface):** curva de aprendizaje inicial muy rápida. Luego pierde capacidad de realizar tareas nuevas.
+
 
 **CLI (Command Line Interface):** curva de aprendizaje lenta inicialmente, a largo plazo las posibilidades de combinar y automatizar procesos permite una versatilidad mucho mayor y por lo tanto un mayor potencial creativo.
 
@@ -246,12 +255,23 @@ Llamamos “datos ordenados” (tidy data) cuando:
 
 <br>
 
+::: {.fragment .fade-in-then-semi-out}
+
 El lenguaje R es es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos. 
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
 
 Se considera la *lingua franca* de la estadística.
 
-El objetivo es comenzar a *“decir cosas con los datos”* como un usuario del lenguaje.
+:::
 
+::: {.fragment .fade-in-then-semi-out}
+
+El objetivo es comenzar a *“decir cosas con los datos”* como un usuario del lenguaje (inicialmente no como un programador).
+
+:::
 
 ## RStudio
 
@@ -260,7 +280,11 @@ El objetivo es comenzar a *“decir cosas con los datos”* como un usuario del 
 
 - **RStudio** es un *entorno de desarrollo integrado* (**IDE**) para el lenguaje estadístico R.
 
+. . .
+
 - Incluye una consola, un editor de sintaxis que apoya la ejecución de código, así como herramientas para el manejo de paquetes (librerías), gráficos y la gestión del espacio de trabajo.
+
+. . .
 
 - Pertenece a la empresa **Posit** pero se distribuye bajo licencia gratuita y libre.
 
@@ -279,6 +303,8 @@ El objetivo es comenzar a *“decir cosas con los datos”* como un usuario del 
 <br>
 
 -   **Proyecto (.Rproj):** carpeta de trabajo asociada; facilita organización y rutas relativas.
+
+. . .
 
 -   **Script (.R):** archivo de texto con instrucciones para ejecutar en secuencia.
 
@@ -404,15 +430,29 @@ library(tidyverse)
 
 ![](images/hex-tidyverse.png){.absolute top=0 left=900 width="110" height="110"}
 
-<br>
+::: {.fragment .fade-in-then-semi-out}
 
 - Estructura ordenada de datos (tidy data)
 
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
 - Reutiliza las estructuras de datos mediante el uso de tuberías
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
 
 - Resuelve problemas complejos combinando varias piezas sencillas
 
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
 - Diseñada para humanos incorporando una gramática específica al lenguaje (que ya posee una sintaxis estricta y una semantica que le otorga significado)
+
+:::
 
 ## Estructuras de datos principales
 
@@ -483,4 +523,16 @@ pacientes
 - También se pueden hacer búsquedas en Google, foros especializados, como por ejemplo Stack Overflow o Rpubs, canales de slack y más recientemente en IAs como chatGPT o Google Gemini.
 
 
+## Bibliografía 
 
+<br>
+
+[R para la Ciencia de Datos (2e)](https://davidrsch.github.io/r4ds-es/)
+
+[Fundamentos de ciencia de datos con R](https://cdr-book.github.io/index.html)
+
+[EpiRhandbook](https://epirhandbook.com/es/index.es.html)
+
+[Data Visualization](https://socviz.co/)
+
+[Big Book of R](https://www.bigbookofr.com/)

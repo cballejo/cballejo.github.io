@@ -210,7 +210,7 @@
 <section id="qué-es-un-dato" class="slide level2">
 <h2>¿Qué es un dato?</h2>
 <ul>
-<li>Unidad mínima de información que describe una característica observable.</li>
+<li>Unidad mínima de información que describe una característica observable de una unidad de análisis en la muestra o población.</li>
 <li><strong>Ejemplo:</strong> la edad registrada en una historia clínica.</li>
 </ul>
 
@@ -240,7 +240,7 @@
 <div class="fragment">
 <div style="font-size: 90%;">
 <ul>
-<li><strong>Valor:</strong> manifestación concreta de la variable para una unidad.</li>
+<li><strong>Valor:</strong> manifestación concreta de la variable para una unidad de análisis.</li>
 <li>Ej.: edad = 45 (numérico); sexo = F (caracter); fecha de consulta = 2025-11-28 (fecha).</li>
 </ul>
 </div>
@@ -348,19 +348,23 @@
 <section id="tablas-relacionales-bases-de-datos" class="slide level2">
 <h2>Tablas relacionales (bases de datos)</h2>
 <ul>
-<li><strong>Estructura:</strong> varias tablas vinculadas por variables identificadoras (claves).</li>
+<li><strong>Estructura:</strong> varias tablas vinculadas por variables identificadoras (claves).
+<ul>
 <li><strong>Clave primaria:</strong> identifica únivocamente una observación en su propia tabla</li>
 <li><strong>Clave foránea:</strong> identifica unívocamente una observación en otra tabla</li>
-<li>Ejemplo: <code>pacientes</code> (id_paciente) ↔︎ <code>consultas</code> (id_consulta, id_paciente).</li>
+</ul></li>
 </ul>
+<div class="fragment">
+<p>Ejemplo: <code>pacientes</code> (id_paciente) ↔︎ <code>consultas</code> (id_consulta, id_paciente).</p>
 <p><strong>Ventaja:</strong> evitar duplicación y mantener consistencia en datos complejos.</p>
+</div>
 </section>
 <section id="metadatos" class="slide level2">
 <h2>Metadatos</h2>
 <ul>
 <li class="fragment"><em>“Datos sobre los datos”:</em> describen origen, fecha, definiciones, responsable.</li>
 <li class="fragment">Incluyen a los diccionarios de datos (siempre deben acompañar a las tablas de datos)</li>
-<li class="fragment">Ejemplos: fecha de actualización, fuente, variable derivada, formato.</li>
+<li class="fragment">Ejemplos: fecha de actualización, fuente, variables derivadas, formato.</li>
 </ul>
 <div class="fragment">
 <p><strong>Por qué son críticos?:</strong> permiten interpretar correctamente y mantener trazabilidad.</p>
@@ -368,8 +372,9 @@
 </section>
 <section id="diccionario-de-datos" class="slide level2">
 <h2>Diccionario de datos</h2>
-<p><br></p>
 <div style="font-size: 80%;">
+<p>Delimitador de variables: ;</p>
+<p>Delimitador de decimales: ,</p>
 <table class="caption-top" style="width:100%;">
 <colgroup>
 <col style="width: 27%">
@@ -432,6 +437,7 @@
 </section>
 <section id="lenguajessoftwares---interfaz-gui-vs-cli" class="slide level2">
 <h2>Lenguajes/softwares - interfaz GUI vs CLI</h2>
+<p><br></p>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div style="font-size: 80%;">
@@ -451,18 +457,32 @@
 <h2>Lenguaje R</h2>
 <p><img data-src="images/R.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 80px; "></p>
 <p><br></p>
+<div class="fragment fade-in-then-semi-out">
 <p>El lenguaje R es es un lenguaje de programación interpretado, orientado a objetos, multiplataforma y open source pensado para el manejo de datos estadísticos.</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
 <p>Se considera la <em>lingua franca</em> de la estadística.</p>
-<p>El objetivo es comenzar a <em>“decir cosas con los datos”</em> como un usuario del lenguaje.</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<p>El objetivo es comenzar a <em>“decir cosas con los datos”</em> como un usuario del lenguaje (inicialmente no como un programador).</p>
+</div>
 </section>
 <section id="rstudio" class="slide level2">
 <h2>RStudio</h2>
 <p><img data-src="images/RStudio.png" class="absolute" style="top: 0px; left: 900px; width: 250px; height: 80px; "> <br></p>
 <ul>
-<li><p><strong>RStudio</strong> es un <em>entorno de desarrollo integrado</em> (<strong>IDE</strong>) para el lenguaje estadístico R.</p></li>
-<li><p>Incluye una consola, un editor de sintaxis que apoya la ejecución de código, así como herramientas para el manejo de paquetes (librerías), gráficos y la gestión del espacio de trabajo.</p></li>
-<li><p>Pertenece a la empresa <strong>Posit</strong> pero se distribuye bajo licencia gratuita y libre.</p></li>
+<li><strong>RStudio</strong> es un <em>entorno de desarrollo integrado</em> (<strong>IDE</strong>) para el lenguaje estadístico R.</li>
 </ul>
+<div class="fragment">
+<ul>
+<li>Incluye una consola, un editor de sintaxis que apoya la ejecución de código, así como herramientas para el manejo de paquetes (librerías), gráficos y la gestión del espacio de trabajo.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Pertenece a la empresa <strong>Posit</strong> pero se distribuye bajo licencia gratuita y libre.</li>
+</ul>
+</div>
 </section>
 <section id="descarga-e-instalación" class="slide level2">
 <h2>Descarga e instalación</h2>
@@ -478,9 +498,13 @@
 <h2>Proyectos y scripts</h2>
 <p><br></p>
 <ul>
-<li><p><strong>Proyecto (.Rproj):</strong> carpeta de trabajo asociada; facilita organización y rutas relativas.</p></li>
-<li><p><strong>Script (.R):</strong> archivo de texto con instrucciones para ejecutar en secuencia.</p></li>
+<li><strong>Proyecto (.Rproj):</strong> carpeta de trabajo asociada; facilita organización y rutas relativas.</li>
 </ul>
+<div class="fragment">
+<ul>
+<li><strong>Script (.R):</strong> archivo de texto con instrucciones para ejecutar en secuencia.</li>
+</ul>
+</div>
 </section>
 <section id="asignaciones-y-comentarios" class="slide level2">
 <h2>Asignaciones y comentarios</h2>
@@ -605,13 +629,26 @@
 <section id="tidyverse" class="slide level2">
 <h2>tidyverse</h2>
 <p><img data-src="images/hex-tidyverse.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
-<p><br></p>
+<div class="fragment fade-in-then-semi-out">
 <ul>
-<li><p>Estructura ordenada de datos (tidy data)</p></li>
-<li><p>Reutiliza las estructuras de datos mediante el uso de tuberías</p></li>
-<li><p>Resuelve problemas complejos combinando varias piezas sencillas</p></li>
-<li><p>Diseñada para humanos incorporando una gramática específica al lenguaje (que ya posee una sintaxis estricta y una semantica que le otorga significado)</p></li>
+<li>Estructura ordenada de datos (tidy data)</li>
 </ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li>Reutiliza las estructuras de datos mediante el uso de tuberías</li>
+</ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li>Resuelve problemas complejos combinando varias piezas sencillas</li>
+</ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li>Diseñada para humanos incorporando una gramática específica al lenguaje (que ya posee una sintaxis estricta y una semantica que le otorga significado)</li>
+</ul>
+</div>
 </section>
 <section id="estructuras-de-datos-principales" class="slide level2">
 <h2>Estructuras de datos principales</h2>
@@ -696,6 +733,15 @@
 <li><p>La documentación tiene una estructura que se repite: descripción, uso, argumentos, detalles, valores, ejemplos.</p></li>
 <li><p>También se pueden hacer búsquedas en Google, foros especializados, como por ejemplo Stack Overflow o Rpubs, canales de slack y más recientemente en IAs como chatGPT o Google Gemini.</p></li>
 </ul>
+</section>
+<section id="bibliografía" class="slide level2">
+<h2>Bibliografía</h2>
+<p><br></p>
+<p><a href="https://davidrsch.github.io/r4ds-es/">R para la Ciencia de Datos (2e)</a></p>
+<p><a href="https://cdr-book.github.io/index.html">Fundamentos de ciencia de datos con R</a></p>
+<p><a href="https://epirhandbook.com/es/index.es.html">EpiRhandbook</a></p>
+<p><a href="https://socviz.co/">Data Visualization</a></p>
+<p><a href="https://www.bigbookofr.com/">Big Book of R</a></p>
 
 </section>
     </div>
@@ -859,7 +905,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',

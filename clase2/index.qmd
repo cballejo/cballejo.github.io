@@ -3,6 +3,7 @@ title: "Introducción al análisis de datos en R y RStudio"
 subtitle: "Encuentro 2"
 format: 
   revealjs:
+    transition: slide
     slide-number: true
     theme: simple
     footer: "Residencia Medicina General"
@@ -26,9 +27,15 @@ editor: visual
 
 El paquete readr se instala y activa cuando ejecutamos `library(tidyverse)`.
 
+. . .
+
 Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)
 
+. . .
+
 Sus funciones de lectura comienzan todas con `read_`
+
+. . .
 
 Sus funciones de escritura comienzan con `write_`
 
@@ -40,20 +47,43 @@ Sus funciones de escritura comienzan con `write_`
 
 El paquete `readxl` se instala con tidyverse pero hay que activarlo aparte mediante `library(readxl)`.
 
+. . .
+
 Contiene funciones que permiten leer archivos de **Microsoft Excel**, tan extendidos en nuestro trabajo cotidiano.
+
+. . .
 
 La función comodín para leer, tanto formatos `.xls` como `.xlsx`, es `read_excel()`
 
 ## Exploración
 
-Conocer la estructura de la tabla de datos y sus tipos de variables
+<br>
 
-diccionario de datos
+::: {.fragment .fade-in-then-semi-out}
 
+El primer paso luego de leer o importar la tabla de datos es explorarla para conocer la estructura y sus tipos de variables
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+Es importante contar con los *metadatos* de la tabla al que llamaremos **diccionario de datos**.
+
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+
+La función `glimpse()` de dplyr-tidyverse posibilitan explorar rápidamente las variables, sus tipos y valores, así también como saber sus dimensiones.
+
+:::
 
 ## Diagnóstico y depuración
 
-La etapa de depuración o limpieza de datos comienza con la exploración inicial y el diagnóstico adecuado de cada variable de interés de la tabla de datos cruda. Interviene siempre, el objetivo del análisis, el protocolo de análisis pensado y el diccionario de datos asociado a la tabla.
+La etapa de depuración o limpieza de datos comienza con la exploración inicial y el diagnóstico adecuado de cada variable de interés de la tabla de datos cruda. 
+
+. . . 
+
+Interviene siempre, el objetivo del análisis, el protocolo de análisis pensado y el diccionario de datos asociado a la tabla.
 
 ![](images/flujo.png){fig-align="center"}
 
@@ -98,13 +128,13 @@ El lenguaje R posee variadas funciones para obtener medidas resumen:
 ::: {style="font-size: 70%;"}
 
 - tendencia central 
-    - media con **mean()** 
-    - mediana con **median()**
+    - media con `mean()` 
+    - mediana con `median()`
 
 - posición 
-    - mínimo con **min()** 
-    - máximo con **max()** 
-    - percentil o cuantil con **quantile()**
+    - mínimo con `min()` 
+    - máximo con `max()` 
+    - percentil o cuantil con `quantile()`
 
 :::
 
@@ -115,9 +145,9 @@ El lenguaje R posee variadas funciones para obtener medidas resumen:
 ::: {style="font-size: 70%;"}
 
 - dispersión 
-    - varianza con **var()** 
-    - desvío estandar con **sd()** 
-    - rango intercuatílico con **IQR()**
+    - varianza con `var()` 
+    - desvío estandar con `sd()` 
+    - rango intercuatílico con `IQR()`
 
 :::    
     
@@ -136,13 +166,13 @@ Para variables cualitativas o categóricas hacemos tablas de frecuencia absoluta
 
 <br>
 
-**count()** para frecuencias absolutas
+`count()` para frecuencias absolutas
 
-**mutate(porcentaje = n/sum(n))** para frecuencias porcentuales
+`mutate(porcentaje = n/sum(n))` para frecuencias porcentuales
 
 <br>
 
-La función **count()** y **mutate()** pertenecen al paquete **dplyr** del **tidyverse**.
+La función `count()` y `mutate()` pertenecen al paquete **dplyr** del **tidyverse**.
 
 ## 5 funciones-verbo
 
@@ -150,15 +180,15 @@ El paquete **tidyverse** incluye a **dplyr** cuya finalidad es gestionar fácilm
 
 ::: {style="font-size: 80%;"}
 
-- **filter()** filtra un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición
+- `filter()` filtra un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición
 
-- **select()** selecciona un subconjunto de variables (columnas) de una tabla de datos
+- `select()` selecciona un subconjunto de variables (columnas) de una tabla de datos
 
-- **mutate()** crea nuevas variables o modifica las existentes
+- `mutate()` crea nuevas variables o modifica las existentes
 
-- **summarise()** genera resúmenes por variable
+- `summarise()` genera resúmenes por variable
 
-- **arrange()** ordena la tabla de datos según orden de variables
+- `arrange()` ordena la tabla de datos según orden de variables
 
 :::
 
@@ -168,12 +198,51 @@ El paquete **tidyverse** incluye a **dplyr** cuya finalidad es gestionar fácilm
 
 Uno de los pilares del tidyverse dice *"resolver problemas complejos combinando varias piezas sencillas"*.
 
+. . . 
+
+<br>
+
 Lo logramos dividiendo el problema en subproblemas más sencillos que podemos resolver mediante diferentes funciones, que luego se conectan mediante operadores de tubería para dar respuesta al problema original.
 
-## Ejemplo 
+## Ejemplo práctico
 
+```{r, echo=T, eval=FALSE}
+datos |>  # <1>
+  mutate(grupo_etario = cut_width(edad, width = 10, closed = "left")) |> # <2>
+  filter(edad >= 20) |>  # <3>
+  group_by(sexo, grupo_etario) |> # <4> 
+  summarise(conteo = n()) # <5>
+```
 
+::: {style="font-size: 80%;"} 
 
+1. Partimos desde la tabla de `datos`
+2. Creamos la nueva variable `grupo_etario` con intervalos regulares de 10 años (cerrados a izquierda)
+3. Filtramos observaciones con `edad` mayor o igual a 20 años
+4. Agrupamos (estratificamos) por `sexo` y `grupo_etario`
+5. Resumimos haciendo un conteo en cada combinación de `sexo` y `grupo_etario`.
 
+:::
+
+## Ejemplo práctico
+
+<br>
+
+```{r, echo=F}
+library(tidyverse)
+library(flextable)
+
+datos <- read_csv("data/sisa_dengue.csv")
+
+datos |>  
+  mutate(grupo_etario = cut_width(edad, width = 10, closed = "left", center = 5),
+         sexo = if_else(sexo == "F", "Mujer", "Varón")) |> 
+  filter(edad >= 20) |>  
+  group_by(sexo, grupo_etario) |> 
+  summarise(conteo = n()) |> 
+  pivot_wider(names_from = sexo, values_from = conteo) |> 
+  flextable() |> 
+  fontsize(size = 18, part = "all")
+```
 
 
