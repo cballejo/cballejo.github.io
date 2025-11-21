@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.21">
 
   <title>Introducción al análisis de datos en R y RStudio</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -186,6 +186,10 @@
       margin-right: 0; 
     }
   </style>
+  <link href="index_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+
+  <script src="index_files/libs/tabwid-1.1.3/tabwid.js"></script>
+
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -201,11 +205,21 @@
 </section>
 <section id="objetivos" class="slide level2">
 <h2>Objetivos</h2>
+<div style="font-size: 80%;">
 <ul>
 <li class="fragment">Comprender los conceptos fundamentales sobre estructura y organización de los datos en salud.</li>
 <li class="fragment">Instalar y configurar el entorno de trabajo con R, RStudio, Rtools y paquetes básicos.</li>
 <li class="fragment">Explorar características relevantes del lenguaje R y tidyverse</li>
+<li class="fragment">Importar, explorar y describir conjuntos de datos en formato tabular.</li>
+<li class="fragment">Aplicar funciones básicas del lenguaje R y del paquete tidyverse para gestión y análisis descriptivo.</li>
+<li class="fragment">Calcular indicadores epidemiológicos simples ( incidencia, etc).</li>
 </ul>
+</div>
+<div class="fragment">
+<div style="font-size: 80%;">
+<p><strong>Contacto:</strong> <a href="mailto:christianballejo@gmail.com">Christian Ballejo</a></p>
+</div>
+</div>
 </section>
 <section id="qué-es-un-dato" class="slide level2">
 <h2>¿Qué es un dato?</h2>
@@ -734,6 +748,166 @@
 <li><p>También se pueden hacer búsquedas en Google, foros especializados, como por ejemplo Stack Overflow o Rpubs, canales de slack y más recientemente en IAs como chatGPT o Google Gemini.</p></li>
 </ul>
 </section>
+<section id="lectura-y-escritura-de-datos-planos" class="slide level2">
+<h2>Lectura y escritura de datos planos</h2>
+<p><img data-src="images/readr.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
+<p><br></p>
+<p>El paquete readr se instala y activa cuando ejecutamos <code>library(tidyverse)</code>.</p>
+<div class="fragment">
+<p>Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)</p>
+</div>
+<div class="fragment">
+<p>Sus funciones de lectura comienzan todas con <code>read_</code></p>
+</div>
+<div class="fragment">
+<p>Sus funciones de escritura comienzan con <code>write_</code></p>
+</div>
+</section>
+<section id="lectura-o-importación-desde-excel" class="slide level2">
+<h2>Lectura o importación desde Excel</h2>
+<p><img data-src="images/readxl.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
+<p><br></p>
+<p>El paquete <code>readxl</code> se instala con tidyverse pero hay que activarlo aparte mediante <code>library(readxl)</code>.</p>
+<div class="fragment">
+<p>Contiene funciones que permiten leer archivos de <strong>Microsoft Excel</strong>, tan extendidos en nuestro trabajo cotidiano.</p>
+</div>
+<div class="fragment">
+<p>La función comodín para leer, tanto formatos <code>.xls</code> como <code>.xlsx</code>, es <code>read_excel()</code></p>
+</div>
+</section>
+<section id="exploración" class="slide level2">
+<h2>Exploración</h2>
+<p><br></p>
+<div class="fragment fade-in-then-semi-out">
+<p>El primer paso luego de leer o importar la tabla de datos es explorarla para conocer la estructura y sus tipos de variables</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<p>Es importante contar con los <em>metadatos</em> de la tabla al que llamaremos <strong>diccionario de datos</strong>.</p>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<p>La función <code>glimpse()</code> de dplyr-tidyverse posibilitan explorar rápidamente las variables, sus tipos y valores, así también como saber sus dimensiones.</p>
+</div>
+</section>
+<section id="funciones-resumen" class="slide level2">
+<h2>Funciones resumen</h2>
+<p>El lenguaje R posee variadas funciones para obtener medidas resumen:</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div style="font-size: 70%;">
+<ul>
+<li>tendencia central
+<ul>
+<li>media con <code>mean()</code></li>
+<li>mediana con <code>median()</code></li>
+</ul></li>
+<li>posición
+<ul>
+<li>mínimo con <code>min()</code></li>
+<li>máximo con <code>max()</code></li>
+<li>percentil o cuantil con <code>quantile()</code></li>
+</ul></li>
+</ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div style="font-size: 70%;">
+<ul>
+<li>dispersión
+<ul>
+<li>varianza con <code>var()</code></li>
+<li>desvío estandar con <code>sd()</code></li>
+<li>rango intercuatílico con <code>IQR()</code></li>
+</ul></li>
+</ul>
+</div>
+</div></div>
+<div style="font-size: 70%;">
+<p>La mayoría de estas funciones aplican en tipos de datos enteros (int), numéricos (dbl), fecha (date) y fecha - hora (ddtm).</p>
+</div>
+</section>
+<section id="funciones-resumen-1" class="slide level2">
+<h2>Funciones resumen</h2>
+<p>Para variables cualitativas o categóricas hacemos tablas de frecuencia absolutas o relativas (porcentuales) con:</p>
+<p><br></p>
+<p><code>count()</code> para frecuencias absolutas</p>
+<p><code>mutate(porcentaje = n/sum(n))</code> para frecuencias porcentuales</p>
+<p><br></p>
+<p>La función <code>count()</code> y <code>mutate()</code> pertenecen al paquete <strong>dplyr</strong> del <strong>tidyverse</strong>.</p>
+</section>
+<section id="funciones-verbo" class="slide level2">
+<h2>5 funciones-verbo</h2>
+<p>El paquete <strong>tidyverse</strong> incluye a <strong>dplyr</strong> cuya finalidad es gestionar fácilmente tablas de datos. Lo hace a partir de 5 funciones-verbos básicas:</p>
+<div style="font-size: 80%;">
+<ul>
+<li><p><code>filter()</code> filtra un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición</p></li>
+<li><p><code>select()</code> selecciona un subconjunto de variables (columnas) de una tabla de datos</p></li>
+<li><p><code>mutate()</code> crea nuevas variables o modifica las existentes</p></li>
+<li><p><code>summarise()</code> genera resúmenes por variable</p></li>
+<li><p><code>arrange()</code> ordena la tabla de datos según orden de variables</p></li>
+</ul>
+</div>
+</section>
+<section id="divide-y-vencerás" class="slide level2">
+<h2>Divide y vencerás</h2>
+<p><br></p>
+<p>Uno de los pilares del tidyverse dice <em>“resolver problemas complejos combinando varias piezas sencillas”</em>.</p>
+<div class="fragment">
+<p><br></p>
+<p>Lo logramos dividiendo el problema en subproblemas más sencillos que podemos resolver mediante diferentes funciones, que luego se conectan mediante operadores de tubería para dar respuesta al problema original.</p>
+</div>
+</section>
+<section id="ejemplo-práctico" class="slide level2">
+<h2>Ejemplo práctico</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-13"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy"><code class="sourceCode r"><span id="annotated-cell-13-1"><a href="#annotated-cell-13-1"></a>datos <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-13-2"><a href="#annotated-cell-13-2"></a>  <span class="fu">mutate</span>(<span class="at">grupo_etario =</span> <span class="fu">cut_interval</span>(edad, <span class="at">length =</span> <span class="dv">10</span>, <span class="at">closed =</span> <span class="st">"left"</span>)) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-13-3"><a href="#annotated-cell-13-3"></a>  <span class="fu">filter</span>(edad <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-13-4"><a href="#annotated-cell-13-4"></a>  <span class="fu">group_by</span>(sexo, grupo_etario) <span class="sc">|&gt;</span></span>
+<span id="annotated-cell-13-5"><a href="#annotated-cell-13-5"></a>  <span class="fu">summarise</span>(<span class="at">conteo =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div style="font-size: 80%;">
+<ol type="1">
+<li>Partimos desde la tabla de <code>datos</code></li>
+<li>Creamos la nueva variable <code>grupo_etario</code> con intervalos regulares de 10 años (cerrados a izquierda)</li>
+<li>Filtramos observaciones con <code>edad</code> mayor a 20 años</li>
+<li>Agrupamos (estratificamos) por <code>sexo</code> y <code>grupo_etario</code></li>
+<li>Resumimos haciendo un conteo en cada combinación de <code>sexo</code> y <code>grupo_etario</code>.</li>
+</ol>
+</div>
+</section>
+<section id="ejemplo-práctico-1" class="slide level2">
+<h2>Ejemplo práctico</h2>
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-e1ba9476{}.cl-e1acdec6{font-family:'Arial';font-size:18pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e1b1d034{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e1b1d03e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e1b1fb4a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1b1fb54{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1b1fb5e{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1b1fb5f{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1b1fb68{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e1b1fb69{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-e1ba9476"><thead><tr style="overflow-wrap:break-word;"><th class="cl-e1b1fb4a"><p class="cl-e1b1d034"><span class="cl-e1acdec6">grupo_etario</span></p></th><th class="cl-e1b1fb54"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">Mujer</span></p></th><th class="cl-e1b1fb54"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">Varón</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-e1b1fb5e"><p class="cl-e1b1d034"><span class="cl-e1acdec6">(20,30]</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">25</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">24</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e1b1fb5e"><p class="cl-e1b1d034"><span class="cl-e1acdec6">(30,40]</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">22</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">15</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e1b1fb5e"><p class="cl-e1b1d034"><span class="cl-e1acdec6">(40,50]</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">17</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">18</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e1b1fb5e"><p class="cl-e1b1d034"><span class="cl-e1acdec6">(50,60]</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">20</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">18</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e1b1fb5e"><p class="cl-e1b1d034"><span class="cl-e1acdec6">(60,70]</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">10</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">15</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e1b1fb5e"><p class="cl-e1b1d034"><span class="cl-e1acdec6">(70,80]</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">17</span></p></td><td class="cl-e1b1fb5f"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e1b1fb68"><p class="cl-e1b1d034"><span class="cl-e1acdec6">(80,90]</span></p></td><td class="cl-e1b1fb69"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">7</span></p></td><td class="cl-e1b1fb69"><p class="cl-e1b1d03e"><span class="cl-e1acdec6">9</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+</section>
+<section id="trabajo-práctico" class="slide level2">
+<h2>Trabajo práctico</h2>
+<p><strong>Objetivo:</strong> Aplicar lo aprendido a un conjunto de datos provisto, vinculando los resultados con un problema de salud simulado.</p>
+<div style="font-size: 80%;">
+<ul>
+<li>Leer la tabla con datos de salud indicada.</li>
+<li>Explorar y depurar los datos.</li>
+<li>Crear nuevas variables</li>
+<li>Calcular estadísticos resumen de edad, sexo, etc.</li>
+<li>Calcular indicadores (incidencia acumulada y letalidad)</li>
+<li>Elaborar al menos dos gráficos descriptivos.</li>
+<li>Presentar el script comentado y un breve resumen de resultados (1–2 páginas).</li>
+</ul>
+</div>
+</section>
+<section id="materiales" class="slide level2">
+<h2>Materiales</h2>
+<ul>
+<li><p><a href="">Resumen funciones</a></p></li>
+<li><p><a href="">Consigna TP - parte 1</a></p></li>
+<li><p><a href="">Tabla de datos SISA dengue</a></p></li>
+</ul>
+<p>Comprimir la carpeta con el proyecto de RStudio y el script con la resolución del trabajo práctico.</p>
+<p>Enviar el archivo comprimido a <a href="mailto:christianballejo@gmail.com" class="email">christianballejo@gmail.com</a> antes del próximo encuentro.</p>
+</section>
 <section id="bibliografía" class="slide level2">
 <h2>Bibliografía</h2>
 <p><br></p>
@@ -1083,14 +1257,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
