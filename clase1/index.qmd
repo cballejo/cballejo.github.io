@@ -642,11 +642,13 @@ datos |>
 
 ## Materiales
 
-- [Resumen funciones]()
+- [Consejos sobre tabla de datos en Excel](https://drive.google.com/file/d/15fYBNGRZ-zpHYz1IMEXWUQxWpkIa3V-p/view?usp=sharing)
 
-- [Consigna TP - parte 1]()
+- [Resumen funciones](https://drive.google.com/file/d/1EHmqHFJGlg17Z-te43jV0BHY6VITzPGa/view?usp=sharing)
 
-- [Tabla de datos SISA dengue]()
+- [Consigna TP - parte 1](https://drive.google.com/file/d/1tVFwCo7j8FrSadYIrDF-U22KqjXWZ2Tc/view?usp=sharing)
+
+- [Tabla de datos SISA dengue](https://drive.google.com/file/d/1NowycKLpy2OqR91VroileUKuUaaRN1Uc/view?usp=sharing)
 
 Comprimir la carpeta con el proyecto de RStudio y el script con la resolución del trabajo práctico.
 
