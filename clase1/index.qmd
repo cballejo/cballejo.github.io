@@ -667,3 +667,13 @@ Enviar el archivo comprimido a <christianballejo@gmail.com> antes del próximo e
 [Data Visualization](https://socviz.co/)
 
 [Big Book of R](https://www.bigbookofr.com/)
+
+## Para descargar
+
+<br>
+<br>
+<br>
+<br>
+[Mi_primer_script.R](https://drive.google.com/file/d/17PYc7W_2xnqCkewiJyx1iOh2d2Gfg7J-/view?usp=sharing)
+
+[Datos sisa_covid.txt](https://drive.google.com/file/d/1e2Mz0TR5xiCbAqQ6--PKEs-fyCNEsjY1/view?usp=sharing)
