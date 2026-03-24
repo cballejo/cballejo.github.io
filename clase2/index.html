@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.21">
 
   <title>Introducción al análisis de datos en R y RStudio</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -186,10 +186,6 @@
       margin-right: 0; 
     }
   </style>
-  <link href="index_files/libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
-
-  <script src="index_files/libs/tabwid-1.1.3/tabwid.js"></script>
-
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -206,50 +202,290 @@
 <section id="objetivos" class="slide level2">
 <h2>Objetivos</h2>
 <ul>
-<li class="fragment">Importar, explorar y describir conjuntos de datos en formato tabular.</li>
-<li class="fragment">Aplicar funciones básicas del lenguaje R y del paquete tidyverse para gestión y análisis descriptivo.</li>
-<li class="fragment">Calcular indicadores epidemiológicos simples (prevalencia, incidencia).</li>
+<li class="fragment">Uso responsable de la IA</li>
+<li class="fragment">Diagnosticar y depurar datos</li>
+<li class="fragment">Realizar análisis exploratorio de datos (EDA)</li>
+<li class="fragment">Creación de nuevas variables. Funciones condicionales</li>
+<li class="fragment">Exportación de datos</li>
+<li class="fragment">Exportación de resultados</li>
 </ul>
 </section>
-<section id="lectura-y-escritura-de-datos-planos" class="slide level2">
-<h2>Lectura y escritura de datos planos</h2>
-<p><img data-src="images/readr.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
-<p><br></p>
-<p>El paquete readr se instala y activa cuando ejecutamos <code>library(tidyverse)</code>.</p>
+<section id="ia-generativa-como-asistente-de-análisis-de-datos-en-r" class="slide level2 title-top">
+<h2>IA generativa como asistente de análisis de datos en R</h2>
+<ul>
+<li><strong>¿Qué es?</strong></li>
+</ul>
+<p><strong>Sistemas de Inteligencia Artificial Generativa</strong> (como <strong>Gemini</strong>, <strong>Chatgpt</strong>, <strong>Claude</strong> y otros) capaces de crear contenido nuevo (texto, código, imágenes) a partir de un prompt.</p>
 <div class="fragment">
-<p>Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)</p>
-</div>
-<div class="fragment">
-<p>Sus funciones de lectura comienzan todas con <code>read_</code></p>
-</div>
-<div class="fragment">
-<p>Sus funciones de escritura comienzan con <code>write_</code></p>
+<ul>
+<li><strong>En nuestro contexto (lenguaje R con tidyverse)</strong></li>
+</ul>
+<p>Es una herramienta poderosa para traducir peticiones complejas sobre análisis de datos en código R funcional.</p>
+<p>Convierte el lenguaje natural en el lenguaje de programación que necesitamos para el análisis en salud.</p>
 </div>
 </section>
-<section id="lectura-o-importación-desde-excel" class="slide level2">
-<h2>Lectura o importación desde Excel</h2>
-<p><img data-src="images/readxl.png" class="absolute" style="top: 0px; left: 900px; width: 110px; height: 110px; "></p>
+<section id="beneficios-de-la-ia-en-análisis-de-datos" class="slide level2 title-top">
+<h2>Beneficios de la IA en análisis de datos</h2>
 <p><br></p>
-<p>El paquete <code>readxl</code> se instala con tidyverse pero hay que activarlo aparte mediante <code>library(readxl)</code>.</p>
-<div class="fragment">
-<p>Contiene funciones que permiten leer archivos de <strong>Microsoft Excel</strong>, tan extendidos en nuestro trabajo cotidiano.</p>
-</div>
-<div class="fragment">
-<p>La función comodín para leer, tanto formatos <code>.xls</code> como <code>.xlsx</code>, es <code>read_excel()</code></p>
+<div style="font-size: 75%;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Ventaja</strong></td>
+<td><strong>Descripción</strong></td>
+</tr>
+<tr class="even">
+<td>Acelera el aprendizaje</td>
+<td>Permite obtener código funcional inmediato para tareas básicas (filtrar, resumir, graficar), reduciendo la frustración inicial de la sintaxis de R</td>
+</tr>
+<tr class="odd">
+<td>Eficiencia y productividad</td>
+<td>Genera código para tareas repetitivas o tediosas, liberando tiempo para enfocarse en la interpretación de los resultados</td>
+</tr>
+<tr class="even">
+<td>Descubrimiento de funciones</td>
+<td>Puede sugerir el uso de funciones y paquetes tidyverse que el usuario no conocía, ampliando la caja de herramientas del analista</td>
+</tr>
+<tr class="odd">
+<td>Traducción de ideas</td>
+<td>Es útil para traducir conceptos epidemiológicos (“quiero un gráfico de la evolución temporal de casos”) a la lógica de programación requerida.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </section>
-<section id="exploración" class="slide level2">
-<h2>Exploración</h2>
+<section id="cuidados-y-uso-responsable-riesgos" class="slide level2 title-top">
+<h2>Cuidados y uso responsable (riesgos)</h2>
+<p><br></p>
+<div style="font-size: 110%;">
+<p>El <strong>“Riesgo de la alucinación”</strong> (fallo de código):</p>
+<ul>
+<li class="fragment"><p><strong>Cuidado</strong>: La IA puede generar código incorrecto, obsoleto o que no se ajusta a las últimas versiones de tidyverse.</p></li>
+<li class="fragment"><p><strong>Acción</strong>: Siempre ejecuta y verifica el código línea por línea. No copiar y pegar sin entender.</p></li>
+</ul>
+</div>
+</section>
+<section id="cuidados-y-uso-responsable-riesgos-1" class="slide level2 title-top">
+<h2>Cuidados y uso responsable (riesgos)</h2>
+<p><br></p>
+<p>El principio de la <strong>Caja Negra</strong> (opacidad):</p>
+<ul>
+<li class="fragment"><p><strong>Cuidado</strong>: Confiar ciegamente en el código genera una dependencia que inhibe el aprendizaje profundo de R y la lógica de programación. (pereza cognitiva)</p></li>
+<li class="fragment"><p><strong>Acción</strong>: La IA debe ser una herramienta para <em>aprender</em>, no un reemplazo de la comprensión. El objetivo es comprender la lógica de cada función generada.</p></li>
+</ul>
+</section>
+<section id="cuidados-y-uso-responsable-riesgos-2" class="slide level2 title-top">
+<h2>Cuidados y uso responsable (riesgos)</h2>
+<p><br></p>
+<p>Privacidad y datos sensibles (ética):</p>
+<div class="fragment">
+<ul>
+<li><strong>Cuidado</strong>: <strong>NUNCA ingreses datos reales</strong> (incluso anonimizados) o sensibles de pacientes en el prompt de una IA pública.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Acción</strong>: Usa datos ficticios o descripciones de la estructura del data frame (ej. “tengo una columna edad numérica y una columna diagnostico categórica”).</li>
+</ul>
+</div>
+</section>
+<section id="cuidados-y-uso-responsable-riesgos-3" class="slide level2 title-top">
+<h2>Cuidados y uso responsable (riesgos)</h2>
+<p><br></p>
+<p>Sesgos y contexto:</p>
+<div class="fragment">
+<ul>
+<li><strong>Cuidado</strong>: La IA no comprende el contexto epidemiológico o clínico complejo. El código puede ser correcto, pero la interpretación sigue siendo responsabilidad humana.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Acción</strong>: El prompt debe ser lo más específico posible para mitigar ambigüedades. La validación del resultado final es indispensable.</li>
+</ul>
+</div>
+</section>
+<section id="la-regla-de-oro-vos-sos-el-experto" class="slide level2 title-top">
+<h2>La Regla de Oro: Vos sos el experto!</h2>
+<p><br></p>
+<p>La IA genera código, pero como epidemiólogos nosotros generamos el conocimiento y somos responsables de lo que publiquemos.</p>
+<ul>
+<li class="fragment"><p>Entender el código.</p></li>
+<li class="fragment"><p>Verificar los resultados.</p></li>
+<li class="fragment"><p>No compartir información confidencial.</p></li>
+</ul>
+</section>
+<section id="qué-es-un-prompt" class="slide level2 title-top">
+<h2>¿Qué es un Prompt?</h2>
+<p><br> <br></p>
+<div style="font-size: 130%;">
+<p>Una instrucción, pregunta o entrada de texto que se proporciona a un modelo de Inteligencia Artificial (IA) generativa para obtener una respuesta, código o salida específica.</p>
+</div>
+</section>
+<section id="con-más-detalle" class="slide level2 title-top">
+<h2>Con más detalle</h2>
+<p><br></p>
+<div style="font-size: 120%;">
+<p>El prompt es el <em>input</em> que guía la generación de la IA.</p>
+<p>Es la formulación del problema o la solicitud que especifica el contexto (p.ej., lenguaje R, tidyverse), el objetivo (p.ej., filtrar datos, crear un gráfico) y las restricciones (p.ej., formato de salida) para asegurar que el resultado sea preciso y relevante para la tarea requerida.</p>
+</div>
+</section>
+<section id="dentro-de-nuestro-contexto" class="slide level2 title-top">
+<h2>Dentro de nuestro contexto</h2>
+<p><br></p>
+<p>El <strong>prompt</strong> en la generación de código</p>
+<p>Para la programación, el prompt es la especificación precisa que le indica a la IA:</p>
+<ul>
+<li class="fragment"><p>Qué hacer (ej. calcular la media).</p></li>
+<li class="fragment"><p>Cómo hacerlo (ej. usar el paquete dplyr).</p></li>
+<li class="fragment"><p>Con qué datos (ej. data frame datos_salud y columna edad).</p></li>
+</ul>
+</section>
+<section id="fundamentos-de-ingeniería-de-prompts-avanzada" class="slide level2 title-top">
+<h2>Fundamentos de ingeniería de prompts avanzada</h2>
+<p><br></p>
+<div style="font-size: 90%;">
+<p>La “personalidad” del prompt (<em>Actuar como..</em>)</p>
+<p>Instruir a la IA para que asuma un rol mejora la calidad y el formato de la respuesta.</p>
+<ul>
+<li><p><strong>Principio</strong>: Pídele a la IA que actúe como un experto en la materia.</p></li>
+<li><p><strong>Ejemplo para incluir</strong>: “Actúa como un analista de datos senior en salud experto en R y tidyverse. Solo responde con el código R requerido y una breve explicación de por qué funciona.”</p></li>
+<li><p><strong>Beneficio</strong>: Fomenta la generación de código más robusto, idiomático (usando las mejores prácticas de tidyverse, como el operador pipe %&gt;% o |&gt; en lugar de código base R), y bien documentado.</p></li>
+</ul>
+</div>
+</section>
+<section id="fundamentos-de-ingeniería-de-prompts-avanzada-1" class="slide level2 title-top">
+<h2>Fundamentos de ingeniería de prompts avanzada</h2>
+<p><br></p>
+<div style="font-size: 90%;">
+<p>Especificación del formato de salida</p>
+<p>Define exactamente cómo quieres que se entregue el código.</p>
+<ul>
+<li><p><strong>Principio</strong>: Limita la verbosidad y enfoca la respuesta en lo esencial.</p></li>
+<li><p><strong>Ejemplos de restricciones</strong>:</p></li>
+</ul>
+<p><em>“No incluyas explicaciones largas; solo el código.”</em></p>
+<p><em>“Envuelve el código en un bloque de código.”</em></p>
+<p><em>“Genera una función que realice..”</em></p>
+<ul>
+<li><strong>Beneficio</strong>: Hace que el código sea directamente copiable y utilizable en RStudio, minimizando el tiempo de limpieza y edición.</li>
+</ul>
+</div>
+</section>
+<section id="fundamentos-de-ingeniería-de-prompts-avanzada-2" class="slide level2 title-top">
+<h2>Fundamentos de ingeniería de prompts avanzada</h2>
+<p><br></p>
+<div style="font-size: 90%;">
+<p>Instrucciones para la gestión de errores (ej: Manejo de valores faltantes)</p>
+<p>En el ámbito de la salud, los valores perdidos (NA) son comunes y críticos. El prompt debe considerar cómo tratarlos.</p>
+<ul>
+<li><p><strong>Principio</strong>: Anticipar problemas comunes de datos y pedir a la IA que implemente soluciones.</p></li>
+<li><p><strong>Ejemplo</strong>: <em>“Antes de calcular el promedio de la variable IMC, añade un argumento para eliminar o ignorar los valores perdidos (NA) en esa variable.”</em></p></li>
+</ul>
+<p>(Esto fuerza el uso de argumentos como <strong>na.rm = T</strong> en funciones como <strong>mean()</strong>.)</p>
+<ul>
+<li><strong>Beneficio</strong>: Evita errores comunes que detendrían el análisis o salidas tipo NA.</li>
+</ul>
+</div>
+</section>
+<section id="fundamentos-de-ingeniería-de-prompts-avanzada-3" class="slide level2 title-top">
+<h2>Fundamentos de ingeniería de prompts avanzada</h2>
+<div style="font-size: 80%;">
+<p>Iteración y refinamiento (“la conversación”)</p>
+<p>La ingeniería de prompts no es solo un prompt único, sino una conversación.</p>
+<ul>
+<li><p><strong>Principio</strong>: Los usuarios deben aprender a corregir o mejorar la respuesta de la IA en la siguiente pregunta.</p></li>
+<li><p><strong>Ejemplos de seguimiento</strong>:</p></li>
+</ul>
+<p><em>“El código que me diste usa mean(). Cámbialo para usar la función median() de dplyr en su lugar.”</em></p>
+<p><em>“En el gráfico de barras anterior, por favor, ordena las barras de forma descendente por el conteo.”</em></p>
+<p><em>“El gráfico es muy básico. Añade un tema (theme_minimal()) y cambia el color de las barras a azul marino (#003366).”</em></p>
+<ul>
+<li><strong>Beneficio</strong>: Demuestra que la IA es una herramienta interactiva, no mágica. Enseña a depurar y a mejorar la estética de las visualizaciones.</li>
+</ul>
+</div>
+</section>
+<section id="fundamentos-de-ingeniería-de-prompts-avanzada-4" class="slide level2 title-top">
+<h2>Fundamentos de ingeniería de prompts avanzada</h2>
+<p><br></p>
+<div style="font-size: 85%;">
+<p>Pensamiento crítico y verificación (el límite de la IA)</p>
+<p>El principio más importante es que el código generado por IA debe ser revisado y entendido.</p>
+<ul>
+<li><strong>Principio</strong>: La IA puede cometer errores (alucinaciones) o usar métodos ineficientes/obsoletos.</li>
+</ul>
+<p><strong>NUNCA EJECUTEN CÓDIGO QUE NO ENTIENDAN</strong></p>
+<ul>
+<li><p>Deben verificar que los paquetes sean correctos.</p></li>
+<li><p>Deben verificar que las funciones (filter(), mutate(), ggplot(), etc.) hagan exactamente lo que necesitan.</p></li>
+<li><p><strong>Beneficio</strong>: Fomenta la alfabetización en código y asegura la validez científica y la seguridad del análisis de datos en nuestra práctica.</p></li>
+</ul>
+</div>
+</section>
+<section id="resumen" class="slide level2 title-top">
+<h2>Resumen</h2>
 <p><br></p>
 <div class="fragment fade-in-then-semi-out">
-<p>El primer paso luego de leer o importar la tabla de datos es explorarla para conocer la estructura y sus tipos de variables</p>
+<ol type="1">
+<li><strong>Contexto de lenguaje y paquetes</strong>: Especificar siempre que se necesita código R usando las librerías del tidyverse u otras.</li>
+</ol>
 </div>
 <div class="fragment fade-in-then-semi-out">
-<p>Es importante contar con los <em>metadatos</em> de la tabla al que llamaremos <strong>diccionario de datos</strong>.</p>
+<ol start="2" type="1">
+<li><strong>Estructura de los datos (input)</strong>: Describir el input. ¿Cómo se llama el data frame? ¿Cuáles son los nombres de las variables que van a usar? ¿Qué tipo de datos contienen (numéricos, categóricos, fechas)?</li>
+</ol>
 </div>
 <div class="fragment fade-in-then-semi-out">
-<p>La función <code>glimpse()</code> de dplyr-tidyverse posibilitan explorar rápidamente las variables, sus tipos y valores, así también como saber sus dimensiones.</p>
+<ol start="3" type="1">
+<li><strong>Tarea específica (gestión/análisis)</strong>: Indicar claramente qué se quiere lograr con el código (filtrar, agrupar, calcular la media, crear un gráfico, etc.).</li>
+</ol>
 </div>
+<div class="fragment fade-in-then-semi-out">
+<ol start="4" type="1">
+<li><strong>Resultado esperado (output)</strong>: Mencionar cómo se espera que sea la salida. ¿Un nuevo data frame? ¿Una tabla resumida? ¿Un gráfico específico?</li>
+</ol>
+</div>
+</section>
+<section id="ia-generativas" class="slide level2 title-top">
+<h2>IA Generativas</h2>
+<p><br></p>
+<ul>
+<li class="fragment"><p><a href="https://gemini.google.com/">Google Gemini</a></p></li>
+<li class="fragment"><p><a href="https://chat.openai.com/">OpenAI ChatGPT</a></p></li>
+<li class="fragment"><p><a href="https://www.anthropic.com/">Anthropic Claude</a></p></li>
+<li class="fragment"><p><a href="https://copilot.microsoft.com/">Microsoft Copilot</a></p></li>
+<li class="fragment"><p><a href="https://chat.deepseek.com/">DeepSeek</a></p></li>
+<li class="fragment"><p><a href="https://www.perplexity.ai/">Perplexy IA</a></p></li>
+</ul>
+</section>
+<section id="ejemplo-de-prompt" class="slide level2 title-top">
+<h2>Ejemplo de prompt</h2>
+<p><br></p>
+<p><em>“Actúa como un analista de datos senior en medicina experto en R y tidyverse. Solo responde con el código R requerido y una breve explicación de cómo funciona. Necesito código para el data frame xxxx que me permita convertir todas las variables de fecha que tengan el formato dd/mm/aaaa y sus nombres comiencen con”FE” en Date.”</em></p>
+</section>
+<section id="salida-de-código" class="slide level2 title-top">
+<h2>Salida de código</h2>
+<p><br> <br></p>
+<div style="max-height: 100% !important;">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a>  xxxx <span class="ot">&lt;-</span> xxxx <span class="sc">|&gt;</span> </span>
+<span id="cb1-4"><a href=""></a> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"FE"</span>), <span class="at">.fns =</span> dmy))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="todo-lindo-pero-no-olvidar" class="slide level2 title-top">
+<h2>Todo lindo pero no olvidar</h2>
+<p><br> <br></p>
+<div style="font-size: 120%;">
+<p><em>“El efecto de la IA actual no extiende la cognición, sino que la automatiza, convirtiendo el pensamiento en un servicio. En lugar de democratizar el aprendizaje, privatiza el acto de pensar bajo control corporativo.”</em> - Ronald Purser</p>
+</div>
+<p><br></p>
+<p><a href="https://www.currentaffairs.org/news/ai-is-destroying-the-university-and-learning-itself">AI is Destroying the University and Learning Itself - Noviembre 2025</a></p>
 </section>
 <section id="diagnóstico-y-depuración" class="slide level2">
 <h2>Diagnóstico y depuración</h2>
@@ -284,101 +520,6 @@
 <li class="fragment">Visualizar distribuciones y patrones mediante gráficos</li>
 <li class="fragment">Detectar valores atípicos (outlier)</li>
 </ul>
-</section>
-<section id="funciones-resumen" class="slide level2">
-<h2>Funciones resumen</h2>
-<p>El lenguaje R posee variadas funciones para obtener medidas resumen:</p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<div style="font-size: 70%;">
-<ul>
-<li>tendencia central
-<ul>
-<li>media con <code>mean()</code></li>
-<li>mediana con <code>median()</code></li>
-</ul></li>
-<li>posición
-<ul>
-<li>mínimo con <code>min()</code></li>
-<li>máximo con <code>max()</code></li>
-<li>percentil o cuantil con <code>quantile()</code></li>
-</ul></li>
-</ul>
-</div>
-</div><div class="column" style="width:50%;">
-<div style="font-size: 70%;">
-<ul>
-<li>dispersión
-<ul>
-<li>varianza con <code>var()</code></li>
-<li>desvío estandar con <code>sd()</code></li>
-<li>rango intercuatílico con <code>IQR()</code></li>
-</ul></li>
-</ul>
-</div>
-</div></div>
-<div style="font-size: 70%;">
-<p>La mayoría de estas funciones aplican en tipos de datos enteros (int), numéricos (dbl), fecha (date) y fecha - hora (ddtm).</p>
-</div>
-</section>
-<section id="funciones-resumen-1" class="slide level2">
-<h2>Funciones resumen</h2>
-<p>Para variables cualitativas o categóricas hacemos tablas de frecuencia absolutas o relativas (porcentuales) con:</p>
-<p><br></p>
-<p><code>count()</code> para frecuencias absolutas</p>
-<p><code>mutate(porcentaje = n/sum(n))</code> para frecuencias porcentuales</p>
-<p><br></p>
-<p>La función <code>count()</code> y <code>mutate()</code> pertenecen al paquete <strong>dplyr</strong> del <strong>tidyverse</strong>.</p>
-</section>
-<section id="funciones-verbo" class="slide level2">
-<h2>5 funciones-verbo</h2>
-<p>El paquete <strong>tidyverse</strong> incluye a <strong>dplyr</strong> cuya finalidad es gestionar fácilmente tablas de datos. Lo hace a partir de 5 funciones-verbos básicas:</p>
-<div style="font-size: 80%;">
-<ul>
-<li><p><code>filter()</code> filtra un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición</p></li>
-<li><p><code>select()</code> selecciona un subconjunto de variables (columnas) de una tabla de datos</p></li>
-<li><p><code>mutate()</code> crea nuevas variables o modifica las existentes</p></li>
-<li><p><code>summarise()</code> genera resúmenes por variable</p></li>
-<li><p><code>arrange()</code> ordena la tabla de datos según orden de variables</p></li>
-</ul>
-</div>
-</section>
-<section id="divide-y-vencerás" class="slide level2">
-<h2>Divide y vencerás</h2>
-<p><br></p>
-<p>Uno de los pilares del tidyverse dice <em>“resolver problemas complejos combinando varias piezas sencillas”</em>.</p>
-<div class="fragment">
-<p><br></p>
-<p>Lo logramos dividiendo el problema en subproblemas más sencillos que podemos resolver mediante diferentes funciones, que luego se conectan mediante operadores de tubería para dar respuesta al problema original.</p>
-</div>
-</section>
-<section id="ejemplo-práctico" class="slide level2">
-<h2>Ejemplo práctico</h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="annotated-cell-1"><pre class="sourceCode numberSource r code-annotation-code number-lines code-with-copy"><code class="sourceCode r"><span id="annotated-cell-1-1"><a href="#annotated-cell-1-1"></a>datos <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-1-2"><a href="#annotated-cell-1-2"></a>  <span class="fu">mutate</span>(<span class="at">grupo_etario =</span> <span class="fu">cut_width</span>(edad, <span class="at">width =</span> <span class="dv">10</span>, <span class="at">closed =</span> <span class="st">"left"</span>)) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-1-3"><a href="#annotated-cell-1-3"></a>  <span class="fu">filter</span>(edad <span class="sc">&gt;=</span> <span class="dv">20</span>) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-1-4"><a href="#annotated-cell-1-4"></a>  <span class="fu">group_by</span>(sexo, grupo_etario) <span class="sc">|&gt;</span></span>
-<span id="annotated-cell-1-5"><a href="#annotated-cell-1-5"></a>  <span class="fu">summarise</span>(<span class="at">conteo =</span> <span class="fu">n</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div style="font-size: 80%;">
-<ol type="1">
-<li>Partimos desde la tabla de <code>datos</code></li>
-<li>Creamos la nueva variable <code>grupo_etario</code> con intervalos regulares de 10 años (cerrados a izquierda)</li>
-<li>Filtramos observaciones con <code>edad</code> mayor o igual a 20 años</li>
-<li>Agrupamos (estratificamos) por <code>sexo</code> y <code>grupo_etario</code></li>
-<li>Resumimos haciendo un conteo en cada combinación de <code>sexo</code> y <code>grupo_etario</code>.</li>
-</ol>
-</div>
-</section>
-<section id="ejemplo-práctico-1" class="slide level2">
-<h2>Ejemplo práctico</h2>
-<p><br></p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="tabwid"><style>.cl-e89f40f2{}.cl-e895a3d0{font-family:'Arial';font-size:18pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-e8993964{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e899396e{margin:0;text-align:right;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 1;background-color:transparent;}.cl-e8995926{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e8995927{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 1.5pt solid rgba(102, 102, 102, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e8995930{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e8995931{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e8995932{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-e899593a{width:0.75in;background-color:transparent;vertical-align: middle;border-bottom: 1.5pt solid rgba(102, 102, 102, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-e89f40f2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-e8995926"><p class="cl-e8993964"><span class="cl-e895a3d0">grupo_etario</span></p></th><th class="cl-e8995927"><p class="cl-e899396e"><span class="cl-e895a3d0">Mujer</span></p></th><th class="cl-e8995927"><p class="cl-e899396e"><span class="cl-e895a3d0">Varón</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[20,30)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">23</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">23</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[30,40)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">23</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">14</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[40,50)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">17</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">19</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[50,60)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">19</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">16</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[60,70)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">13</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">15</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995930"><p class="cl-e8993964"><span class="cl-e895a3d0">[70,80)</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">14</span></p></td><td class="cl-e8995931"><p class="cl-e899396e"><span class="cl-e895a3d0">16</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-e8995932"><p class="cl-e8993964"><span class="cl-e895a3d0">[80,90]</span></p></td><td class="cl-e899593a"><p class="cl-e899396e"><span class="cl-e895a3d0">10</span></p></td><td class="cl-e899593a"><p class="cl-e899396e"><span class="cl-e895a3d0">11</span></p></td></tr></tbody></table></div>
-</div>
-</div>
 
 </section>
     </div>
@@ -562,9 +703,9 @@
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1400,
 
-        height: 700,
+        height: 900,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -720,14 +861,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

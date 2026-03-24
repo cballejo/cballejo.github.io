@@ -3,6 +3,8 @@ title: "Introducción al análisis de datos en R y RStudio"
 subtitle: "Encuentro 2"
 format: 
   revealjs:
+    width: 1350
+    height: 900
     transition: slide
     slide-number: true
     theme: simple
@@ -13,75 +15,364 @@ editor: visual
 ## Objetivos
 
 ::: incremental
-- Importar, explorar y describir conjuntos de datos en formato tabular.
-- Aplicar funciones básicas del lenguaje R y del paquete tidyverse para gestión y análisis descriptivo.
-- Calcular indicadores epidemiológicos simples (prevalencia, incidencia).
+-   Uso responsable de la IA
+-   Diagnosticar y depurar datos
+-   Realizar análisis exploratorio de datos (EDA)
+-   Creación de nuevas variables. Funciones condicionales
+-   Exportación de datos
+-   Exportación de resultados
 :::
 
+## IA generativa como asistente de análisis de datos en R {.title-top}
 
-## Lectura y escritura de datos planos
+-   **¿Qué es?**
 
-![](images/readr.png){.absolute top="0" left="900" width="110" height="110"}
+**Sistemas de Inteligencia Artificial Generativa** (como **Gemini**, **Chatgpt**, **Claude** y otros) capaces de crear contenido nuevo (texto, código, imágenes) a partir de un prompt.
+
+. . .
+
+-   **En nuestro contexto (lenguaje R con tidyverse)**
+
+Es una herramienta poderosa para traducir peticiones complejas sobre análisis de datos en código R funcional.
+
+Convierte el lenguaje natural en el lenguaje de programación que necesitamos para el análisis en salud.
+
+## Beneficios de la IA en análisis de datos {.title-top}
 
 <br>
 
-El paquete readr se instala y activa cuando ejecutamos `library(tidyverse)`.
+::: {style="font-size: 75%;"}
 
-. . .
+|  |  |
+|----|----|
+| **Ventaja** | **Descripción** |
+| Acelera el aprendizaje | Permite obtener código funcional inmediato para tareas básicas (filtrar, resumir, graficar), reduciendo la frustración inicial de la sintaxis de R |
+| Eficiencia y productividad | Genera código para tareas repetitivas o tediosas, liberando tiempo para enfocarse en la interpretación de los resultados |
+| Descubrimiento de funciones | Puede sugerir el uso de funciones y paquetes tidyverse que el usuario no conocía, ampliando la caja de herramientas del analista |
+| Traducción de ideas | Es útil para traducir conceptos epidemiológicos  ("quiero un gráfico de la evolución temporal de casos") a la lógica de programación requerida. |
 
-Contiene una familia de funciones que permiten leer y escribir archivos de texto plano separados como coma o algún otro caracter (tabulación, punto y coma, etc)
+::: 
 
-. . .
-
-Sus funciones de lectura comienzan todas con `read_`
-
-. . .
-
-Sus funciones de escritura comienzan con `write_`
-
-## Lectura o importación desde Excel
-
-![](images/readxl.png){.absolute top="0" left="900" width="110" height="110"}
+## Cuidados y uso responsable (riesgos) {.title-top}
 
 <br>
 
-El paquete `readxl` se instala con tidyverse pero hay que activarlo aparte mediante `library(readxl)`.
+::: {style="font-size: 110%;"}
+
+El **"Riesgo de la alucinación"** (fallo de código):
+
+::: incremental
+
+- **Cuidado**: La IA puede generar código incorrecto, obsoleto o que no se ajusta a las últimas versiones de tidyverse.
+
+
+- **Acción**: Siempre ejecuta y verifica el código línea por línea. No copiar y pegar sin entender.
+
+:::
+
+:::
+
+## Cuidados y uso responsable (riesgos) {.title-top}
+
+<br>
+
+El principio de la **Caja Negra** (opacidad):
+
+::: incremental
+
+- **Cuidado**: Confiar ciegamente en el código genera una dependencia que inhibe el aprendizaje profundo de R y la lógica de programación. (pereza cognitiva)
+
+- **Acción**: La IA debe ser una herramienta para *aprender*, no un reemplazo de la comprensión. El objetivo es comprender la lógica de cada función generada.
+
+::: 
+
+## Cuidados y uso responsable (riesgos) {.title-top}
+
+<br>
+
+Privacidad y datos sensibles (ética):
 
 . . .
 
-Contiene funciones que permiten leer archivos de **Microsoft Excel**, tan extendidos en nuestro trabajo cotidiano.
+- **Cuidado**: **NUNCA ingreses datos reales** (incluso anonimizados) o sensibles de pacientes en el prompt de una IA pública.
 
 . . .
 
-La función comodín para leer, tanto formatos `.xls` como `.xlsx`, es `read_excel()`
+- **Acción**: Usa datos ficticios o descripciones de la estructura del data frame (ej. "tengo una columna edad numérica y una columna diagnostico categórica").
 
-## Exploración
+## Cuidados y uso responsable (riesgos) {.title-top}
+
+<br>
+
+Sesgos y contexto:
+
+. . .
+
+- **Cuidado**: La IA no comprende el contexto epidemiológico o clínico complejo. El código puede ser correcto, pero la interpretación sigue siendo responsabilidad humana.
+
+. . .
+
+- **Acción**: El prompt debe ser lo más específico posible para mitigar ambigüedades. La validación del resultado final es indispensable.
+
+## La Regla de Oro: Vos sos el experto! {.title-top}
+
+<br>
+
+La IA genera código, pero como epidemiólogos nosotros generamos el conocimiento y somos responsables de lo que publiquemos.
+
+::: incremental
+
+- Entender el código.
+
+- Verificar los resultados.
+
+- No compartir información confidencial.
+
+:::
+
+## ¿Qué es un Prompt? {.title-top}
+
+<br>
+<br>
+
+::: {style="font-size: 130%;"}
+
+Una instrucción, pregunta o entrada de texto que se proporciona a un modelo de Inteligencia Artificial (IA) generativa para obtener una respuesta, código o salida específica.
+
+:::
+
+## Con más detalle {.title-top}
+
+<br>
+
+::: {style="font-size: 120%;"}
+
+El prompt es el *input* que guía la generación de la IA. 
+
+Es la formulación del problema o la solicitud que especifica el contexto (p.ej., lenguaje R, tidyverse), el objetivo (p.ej., filtrar datos, crear un gráfico) y las restricciones (p.ej., formato de salida) para asegurar que el resultado sea preciso y relevante para la tarea requerida.
+
+:::
+
+## Dentro de nuestro contexto {.title-top}
+
+<br>
+
+El **prompt** en la generación de código
+
+
+Para la programación, el prompt es la especificación precisa que le indica a la IA:
+
+::: incremental
+
+- Qué hacer (ej. calcular la media).
+
+- Cómo hacerlo (ej. usar el paquete dplyr).
+
+- Con qué datos (ej. data frame datos_salud y columna edad).
+
+::: 
+
+## Fundamentos de ingeniería de prompts avanzada {.title-top}
+
+<br>
+
+::: {style="font-size: 90%;"}
+
+La "personalidad" del prompt (*Actuar como..*)
+
+Instruir a la IA para que asuma un rol mejora la calidad y el formato de la respuesta.
+
+- **Principio**: Pídele a la IA que actúe como un experto en la materia.
+
+
+- **Ejemplo para incluir**: "Actúa como un analista de datos senior en salud experto en R y tidyverse. Solo responde con el código R requerido y una breve explicación de por qué funciona."
+
+
+- **Beneficio**: Fomenta la generación de código más robusto, idiomático (usando las mejores prácticas de tidyverse, como el operador pipe %>% o |> en lugar de código base R), y bien documentado.
+
+:::
+
+## Fundamentos de ingeniería de prompts avanzada {.title-top}
+
+<br>
+
+::: {style="font-size: 90%;"}
+
+Especificación del formato de salida
+
+Define exactamente cómo quieres que se entregue el código.
+
+- **Principio**: Limita la verbosidad y enfoca la respuesta en lo esencial.
+
+- **Ejemplos de restricciones**:
+
+*"No incluyas explicaciones largas; solo el código."*
+
+*"Envuelve el código en un bloque de código."*
+
+*"Genera una función que realice.."*
+
+- **Beneficio**: Hace que el código sea directamente copiable y utilizable en RStudio, minimizando el tiempo de limpieza y edición.
+
+:::
+
+## Fundamentos de ingeniería de prompts avanzada {.title-top}
+
+<br>
+
+::: {style="font-size: 90%;"}
+
+Instrucciones para la gestión de errores (ej: Manejo de valores faltantes)
+
+En el ámbito de la salud, los valores perdidos (NA) son comunes y críticos. El prompt debe considerar cómo tratarlos.
+
+- **Principio**: Anticipar problemas comunes de datos y pedir a la IA que implemente soluciones.
+
+- **Ejemplo**: *"Antes de calcular el promedio de la variable IMC, añade un argumento para eliminar o ignorar los valores perdidos (NA) en esa variable."*
+
+(Esto fuerza el uso de argumentos como **na.rm = T** en funciones como **mean()**.)
+
+- **Beneficio**: Evita errores comunes que detendrían el análisis o salidas tipo NA.
+
+:::
+
+## Fundamentos de ingeniería de prompts avanzada {.title-top}
+
+::: {style="font-size: 80%;"}
+
+Iteración y refinamiento ("la conversación")
+
+La ingeniería de prompts no es solo un prompt único, sino una conversación.
+
+- **Principio**: Los usuarios deben aprender a corregir o mejorar la respuesta de la IA en la siguiente pregunta.
+
+- **Ejemplos de seguimiento**:
+
+*"El código que me diste usa mean(). Cámbialo para usar la función median() de dplyr en su lugar."*
+
+*"En el gráfico de barras anterior, por favor, ordena las barras de forma descendente por el conteo."*
+
+*"El gráfico es muy básico. Añade un tema (theme_minimal()) y cambia el color de las barras a azul marino (#003366)."*
+
+- **Beneficio**: Demuestra que la IA es una herramienta interactiva, no mágica. Enseña a depurar y a mejorar la estética de las visualizaciones.
+
+:::
+
+## Fundamentos de ingeniería de prompts avanzada {.title-top}
+
+<br>
+
+::: {style="font-size: 85%;"}
+
+Pensamiento crítico y verificación (el límite de la IA)
+
+El principio más importante es que el código generado por IA debe ser revisado y entendido.
+
+- **Principio**: La IA puede cometer errores (alucinaciones) o usar métodos ineficientes/obsoletos.
+
+**NUNCA EJECUTEN CÓDIGO QUE NO ENTIENDAN**
+
+- Deben verificar que los paquetes sean correctos.
+
+- Deben verificar que las funciones (filter(), mutate(), ggplot(), etc.) hagan exactamente lo que necesitan.
+
+- **Beneficio**: Fomenta la alfabetización en código y asegura la validez científica y la seguridad del análisis de datos en nuestra práctica.
+
+:::
+
+## Resumen  {.title-top}
 
 <br>
 
 ::: {.fragment .fade-in-then-semi-out}
 
-El primer paso luego de leer o importar la tabla de datos es explorarla para conocer la estructura y sus tipos de variables
+1. **Contexto de lenguaje y paquetes**: Especificar siempre que se necesita código R usando las librerías del tidyverse u otras. 
 
 :::
 
 ::: {.fragment .fade-in-then-semi-out}
 
-Es importante contar con los *metadatos* de la tabla al que llamaremos **diccionario de datos**.
+2. **Estructura de los datos (input)**: Describir el input. ¿Cómo se llama el data frame? ¿Cuáles son los nombres de las variables que van a usar? ¿Qué tipo de datos contienen (numéricos, categóricos, fechas)?
 
 :::
 
 ::: {.fragment .fade-in-then-semi-out}
 
-La función `glimpse()` de dplyr-tidyverse posibilitan explorar rápidamente las variables, sus tipos y valores, así también como saber sus dimensiones.
+3. **Tarea específica (gestión/análisis)**: Indicar claramente qué se quiere lograr con el código (filtrar, agrupar, calcular la media, crear un gráfico, etc.).
 
 :::
+
+::: {.fragment .fade-in-then-semi-out}
+
+4. **Resultado esperado (output)**: Mencionar cómo se espera que sea la salida. ¿Un nuevo data frame? ¿Una tabla resumida? ¿Un gráfico específico?
+
+:::
+
+## IA Generativas {.title-top}
+
+<br>
+
+::: incremental
+
+- [Google Gemini](https://gemini.google.com/)
+
+- [OpenAI ChatGPT](https://chat.openai.com/)
+
+- [Anthropic Claude](https://www.anthropic.com/)
+
+- [Microsoft Copilot](https://copilot.microsoft.com/)
+
+- [DeepSeek](https://chat.deepseek.com/)  
+
+- [Perplexy IA](https://www.perplexity.ai/) 
+
+
+
+:::
+
+
+## Ejemplo de prompt {.title-top}
+
+<br>
+
+*"Actúa como un analista de datos senior en medicina experto en R y tidyverse. Solo responde con el código R requerido y una breve explicación de cómo funciona. Necesito código para el data frame xxxx que me permita convertir todas las variables de fecha que tengan el formato dd/mm/aaaa y sus nombres comiencen con "FE" en Date."* 
+
+## Salida de código {.title-top}
+
+<br>
+<br>
+
+::: {style="max-height: 100% !important;" }
+
+```{r, echo=T, eval=F}
+library(tidyverse)
+
+  xxxx <- xxxx |> 
+ mutate(across(.cols = starts_with("FE"), .fns = dmy))
+```
+
+:::
+
+## Todo lindo pero no olvidar  {.title-top}
+
+<br>
+<br>
+
+::: {style="font-size: 120%;"}
+
+*"El efecto de la IA actual no extiende la cognición, sino que la automatiza, convirtiendo el pensamiento en un servicio. En lugar de democratizar el aprendizaje, privatiza el acto de pensar bajo control corporativo."*  - Ronald Purser
+
+:::
+
+<br>
+
+[AI is Destroying the University and Learning Itself - Noviembre 2025](https://www.currentaffairs.org/news/ai-is-destroying-the-university-and-learning-itself)
 
 ## Diagnóstico y depuración
 
-La etapa de depuración o limpieza de datos comienza con la exploración inicial y el diagnóstico adecuado de cada variable de interés de la tabla de datos cruda. 
+La etapa de depuración o limpieza de datos comienza con la exploración inicial y el diagnóstico adecuado de cada variable de interés de la tabla de datos cruda.
 
-. . . 
+. . .
 
 Interviene siempre, el objetivo del análisis, el protocolo de análisis pensado y el diccionario de datos asociado a la tabla.
 
@@ -92,14 +383,12 @@ Interviene siempre, el objetivo del análisis, el protocolo de análisis pensado
 El análisis exploratorio de datos (EDA en inglés) persigue un primer grupo de objetivos:
 
 ::: incremental
-
-- Conocer la estructura de la tabla de datos y sus tipos de variables
-- Detectar observaciones incompletas (valores faltantes)
-- Detectar datos con errores e inconsistencias
-
+-   Conocer la estructura de la tabla de datos y sus tipos de variables
+-   Detectar observaciones incompletas (valores faltantes)
+-   Detectar datos con errores e inconsistencias
 :::
 
-. . . 
+. . .
 
 Habitualmente hablamos de *calidad de los datos* en relación a los items anteriores.
 
@@ -110,139 +399,41 @@ Habitualmente hablamos de *calidad de los datos* en relación a los items anteri
 Una segunda etapa nos va servir para conocer la distribución de las variables de interés a partir de:
 
 ::: incremental
-
-- Resumir datos mediante estadísticos
-- Visualizar distribuciones y patrones mediante gráficos
-- Detectar valores atípicos (outlier)
-
+-   Resumir datos mediante estadísticos
+-   Visualizar distribuciones y patrones mediante gráficos
+-   Detectar valores atípicos (outlier)
 :::
 
-## Funciones resumen
+## Para agregar
 
-El lenguaje R posee variadas funciones para obtener medidas resumen:
+skimr - tipos de datos
 
-:::: {.columns}
+dlookr - describe() - diagnose
+dlookr - outlier
+duplicados con get_dupes() de janitor
 
-::: {.column width="50%"}
+escritura de datos con readr
+escritura de datos con
+lectura y escritura nativa
 
-::: {style="font-size: 70%;"}
+medidas resumen - tasas
 
-- tendencia central 
-    - media con `mean()` 
-    - mediana con `median()`
+nuevas variables
+condicionales if_else case_when (ejemplificar con grupos etarios)
 
-- posición 
-    - mínimo con `min()` 
-    - máximo con `max()` 
-    - percentil o cuantil con `quantile()`
 
-:::
 
-:::
 
-::: {.column width="50%"}
-
-::: {style="font-size: 70%;"}
-
-- dispersión 
-    - varianza con `var()` 
-    - desvío estandar con `sd()` 
-    - rango intercuatílico con `IQR()`
-
-:::    
-    
-:::
-::::
-
-::: {style="font-size: 70%;"}
-
-La mayoría de estas funciones aplican en tipos de datos enteros (int), numéricos (dbl), fecha (date) y fecha - hora (ddtm).
-
-:::
-
-## Funciones resumen
-
-Para variables cualitativas o categóricas hacemos tablas de frecuencia absolutas o relativas (porcentuales) con:
+## Formato nativo R
 
 <br>
 
-`count()` para frecuencias absolutas
+El propio lenguaje R tiene un formato nativo de almacenamiento del entorno de trabajo produciendo archivos con extención `.RData`.
 
-`mutate(porcentaje = n/sum(n))` para frecuencias porcentuales
+Las funciones, pertenecientes a R base, para guardar y leer los `.RData` son:
 
-<br>
+- `save()`: almacena el contenido del entorno de trabajo, pudiendo seleccionar cual o cuales objetos deseamos guardar.
 
-La función `count()` y `mutate()` pertenecen al paquete **dplyr** del **tidyverse**.
+- `load()`: lee archivos `.RData` y su contenido (sea este uno o varios objetos)
 
-## 5 funciones-verbo
-
-El paquete **tidyverse** incluye a **dplyr** cuya finalidad es gestionar fácilmente tablas de datos. Lo hace a partir de 5 funciones-verbos básicas:
-
-::: {style="font-size: 80%;"}
-
-- `filter()` filtra un subconjunto de observaciones (filas) de una tabla de datos a partir de una condición
-
-- `select()` selecciona un subconjunto de variables (columnas) de una tabla de datos
-
-- `mutate()` crea nuevas variables o modifica las existentes
-
-- `summarise()` genera resúmenes por variable
-
-- `arrange()` ordena la tabla de datos según orden de variables
-
-:::
-
-## Divide y vencerás
-
-<br>
-
-Uno de los pilares del tidyverse dice *"resolver problemas complejos combinando varias piezas sencillas"*.
-
-. . . 
-
-<br>
-
-Lo logramos dividiendo el problema en subproblemas más sencillos que podemos resolver mediante diferentes funciones, que luego se conectan mediante operadores de tubería para dar respuesta al problema original.
-
-## Ejemplo práctico
-
-```{r, echo=T, eval=FALSE}
-datos |>  # <1>
-  mutate(grupo_etario = cut_width(edad, width = 10, closed = "left")) |> # <2>
-  filter(edad >= 20) |>  # <3>
-  group_by(sexo, grupo_etario) |> # <4> 
-  summarise(conteo = n()) # <5>
-```
-
-::: {style="font-size: 80%;"} 
-
-1. Partimos desde la tabla de `datos`
-2. Creamos la nueva variable `grupo_etario` con intervalos regulares de 10 años (cerrados a izquierda)
-3. Filtramos observaciones con `edad` mayor o igual a 20 años
-4. Agrupamos (estratificamos) por `sexo` y `grupo_etario`
-5. Resumimos haciendo un conteo en cada combinación de `sexo` y `grupo_etario`.
-
-:::
-
-## Ejemplo práctico
-
-<br>
-
-```{r, echo=F}
-library(tidyverse)
-library(flextable)
-
-datos <- read_csv("data/sisa_dengue.csv")
-
-datos |>  
-  mutate(grupo_etario = cut_width(edad, width = 10, closed = "left", center = 5),
-         sexo = if_else(sexo == "F", "Mujer", "Varón")) |> 
-  filter(edad >= 20) |>  
-  group_by(sexo, grupo_etario) |> 
-  summarise(conteo = n()) |> 
-  pivot_wider(names_from = sexo, values_from = conteo) |> 
-  flextable() |> 
-  fontsize(size = 18, part = "all")
-```
-
-
+Cabe aclarar que cuando nos referimos a objetos estamos hablando de cualquier estructura de datos y también a funciones propias. 
