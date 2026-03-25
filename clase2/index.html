@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.21">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
 
   <title>Introducción al análisis de datos en R y RStudio</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -210,6 +210,14 @@
 <li class="fragment">Exportación de resultados</li>
 </ul>
 </section>
+<section id="repaso-y-corrección-del-práctico-1" class="slide level2">
+<h2>Repaso y corrección del Práctico 1</h2>
+<ul>
+<li>Funciones de R base vs funciones de tidyverse</li>
+<li>Entendimiento aun utilizando herramientas de IA</li>
+<li>Reproducibilidad</li>
+</ul>
+</section>
 <section id="ia-generativa-como-asistente-de-análisis-de-datos-en-r" class="slide level2 title-top">
 <h2>IA generativa como asistente de análisis de datos en R</h2>
 <ul>
@@ -311,7 +319,7 @@
 <section id="la-regla-de-oro-vos-sos-el-experto" class="slide level2 title-top">
 <h2>La Regla de Oro: Vos sos el experto!</h2>
 <p><br></p>
-<p>La IA genera código, pero como epidemiólogos nosotros generamos el conocimiento y somos responsables de lo que publiquemos.</p>
+<p>La IA genera código, pero como médicas/os nosotros generamos el conocimiento y somos responsables de lo que realicemos.</p>
 <ul>
 <li class="fragment"><p>Entender el código.</p></li>
 <li class="fragment"><p>Verificar los resultados.</p></li>
@@ -520,6 +528,176 @@
 <li class="fragment">Visualizar distribuciones y patrones mediante gráficos</li>
 <li class="fragment">Detectar valores atípicos (outlier)</li>
 </ul>
+</section>
+<section id="paquetes-especificos" class="slide level2">
+<h2>Paquetes especificos</h2>
+<p>Vamos a presentar algunas funciones de paquetes especiales que nos permiten hacer este trabajo, aunque dentro del universo de librerías de R encontraremos muchos mas.</p>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>skimr</strong></p>
+</div>
+<div class="callout-content">
+<p>Está diseñado para obtener un resumen rápido de la estructura de tablas de datos y es compatible con el ecosistema tidyverse.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>dlookr</strong></p>
+</div>
+<div class="callout-content">
+<p>Se define como una colección de herramientas que permiten el diagnóstico, la exploración y la transformación de datos. El diagnóstico de datos proporciona información y visualización de valores faltantes, valores atípicos y valores únicos y negativos para ayudarle a comprender la distribución y la calidad de sus datos.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<p><strong>naniar</strong></p>
+</div>
+<div class="callout-content">
+<p>Proporciona funciones analíticas y visuales de detección y gestión de valores faltantes. Es compatible con el mundo <em>“tidy”</em> de tidyverse y posibilita el trabajo de imputación.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="tratamiento-de-datos-específicos" class="slide level2">
+<h2>Tratamiento de datos específicos</h2>
+<ul>
+<li><p>Variables de tiempo</p></li>
+<li><p>Cadenas de caracteres</p></li>
+<li><p>Factores</p></li>
+</ul>
+</section>
+<section id="tratamiento-de-datos-específicos-1" class="slide level2">
+<h2>Tratamiento de datos específicos</h2>
+<p><br></p>
+<p>Un ejemplo útil y muchas veces necesario es extraer de una variable fecha (puede contener la fecha de atención, fecha de inicio de síntomas, fecha de determinación ante un resultado de laboratorio, etc), la semana epidemiológica (con el año epidemiológico asociado).</p>
+<p>Paquetes incluidos dentro del tidyverse como <strong>lubridate</strong> permiten hacerlo fácilmente con funciones <code>epiweek()</code> y <code>epiyear()</code>.</p>
+</section>
+<section id="duplicados" class="slide level2">
+<h2>Duplicados</h2>
+<p>Otro de los problemas con los debemos lidiar muchas veces es tener observaciones duplicadas.</p>
+<p>Las tareas habituales en estos casos son:</p>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li>Detección de observaciones y/o partes de observaciones (variables clave) duplicadas</li>
+</ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li>Eliminación de duplicados a partir de observaciones únicas.</li>
+</ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li>Recortar tabla de datos para eliminar duplicados</li>
+</ul>
+</div>
+<div class="fragment fade-in-then-semi-out">
+<ul>
+<li>Marcar duplicados (conservando duplicados en la tabla)</li>
+</ul>
+</div>
+</section>
+<section id="duplicados-1" class="slide level2">
+<h2>Duplicados</h2>
+<p>Tomemos el camino que más nos convenga el primer paso será siempre detectar la o las filas duplicadas.</p>
+<p>Para esta tarea echaremos mano a una función del paquete janitor que se llama get_dupes().</p>
+<p>Las observaciones duplicadas pueden ser completas, generalmente a raíz de algún problema informático o bien parciales (clave de identificación - habitualmente nuestras tablas tienen identificadores únicos de las unidades de análisis o una serie de identificadores que resultan en una clave combinada).</p>
+</section>
+<section id="datos-perdidos-nas" class="slide level2">
+<h2>Datos perdidos (NA´s)</h2>
+<p><br></p>
+<p>Los datos faltantes o perdidos (en inglés conocidos como missing) pueden ser de dos tipos:</p>
+<ul>
+<li><strong>Informativos</strong>: Implican una causa estructural en la recopilación de los datos o anomalías en el entorno de observación.</li>
+<li><strong>Aleatorios</strong>: tienen lugar independientemente del proceso de recopilación de datos.</li>
+</ul>
+<p>A los primeros se le suele asignar un valor concreto (“S/D”, etc.) y tenerlos en cuenta en el conteo de frecuencias, en cambio a los segundos se los elimina o imputa dependiendo de la situación.</p>
+<p>Antes de decidir el procedimiento a seguir, debemos detectarlos y describirlos.</p>
+</section>
+<section id="manejo-de-nas-con-naniar" class="slide level2">
+<h2>Manejo de NA’s con naniar</h2>
+<p>De las muchas funciones que tiene el paquete seleccionamos algunas para mostrar su utilidad en la tarea habitual.</p>
+<p><code>miss_var_summary()</code>: proporciona un resumen sobre los valores NA en cada variable del dataframe</p>
+<p><code>gg_miss_upset()</code>: genera un gráfico Upset sobre los valores NA de dataframe</p>
+<p><code>replace_with_na()</code>: reemplaza valores específicos con valores NA (casos de 9, 99,)</p>
+<p><code>replace_na_with()</code>: reemplaza valores NA con valores específicos (ante NA´s informativos)</p>
+</section>
+<section id="condicionales" class="slide level2">
+<h2>Condicionales</h2>
+</section>
+<section id="if_else" class="slide level2">
+<h2>if_else()</h2>
+<p><br></p>
+<p>La función <code>if_else()</code> devuelve valores dependiendo del resultado de una condición lógica (TRUE/FALSE).</p>
+<p>Los valores devueltos para cada observación se almacenan dentro de una variable definida en <strong>mutate()</strong>.</p>
+<p><br></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="fu">if_else</span>(condicion, valor_T, valor_F))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ejemplo-de-if_else" class="slide level2">
+<h2>Ejemplo de if_else()</h2>
+</section>
+<section id="case_when" class="slide level2">
+<h2>case_when()</h2>
+<p><br></p>
+<p>La función <code>case_when()</code> ejecuta una vectorización múltiple de funciones <code>if_else()</code>.</p>
+<p>Los valores devueltos para cada observación se almacenan dentro de una variable definida en <code>mutate()</code>.</p>
+<p><br></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="fu">case_when</span>(</span>
+<span id="cb3-3"><a href=""></a>    condicion <span class="sc">~</span> valor_T, </span>
+<span id="cb3-4"><a href=""></a>    ...,</span>
+<span id="cb3-5"><a href=""></a>    <span class="at">.default =</span> valor))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ejemplo-de-case_when" class="slide level2">
+<h2>Ejemplo de case_when()</h2>
+</section>
+<section id="escritura-de-archivos" class="slide level2">
+<h2>Escritura de archivos</h2>
+<p><br></p>
+<p>Una vez finalizadas las correcciones de los problemas encontrados podemos concluir que tenemos nuestros datos “limpios” y debemos almacenarlos.</p>
+<p>Para esta tarea, debemos decidir en que formato los guardamos. Se aconseja hacerlo un formato <code>csv</code> (texto plano separado por comas), dado que es universal; pero se puede seleccionar otro formato.</p>
+<p>Las funciones de tidyverse (pertenecientes a <strong>readr</strong>) apropiadas para la exportación de datos comienzan con <code>write_</code>:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># archivo con comas</span></span>
+<span id="cb4-2"><a href=""></a><span class="fu">write_csv</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span>
+<span id="cb4-3"><a href=""></a></span>
+<span id="cb4-4"><a href=""></a><span class="co"># archivo con puntos y comas</span></span>
+<span id="cb4-5"><a href=""></a><span class="fu">write_csv2</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="formato-nativo-r" class="slide level2">
+<h2>Formato nativo R</h2>
+<p><br></p>
+<p>También el propio lenguaje R tiene un formato nativo de almacenamiento del entorno de trabajo produciendo archivos con extensión <code>.RData</code>.</p>
+<p>Las funciones, pertenecientes a R base, para guardar y leer los <code>.RData</code> son:</p>
+<ul>
+<li><p><code>save()</code>: almacena el contenido del entorno de trabajo, pudiendo seleccionar cual o cuales objetos deseamos guardar.</p></li>
+<li><p><code>load()</code>: lee archivos <code>.RData</code> y su contenido (sea este uno o varios objetos)</p></li>
+</ul>
+<p>Cabe aclarar que cuando nos referimos a objetos estamos hablando de cualquier estructura de datos y también a funciones propias.</p>
+</section>
+<section id="escritura-de-archivos-excel" class="slide level2">
+<h2>Escritura de archivos Excel</h2>
+<p>Paquete writexl</p>
+</section>
+<section id="escritura-de-resultados" class="slide level2">
+<h2>Escritura de resultados</h2>
+<ul>
+<li><p>Quarto (Rmarkdown)</p></li>
+<li><p>Paquetes para tablas y dataframes (flextable)</p></li>
+<li><p>Paquetes para resultados estadísticos y modelos (gtsummary)</p></li>
+<li><p>Visualizaciones</p></li>
+</ul>
 
 </section>
     </div>
@@ -703,7 +881,7 @@
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1400,
+        width: 1350,
 
         height: 900,
 
@@ -861,13 +1039,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

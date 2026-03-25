@@ -23,6 +23,13 @@ editor: visual
 -   Exportación de resultados
 :::
 
+## Repaso y corrección del Práctico 1
+
+- Funciones de R base vs funciones de tidyverse
+- Entendimiento aun utilizando herramientas de IA
+- Reproducibilidad
+
+
 ## IA generativa como asistente de análisis de datos en R {.title-top}
 
 -   **¿Qué es?**
@@ -118,7 +125,7 @@ Sesgos y contexto:
 
 <br>
 
-La IA genera código, pero como epidemiólogos nosotros generamos el conocimiento y somos responsables de lo que publiquemos.
+La IA genera código, pero como médicas/os nosotros generamos el conocimiento y somos responsables de lo que realicemos.
 
 ::: incremental
 
@@ -404,31 +411,180 @@ Una segunda etapa nos va servir para conocer la distribución de las variables d
 -   Detectar valores atípicos (outlier)
 :::
 
-## Para agregar
+## Paquetes especificos 
 
-skimr - tipos de datos
+Vamos a presentar algunas funciones de paquetes especiales que nos permiten hacer este trabajo, aunque dentro del universo de librerías de R encontraremos muchos mas.
 
-dlookr - describe() - diagnose
-dlookr - outlier
-duplicados con get_dupes() de janitor
+::: {.callout-note icon=false}
+## skimr
 
-escritura de datos con readr
-escritura de datos con
-lectura y escritura nativa
+Está diseñado para obtener un resumen rápido de la estructura de tablas de datos y es compatible con el ecosistema tidyverse.
+:::
 
-medidas resumen - tasas
+::: {.callout-note icon=false}
+## dlookr
 
-nuevas variables
-condicionales if_else case_when (ejemplificar con grupos etarios)
+Se define como una colección de herramientas que permiten el diagnóstico, la exploración y la transformación de datos. El diagnóstico de datos proporciona información y visualización de valores faltantes, valores atípicos y valores únicos y negativos para ayudarle a comprender la distribución y la calidad de sus datos.
+:::
+
+::: {.callout-note icon=false}
+## naniar
+
+Proporciona funciones analíticas y visuales de detección y gestión de valores faltantes. Es compatible con el mundo *"tidy"* de tidyverse y posibilita el trabajo de imputación.
+:::
+
+## Tratamiento de datos específicos
 
 
+
+- Variables de tiempo
+
+- Cadenas de caracteres
+
+- Factores
+
+## Tratamiento de datos específicos
+
+<br>
+
+Un ejemplo útil y muchas veces necesario es extraer de una variable fecha (puede contener la fecha de atención, fecha de inicio de síntomas, fecha de determinación ante un resultado de laboratorio, etc), la semana epidemiológica (con el año epidemiológico asociado).
+
+Paquetes incluidos dentro del tidyverse como **lubridate** permiten hacerlo fácilmente con funciones `epiweek()` y `epiyear()`.
+
+
+## Duplicados
+
+Otro de los problemas con los debemos lidiar muchas veces es tener observaciones duplicadas.
+
+Las tareas habituales en estos casos son:
+
+::: {.fragment .fade-in-then-semi-out}
+-   Detección de observaciones y/o partes de observaciones (variables clave) duplicadas
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+-   Eliminación de duplicados a partir de observaciones únicas.
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+-   Recortar tabla de datos para eliminar duplicados
+:::
+
+::: {.fragment .fade-in-then-semi-out}
+-   Marcar duplicados (conservando duplicados en la tabla)
+:::
+
+## Duplicados
+
+Tomemos el camino que más nos convenga el primer paso será siempre detectar la o las filas duplicadas.
+
+Para esta tarea echaremos mano a una función del paquete janitor que se llama get_dupes().
+
+Las observaciones duplicadas pueden ser completas, generalmente a raíz de algún problema informático o bien parciales (clave de identificación - habitualmente nuestras tablas tienen identificadores únicos de las unidades de análisis o una serie de identificadores que resultan en una clave combinada).
+
+## Datos perdidos (NA´s)
+
+<br>
+
+Los datos faltantes o perdidos (en inglés conocidos como missing) pueden ser de dos tipos:
+
+- **Informativos**: Implican una causa estructural en la recopilación de los datos o anomalías en el entorno de observación.
+- **Aleatorios**: tienen lugar independientemente del proceso de recopilación de datos.
+
+A los primeros se le suele asignar un valor concreto ("S/D", etc.) y tenerlos en cuenta en el conteo de frecuencias, en cambio a los segundos se los elimina o imputa dependiendo de la situación.
+
+Antes de decidir el procedimiento a seguir, debemos detectarlos y describirlos. 
+
+## Manejo de NA's con naniar
+
+De las muchas funciones que tiene el paquete seleccionamos algunas para mostrar su utilidad en la tarea habitual.
+
+`miss_var_summary()`: proporciona un resumen sobre los valores NA en cada variable del dataframe
+
+`gg_miss_upset()`: genera un gráfico Upset sobre los valores NA de dataframe
+
+`replace_with_na()`: reemplaza valores específicos con valores NA (casos de 9, 99,)
+
+`replace_na_with()`: reemplaza valores NA con valores específicos (ante NA´s informativos)
+
+## Condicionales  
+
+## if_else() 
+
+<br>
+
+La función `if_else()` devuelve valores dependiendo del resultado de una condición lógica (TRUE/FALSE).
+
+Los valores devueltos para cada observación se almacenan dentro de una variable definida en **mutate()**.
+
+<br>
+
+```{r}
+#| echo: true
+#| eval: false
+
+datos |> 
+  mutate(x = if_else(condicion, valor_T, valor_F))
+```
+
+
+## Ejemplo de if_else() 
+
+
+
+
+## case_when() 
+
+
+<br>
+
+La función `case_when()` ejecuta una vectorización múltiple de funciones `if_else()`.
+
+Los valores devueltos para cada observación se almacenan dentro de una variable definida en `mutate()`.
+
+<br>
+
+
+```{r}
+#| echo: true
+#| eval: false
+
+datos |> 
+  mutate(x = case_when(
+    condicion ~ valor_T, 
+    ...,
+    .default = valor))
+```
+
+## Ejemplo de case_when() 
+
+
+
+
+## Escritura de archivos
+
+<br>
+
+Una vez finalizadas las correcciones de los problemas encontrados podemos concluir que tenemos nuestros datos "limpios" y debemos almacenarlos.
+
+Para esta tarea, debemos decidir en que formato los guardamos. Se aconseja hacerlo un formato `csv` (texto plano separado por comas), dado que es universal; pero se puede seleccionar otro formato.
+
+Las funciones de tidyverse (pertenecientes a **readr**) apropiadas para la exportación de datos comienzan con `write_`:
+
+```{r, eval=F, echo=T}
+# archivo con comas
+write_csv(x = nombre_dataframe, file = "nombre_archivo.csv") 
+
+# archivo con puntos y comas
+write_csv2(x = nombre_dataframe, file = "nombre_archivo.csv") 
+```
 
 
 ## Formato nativo R
 
 <br>
 
-El propio lenguaje R tiene un formato nativo de almacenamiento del entorno de trabajo produciendo archivos con extención `.RData`.
+También el propio lenguaje R tiene un formato nativo de almacenamiento del entorno de trabajo produciendo archivos con extensión `.RData`.
 
 Las funciones, pertenecientes a R base, para guardar y leer los `.RData` son:
 
@@ -437,3 +593,18 @@ Las funciones, pertenecientes a R base, para guardar y leer los `.RData` son:
 - `load()`: lee archivos `.RData` y su contenido (sea este uno o varios objetos)
 
 Cabe aclarar que cuando nos referimos a objetos estamos hablando de cualquier estructura de datos y también a funciones propias. 
+
+## Escritura de archivos Excel
+
+Paquete writexl
+
+
+## Escritura de resultados
+
+- Quarto (Rmarkdown)
+
+- Paquetes para tablas y dataframes (flextable)
+
+- Paquetes para resultados estadísticos y modelos (gtsummary)
+
+- Visualizaciones
