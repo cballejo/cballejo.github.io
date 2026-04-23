@@ -18,7 +18,6 @@ editor: visual
 -   Realizar análisis exploratorio de datos (EDA)
 -   Creación de nuevas variables. Funciones condicionales
 -   Exportación de datos
--   Exportación de resultados
 :::
 
 ## Repaso y corrección del Práctico 1
@@ -566,21 +565,31 @@ Cabe aclarar que cuando nos referimos a objetos estamos hablando de cualquier es
 
 ## Escritura de archivos Excel
 
-Paquete writexl
+<br>
+
+Un paquete interesante para exportación de datos en formato `xlsx` es **writexl**.
+
+Con sintaxis similar a *write_csv()* o *write_csv2()*, la función `write_xlsx()` permite exportar en formato Excel el dataframe que tengamos en el entorno de RStudio.
+
+```{r, eval=F, echo=T}
+
+library(writexl)
+
+write_xlsx(x = dataframe, path = "archivo.xlsx")
+
+```
 
 
-## Escritura de resultados
-
-- Quarto (Rmarkdown)
-
-- Paquetes para tablas y dataframes (flextable)
-
-- Paquetes para resultados estadísticos y modelos (gtsummary)
-
-- Visualizaciones
 
 ## Para descargar
 
-agregar nuevo TP
+-   [Practica vista en este encuentro](https://drive.google.com/file/d/1FWrl_NuIpjduFdUdJpwbgv_RbgSEQ1s4/view?usp=sharing)
 
-agregar Resumen funciones encuentro 2
+-   [Resumen funciones 2do encuentro]()
+
+-   [Consigna TP - parte 2](https://drive.google.com/file/d/1633U7tcHrnHmghBr-96_lB_ovLygiCeb/view?usp=sharing)
+
+Enviar el archivo comprimido a [christianballejo\@gmail.com](mailto:christianballejo@gmail.com){.email} antes del próximo encuentro.
+
+
+

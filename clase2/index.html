@@ -207,7 +207,6 @@
 <li class="fragment">Realizar análisis exploratorio de datos (EDA)</li>
 <li class="fragment">Creación de nuevas variables. Funciones condicionales</li>
 <li class="fragment">Exportación de datos</li>
-<li class="fragment">Exportación de resultados</li>
 </ul>
 </section>
 <section id="repaso-y-corrección-del-práctico-1" class="slide level2">
@@ -632,21 +631,26 @@
 </section>
 <section id="escritura-de-archivos-excel" class="slide level2">
 <h2>Escritura de archivos Excel</h2>
-<p>Paquete writexl</p>
-</section>
-<section id="escritura-de-resultados" class="slide level2">
-<h2>Escritura de resultados</h2>
-<ul>
-<li><p>Quarto (Rmarkdown)</p></li>
-<li><p>Paquetes para tablas y dataframes (flextable)</p></li>
-<li><p>Paquetes para resultados estadísticos y modelos (gtsummary)</p></li>
-<li><p>Visualizaciones</p></li>
-</ul>
+<p><br></p>
+<p>Un paquete interesante para exportación de datos en formato <code>xlsx</code> es <strong>writexl</strong>.</p>
+<p>Con sintaxis similar a <em>write_csv()</em> o <em>write_csv2()</em>, la función <code>write_xlsx()</code> permite exportar en formato Excel el dataframe que tengamos en el entorno de RStudio.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">library</span>(writexl)</span>
+<span id="cb8-2"><a href=""></a></span>
+<span id="cb8-3"><a href=""></a><span class="fu">write_xlsx</span>(<span class="at">x =</span> dataframe, <span class="at">path =</span> <span class="st">"archivo.xlsx"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="para-descargar" class="slide level2">
 <h2>Para descargar</h2>
-<p>agregar nuevo TP</p>
-<p>agregar Resumen funciones encuentro 2</p>
+<ul>
+<li><p><a href="">Practica vista en este encuentro</a></p></li>
+<li><p><a href="">Resumen funciones 2do encuentro</a></p></li>
+<li><p><a href="">Consigna TP - parte 2</a></p></li>
+</ul>
+<p>Enviar el archivo comprimido a <a href="mailto:christianballejo@gmail.com" class="email">christianballejo@gmail.com</a> antes del próximo encuentro.</p>
+</section>
+<section id="section" class="slide level2">
+<h2></h2>
 
 </section>
     </div>
