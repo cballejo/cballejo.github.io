@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <title>Introducción al análisis de datos en R y RStudio</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -94,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -212,10 +215,11 @@
 </section>
 <section id="repaso-y-corrección-del-práctico-1" class="slide level2">
 <h2>Repaso y corrección del Práctico 1</h2>
+<p><br></p>
 <ul>
-<li>Funciones de R base vs funciones de tidyverse</li>
-<li>Entendimiento aun utilizando herramientas de IA</li>
-<li>Reproducibilidad</li>
+<li class="fragment">Funciones de R base vs funciones de tidyverse</li>
+<li class="fragment">Entendimiento aun utilizando herramientas de IA</li>
+<li class="fragment">Reproducibilidad</li>
 </ul>
 </section>
 <section id="ia-generativa-como-asistente-de-análisis-de-datos-en-r" class="slide level2 title-top">
@@ -268,58 +272,22 @@
 </section>
 <section id="cuidados-y-uso-responsable-riesgos" class="slide level2 title-top">
 <h2>Cuidados y uso responsable (riesgos)</h2>
-<p><br></p>
-<div style="font-size: 110%;">
-<p>El <strong>“Riesgo de la alucinación”</strong> (fallo de código):</p>
 <ul>
-<li class="fragment"><p><strong>Cuidado</strong>: La IA puede generar código incorrecto, obsoleto o que no se ajusta a las últimas versiones de tidyverse.</p></li>
-<li class="fragment"><p><strong>Acción</strong>: Siempre ejecuta y verifica el código línea por línea. No copiar y pegar sin entender.</p></li>
+<li class="fragment"><p>El <strong>“Riesgo de la alucinación”</strong> (fallo de código): La IA puede generar código incorrecto, obsoleto o que no se ajusta a las últimas versiones de un determinado paquete. Siempre ejecuta y verifica el código línea por línea. No copiar y pegar sin entender.</p></li>
+<li class="fragment"><p>El principio de la <strong>Caja Negra</strong> (opacidad): Confiar ciegamente en el código genera una dependencia que inhibe el aprendizaje profundo de R y la lógica de programación. (pereza cognitiva). La IA debe ser una herramienta para <em>aprender</em>, no un reemplazo de la comprensión. El objetivo es comprender la lógica de cada función generada.</p></li>
 </ul>
-</div>
 </section>
 <section id="cuidados-y-uso-responsable-riesgos-1" class="slide level2 title-top">
 <h2>Cuidados y uso responsable (riesgos)</h2>
-<p><br></p>
-<p>El principio de la <strong>Caja Negra</strong> (opacidad):</p>
 <ul>
-<li class="fragment"><p><strong>Cuidado</strong>: Confiar ciegamente en el código genera una dependencia que inhibe el aprendizaje profundo de R y la lógica de programación. (pereza cognitiva)</p></li>
-<li class="fragment"><p><strong>Acción</strong>: La IA debe ser una herramienta para <em>aprender</em>, no un reemplazo de la comprensión. El objetivo es comprender la lógica de cada función generada.</p></li>
+<li class="fragment"><p>Privacidad y datos sensibles (ética): <strong>NUNCA ingreses datos reales</strong> (incluso anonimizados) o sensibles de pacientes en el prompt de una IA pública. Usa datos ficticios o descripciones de la estructura del data frame (ej. “tengo una columna edad numérica y una columna diagnostico categórica”).</p></li>
+<li class="fragment"><p>Sesgos y contexto: La IA no comprende el contexto epidemiológico o clínico complejo. El código puede ser correcto, pero la interpretación sigue siendo responsabilidad humana. El prompt debe ser lo más específico posible para mitigar ambigüedades. La validación del resultado final es indispensable.</p></li>
 </ul>
-</section>
-<section id="cuidados-y-uso-responsable-riesgos-2" class="slide level2 title-top">
-<h2>Cuidados y uso responsable (riesgos)</h2>
-<p><br></p>
-<p>Privacidad y datos sensibles (ética):</p>
-<div class="fragment">
-<ul>
-<li><strong>Cuidado</strong>: <strong>NUNCA ingreses datos reales</strong> (incluso anonimizados) o sensibles de pacientes en el prompt de una IA pública.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li><strong>Acción</strong>: Usa datos ficticios o descripciones de la estructura del data frame (ej. “tengo una columna edad numérica y una columna diagnostico categórica”).</li>
-</ul>
-</div>
-</section>
-<section id="cuidados-y-uso-responsable-riesgos-3" class="slide level2 title-top">
-<h2>Cuidados y uso responsable (riesgos)</h2>
-<p><br></p>
-<p>Sesgos y contexto:</p>
-<div class="fragment">
-<ul>
-<li><strong>Cuidado</strong>: La IA no comprende el contexto epidemiológico o clínico complejo. El código puede ser correcto, pero la interpretación sigue siendo responsabilidad humana.</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li><strong>Acción</strong>: El prompt debe ser lo más específico posible para mitigar ambigüedades. La validación del resultado final es indispensable.</li>
-</ul>
-</div>
 </section>
 <section id="la-regla-de-oro-vos-sos-el-experto" class="slide level2 title-top">
 <h2>La Regla de Oro: Vos sos el experto!</h2>
 <p><br></p>
-<p>La IA genera código, pero como médicas/os nosotros generamos el conocimiento y somos responsables de lo que realicemos.</p>
+<p>La IA genera código, pero como profesionales nosotros generamos el conocimiento y somos responsables de lo que informemos y/o publiquemos.</p>
 <ul>
 <li class="fragment"><p>Entender el código.</p></li>
 <li class="fragment"><p>Verificar los resultados.</p></li>
@@ -355,83 +323,12 @@
 <section id="fundamentos-de-ingeniería-de-prompts-avanzada" class="slide level2 title-top">
 <h2>Fundamentos de ingeniería de prompts avanzada</h2>
 <p><br></p>
-<div style="font-size: 90%;">
-<p>La “personalidad” del prompt (<em>Actuar como..</em>)</p>
-<p>Instruir a la IA para que asuma un rol mejora la calidad y el formato de la respuesta.</p>
 <ul>
-<li><p><strong>Principio</strong>: Pídele a la IA que actúe como un experto en la materia.</p></li>
-<li><p><strong>Ejemplo para incluir</strong>: “Actúa como un analista de datos senior en salud experto en R y tidyverse. Solo responde con el código R requerido y una breve explicación de por qué funciona.”</p></li>
-<li><p><strong>Beneficio</strong>: Fomenta la generación de código más robusto, idiomático (usando las mejores prácticas de tidyverse, como el operador pipe %&gt;% o |&gt; en lugar de código base R), y bien documentado.</p></li>
+<li class="fragment"><p>La “personalidad” del prompt (<em>Actuar como..</em>) : Instruir a la IA para que asuma un rol mejora la calidad y el formato de la respuesta.</p></li>
+<li class="fragment"><p>Especificación del formato de salida: Define exactamente cómo quieres que se entregue el código.</p></li>
+<li class="fragment"><p>Iteración y refinamiento (“la conversación”): La ingeniería de prompts no es solo un prompt único, sino una conversación.</p></li>
+<li class="fragment"><p>Pensamiento crítico y verificación (el límite de la IA): El principio más importante es que el código generado por IA debe ser revisado y entendido.</p></li>
 </ul>
-</div>
-</section>
-<section id="fundamentos-de-ingeniería-de-prompts-avanzada-1" class="slide level2 title-top">
-<h2>Fundamentos de ingeniería de prompts avanzada</h2>
-<p><br></p>
-<div style="font-size: 90%;">
-<p>Especificación del formato de salida</p>
-<p>Define exactamente cómo quieres que se entregue el código.</p>
-<ul>
-<li><p><strong>Principio</strong>: Limita la verbosidad y enfoca la respuesta en lo esencial.</p></li>
-<li><p><strong>Ejemplos de restricciones</strong>:</p></li>
-</ul>
-<p><em>“No incluyas explicaciones largas; solo el código.”</em></p>
-<p><em>“Envuelve el código en un bloque de código.”</em></p>
-<p><em>“Genera una función que realice..”</em></p>
-<ul>
-<li><strong>Beneficio</strong>: Hace que el código sea directamente copiable y utilizable en RStudio, minimizando el tiempo de limpieza y edición.</li>
-</ul>
-</div>
-</section>
-<section id="fundamentos-de-ingeniería-de-prompts-avanzada-2" class="slide level2 title-top">
-<h2>Fundamentos de ingeniería de prompts avanzada</h2>
-<p><br></p>
-<div style="font-size: 90%;">
-<p>Instrucciones para la gestión de errores (ej: Manejo de valores faltantes)</p>
-<p>En el ámbito de la salud, los valores perdidos (NA) son comunes y críticos. El prompt debe considerar cómo tratarlos.</p>
-<ul>
-<li><p><strong>Principio</strong>: Anticipar problemas comunes de datos y pedir a la IA que implemente soluciones.</p></li>
-<li><p><strong>Ejemplo</strong>: <em>“Antes de calcular el promedio de la variable IMC, añade un argumento para eliminar o ignorar los valores perdidos (NA) en esa variable.”</em></p></li>
-</ul>
-<p>(Esto fuerza el uso de argumentos como <strong>na.rm = T</strong> en funciones como <strong>mean()</strong>.)</p>
-<ul>
-<li><strong>Beneficio</strong>: Evita errores comunes que detendrían el análisis o salidas tipo NA.</li>
-</ul>
-</div>
-</section>
-<section id="fundamentos-de-ingeniería-de-prompts-avanzada-3" class="slide level2 title-top">
-<h2>Fundamentos de ingeniería de prompts avanzada</h2>
-<div style="font-size: 80%;">
-<p>Iteración y refinamiento (“la conversación”)</p>
-<p>La ingeniería de prompts no es solo un prompt único, sino una conversación.</p>
-<ul>
-<li><p><strong>Principio</strong>: Los usuarios deben aprender a corregir o mejorar la respuesta de la IA en la siguiente pregunta.</p></li>
-<li><p><strong>Ejemplos de seguimiento</strong>:</p></li>
-</ul>
-<p><em>“El código que me diste usa mean(). Cámbialo para usar la función median() de dplyr en su lugar.”</em></p>
-<p><em>“En el gráfico de barras anterior, por favor, ordena las barras de forma descendente por el conteo.”</em></p>
-<p><em>“El gráfico es muy básico. Añade un tema (theme_minimal()) y cambia el color de las barras a azul marino (#003366).”</em></p>
-<ul>
-<li><strong>Beneficio</strong>: Demuestra que la IA es una herramienta interactiva, no mágica. Enseña a depurar y a mejorar la estética de las visualizaciones.</li>
-</ul>
-</div>
-</section>
-<section id="fundamentos-de-ingeniería-de-prompts-avanzada-4" class="slide level2 title-top">
-<h2>Fundamentos de ingeniería de prompts avanzada</h2>
-<p><br></p>
-<div style="font-size: 85%;">
-<p>Pensamiento crítico y verificación (el límite de la IA)</p>
-<p>El principio más importante es que el código generado por IA debe ser revisado y entendido.</p>
-<ul>
-<li><strong>Principio</strong>: La IA puede cometer errores (alucinaciones) o usar métodos ineficientes/obsoletos.</li>
-</ul>
-<p><strong>NUNCA EJECUTEN CÓDIGO QUE NO ENTIENDAN</strong></p>
-<ul>
-<li><p>Deben verificar que los paquetes sean correctos.</p></li>
-<li><p>Deben verificar que las funciones (filter(), mutate(), ggplot(), etc.) hagan exactamente lo que necesitan.</p></li>
-<li><p><strong>Beneficio</strong>: Fomenta la alfabetización en código y asegura la validez científica y la seguridad del análisis de datos en nuestra práctica.</p></li>
-</ul>
-</div>
 </section>
 <section id="resumen" class="slide level2 title-top">
 <h2>Resumen</h2>
@@ -457,8 +354,8 @@
 </ol>
 </div>
 </section>
-<section id="ia-generativas" class="slide level2 title-top">
-<h2>IA Generativas</h2>
+<section id="algunas-ia-generativas-actuales" class="slide level2 title-top">
+<h2>Algunas IA Generativas actuales</h2>
 <p><br></p>
 <ul>
 <li class="fragment"><p><a href="https://gemini.google.com/">Google Gemini</a></p></li>
@@ -469,25 +366,8 @@
 <li class="fragment"><p><a href="https://www.perplexity.ai/">Perplexy IA</a></p></li>
 </ul>
 </section>
-<section id="ejemplo-de-prompt" class="slide level2 title-top">
-<h2>Ejemplo de prompt</h2>
-<p><br></p>
-<p><em>“Actúa como un analista de datos senior en medicina experto en R y tidyverse. Solo responde con el código R requerido y una breve explicación de cómo funciona. Necesito código para el data frame xxxx que me permita convertir todas las variables de fecha que tengan el formato dd/mm/aaaa y sus nombres comiencen con”FE” en Date.”</em></p>
-</section>
-<section id="salida-de-código" class="slide level2 title-top">
-<h2>Salida de código</h2>
-<p><br> <br></p>
-<div style="max-height: 100% !important;">
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href=""></a></span>
-<span id="cb1-3"><a href=""></a>  xxxx <span class="ot">&lt;-</span> xxxx <span class="sc">|&gt;</span> </span>
-<span id="cb1-4"><a href=""></a> <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">starts_with</span>(<span class="st">"FE"</span>), <span class="at">.fns =</span> dmy))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</section>
-<section id="todo-lindo-pero-no-olvidar" class="slide level2 title-top">
-<h2>Todo lindo pero no olvidar</h2>
+<section id="para-reflexionar.." class="slide level2 title-top">
+<h2>Para reflexionar..</h2>
 <p><br> <br></p>
 <div style="font-size: 120%;">
 <p><em>“El efecto de la IA actual no extiende la cognición, sino que la automatiza, convirtiendo el pensamiento en un servicio. En lugar de democratizar el aprendizaje, privatiza el acto de pensar bajo control corporativo.”</em> - Ronald Purser</p>
@@ -542,7 +422,7 @@
 </div>
 </div>
 </div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout callout-tip no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <p><strong>dlookr</strong></p>
@@ -552,7 +432,7 @@
 </div>
 </div>
 </div>
-<div class="callout callout-note no-icon callout-titled callout-style-default">
+<div class="callout callout-warning no-icon callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
 <p><strong>naniar</strong></p>
@@ -565,10 +445,11 @@
 </section>
 <section id="tratamiento-de-datos-específicos" class="slide level2">
 <h2>Tratamiento de datos específicos</h2>
+<p><br></p>
 <ul>
-<li><p>Variables de tiempo</p></li>
-<li><p>Cadenas de caracteres</p></li>
-<li><p>Factores</p></li>
+<li class="fragment"><p>Variables de tiempo (paquete <strong>lubridate</strong>)</p></li>
+<li class="fragment"><p>Cadenas de caracteres (paquete <strong>stringr</strong>)</p></li>
+<li class="fragment"><p>Factores (paquete <strong>forcats</strong>)</p></li>
 </ul>
 </section>
 <section id="tratamiento-de-datos-específicos-1" class="slide level2">
@@ -576,6 +457,11 @@
 <p><br></p>
 <p>Un ejemplo útil y muchas veces necesario es extraer de una variable fecha (puede contener la fecha de atención, fecha de inicio de síntomas, fecha de determinación ante un resultado de laboratorio, etc), la semana epidemiológica (con el año epidemiológico asociado).</p>
 <p>Paquetes incluidos dentro del tidyverse como <strong>lubridate</strong> permiten hacerlo fácilmente con funciones <code>epiweek()</code> y <code>epiyear()</code>.</p>
+<p><br></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">epiweek</span>(<span class="st">"2026/01/01"</span>)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">epiweek</span>(variable_fecha)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="duplicados" class="slide level2">
 <h2>Duplicados</h2>
@@ -604,9 +490,10 @@
 </section>
 <section id="duplicados-1" class="slide level2">
 <h2>Duplicados</h2>
-<p>Tomemos el camino que más nos convenga el primer paso será siempre detectar la o las filas duplicadas.</p>
-<p>Para esta tarea echaremos mano a una función del paquete janitor que se llama get_dupes().</p>
-<p>Las observaciones duplicadas pueden ser completas, generalmente a raíz de algún problema informático o bien parciales (clave de identificación - habitualmente nuestras tablas tienen identificadores únicos de las unidades de análisis o una serie de identificadores que resultan en una clave combinada).</p>
+<p><br></p>
+<p>Tomemos el camino que más nos convenga, el primer paso será siempre detectar la o las filas duplicadas.</p>
+<p>Para esta tarea echaremos mano a una función del paquete <strong>janitor</strong> que se llama <code>get_dupes()</code>.</p>
+<p>Las observaciones duplicadas pueden ser completas, generalmente a raíz de algún problema informático o bien parciales (<em>clave de identificación - habitualmente nuestras tablas tienen identificadores únicos de las unidades de análisis o una serie de identificadores que resultan en una clave combinada</em>).</p>
 </section>
 <section id="datos-perdidos-nas" class="slide level2">
 <h2>Datos perdidos (NA´s)</h2>
@@ -621,6 +508,7 @@
 </section>
 <section id="manejo-de-nas-con-naniar" class="slide level2">
 <h2>Manejo de NA’s con naniar</h2>
+<p><br></p>
 <p>De las muchas funciones que tiene el paquete seleccionamos algunas para mostrar su utilidad en la tarea habitual.</p>
 <p><code>miss_var_summary()</code>: proporciona un resumen sobre los valores NA en cada variable del dataframe</p>
 <p><code>gg_miss_upset()</code>: genera un gráfico Upset sobre los valores NA de dataframe</p>
@@ -643,6 +531,13 @@
 </section>
 <section id="ejemplo-de-if_else" class="slide level2">
 <h2>Ejemplo de if_else()</h2>
+<p>Crea una nueva variable denominada <code>edad_dicotomica</code> con valores según la edad de cada observación cumpla con la condición de ser “Mayor a la mediana” o “Menor o igual a la mediana”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">edad_dicotomica =</span> <span class="fu">if_else</span>(edad <span class="sc">&gt;</span> <span class="fu">median</span>(edad), </span>
+<span id="cb3-3"><a href=""></a>                                   <span class="st">"Mayor a la mediana"</span>, </span>
+<span id="cb3-4"><a href=""></a>                                   <span class="st">"Menor o igual a la mediana"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="case_when" class="slide level2">
 <h2>case_when()</h2>
@@ -651,15 +546,28 @@
 <p>Los valores devueltos para cada observación se almacenan dentro de una variable definida en <code>mutate()</code>.</p>
 <p><br></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="fu">case_when</span>(</span>
-<span id="cb3-3"><a href=""></a>    condicion <span class="sc">~</span> valor_T, </span>
-<span id="cb3-4"><a href=""></a>    ...,</span>
-<span id="cb3-5"><a href=""></a>    <span class="at">.default =</span> valor))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">x =</span> <span class="fu">case_when</span>(</span>
+<span id="cb4-3"><a href=""></a>    condicion <span class="sc">~</span> valor_T, </span>
+<span id="cb4-4"><a href=""></a>    ...,</span>
+<span id="cb4-5"><a href=""></a>    <span class="at">.default =</span> valor))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="ejemplo-de-case_when" class="slide level2">
 <h2>Ejemplo de case_when()</h2>
+<p>Crea una nueva variable llamada <code>grupo_etario</code> con grupos irregulares a partir de la variable edad.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
+<span id="cb5-2"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">grupo_etario =</span> <span class="fu">case_when</span>(</span>
+<span id="cb5-3"><a href=""></a>    edad <span class="sc">&lt;</span> <span class="dv">18</span> <span class="sc">~</span> <span class="st">"0 a 17 años"</span>,</span>
+<span id="cb5-4"><a href=""></a>    edad <span class="sc">&gt;</span> <span class="dv">17</span> <span class="sc">&amp;</span> edad <span class="sc">&lt;</span> <span class="dv">25</span> <span class="sc">~</span> <span class="st">"18 a 24 años"</span>,</span>
+<span id="cb5-5"><a href=""></a>    edad <span class="sc">&gt;</span> <span class="dv">24</span> <span class="sc">&amp;</span> edad <span class="sc">&lt;</span> <span class="dv">35</span> <span class="sc">~</span> <span class="st">"25 a 34 años"</span>,</span>
+<span id="cb5-6"><a href=""></a>    edad <span class="sc">&gt;</span> <span class="dv">34</span> <span class="sc">&amp;</span> edad <span class="sc">&lt;</span> <span class="dv">50</span> <span class="sc">~</span> <span class="st">"35 a 49 años"</span>,</span>
+<span id="cb5-7"><a href=""></a>    edad <span class="sc">&gt;</span> <span class="dv">49</span> <span class="sc">&amp;</span> edad <span class="sc">&lt;</span> <span class="dv">65</span> <span class="sc">~</span> <span class="st">"50 a 64 años"</span>,</span>
+<span id="cb5-8"><a href=""></a>    edad <span class="sc">&gt;</span> <span class="dv">64</span> <span class="sc">~</span> <span class="st">"65 años y más"</span>, </span>
+<span id="cb5-9"><a href=""></a>    <span class="at">.default =</span> <span class="st">"Sin dato"</span></span>
+<span id="cb5-10"><a href=""></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
 <section id="escritura-de-archivos" class="slide level2">
 <h2>Escritura de archivos</h2>
@@ -668,11 +576,11 @@
 <p>Para esta tarea, debemos decidir en que formato los guardamos. Se aconseja hacerlo un formato <code>csv</code> (texto plano separado por comas), dado que es universal; pero se puede seleccionar otro formato.</p>
 <p>Las funciones de tidyverse (pertenecientes a <strong>readr</strong>) apropiadas para la exportación de datos comienzan con <code>write_</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># archivo con comas</span></span>
-<span id="cb4-2"><a href=""></a><span class="fu">write_csv</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span>
-<span id="cb4-3"><a href=""></a></span>
-<span id="cb4-4"><a href=""></a><span class="co"># archivo con puntos y comas</span></span>
-<span id="cb4-5"><a href=""></a><span class="fu">write_csv2</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># archivo con comas</span></span>
+<span id="cb6-2"><a href=""></a><span class="fu">write_csv</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span>
+<span id="cb6-3"><a href=""></a></span>
+<span id="cb6-4"><a href=""></a><span class="co"># archivo con puntos y comas</span></span>
+<span id="cb6-5"><a href=""></a><span class="fu">write_csv2</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="formato-nativo-r" class="slide level2">
