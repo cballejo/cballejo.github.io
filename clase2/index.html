@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.37">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.21">
 
   <title>Introducción al análisis de datos en R y RStudio</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,9 +16,6 @@
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -97,7 +94,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -218,28 +215,31 @@
 <p><br></p>
 <ul>
 <li class="fragment">Funciones de R base vs funciones de tidyverse</li>
-<li class="fragment">Entendimiento aun utilizando herramientas de IA</li>
-<li class="fragment">Reproducibilidad</li>
+<li class="fragment">Entendimiento del proceso aún utilizando herramientas de IA</li>
+<li class="fragment">Reproducibilidad del análisis</li>
 </ul>
 </section>
 <section id="ia-generativa-como-asistente-de-análisis-de-datos-en-r" class="slide level2 title-top">
 <h2>IA generativa como asistente de análisis de datos en R</h2>
+<div style="font-size: 75%;">
 <ul>
 <li><strong>¿Qué es?</strong></li>
 </ul>
 <p><strong>Sistemas de Inteligencia Artificial Generativa</strong> (como <strong>Gemini</strong>, <strong>Chatgpt</strong>, <strong>Claude</strong> y otros) capaces de crear contenido nuevo (texto, código, imágenes) a partir de un prompt.</p>
+</div>
 <div class="fragment">
+<div style="font-size: 70%;">
 <ul>
 <li><strong>En nuestro contexto (lenguaje R con tidyverse)</strong></li>
 </ul>
 <p>Es una herramienta poderosa para traducir peticiones complejas sobre análisis de datos en código R funcional.</p>
 <p>Convierte el lenguaje natural en el lenguaje de programación que necesitamos para el análisis en salud.</p>
 </div>
+</div>
 </section>
 <section id="beneficios-de-la-ia-en-análisis-de-datos" class="slide level2 title-top">
 <h2>Beneficios de la IA en análisis de datos</h2>
-<p><br></p>
-<div style="font-size: 75%;">
+<div style="font-size: 65%;">
 <table class="caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -272,17 +272,21 @@
 </section>
 <section id="cuidados-y-uso-responsable-riesgos" class="slide level2 title-top">
 <h2>Cuidados y uso responsable (riesgos)</h2>
+<div style="font-size: 85%;">
 <ul>
 <li class="fragment"><p>El <strong>“Riesgo de la alucinación”</strong> (fallo de código): La IA puede generar código incorrecto, obsoleto o que no se ajusta a las últimas versiones de un determinado paquete. Siempre ejecuta y verifica el código línea por línea. No copiar y pegar sin entender.</p></li>
 <li class="fragment"><p>El principio de la <strong>Caja Negra</strong> (opacidad): Confiar ciegamente en el código genera una dependencia que inhibe el aprendizaje profundo de R y la lógica de programación. (pereza cognitiva). La IA debe ser una herramienta para <em>aprender</em>, no un reemplazo de la comprensión. El objetivo es comprender la lógica de cada función generada.</p></li>
 </ul>
+</div>
 </section>
 <section id="cuidados-y-uso-responsable-riesgos-1" class="slide level2 title-top">
 <h2>Cuidados y uso responsable (riesgos)</h2>
+<div style="font-size: 85%;">
 <ul>
 <li class="fragment"><p>Privacidad y datos sensibles (ética): <strong>NUNCA ingreses datos reales</strong> (incluso anonimizados) o sensibles de pacientes en el prompt de una IA pública. Usa datos ficticios o descripciones de la estructura del data frame (ej. “tengo una columna edad numérica y una columna diagnostico categórica”).</p></li>
 <li class="fragment"><p>Sesgos y contexto: La IA no comprende el contexto epidemiológico o clínico complejo. El código puede ser correcto, pero la interpretación sigue siendo responsabilidad humana. El prompt debe ser lo más específico posible para mitigar ambigüedades. La validación del resultado final es indispensable.</p></li>
 </ul>
+</div>
 </section>
 <section id="la-regla-de-oro-vos-sos-el-experto" class="slide level2 title-top">
 <h2>La Regla de Oro: Vos sos el experto!</h2>
@@ -322,17 +326,18 @@
 </section>
 <section id="fundamentos-de-ingeniería-de-prompts-avanzada" class="slide level2 title-top">
 <h2>Fundamentos de ingeniería de prompts avanzada</h2>
-<p><br></p>
+<div style="font-size: 80%;">
 <ul>
 <li class="fragment"><p>La “personalidad” del prompt (<em>Actuar como..</em>) : Instruir a la IA para que asuma un rol mejora la calidad y el formato de la respuesta.</p></li>
 <li class="fragment"><p>Especificación del formato de salida: Define exactamente cómo quieres que se entregue el código.</p></li>
 <li class="fragment"><p>Iteración y refinamiento (“la conversación”): La ingeniería de prompts no es solo un prompt único, sino una conversación.</p></li>
 <li class="fragment"><p>Pensamiento crítico y verificación (el límite de la IA): El principio más importante es que el código generado por IA debe ser revisado y entendido.</p></li>
 </ul>
+</div>
 </section>
 <section id="resumen" class="slide level2 title-top">
 <h2>Resumen</h2>
-<p><br></p>
+<div style="font-size: 80%;">
 <div class="fragment fade-in-then-semi-out">
 <ol type="1">
 <li><strong>Contexto de lenguaje y paquetes</strong>: Especificar siempre que se necesita código R usando las librerías del tidyverse u otras.</li>
@@ -352,6 +357,7 @@
 <ol start="4" type="1">
 <li><strong>Resultado esperado (output)</strong>: Mencionar cómo se espera que sea la salida. ¿Un nuevo data frame? ¿Una tabla resumida? ¿Un gráfico específico?</li>
 </ol>
+</div>
 </div>
 </section>
 <section id="algunas-ia-generativas-actuales" class="slide level2 title-top">
@@ -411,6 +417,7 @@
 </section>
 <section id="paquetes-especificos" class="slide level2">
 <h2>Paquetes especificos</h2>
+<div style="font-size: 75%;">
 <p>Vamos a presentar algunas funciones de paquetes especiales que nos permiten hacer este trabajo, aunque dentro del universo de librerías de R encontraremos muchos mas.</p>
 <div class="callout callout-note no-icon callout-titled callout-style-default">
 <div class="callout-body">
@@ -442,6 +449,7 @@
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="tratamiento-de-datos-específicos" class="slide level2">
 <h2>Tratamiento de datos específicos</h2>
@@ -454,7 +462,6 @@
 </section>
 <section id="tratamiento-de-datos-específicos-1" class="slide level2">
 <h2>Tratamiento de datos específicos</h2>
-<p><br></p>
 <p>Un ejemplo útil y muchas veces necesario es extraer de una variable fecha (puede contener la fecha de atención, fecha de inicio de síntomas, fecha de determinación ante un resultado de laboratorio, etc), la semana epidemiológica (con el año epidemiológico asociado).</p>
 <p>Paquetes incluidos dentro del tidyverse como <strong>lubridate</strong> permiten hacerlo fácilmente con funciones <code>epiweek()</code> y <code>epiyear()</code>.</p>
 <p><br></p>
@@ -465,6 +472,7 @@
 </section>
 <section id="duplicados" class="slide level2">
 <h2>Duplicados</h2>
+<div style="font-size: 85%;">
 <p>Otro de los problemas con los debemos lidiar muchas veces es tener observaciones duplicadas.</p>
 <p>Las tareas habituales en estos casos son:</p>
 <div class="fragment fade-in-then-semi-out">
@@ -487,6 +495,7 @@
 <li>Marcar duplicados (conservando duplicados en la tabla)</li>
 </ul>
 </div>
+</div>
 </section>
 <section id="duplicados-1" class="slide level2">
 <h2>Duplicados</h2>
@@ -497,7 +506,7 @@
 </section>
 <section id="datos-perdidos-nas" class="slide level2">
 <h2>Datos perdidos (NA´s)</h2>
-<p><br></p>
+<div style="font-size: 80%;">
 <p>Los datos faltantes o perdidos (en inglés conocidos como missing) pueden ser de dos tipos:</p>
 <ul>
 <li><strong>Informativos</strong>: Implican una causa estructural en la recopilación de los datos o anomalías en el entorno de observación.</li>
@@ -505,10 +514,10 @@
 </ul>
 <p>A los primeros se le suele asignar un valor concreto (“S/D”, etc.) y tenerlos en cuenta en el conteo de frecuencias, en cambio a los segundos se los elimina o imputa dependiendo de la situación.</p>
 <p>Antes de decidir el procedimiento a seguir, debemos detectarlos y describirlos.</p>
+</div>
 </section>
 <section id="manejo-de-nas-con-naniar" class="slide level2">
 <h2>Manejo de NA’s con naniar</h2>
-<p><br></p>
 <p>De las muchas funciones que tiene el paquete seleccionamos algunas para mostrar su utilidad en la tarea habitual.</p>
 <p><code>miss_var_summary()</code>: proporciona un resumen sobre los valores NA en cada variable del dataframe</p>
 <p><code>gg_miss_upset()</code>: genera un gráfico Upset sobre los valores NA de dataframe</p>
@@ -517,6 +526,10 @@
 </section>
 <section id="condicionales" class="slide level2">
 <h2>Condicionales</h2>
+<p><br></p>
+<p>Llamamos así al grupo de funciones que evaluan una expresión lógica (verdadero / falso) y ejecutan acciones basadas en el resultado.</p>
+<p>Utilizan los operadores comparativos y los conectos lógicos para construir la o las expresiones logicas necesarias.</p>
+<p>Suelen generar nuevas variables y siempre se incluyen dentro de una función <code>mutate()</code>.</p>
 </section>
 <section id="if_else" class="slide level2">
 <h2>if_else()</h2>
@@ -531,6 +544,7 @@
 </section>
 <section id="ejemplo-de-if_else" class="slide level2">
 <h2>Ejemplo de if_else()</h2>
+<p><br></p>
 <p>Crea una nueva variable denominada <code>edad_dicotomica</code> con valores según la edad de cada observación cumpla con la condición de ser “Mayor a la mediana” o “Menor o igual a la mediana”.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
@@ -555,6 +569,7 @@
 </section>
 <section id="ejemplo-de-case_when" class="slide level2">
 <h2>Ejemplo de case_when()</h2>
+<p><br></p>
 <p>Crea una nueva variable llamada <code>grupo_etario</code> con grupos irregulares a partir de la variable edad.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>datos <span class="sc">|&gt;</span> </span>
@@ -569,23 +584,43 @@
 <span id="cb5-10"><a href=""></a>  ))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
+<section id="recodificar-valores" class="slide level2">
+<h2>Recodificar valores</h2>
+<div style="font-size: 85%;">
+<p>Para recodificar valores, casos donde muchas veces debemos etiquetar variables que estan originalmente codificadas, podemos usar <code>recode_values()</code>. La función, que se incluye dentro de un <code>mutate()</code>, toma valores en el lado izquierdo para compararlos con una sola entrada que proporcionarás como primer argumento.</p>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>likert <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb6-3"><a href=""></a>    <span class="at">score =</span> score <span class="sc">|&gt;</span></span>
+<span id="cb6-4"><a href=""></a>      <span class="fu">recode_values</span>(</span>
+<span id="cb6-5"><a href=""></a>        <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Totalmente en desacuerdo"</span></span>
+<span id="cb6-6"><a href=""></a>        <span class="dv">2</span> <span class="sc">~</span> <span class="st">"En desacuerdo"</span></span>
+<span id="cb6-7"><a href=""></a>        <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Neutral"</span></span>
+<span id="cb6-8"><a href=""></a>        <span class="dv">4</span> <span class="sc">~</span> <span class="st">"De acuerdo"</span></span>
+<span id="cb6-9"><a href=""></a>        <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Totalmente de acuerdo"</span></span>
+<span id="cb6-10"><a href=""></a>      )</span>
+<span id="cb6-11"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="escritura-de-archivos" class="slide level2">
 <h2>Escritura de archivos</h2>
-<p><br></p>
+<div style="font-size: 85%;">
 <p>Una vez finalizadas las correcciones de los problemas encontrados podemos concluir que tenemos nuestros datos “limpios” y debemos almacenarlos.</p>
 <p>Para esta tarea, debemos decidir en que formato los guardamos. Se aconseja hacerlo un formato <code>csv</code> (texto plano separado por comas), dado que es universal; pero se puede seleccionar otro formato.</p>
 <p>Las funciones de tidyverse (pertenecientes a <strong>readr</strong>) apropiadas para la exportación de datos comienzan con <code>write_</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># archivo con comas</span></span>
-<span id="cb6-2"><a href=""></a><span class="fu">write_csv</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span>
-<span id="cb6-3"><a href=""></a></span>
-<span id="cb6-4"><a href=""></a><span class="co"># archivo con puntos y comas</span></span>
-<span id="cb6-5"><a href=""></a><span class="fu">write_csv2</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># archivo con comas</span></span>
+<span id="cb7-2"><a href=""></a><span class="fu">write_csv</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span>
+<span id="cb7-3"><a href=""></a></span>
+<span id="cb7-4"><a href=""></a><span class="co"># archivo con puntos y comas</span></span>
+<span id="cb7-5"><a href=""></a><span class="fu">write_csv2</span>(<span class="at">x =</span> nombre_dataframe, <span class="at">file =</span> <span class="st">"nombre_archivo.csv"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </div>
 </section>
 <section id="formato-nativo-r" class="slide level2">
 <h2>Formato nativo R</h2>
-<p><br></p>
+<div style="font-size: 85%;">
 <p>También el propio lenguaje R tiene un formato nativo de almacenamiento del entorno de trabajo produciendo archivos con extensión <code>.RData</code>.</p>
 <p>Las funciones, pertenecientes a R base, para guardar y leer los <code>.RData</code> son:</p>
 <ul>
@@ -593,6 +628,7 @@
 <li><p><code>load()</code>: lee archivos <code>.RData</code> y su contenido (sea este uno o varios objetos)</p></li>
 </ul>
 <p>Cabe aclarar que cuando nos referimos a objetos estamos hablando de cualquier estructura de datos y también a funciones propias.</p>
+</div>
 </section>
 <section id="escritura-de-archivos-excel" class="slide level2">
 <h2>Escritura de archivos Excel</h2>
@@ -606,6 +642,11 @@
 <li><p>Paquetes para resultados estadísticos y modelos (gtsummary)</p></li>
 <li><p>Visualizaciones</p></li>
 </ul>
+</section>
+<section id="para-descargar" class="slide level2">
+<h2>Para descargar</h2>
+<p>agregar nuevo TP</p>
+<p>agregar Resumen funciones encuentro 2</p>
 
 </section>
     </div>
@@ -789,9 +830,9 @@
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1350,
+        width: 1050,
 
-        height: 900,
+        height: 700,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
@@ -947,14 +988,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

@@ -3,8 +3,6 @@ title: "Introducción al análisis de datos en R y RStudio"
 subtitle: "Encuentro 2"
 format: 
   revealjs:
-    width: 1350
-    height: 900
     transition: slide
     slide-number: true
     theme: simple
@@ -29,17 +27,23 @@ editor: visual
 
 ::: incremental
 - Funciones de R base vs funciones de tidyverse
-- Entendimiento aun utilizando herramientas de IA
-- Reproducibilidad
+- Entendimiento del proceso aún utilizando herramientas de IA
+- Reproducibilidad del análisis
 :::
 
 ## IA generativa como asistente de análisis de datos en R {.title-top}
+
+::: {style="font-size: 75%;"}
 
 -   **¿Qué es?**
 
 **Sistemas de Inteligencia Artificial Generativa** (como **Gemini**, **Chatgpt**, **Claude** y otros) capaces de crear contenido nuevo (texto, código, imágenes) a partir de un prompt.
 
+:::
+
 . . .
+
+::: {style="font-size: 70%;"}
 
 -   **En nuestro contexto (lenguaje R con tidyverse)**
 
@@ -47,11 +51,11 @@ Es una herramienta poderosa para traducir peticiones complejas sobre análisis d
 
 Convierte el lenguaje natural en el lenguaje de programación que necesitamos para el análisis en salud.
 
+:::
+
 ## Beneficios de la IA en análisis de datos {.title-top}
 
-<br>
-
-::: {style="font-size: 75%;"}
+::: {style="font-size: 65%;"}
 
 |  |  |
 |----|----|
@@ -65,6 +69,8 @@ Convierte el lenguaje natural en el lenguaje de programación que necesitamos pa
 
 ## Cuidados y uso responsable (riesgos) {.title-top}
 
+::: {style="font-size: 85%;"}
+
 ::: incremental
 
 - El **"Riesgo de la alucinación"** (fallo de código): La IA puede generar código incorrecto, obsoleto o que no se ajusta a las últimas versiones de un determinado paquete. Siempre ejecuta y verifica el código línea por línea. No copiar y pegar sin entender.
@@ -73,7 +79,11 @@ Convierte el lenguaje natural en el lenguaje de programación que necesitamos pa
 
 :::
 
+:::
+
 ## Cuidados y uso responsable (riesgos) {.title-top}
+
+::: {style="font-size: 85%;"}
 
 ::: incremental
 
@@ -82,6 +92,8 @@ Convierte el lenguaje natural en el lenguaje de programación que necesitamos pa
 - Sesgos y contexto: La IA no comprende el contexto epidemiológico o clínico complejo. El código puede ser correcto, pero la interpretación sigue siendo responsabilidad humana. El prompt debe ser lo más específico posible para mitigar ambigüedades. La validación del resultado final es indispensable.
 
 :::
+
+::: 
 
 ## La Regla de Oro: Vos sos el experto! {.title-top}
 
@@ -143,7 +155,7 @@ Para la programación, el prompt es la especificación precisa que le indica a l
 
 ## Fundamentos de ingeniería de prompts avanzada {.title-top}
 
-<br>
+::: {style="font-size: 80%;"}
 
 ::: incremental
 
@@ -157,9 +169,11 @@ Para la programación, el prompt es la especificación precisa que le indica a l
 
 :::
 
+:::
+
 ## Resumen  {.title-top}
 
-<br>
+::: {style="font-size: 80%;"}
 
 ::: {.fragment .fade-in-then-semi-out}
 
@@ -182,6 +196,8 @@ Para la programación, el prompt es la especificación precisa que le indica a l
 ::: {.fragment .fade-in-then-semi-out}
 
 4. **Resultado esperado (output)**: Mencionar cómo se espera que sea la salida. ¿Un nuevo data frame? ¿Una tabla resumida? ¿Un gráfico específico?
+
+:::
 
 :::
 
@@ -262,7 +278,10 @@ Una segunda etapa nos va servir para conocer la distribución de las variables d
 
 ## Paquetes especificos 
 
+::: {style="font-size: 75%;"}
+
 Vamos a presentar algunas funciones de paquetes especiales que nos permiten hacer este trabajo, aunque dentro del universo de librerías de R encontraremos muchos mas.
+
 
 ::: {.callout-note icon=false}
 
@@ -293,6 +312,7 @@ Proporciona funciones analíticas y visuales de detección y gestión de valores
 
 :::
 
+:::
 
 ## Tratamiento de datos específicos
 
@@ -310,7 +330,6 @@ Proporciona funciones analíticas y visuales de detección y gestión de valores
 
 ## Tratamiento de datos específicos
 
-<br>
 
 Un ejemplo útil y muchas veces necesario es extraer de una variable fecha (puede contener la fecha de atención, fecha de inicio de síntomas, fecha de determinación ante un resultado de laboratorio, etc), la semana epidemiológica (con el año epidemiológico asociado).
 
@@ -328,6 +347,8 @@ epiweek(variable_fecha)
 
 
 ## Duplicados
+
+::: {style="font-size: 85%;"}
 
 Otro de los problemas con los debemos lidiar muchas veces es tener observaciones duplicadas.
 
@@ -349,6 +370,8 @@ Las tareas habituales en estos casos son:
 -   Marcar duplicados (conservando duplicados en la tabla)
 :::
 
+:::
+
 ## Duplicados
 
 <br>
@@ -361,7 +384,7 @@ Las observaciones duplicadas pueden ser completas, generalmente a raíz de algú
 
 ## Datos perdidos (NA´s)
 
-<br>
+::: {style="font-size: 80%;"}
 
 Los datos faltantes o perdidos (en inglés conocidos como missing) pueden ser de dos tipos:
 
@@ -372,9 +395,9 @@ A los primeros se le suele asignar un valor concreto ("S/D", etc.) y tenerlos en
 
 Antes de decidir el procedimiento a seguir, debemos detectarlos y describirlos. 
 
-## Manejo de NA's con naniar
+:::
 
-<br>
+## Manejo de NA's con naniar
 
 De las muchas funciones que tiene el paquete seleccionamos algunas para mostrar su utilidad en la tarea habitual.
 
@@ -387,6 +410,14 @@ De las muchas funciones que tiene el paquete seleccionamos algunas para mostrar 
 `replace_na_with()`: reemplaza valores NA con valores específicos (ante NA´s informativos)
 
 ## Condicionales  
+
+<br>
+
+Llamamos así al grupo de funciones que evaluan una expresión lógica (verdadero / falso) y ejecutan acciones basadas en el  resultado.
+
+Utilizan los operadores comparativos y los conectos lógicos para construir la o las expresiones logicas necesarias.
+
+Suelen generar nuevas variables y siempre se incluyen dentro de una función `mutate()`.
 
 ## if_else() 
 
@@ -408,6 +439,8 @@ datos |>
 
 
 ## Ejemplo de if_else() 
+
+<br>
 
 Crea una nueva variable denominada `edad_dicotomica` con valores según la edad de cada observación cumpla con la condición de ser "Mayor a la mediana" o       "Menor o igual a la mediana".
 
@@ -448,6 +481,8 @@ datos |>
 
 ## Ejemplo de case_when() 
 
+<br>
+
 Crea una nueva variable llamada `grupo_etario` con grupos irregulares a partir de la variable edad.
 
 ```{r}
@@ -467,10 +502,35 @@ datos |>
   ))
 ```
 
+## Recodificar valores 
+
+::: {style="font-size: 85%;"}
+
+Para recodificar valores, casos donde muchas veces debemos etiquetar variables que estan originalmente codificadas, podemos usar `recode_values()`. La función, que se incluye dentro de un `mutate()`, toma valores en el lado izquierdo para compararlos con una sola entrada que proporcionarás como primer argumento.
+
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+
+likert |>
+  mutate(
+    score = score |>
+      recode_values(
+        1 ~ "Totalmente en desacuerdo"
+        2 ~ "En desacuerdo"
+        3 ~ "Neutral"
+        4 ~ "De acuerdo"
+        5 ~ "Totalmente de acuerdo"
+      )
+  )
+```
+
 
 ## Escritura de archivos
 
-<br>
+::: {style="font-size: 85%;"}
 
 Una vez finalizadas las correcciones de los problemas encontrados podemos concluir que tenemos nuestros datos "limpios" y debemos almacenarlos.
 
@@ -486,10 +546,11 @@ write_csv(x = nombre_dataframe, file = "nombre_archivo.csv")
 write_csv2(x = nombre_dataframe, file = "nombre_archivo.csv") 
 ```
 
+:::
 
 ## Formato nativo R
 
-<br>
+::: {style="font-size: 85%;"}
 
 También el propio lenguaje R tiene un formato nativo de almacenamiento del entorno de trabajo produciendo archivos con extensión `.RData`.
 
@@ -500,6 +561,8 @@ Las funciones, pertenecientes a R base, para guardar y leer los `.RData` son:
 - `load()`: lee archivos `.RData` y su contenido (sea este uno o varios objetos)
 
 Cabe aclarar que cuando nos referimos a objetos estamos hablando de cualquier estructura de datos y también a funciones propias. 
+
+:::
 
 ## Escritura de archivos Excel
 
@@ -515,3 +578,9 @@ Paquete writexl
 - Paquetes para resultados estadísticos y modelos (gtsummary)
 
 - Visualizaciones
+
+## Para descargar
+
+agregar nuevo TP
+
+agregar Resumen funciones encuentro 2
