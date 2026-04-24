@@ -517,10 +517,10 @@ likert |>
   mutate(
     score = score |>
       recode_values(
-        1 ~ "Totalmente en desacuerdo"
-        2 ~ "En desacuerdo"
-        3 ~ "Neutral"
-        4 ~ "De acuerdo"
+        1 ~ "Totalmente en desacuerdo",
+        2 ~ "En desacuerdo",
+        3 ~ "Neutral",
+        4 ~ "De acuerdo",
         5 ~ "Totalmente de acuerdo"
       )
   )
@@ -585,7 +585,7 @@ write_xlsx(x = dataframe, path = "archivo.xlsx")
 
 -   [Practica vista en este encuentro](https://drive.google.com/file/d/1FWrl_NuIpjduFdUdJpwbgv_RbgSEQ1s4/view?usp=sharing)
 
--   [Resumen funciones 2do encuentro]()
+-   [Resumen funciones 2do encuentro](https://drive.google.com/file/d/1LwfX2KxoWgtvbLdhLGzDyMZxay249xcz/view?usp=sharing)
 
 -   [Consigna TP - parte 2](https://drive.google.com/file/d/1633U7tcHrnHmghBr-96_lB_ovLygiCeb/view?usp=sharing)
 

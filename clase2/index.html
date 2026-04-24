@@ -6,8 +6,8 @@
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.21">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.37">
 
   <title>Introducción al análisis de datos en R y RStudio</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,6 +16,9 @@
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -94,7 +97,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0fde88a82f0356838740f155f1088782.css">
+  <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto-0427d8d92a431aa6a6430e53ec02a470.css">
   <link href="index_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="index_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -593,10 +596,10 @@
 <span id="cb6-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
 <span id="cb6-3"><a href=""></a>    <span class="at">score =</span> score <span class="sc">|&gt;</span></span>
 <span id="cb6-4"><a href=""></a>      <span class="fu">recode_values</span>(</span>
-<span id="cb6-5"><a href=""></a>        <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Totalmente en desacuerdo"</span></span>
-<span id="cb6-6"><a href=""></a>        <span class="dv">2</span> <span class="sc">~</span> <span class="st">"En desacuerdo"</span></span>
-<span id="cb6-7"><a href=""></a>        <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Neutral"</span></span>
-<span id="cb6-8"><a href=""></a>        <span class="dv">4</span> <span class="sc">~</span> <span class="st">"De acuerdo"</span></span>
+<span id="cb6-5"><a href=""></a>        <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Totalmente en desacuerdo"</span>,</span>
+<span id="cb6-6"><a href=""></a>        <span class="dv">2</span> <span class="sc">~</span> <span class="st">"En desacuerdo"</span>,</span>
+<span id="cb6-7"><a href=""></a>        <span class="dv">3</span> <span class="sc">~</span> <span class="st">"Neutral"</span>,</span>
+<span id="cb6-8"><a href=""></a>        <span class="dv">4</span> <span class="sc">~</span> <span class="st">"De acuerdo"</span>,</span>
 <span id="cb6-9"><a href=""></a>        <span class="dv">5</span> <span class="sc">~</span> <span class="st">"Totalmente de acuerdo"</span></span>
 <span id="cb6-10"><a href=""></a>      )</span>
 <span id="cb6-11"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -643,14 +646,11 @@
 <section id="para-descargar" class="slide level2">
 <h2>Para descargar</h2>
 <ul>
-<li><p><a href="">Practica vista en este encuentro</a></p></li>
-<li><p><a href="">Resumen funciones 2do encuentro</a></p></li>
-<li><p><a href="">Consigna TP - parte 2</a></p></li>
+<li><p><a href="https://drive.google.com/file/d/1FWrl_NuIpjduFdUdJpwbgv_RbgSEQ1s4/view?usp=sharing">Practica vista en este encuentro</a></p></li>
+<li><p><a href="https://drive.google.com/file/d/1LwfX2KxoWgtvbLdhLGzDyMZxay249xcz/view?usp=sharing">Resumen funciones 2do encuentro</a></p></li>
+<li><p><a href="https://drive.google.com/file/d/1633U7tcHrnHmghBr-96_lB_ovLygiCeb/view?usp=sharing">Consigna TP - parte 2</a></p></li>
 </ul>
 <p>Enviar el archivo comprimido a <a href="mailto:christianballejo@gmail.com" class="email">christianballejo@gmail.com</a> antes del próximo encuentro.</p>
-</section>
-<section id="section" class="slide level2">
-<h2></h2>
 
 </section>
     </div>
@@ -992,13 +992,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
