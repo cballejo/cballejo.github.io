@@ -1,0 +1,61 @@
+---
+title: "Rol de las variables"
+subtitle: "Unidad 3"
+format: 
+  revealjs:
+    transition: slide
+    slide-number: true
+    theme: simple
+    footer: "Epidemiología Nivel Avanzado"
+---
+
+## 2 diferentes preguntas de investigación
+
+<br>
+
+- ¿Los estados con mayor ingreso per cápita presentan menor mortalidad?
+
+<br>
+
+- ¿El ingreso mejora la esperanza de vida porque reduce el analfabetismo?
+
+## Ejemplo 1
+
+<br>
+
+*¿Los estados con mayor ingreso per cápita presentan menor mortalidad?*
+
+**Variable respuesta:** Life Exp
+
+**Exposición principal:** Income
+
+**Posibles confusores:** Illiteracy y Population
+
+**Variables ausentes:** Cobertura sanitaria, nivel educativo, tabaquismo, desigualdad social, contaminación ambiental.
+
+## Ejemplo 2
+
+<br>
+
+*¿El ingreso mejora la esperanza de vida porque reduce el analfabetismo?*
+
+
+**Variable respuesta:** Life Exp
+
+**Exposición principal:** Income
+
+**Posible mediadora:** Illiteracy 
+
+## Comparación de enfoques
+
+| Enfoque basado en datos           | Enfoque basado en teoría       |
+|-----------------------------------|--------------------------------|
+| ¿Qué variables mejoran el ajuste? | ¿Qué variables debo controlar? |
+| AIC                               | Modelo conceptual (DAG)        |
+| Significación                     | Pregunta de investigación      |
+| El algoritmo decide               | El investigador decide         |
+
+## Conclusión
+
+
+> "Un buen modelo estadístico no reemplaza un buen modelo conceptual. La selección puramente estadística de variables puede ser útil para la predicción o la exploración, pero cuando el objetivo es responder una pregunta epidemiológica, la estructura causal propuesta por la teoría debe guiar qué variables incluir, excluir o interpretar con cautela. Además, ningún procedimiento estadístico puede corregir la ausencia de variables relevantes que no fueron medidas."
