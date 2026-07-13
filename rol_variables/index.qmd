@@ -25,11 +25,11 @@ format:
 
 *¿Los estados con mayor ingreso per cápita presentan menor mortalidad?*
 
-**Variable respuesta:** Life Exp
+**Variable respuesta:** Life.Exp (esperanza de vida)
 
-**Exposición principal:** Income
+**Exposición principal:** Income (ingreso per capita)
 
-**Posibles confusores:** Illiteracy y Population
+**Posibles confusores:** Illiteracy (analfabetismo) y Population (poblacion)
 
 **Variables ausentes:** Cobertura sanitaria, nivel educativo, tabaquismo, desigualdad social, contaminación ambiental.
 
@@ -40,11 +40,11 @@ format:
 *¿El ingreso mejora la esperanza de vida porque reduce el analfabetismo?*
 
 
-**Variable respuesta:** Life Exp
+**Variable respuesta:** Life.Exp (esperanza de vida)
 
-**Exposición principal:** Income
+**Exposición principal:** Income (ingreso per capita)
 
-**Posible mediadora:** Illiteracy 
+**Posible mediadora:** Illiteracy (analfabetismo)
 
 ## Comparación de enfoques
 
@@ -53,7 +53,7 @@ format:
 | ¿Qué variables mejoran el ajuste? | ¿Qué variables debo controlar? |
 | AIC                               | Modelo conceptual (DAG)        |
 | Significación                     | Pregunta de investigación      |
-| El algoritmo decide               | El investigador decide         |
+| El algoritmo y la estadistica decide               | El investigador decide         |
 
 ## Conclusión
 
