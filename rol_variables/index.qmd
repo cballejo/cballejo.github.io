@@ -13,7 +13,7 @@ format:
 
 <br>
 
-- ¿Los estados con mayor ingreso per cápita presentan menor mortalidad?
+- ¿Los estados con mayor ingreso per cápita presentan mayor esperanza de vida?
 
 <br>
 
@@ -23,7 +23,7 @@ format:
 
 <br>
 
-*¿Los estados con mayor ingreso per cápita presentan menor mortalidad?*
+*¿Los estados con mayor ingreso per cápita presentan mayor esperanza de vida?*
 
 **Variable respuesta:** Life.Exp (esperanza de vida)
 
