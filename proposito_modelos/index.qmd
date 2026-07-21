@@ -1,0 +1,145 @@
+---
+title: "Propósitos del modelado estadístico"
+subtitle: "Unidad 4"
+format: 
+  revealjs:
+    transition: slide
+    slide-number: true
+    theme: simple
+    footer: "Epidemiología Nivel Avanzado"
+---
+
+## ¿Para qué modelamos?
+
+<br>
+<br>
+
+::: incremental
+
+- Explorar
+- Explicar
+- Predecir (pronosticar o clasificar)
+
+:::
+
+## ¿Qué pregunta queremos responder?
+
+<br>
+
+::: incremental
+
+- ¿Qué patrones/asociaciones existen?
+- ¿Por qué ocurre?
+- ¿Qué ocurrirá?
+- ¿A qué grupo pertenece?
+
+::: 
+
+
+## Modelos exploratorios
+
+**Objetivo:** Descubrir estructuras desconocidas en los datos.
+
+Preguntas como: *¿Qué variables se encuentran potencialmente asociadas con el desenlace?* o *¿que factores se relacionan con la variable resultado?*
+
+Buscamos las variables que mejoran el ajuste del modelo, valorando la significación de los coeficientes y el AIC.
+
+Nos importa el descubrimiento de patrones y asociaciones, la generación de hipótesis.
+
+## Modelos explicativos
+
+**Objetivo:** Entender relaciones entre variables y estimar su efecto sobre un resultado de salud.
+
+Preguntas como: *¿El tabaquismo aumenta el riesgo de cáncer de pulmón?*, *¿la obesidad incrementa la mortalidad cardiovascular?*, 
+*¿cuál es el efecto de una vacuna sobre la incidencia de una enfermedad?*, etc. 
+
+Buscamos que variables debemos controlar en función del modelo teórico, estimación de efectos (OR, RR, HR, etc.)
+
+Nos importa interpretar la estimación de efectos, el control de confusión y sesgos, interacción, capacidad de aproximarse a relaciones causales. 
+
+## Modelos predictivos
+
+**Objetivo**: Predecir un evento futuro con la mayor exactitud posible.
+
+Preguntas como: *¿Cuál es el riesgo de internación?*, o *de mortalidad?* o el *pronóstico de progresión de una enfermedad*. 
+
+Nos interesa la capacidad de anticipar un resultado mediante métricas relevantes como el AUC y la curva ROC o el RMSE (error cuadrático medio), etc.
+
+Nos importa el desempeño del modelo fuera de la muestra, el error predictivo, la generalización y robustez. 
+
+La interpretabilidad puede ser importante, pero no necesariamente prioritaria.
+
+
+## Modelos de clasificación/diagnóstico
+
+**Objetivo**: Asignar individuos a categorías clínicas (grupos).
+
+Ejemplo: *¿A qué grupo pertenece este individuo?* Enfermo / sano, diabetes sí / no, tumor benigno / maligno, etc
+
+Las métricas relevantes son la matriz de confusión, la sensibilidad, especificidad, valor predictivo positivo (VPP), valor predictivo negativo (VPN), precisión (accuracy).
+
+Nos importa el contexto clínico y priorizamos una sensibilidad alta si no queremos perder casos sospechosos. Luego realizamos una confirmación diagnóstica (especificidad alta), porque no queremos falsos positivos.
+
+
+
+## Propósitos del modelado estadístico {.smaller}
+
+| Propósito     | Pregunta                | Rol de covariables                  | Resultado principal        |
+| ------------- | ----------------------- | ----------------------------------- | -------------------------- |
+|Exploración | ¿Qué patrones/asociaciones existen? | Variables descriptivas o candidatas | Patrones, asociaciones, hipótesis  |
+| Explicación   | ¿Por qué ocurre?        | Confusores, mediadores, interacción | Estimación de efectos ($\beta$, OR, RR, HR) |
+| Predicción    | ¿Qué ocurrirá?          | Predictores                         | Probabilidad o riesgo                       |
+| Clasificación | ¿A qué grupo pertenece? | Predictores                         | Clase diagnóstica / categoría               |
+
+
+## Un mismo modelo, distintos objetivos
+
+Por ejemplo, dentro de esta unidad de regresión logística:
+
+- Nos preguntamos, *¿la obesidad aumenta el riesgo de diabetes?*
+
+Supongamos que concluimos en un modelo ajustado que nos dice que el **OR** es de *2,8* con un *IC95%* entre *2,1 y 3,6*.
+
+Pero quizás nuestra pregunta es *¿cuál es el riesgo de diabetes para este paciente?*
+
+Entonces podemos encontrar que el resultado es **P(diabetes) = 0,72**
+
+## Un mismo modelo, distintos objetivos
+
+<br>
+
+O bien *¿debemos etiquetarlo como diabético?*
+
+Definiendo como **umbral 0,50**, ese paciente puede ser clasificado como *diabético*.
+
+La ecuación del modelo es exactamente la misma, lo que cambiamos es el objetivo del modelado.
+
+
+## Objetivos del modelado {.smaller}
+
+| Propósito | Pregunta | Rol de covariables | Resultado | Métricas principales |
+|---|---|---|---|---|
+| Exploración | ¿Qué patrones/asociaciones existen? | Variables candidatas | Hipótesis | Correlaciones, AIC, significación de coeficientes  |
+| Explicación | ¿Por qué ocurre? | Confusores, mediadores, interacción | Efectos | $\beta$, OR, RR, HR, IC95% |
+| Predicción | ¿Qué ocurrirá? | Predictores | Riesgo | AUC,  curva ROC, RMSE |
+| Clasificación | ¿A qué grupo pertenece? | Predictores | Clase | Exactitud, sensibilidad, especificidad, VPP, VPN |
+
+
+## Los modelos de regresión en distintos contextos
+
+<br>
+
+| Modelo | Explorar | Explicar | Predecir | Clasificar |
+|---|---|---|---|---|
+| Lineal | ✓ | ✓ | ✓ | — |
+| Logístico | ✓ | ✓ | ✓ | ✓ |
+| Poisson | ✓ | ✓ | ✓ | — |
+| Cox | ✓ | ✓ | ✓ | — |
+
+
+## El objetivo define el análisis
+
+<br>
+
+> Los modelos estadísticos no están definidos por la ecuación que utilizan, sino por la pregunta que intentan responder. 
+Por lo tanto, la elección del modelo es importante, pero la elección del objetivo es fundamental.
